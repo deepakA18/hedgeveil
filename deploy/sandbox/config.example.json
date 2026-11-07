@@ -1,0 +1,15 @@
+{
+  "template_only": true,
+  "enabled": false,
+  "track": "open",
+  "mode": "sandbox",
+  "network_id": "sandbox",
+  "rpc_url": "http://127.0.0.1:3030",
+  "clearinghouse_account_id": null,
+  "settlement_oracle_account_id": null,
+  "oracle_mode": "synthetic",
+  "oracle_config_hash": null,
+  "scenario_id": null,
+  "source_sha256": null,
+  "display_label": "DEMO ORACLE — SYNTHETIC PRICES"
+}

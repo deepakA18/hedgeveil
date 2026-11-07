@@ -1,29 +1,31 @@
-# Threat model v0.1
+# Public-ledger threat model v0.2
 
-Assets: collateral custody; spend authority; confidential financial data; note
-availability; immutable finalization; recoverable exits; truthful AI evidence.
-Trust boundaries are the user device, proof verifier/setup, chain runtime,
-historical oracle, selected makers, public vault policy, accepted TEE route, and
-client/artifact distribution. AI has no signing, settlement or allocation authority.
+Assets: collateral backing, correctly isolated reserves/storage/bonds/fees, claim
+and share ownership, authentic quote execution, immutable settlement and safe
+withdrawals. Public financial state is intentional. Trust boundaries: wallet and
+frontend, NEAR receipts/runtime, clearinghouse, versioned oracle, registered maker
+keys, vault policy, indexer/RPC and deployment governance.
 
-| Adversary / failure | Required defense | Evidence gate |
+| Failure/adversary | Required control | Evidence / gate |
 |---|---|---|
-| Malicious spender forges ownership or values | Membership + key knowledge, deterministic nullifier, range constraints | G1-ZK / G4 adversarial witnesses |
-| Replay / malicious relayer changes network or recipient | Domain, action, output, fees, expiry and state binding | Cross-domain/substitution/stale-root tests |
-| Malicious payer emits undecryptable output | Proved encryption or reviewed recipient acknowledgment | G1-ZK output recovery |
-| Verifier or setup compromise drains shared pool | Reviewed circuits, setup provenance, immutable artifact hashes, caps | Independent review of shipped artifacts |
-| RPC/indexer omits or lies about records | Public rescan, authenticated chain data, retained old artifacts | Clean-device and direct-exit recovery |
-| Maker front-runs fill/cancel or withholds liquidity | Funded lock, atomic proof, single nullifier, bounded all-or-nothing order | G5 race/no-fill tests |
-| Oracle lies, loses history, or stalls | Precommitted historical evidence, independent sources and dispute policy | G1-OPS reproducible old observation; delayed resolution |
-| Successful payout loses callback | Quarantine unknown outcome; authenticated outcome; one refund only | Success/callback-failure and failure/retry injection |
-| Vault keeper changes policy or consumes user assets | Public constrained aggregate execution, in-kind exit | Rounding, donation, no-bid and stale-state tests |
-| Model/provider/evidence attacker | Verify complete pinned encrypted route, exact response bytes and signer | G1-AI live result plus negative evidence cases |
-| Prompt injection in profile | Treat content as data; no tools; deterministic constraints; user approval | Fictional malicious-profile tests |
-| Compromised frontend / third-party script | Supply-chain control, CSP, local key isolation, reproducible distribution | G8 client review; encryption alone is insufficient |
-| Observer correlates funding, traffic, tiny vault batches | Explicit disclosure, bounded shapes, metadata minimization | Public surface audit; no universal anonymity claim |
+| Unauthorized caller debits user or vault | Predecessor checks; separate vault namespace; narrowly scoped roles | CORE-01/02, permission tests |
+| Overflow/fragmentation extracts collateral | Checked wide math, canonical amounts, isolated reserves, explicit rounding/dust | FIN-01, CORE-03, differential/stateful tests |
+| Replayed/forged/expired quote; fill/cancel race | Registered key/domain/nonce/epoch; exact all-or-nothing atomic fills | MKT-01 signature and race tests |
+| Maker promises unavailable inventory | Recheck all legs/fees at fill; explicit locks only for resting offers | MKT-02 competing funded makers; no-fill outcomes |
+| Wrong oracle/series/window or mutable final result | Authenticated request-bound callback; immutable terms and one-way finalization | ORC-01/02, bad result/import tests |
+| Oracle equivocation/outage/arbitration failure | Precommitted evidence/fallback deadlines; delayed resolution; capped shared exposure | G4 demo faults; production independence remains G10 |
+| Successful transfer loses callback | Debit before dispatch; private bounded callback; UNKNOWN quarantine | CORE-04 success-then-callback-failure tests |
+| Duplicate failure callback or recovery | Restore original owner's balance once only; verify actual outcome | G1/G3 fault injection; G10 reviewed unknown-outcome recovery |
+| Token receiver spends/burns before refund | Full receiver/resolver semantics; cap return by remaining balance/supply | G1 token compatibility, G3/G6 conformance |
+| Storage spam or forced unregister drains backing | Paid storage records/caps; restricted unregister/refunds and isolated funds | CORE-01, token storage tests |
+| Donation/stale NAV dilutes shares | Managed basket only; proportional mint/exit; final-share remainder; seeded bootstrap | VLT-01 donation/rounding tests |
+| Keeper colludes with makers or disappears | Contract-enforced price freshness, limits/fees/minima; no withdrawal/upgrade power | VLT-02, stale-price/no-bid/deferred-roll tests |
+| Indexer/RPC duplicates or invents success | Finalized receipts, transactional cursors, replay/reconcile, no blind money retries | INF-01 and APP-01 restart/failover tests |
+| Frontend/key compromise or unsafe upgrade | Dependency/security review, visible network, narrow keys and scoped pauses | SEC-02 exact Wasm/key review; testnet upgrades disclosed |
 
-Anonymity against global traffic analysis, protection after endpoint key theft,
-guaranteed dollar value, continuous liquidity and a universally available emergency
-exit after arbitrary verifier compromise are not provided. Testnet functionality
-is not evidence of production economic security.
-
+The demo oracle has disclosed centralized test control and synthetic prices.
+Multiple local processes are not independent production sources. Solvency does
+not establish truthful prices, liquidity, stable USD returns or safe regulation.
+Production remains gated by historical source integrity, recovery, independent
+review, cost ownership, monitoring and capped risk acceptance. Testnet supplies
+functional evidence only. No risk is resolved by simply displaying a success UI.

@@ -1,35 +1,22 @@
-# Privacy boundary v0.1
+# Public data and ordinary secret handling
 
-Status: requirements, not implemented guarantees. No private balances or verified
-inference exist in this baseline.
+The Open Innovation revision removes confidential balances, private AI and
+shielded transfers from scope. This document replaces the prior privacy matrix;
+it makes no anonymity or amount-confidentiality promise.
 
-| Data | Intended visibility | Boundary / leak |
-|---|---|---|
-| Spend/view keys, openings, witnesses | Local device and user backup | Never sent to AI, relay or hosted prover; compromised client can steal them |
-| Financial profile, AI output | Client and accepted encrypted TEE path | Device/TEE trust; current path and retention need verification |
-| P/N/collateral/share ownership and internal amounts | Note recipients | Commitments/proofs must hide them; traffic and small anonymity sets still leak |
-| Series, strikes, maturity, action type, final result | Public | Not claimed secret |
-| Roots, nullifiers, output commitments/ciphertexts | Public | Timing and transaction structure; ciphertext availability required |
-| Deposit / withdrawal | Public account, amount, timing | Funding correlation; direct submission reveals submitting account |
-| RFQ limits and amounts | Selected makers | Relay sees routing metadata; counterparties know executed trade |
-| Vault inventory, supply, policy, join/exit deltas | Public | Individual flow amounts/linkage can be inferred; shares alone have private ownership |
-| Fees and recipients in public inputs | Public | Correlation and fee fingerprinting |
-| IP, RPC calls, size, timing | Network providers / relayers | Relaying is optional, not anonymity proof |
+| Information | Treatment |
+|---|---|
+| Accounts, balances, P/N positions, transfers and fills | Public on-chain |
+| Series, reserves/supplies, prices, challenges and oracle evidence | Public on-chain or published evidence |
+| Vault holdings, shares, policy, rolls and entry/exit amounts | Public |
+| Deposits, withdrawals, tickets, fees and receipt history | Public |
+| RFQs and maker quotes | Ordinary authenticated transport; no encrypted-RFQ guarantee |
+| Wallet/maker/test signer secrets, local credentials | Remain outside committed source, public APIs, browser analytics and logs |
 
-No public per-user balances, spent leaf indices, note openings, or exact
-per-series supply/reserve deltas for internal private operations. Do not put them
-in calldata, errors, receipts, logs or public analytics. Private-state visibility
-must be audited at all these surfaces, not just a frontend view.
-
-Server persistence permits public chain data and bounded-lived RFQ ciphertext.
-It excludes plaintext financial profiles, AI conversations, note ownership,
-openings and witnesses. Disable payload tracing, session replay, disk spooling,
-request caching and sensitive error reporting. Client-held backup and persistent
-public ciphertext are intentional exceptions to application no-retention.
-Maker-local retention and provider TEE caches need separate disclosure.
-
-AI assurance must separately report hardware/nonce, measurement policy,
-encryption key binding, gateway/model response binding and any endpoint binding.
-Each status is pass/fail/unavailable. Missing evidence and gateway-only checks
-cannot imply model verification. No badges are implemented in this increment.
-
+The indexer may store public chain-derived positions and trade history, with
+finalized receipt links and replayable cursors. It is not custody authority.
+Do not request real financial documents for the demo. No AI conversation,
+attestation badge or special AI-retention infrastructure is part of the release.
+Use HTTPS where appropriate, safe client dependencies and normal secret hygiene.
+The ignored local `.env` and `.local` state remain user-managed; old credentials
+are not required or consumed by active build/test commands.

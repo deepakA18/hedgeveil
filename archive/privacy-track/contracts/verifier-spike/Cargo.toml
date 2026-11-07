@@ -1,0 +1,17 @@
+[package]
+name = "verifier-spike"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = { version = "=5.17.2", features = ["non-contract-usage"] }
+near-sys = "=0.2.5"
+hex.workspace = true
+ark-bn254.workspace = true
+ark-ff.workspace = true
+ark-ec.workspace = true
+

@@ -1,0 +1,12 @@
+{
+  "version": "hedgeveil-ai-spike-v1",
+  "model": "",
+  "accepted_tcb_statuses": ["UpToDate"],
+  "accepted_advisories": [],
+  "gateway_measurements": [],
+  "model_measurements": [],
+  "max_preflight_age_seconds": 180,
+  "required_response_kind": "provider_tee",
+  "gpu_verification": "nras_jwt"
+}
+

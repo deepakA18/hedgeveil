@@ -1,0 +1,34 @@
+{
+  "mode": "live_public_evidence_only",
+  "model": "z-ai/glm-5.3-flash",
+  "observed_unix": 1794046495,
+  "inference_requested": false,
+  "measurement_policy": "NOT_ACCEPTED",
+  "candidates": [
+    {
+      "role": "gateway",
+      "accepted": false,
+      "tcb_status": "UpToDate",
+      "advisory_ids": [],
+      "signer": "40599fb284f43953bb356b09080fd803c960fc10285ad90eca462ca711ad4acb",
+      "signing_algo": "ed25519",
+      "measurement_id": "1ebcebd9a4d95e27f14b7c407e1f3ab0be62326a88955848348cc346c5c54d2e",
+      "quote_and_bindings": "pass",
+      "wrong_nonce_rejected": true,
+      "tampered_quote_rejected": true
+    },
+    {
+      "role": "model",
+      "accepted": false,
+      "tcb_status": "UpToDate",
+      "advisory_ids": [],
+      "signer": "5a0210f2442c79355784f9de021985429561da5bacc3a4424b01ac52b7e0caff",
+      "signing_algo": "ed25519",
+      "measurement_id": "5a03452799393e4dcb59b10ac9964c628aad3d86a3fae038dd96c1f6ece438d5",
+      "quote_and_bindings": "pass",
+      "wrong_nonce_rejected": true,
+      "tampered_quote_rejected": true,
+      "gpu_jwt": "pass"
+    }
+  ]
+}

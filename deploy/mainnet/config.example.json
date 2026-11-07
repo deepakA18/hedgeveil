@@ -1,0 +1,10 @@
+{
+  "template_only": true,
+  "enabled": false,
+  "track": "open",
+  "network_id": "mainnet",
+  "clearinghouse_account_id": null,
+  "settlement_oracle_account_id": null,
+  "release_gate": "G10",
+  "status": "blocked_pending_production_evidence"
+}

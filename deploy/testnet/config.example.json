@@ -1,0 +1,16 @@
+{
+  "template_only": true,
+  "enabled": false,
+  "track": "open",
+  "mode": "testnet-demo",
+  "network_id": "testnet",
+  "rpc_url": null,
+  "clearinghouse_account_id": null,
+  "settlement_oracle_account_id": null,
+  "oracle_mode": "synthetic",
+  "oracle_config_hash": null,
+  "scenario_id": null,
+  "source_sha256": null,
+  "display_label": "DEMO ORACLE — SYNTHETIC PRICES",
+  "disclosures_required": ["test_assets", "public_balances", "test_signers", "upgrade_keys", "maker_subsidies"]
+}

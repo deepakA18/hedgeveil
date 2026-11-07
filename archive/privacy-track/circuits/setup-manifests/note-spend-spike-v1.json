@@ -1,0 +1,23 @@
+{
+  "circuit": "note-spend-spike-v1-depth20-1in-1out",
+  "network": "testnet",
+  "account_id": "hv-zk-fcc9e3e143585953.testnet",
+  "production_setup": false,
+  "setup": "single process using OsRng; not a ceremony",
+  "upgradeable": true,
+  "artifact_sha256": {
+    "crates/note-spend-spike/src/lib.rs": "7595c33a70ffdd5960cc5e04c0be3622b6731bd8df8fd244d32ea742313f48fc",
+    "crates/note-spend-spike/src/bin/benchmark.rs": "3b9760d1c702ce0b681c7dcae2a12da1910f210f215bc5309262cbb7ae5e46fe",
+    "contracts/verifier-spike/src/lib.rs": "6aac07b5e6dae5d95b5575c589eb0e6acf8d68932fa0ff5f14cbe917d955d4b4",
+    "Cargo.lock": "7478c03448608d883e7068c248042c21c281d4e5036632ed1b051f1433c4a3f7",
+    "Cargo.toml": "0844d7c8023e462c2b315855349319d88ccfd830741cb3221d0db8deea990286",
+    "contracts/verifier-spike/Cargo.toml": "774258fda85aac08c06bd2557251fedfeb415f84fa1c926088e289bcd01aadc5",
+    "crates/note-spend-spike/Cargo.toml": "144423a760345a81adbcd31a0bbf1396d16e46e1e231f424eaca8e1fbe8a1c20",
+    "rust-toolchain.toml": "9d555acf7ecb63cba72c2bbb28138eea2cd08bec12af63f098bf5b157d24a649",
+    "deploy/testnet/verifier-spike.wasm": "2f9c0c46a9d2be6336608db6e707c6d5d49a8ea9facc820e5c784bcd30dd5208",
+    "fixtures/proof-vectors/note-spend-v1/verification-key.bin": "d287b2c65c356a14d3bfa66eb65f3cfd904ff7853c64780fbc43fb171a86e3fa",
+    "fixtures/proof-vectors/note-spend-v1/verify.json": "780a271a5b8dfe85fd8776187ef64027d3da125477df3ccaa25217eda2cea509"
+  },
+  "deploy_transaction": "6picQUcXbtLbVjmeEtMSe3HVLjo7YqNwFPNMLfuCCH7p",
+  "verification_transaction": "6JPL1VouwikzMvpGE75BnmUCQ1qT4DbXfawQ6s4UiiXT"
+}

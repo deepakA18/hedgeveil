@@ -1,26 +1,15 @@
-# ADR 0001: arithmetic first; cryptographic choices remain gated
+# ADR 0001: arithmetic first
 
-Status: accepted for the initial development baseline, 7 November 2026.
+Status: arithmetic decisions retained; privacy/proof gating superseded by
+[ADR 0002](0002-open-innovation-public-ledger.md), 7 November 2026. The original
+text is preserved in the historical archive.
 
-Implement exact native-NEAR/USD payoffs before contracts. Use u128 external
-amounts/prices, 10^24 collateral coefficient scale, 10^12 price scale, checked
-U256 Rust intermediates and an independent Python Fraction implementation.
-Pin the available `primitive-types` 0.13.1 dependency; its checked integer API is
-documented in the [upstream library documentation](https://docs.rs/primitive-types/0.13.1/primitive_types/struct.U256.html).
-This selection is for arithmetic development, not a Wasm compatibility finding.
+Keep exact native-NEAR/USD payoffs, u128 external amounts/prices, coefficient
+scale 10^24, price scale 10^12, checked U256 intermediates and independent Python
+Fraction arithmetic. Keep primitive-types 0.13.1 and the validated Rust toolchain
+for this library. No floating point token amounts.
 
-Commit shared semantic schemas before financial contracts or witness builders.
-Schema version 0.1 is a review baseline; it is not a canonical proof transcript.
-Do not hash arbitrary JSON for proof inputs. Binary encoding, field ordering,
-hashes, key derivation, encrypted-output binding, arities and circuit setup remain
-G1-ZK decisions. Schema changes must be versioned with downstream vectors.
-
-Do not scaffold a plaintext ledger, fake proof verifier, or verified AI badge to
-stand in for an unpassed feasibility gate. UI development follows real proof and
-AI evidence. No near-sdk, circuit library, oracle provider or AI model is pinned
-until its corresponding reproducible compatibility spike.
-
-Alternative rejected: converting amounts to floats for convenience. It cannot
-represent atomic NEAR reliably. Alternative deferred: a full contract workspace
-before choosing proof encoding, output recovery and withdrawal outcome handling.
-
+Version shared schemas before contracts/SDKs. The new v0.2 schema describes public
+accounting and operations; it is not a proof transcript. Runtime/token/oracle and
+payout-recovery compatibility now govern G1. Library arithmetic tests alone do
+not approve the new contracts, standards compliance or economic strategy.

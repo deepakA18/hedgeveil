@@ -1,0 +1,23 @@
+[package]
+name = "note-spend-spike"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+ark-bn254.workspace = true
+ark-ec.workspace = true
+ark-ff.workspace = true
+ark-serialize.workspace = true
+ark-groth16.workspace = true
+ark-relations.workspace = true
+ark-r1cs-std.workspace = true
+ark-crypto-primitives.workspace = true
+light-poseidon.workspace = true
+rand.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+hex.workspace = true
+crypto_box = { version = "=0.9.1", features = ["seal"] }
+

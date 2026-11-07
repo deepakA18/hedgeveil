@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "purpose": "TEST ONLY: real proof of a synthetic unfunded note",
+  "production_setup": false,
+  "setup": "single local process, OS randomness; no ceremony or independent review",
+  "circuit": "note-spend-spike-v1-depth20-1in-1out",
+  "files": {
+    "init.json": "c4f1b656e3e18c9b491d975751b85a8e751bd3f048b764ce89d0b7154916c847",
+    "invalid-input.json": "8cf4828030a409e5c20a216c9dd5d4c75a399a89cb27e7d786cea2d6998344e6",
+    "malformed-proof.json": "c5ad50eec8dbe574fe6cb6895d20ffa6960b71c5c61e1628534656e5d8244be4",
+    "output-ciphertext.bin": "5e15e103419084cf5ceab0f3d5a4c3b92b1d73a3e1073a37b3a3e3384c3227b8",
+    "verification-key.bin": "d287b2c65c356a14d3bfa66eb65f3cfd904ff7853c64780fbc43fb171a86e3fa",
+    "verify.json": "780a271a5b8dfe85fd8776187ef64027d3da125477df3ccaa25217eda2cea509"
+  },
+  "source_sha256": "7595c33a70ffdd5960cc5e04c0be3622b6731bd8df8fd244d32ea742313f48fc",
+  "cargo_lock_sha256": "7478c03448608d883e7068c248042c21c281d4e5036632ed1b051f1433c4a3f7",
+  "private_material_published": false
+}

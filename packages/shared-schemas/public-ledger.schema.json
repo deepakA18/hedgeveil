@@ -1,0 +1,877 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hedgeveil.invalid/schemas/public-ledger/0.2.0",
+  "title": "Open Innovation public-ledger draft (not deployed ABI)",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/transaction"
+    },
+    {
+      "$ref": "#/$defs/quote"
+    },
+    {
+      "$ref": "#/$defs/event"
+    },
+    {
+      "$ref": "#/$defs/withdrawal"
+    }
+  ],
+  "$defs": {
+    "uint128": {
+      "type": "string",
+      "maxLength": 39,
+      "pattern": "^(0|[1-9][0-9]{0,38})(?![\\s\\S])"
+    },
+    "positive": {
+      "type": "string",
+      "maxLength": 39,
+      "pattern": "^[1-9][0-9]{0,38}(?![\\s\\S])"
+    },
+    "uint64": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^(0|[1-9][0-9]{0,19})(?![\\s\\S])"
+    },
+    "account": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:[-_][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "hash256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "receipt_id": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 44,
+      "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}(?![\\s\\S])"
+    },
+    "domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol_version",
+        "network",
+        "contract_id"
+      ],
+      "properties": {
+        "protocol_version": {
+          "const": "1"
+        },
+        "network": {
+          "enum": [
+            "sandbox",
+            "testnet"
+          ]
+        },
+        "contract_id": {
+          "$ref": "#/$defs/account"
+        }
+      }
+    },
+    "asset": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "const": "COLLATERAL"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "series_id"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "P",
+                "N"
+              ]
+            },
+            "series_id": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "vault_id"
+          ],
+          "properties": {
+            "kind": {
+              "const": "VAULT_SHARE"
+            },
+            "vault_id": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        }
+      ]
+    },
+    "leg": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset",
+        "amount"
+      ],
+      "properties": {
+        "asset": {
+          "$ref": "#/$defs/asset"
+        },
+        "amount": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "limit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset",
+        "amount"
+      ],
+      "properties": {
+        "asset": {
+          "$ref": "#/$defs/asset"
+        },
+        "amount": {
+          "$ref": "#/$defs/uint128"
+        }
+      }
+    },
+    "series_terms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "series_id",
+        "version",
+        "collateral_kind",
+        "index_definition_hash",
+        "payoff_kind",
+        "strike",
+        "price_scale",
+        "maturity_ns",
+        "mint_cutoff_ns",
+        "observation_window",
+        "oracle_account_id",
+        "oracle_version",
+        "oracle_config_hash",
+        "finalization_policy_hash",
+        "max_supply"
+      ],
+      "properties": {
+        "series_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "const": "1"
+        },
+        "collateral_kind": {
+          "const": "NATIVE_NEAR"
+        },
+        "index_definition_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "payoff_kind": {
+          "const": "CAPPED_USD_COMPLEMENT"
+        },
+        "strike": {
+          "$ref": "#/$defs/positive"
+        },
+        "price_scale": {
+          "const": "1000000000000"
+        },
+        "maturity_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "mint_cutoff_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "observation_window": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start_ns",
+            "end_ns"
+          ],
+          "properties": {
+            "start_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "end_ns": {
+              "$ref": "#/$defs/uint64"
+            }
+          }
+        },
+        "oracle_account_id": {
+          "$ref": "#/$defs/account"
+        },
+        "oracle_version": {
+          "$ref": "#/$defs/id"
+        },
+        "oracle_config_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "finalization_policy_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "max_supply": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "quote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_version",
+        "domain",
+        "maker",
+        "taker",
+        "maker_gives",
+        "taker_gives",
+        "fee",
+        "fill_rule",
+        "rounding",
+        "nonce",
+        "cancellation_epoch",
+        "expiry_ns",
+        "signing_key_id",
+        "signature_scheme",
+        "signature"
+      ],
+      "properties": {
+        "kind": {
+          "const": "quote"
+        },
+        "schema_version": {
+          "const": "0.2.0"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "maker": {
+          "$ref": "#/$defs/account"
+        },
+        "taker": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/account"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maker_gives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/leg"
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "taker_gives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/leg"
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "fee": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "asset",
+            "amount",
+            "receiver"
+          ],
+          "properties": {
+            "asset": {
+              "const": "NATIVE_NEAR"
+            },
+            "amount": {
+              "$ref": "#/$defs/uint128"
+            },
+            "receiver": {
+              "$ref": "#/$defs/account"
+            }
+          }
+        },
+        "fill_rule": {
+          "const": "ALL_OR_NOTHING"
+        },
+        "rounding": {
+          "const": "EXACT_AMOUNTS"
+        },
+        "nonce": {
+          "$ref": "#/$defs/uint64"
+        },
+        "cancellation_epoch": {
+          "$ref": "#/$defs/uint64"
+        },
+        "expiry_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "signing_key_id": {
+          "$ref": "#/$defs/id"
+        },
+        "signature_scheme": {
+          "const": "ed25519"
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 128,
+          "maxLength": 128,
+          "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
+        }
+      }
+    },
+    "transaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_version",
+        "domain",
+        "operation_id",
+        "attached_deposit",
+        "method",
+        "args"
+      ],
+      "properties": {
+        "kind": {
+          "const": "transaction"
+        },
+        "schema_version": {
+          "const": "0.2.0"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/hash256"
+        },
+        "attached_deposit": {
+          "$ref": "#/$defs/uint128"
+        },
+        "method": {
+          "enum": [
+            "deposit_collateral",
+            "create_series",
+            "split",
+            "merge",
+            "transfer",
+            "redeem",
+            "fill_quote",
+            "cancel_quote",
+            "request_resolution",
+            "request_withdrawal",
+            "vault_mint_basket",
+            "vault_redeem_in_kind"
+          ]
+        },
+        "args": {
+          "type": "object"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "deposit_collateral"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {}
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "create_series"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "config"
+              ],
+              "properties": {
+                "config": {
+                  "$ref": "#/$defs/series_terms"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "split"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "series_id",
+                "amount"
+              ],
+              "properties": {
+                "series_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "amount": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "merge"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "series_id",
+                "amount"
+              ],
+              "properties": {
+                "series_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "amount": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "transfer"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "asset",
+                "amount",
+                "receiver"
+              ],
+              "properties": {
+                "asset": {
+                  "$ref": "#/$defs/asset"
+                },
+                "amount": {
+                  "$ref": "#/$defs/positive"
+                },
+                "receiver": {
+                  "$ref": "#/$defs/account"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "redeem"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "series_id",
+                "leg",
+                "amount"
+              ],
+              "properties": {
+                "series_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "leg": {
+                  "enum": [
+                    "P",
+                    "N"
+                  ]
+                },
+                "amount": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "fill_quote"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "quote"
+              ],
+              "properties": {
+                "quote": {
+                  "$ref": "#/$defs/quote"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "cancel_quote"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "nonce"
+              ],
+              "properties": {
+                "nonce": {
+                  "$ref": "#/$defs/uint64"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "request_resolution"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "series_id"
+              ],
+              "properties": {
+                "series_id": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "request_withdrawal"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount",
+                "receiver"
+              ],
+              "properties": {
+                "amount": {
+                  "$ref": "#/$defs/positive"
+                },
+                "receiver": {
+                  "$ref": "#/$defs/account"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "vault_mint_basket"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "vault_id",
+                "shares",
+                "max_inputs"
+              ],
+              "properties": {
+                "vault_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "shares": {
+                  "$ref": "#/$defs/positive"
+                },
+                "max_inputs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/leg"
+                  },
+                  "minItems": 1,
+                  "maxItems": 9
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "vault_redeem_in_kind"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "vault_id",
+                "shares",
+                "min_outputs"
+              ],
+              "properties": {
+                "vault_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "shares": {
+                  "$ref": "#/$defs/positive"
+                },
+                "min_outputs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/limit"
+                  },
+                  "minItems": 1,
+                  "maxItems": 9
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_version",
+        "domain",
+        "operation_id",
+        "actor",
+        "event",
+        "deltas",
+        "fee_amount",
+        "state_references"
+      ],
+      "properties": {
+        "kind": {
+          "const": "event"
+        },
+        "schema_version": {
+          "const": "0.2.0"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/hash256"
+        },
+        "actor": {
+          "$ref": "#/$defs/account"
+        },
+        "event": {
+          "enum": [
+            "DEPOSIT",
+            "SERIES_CREATED",
+            "SPLIT",
+            "TRANSFER",
+            "MERGE",
+            "QUOTE_FILLED",
+            "QUOTE_CANCELLED",
+            "FINALIZED",
+            "REDEEMED",
+            "VAULT_MINTED",
+            "VAULT_EXITED",
+            "ROLL_EXECUTED",
+            "ROLL_DEFERRED",
+            "WITHDRAWAL_REQUESTED",
+            "WITHDRAWAL_SUCCEEDED",
+            "WITHDRAWAL_FAILED_CONFIRMED",
+            "WITHDRAWAL_UNKNOWN",
+            "DUST_RELEASED"
+          ]
+        },
+        "deltas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "account_id",
+              "bucket",
+              "ledger_id",
+              "asset",
+              "direction",
+              "amount"
+            ],
+            "properties": {
+              "account_id": {
+                "$ref": "#/$defs/account"
+              },
+              "bucket": {
+                "enum": [
+                  "FREE",
+                  "ORDER_RESERVED",
+                  "SERIES_RESERVE",
+                  "VAULT",
+                  "FEE",
+                  "BOND",
+                  "STORAGE",
+                  "WITHDRAWAL"
+                ]
+              },
+              "ledger_id": {
+                "$ref": "#/$defs/id"
+              },
+              "asset": {
+                "$ref": "#/$defs/asset"
+              },
+              "direction": {
+                "enum": [
+                  "CREDIT",
+                  "DEBIT"
+                ]
+              },
+              "amount": {
+                "$ref": "#/$defs/uint128"
+              }
+            }
+          },
+          "minItems": 0,
+          "maxItems": 32
+        },
+        "fee_amount": {
+          "$ref": "#/$defs/uint128"
+        },
+        "state_references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/hash256"
+          },
+          "minItems": 0,
+          "maxItems": 16
+        }
+      }
+    },
+    "withdrawal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_version",
+        "domain",
+        "ticket_id",
+        "owner",
+        "receiver",
+        "amount",
+        "state",
+        "receipt_id",
+        "balance_restored"
+      ],
+      "properties": {
+        "kind": {
+          "const": "withdrawal"
+        },
+        "schema_version": {
+          "const": "0.2.0"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "ticket_id": {
+          "$ref": "#/$defs/id"
+        },
+        "owner": {
+          "$ref": "#/$defs/account"
+        },
+        "receiver": {
+          "$ref": "#/$defs/account"
+        },
+        "amount": {
+          "$ref": "#/$defs/positive"
+        },
+        "state": {
+          "enum": [
+            "PENDING",
+            "SUCCEEDED",
+            "FAILED_CONFIRMED",
+            "UNKNOWN"
+          ]
+        },
+        "receipt_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/receipt_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "balance_restored": {
+          "type": "boolean"
+        }
+      }
+    },
+    "series_state": {
+      "enum": [
+        "OPEN",
+        "MATURED_PENDING",
+        "PROPOSED",
+        "DISPUTED",
+        "RESOLUTION_DELAYED",
+        "FINALIZED",
+        "CLOSED"
+      ]
+    },
+    "vault_risk_state": {
+      "enum": [
+        "ACTIVE",
+        "ROLL_DEFERRED"
+      ]
+    }
+  }
+}

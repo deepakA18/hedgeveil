@@ -1,115 +1,147 @@
-# Protocol specification v0.1
+# Public-ledger protocol specification v0.2
 
-Status: implementation baseline, pending independent review. This document fixes
-the arithmetic used by the initial host library. It does not establish circuit
-soundness or authorize a production deployment. The implementation plan governs
-the complete release scope.
+Status: implementation baseline pending independent review. Supersedes the
+privacy-track specification. [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md)
+is authoritative. Only the payoff library/reference and draft schemas exist;
+this is not a deployed ABI or audited custody system.
 
-## Units and numerical domains
+## Product and units
 
-| Symbol | Meaning | Representation |
-|---|---|---|
-| C / amount | Native NEAR collateral or claim quantity | u128 atomic NEAR; 1 NEAR = Q = 10^24 |
-| K | USD target per one-NEAR pair | Positive u128, USD/NEAR × 10^12 |
-| X_M | Historical USD per NEAR at maturity M | u128 at the same price scale as K |
-| p_q, n_q | Final collateral fractions | Integers in [0, Q], summing to Q |
-| M | End of immutable observation window | UTC nanoseconds, distinct from finalization |
+Native NEAR backs public complementary P/N balances. One transparent vault holds
+up to four series and issues public transferable shares. Backend services have no
+balance authority. The first release has no borrowing, collateral staking,
+rehypothecation, multichain custody, arbitrary payoff scripts or physical delivery.
 
-Wire integers are canonical base-10 strings, with no sign, whitespace, decimal
-point, exponent, or leading zeros except `"0"`. No floating point amounts. A
-price with different units or precision must be explicitly normalized before
-entry; no implicit ticker inversion. Python accepts integers only, rejecting
-booleans. Rust uses u128 inputs and checked U256 intermediates. Circuit limbs and
-range constraints must prove the same bounds without finite-field wraparound.
-The u128 ceiling is a representation limit, not an approved custody cap.
+| Quantity | Unit / representation |
+|---|---|
+| Collateral, claim amounts, share quantities | Canonical decimal-string u128 atomic units |
+| Q | 10^24 atomic NEAR per NEAR; also coefficient scale |
+| K, X_M | Positive strike / nonnegative observation, USD per NEAR × 10^12 |
+| p_q, n_q | Integers in [0,Q], with p_q+n_q=Q |
+| Times | Canonical decimal-string u64 UTC nanoseconds |
+| M | End of the observation window, distinct from finalization time |
 
-## Payoff and settlement
+No floating point monetary amounts, signs, whitespace, exponents, decimal points
+or leading zeros except `"0"`. Rust uses checked U256 intermediates; Python uses
+exact rational arithmetic. Representation ceilings are not approved economic
+limits. Lower per-series supply, whole-contract, oracle exposure, batch and
+storage caps must be measured/frozen before their implementation gate passes.
 
-For K > 0: p = 1 if X_M <= K, otherwise K/X_M; n = 1-p.
-The ideal P value is C×min(X_M,K) USD; N is C×max(X_M-K,0) USD,
-when C is expressed in NEAR. Holding both legs preserves NEAR exposure.
+## Payoff and rounding
 
-| X_M (USD/NEAR), K = 2 | P (NEAR) | N (NEAR) | P (USD) | N (USD) |
+For K>0, p=1 when X_M<=K, otherwise K/X_M; n=1-p. A pair backed by C NEAR
+pays C×p NEAR to P and C×n NEAR to N. At observation, the ideal USD values are
+C×min(X_M,K) and C×max(X_M-K,0). Holding both legs preserves NEAR exposure.
+
+| X_M, K=2 USD/NEAR, C=1 NEAR | P NEAR | N NEAR | P USD | N USD |
 |---|---|---|---|---|
 | 8 | 0.25 | 0.75 | 2 | 6 |
 | 4 | 0.5 | 0.5 | 2 | 2 |
 | 2 | 1 | 0 | 2 | 0 |
 | 1 | 1 | 0 | 1 | 0 |
 
-These prices are fictional. P absorbs losses below the strike. This is neither a
-dollar peg nor principal protection. Before maturity, intrinsic payoff is not a
-market price; executable quotes are needed for trades.
+The numbers are fictional. Below strike P absorbs losses; a normalized $1 share
+price is not a peg. Before maturity intrinsic payoff is not fair option value.
+Executable quotes determine trades; models are diagnostic marks only.
 
-Finalization fixes p_q = Q when X_M <= K, otherwise floor(K×Q/X_M), and n_q = Q-p_q.
-For either leg: amount×coefficient = payout×Q + remainder, with 0 <= remainder < Q.
-Each redemption rounds down separately. Thus equal P/N quantities redeemed in
-one pair leave either zero or one atomic unit of redemption dust. Fragmentation
-can increase dust; it cannot increase payout. Coefficient quantization can shift
-value from ideal P to N by less than amount/Q atomic units before redemption
-rounding. Do not promise each leg differs from its rational ideal by only one
-atomic unit for arbitrary u128 amounts.
+Finalize p_q=Q if X_M<=K, otherwise floor(K×Q/X_M), with n_q=Q-p_q. Redeem
+floor(amount×coefficient/Q). Preserve the remainder identity and round required
+inputs up. Zero-payout claims remain burnable. Equal P/N quantities redeemed once
+leave zero or one atomic unit of redemption dust. Fragmenting redemption can
+increase dust but cannot increase payouts. Coefficient quantization shifts less
+than amount/Q atomic units from ideal P to N before final payout rounding; that
+bound is not always one atomic unit for arbitrary u128 amounts.
 
-Missing, errored, negative, or stale observations are never zero prices. The host
-library rejects zero by default. `AllowExplicit` only exercises the mathematical
-branch; the eventual oracle must authenticate a policy permitting genuine zero.
-K=0 is always invalid. Checked division rejects zero divisors and results that
-exceed u128. Required inputs round up, outputs round down.
+Missing or invalid prices are never zero. Zero is rejected unless explicitly
+allowed by the immutable observation policy and authenticated as genuine. K=0 is
+invalid. Inverting 1/4 NEAR/USD gives 4 USD/NEAR; conversion/quantization rules
+belong in the observation definition. With X_M=4, K=2 and finalization spot=2.4,
+P receives 0.5 NEAR worth 1.2 USD at that later time.
 
-For inverse quotes: 1/4 NEAR per USD means 4 USD per NEAR. Conversion must retain
-exact rational precision until the observation policy's specified quantization.
-That policy is not implemented here.
+## Public accounting and authorization
 
-## Observation and finality
+One clearinghouse owns distinct accounting, series, claims, RFQ, vault, share,
+withdrawal and permission modules. All asset transfers and fills within the
+core update atomically. Public views expose account balances, reserves, supply,
+funded balances/locks, basket holdings, tickets and policy versions with bounded
+pagination. Canonical events identify version, operation, actor, exact asset
+balance deltas, fees and resulting state references. State is authoritative.
 
-Commit immutable asset identity, units, scale, interval, sampling/aggregation,
-source eligibility, missing coverage, outliers, quote conversion, zero/disruption
-policy, proposal/challenge/arbitration deadlines and fallback hierarchy when
-creating a series. Proposed experiments use a five-minute trailing window,
-three independent sources and a 24-hour challenge, pending historical replay.
-No oracle provider or production parameters are accepted by this baseline.
+A predecessor account authorizes user debits, not a caller-supplied owner string.
+The vault inventory has its own namespace and may only move through checked vault
+operations. Registration/storage payments are separate from deposited collateral.
+Raw native account balance is not a reserve ledger. Reconcile series reserves,
+free and order-reserved balances, fees, bonds, storage liabilities and withdrawals;
+never count vault underlying holdings and shares twice.
 
-The oracle's authenticated finalized historical result is immutable. Delayed
-resolution never substitutes the latest price. If X_M=4 and K=2, P receives
-0.5 NEAR even if NEAR falls to 2.4 USD by finalization: then it is worth 1.2 USD.
-Pair merges remain available before finalization, including disputes; a closed
-series must retain the result and artifact support needed by outstanding notes.
+Series terms are immutable: ID/version, native collateral, payoff/index definition,
+strike/price scale, maturity/window/cutoff, oracle config/version, finalization
+policy and supply cap. Derive claim IDs deterministically; duplicate IDs in
+batches fail. Canonical ID derivation and wire/signature bytes remain G1 decisions.
 
-## Conservation and fees
+| Transition | Authorization and accounting effect |
+|---|---|
+| Deposit | Registered predecessor; credit positive attached collateral only |
+| Split c | Before cutoff by block time; free collateral -c, series reserve +c, P/N supply and caller balances +c each |
+| Transfer | Debit authorized account and credit recipient for the same asset; registered/storage-funded recipients |
+| Merge c | Before finalization, including disputes; burn matching P/N, reserve -c, free collateral +c |
+| Finalize | Authenticated oracle callback; fixed complementary coefficients, no reserve creation |
+| Redeem a | Finalized; burn claims, reduce reserve by rounded payout, credit free collateral; burn even if payout is zero |
+| Fill quote | Verify registered maker signature/domain/nonce/expiry, all legs and fees funded; move them atomically and consume nonce |
+| Withdraw c | Debit free balance first; create one public ticket with fixed owner/destination/amount; schedule payment |
 
-Deposit creates at most attached collateral. Split consumes c collateral and
-creates c P and c N for the same open series before its immutable cutoff. Transfer
-preserves quantities per asset. Merge consumes matching P/N and recreates c
-collateral before finalization. Redeem consumes a finalized claim and creates the
-rounded collateral amount. Withdrawal consumes collateral and creates one public
-payout obligation. Verifier acceptance and nullifier/output changes are atomic.
+Fees are explicitly funded, never silently removed from promised backing. Track
+dust separately and release it only after both supplies are zero and no redemption
+obligation remains; the destination/authorization must be specified before a sweep
+method ships. Unsolicited transfers are surplus, not user credit or vault issuance.
+See [the accounting assumptions](../verification/assumptions.md).
 
-Fees are explicit, proof-bound collateral transfers deducted from input value;
-no hidden percentage or discretionary mint. The initial math fixtures have zero
-fees. Gas, storage reserves and service fees are separately funded from backing.
-Fees cannot consume other users' collateral. Dust stays in custody with no admin
-sweep. Unsolicited funds are surplus, not automatic note issuance.
+## State machines and asynchronous boundaries
 
-For every consistent assignment of series outcomes, available custody covers
-free collateral-note obligations, unresolved claim payouts and unpaid tickets.
-This is a hidden-state inductive invariant, not a public per-series balance
-report. A dispatched payment needs explicit in-flight accounting: neither count
-sent funds as available nor release its refund obligation without outcome proof.
-See [the conservation model](../verification/assumptions.md).
+Series: OPEN → MATURED_PENDING → PROPOSED → FINALIZED → CLOSED, with DISPUTED
+and RESOLUTION_DELAYED branches. Enforce maturity from block time even if a keeper
+has not advanced the label. Pause is separate and scoped. No closing can strand
+claims; no post-finalization merge can bypass partially consumed reserves.
 
-## Proof and recovery boundary
+Resolution import calls the allowlisted oracle and validates its finalized record
+only in a private callback bound to series/request ID, oracle version/config,
+window, units and bounds. Failed imports remain pending and retry idempotently.
+Caller-pasted prices cannot finalize, including in demo mode.
 
-Every transition must bind the deployment domain, pool, protocol/verifier version,
-operation, root, nullifiers, output commitments/ciphertexts, expiry, relevant
-current state and public transfers/fees. Ownership is independent of submitting
-NEAR account. Reject duplicate and previously spent nullifiers. A historical
-root does not authorize stale settlement/vault state.
+Withdrawals: available balance → PENDING → SUCCEEDED, or FAILED_CONFIRMED →
+one restoration to the original owner's free balance. Failed/missing callback
+means UNKNOWN; timeout is not proof of failed delivery. Never resend or re-credit
+UNKNOWN. Preallocate ticket storage and measure callback gas. Block test upgrades
+with unsettled operations. Reviewed receipt recovery or an explicitly trusted,
+capped adapter/committee is a production gate, not an invented testnet refund.
 
-Withdrawal lifecycle: pending → succeeded OR failed-confirmed → replacement
-note once. Unknown outcomes are quarantined; timeouts never authorize a refund
-or resend. Recovery cannot reset the consumed nullifier. Callback failure after
-successful transfer must never enable replacement issuance.
+## RFQs, vault and token interfaces
 
-The [schema documentation](../packages/shared-schemas/README.md) distinguishes
-the semantic JSON envelope from the unselected circuit encoding. Cryptographic
-primitives, output recoverability, arities and field layout require G1-ZK evidence.
+Public all-or-nothing quotes bind protocol/network/contract, maker/optional taker,
+exact asset legs, fees, rounding, expiry, nonce/cancellation epoch and a registered
+signing key/scheme. Multiple quotes may reuse inventory; recheck it atomically at
+fill. Only an explicit resting offer locks inventory. The relay is not execution
+authority. Partial fills are out of scope. Direct old/new-series swaps are atomic.
 
+Mint shares from a proportional basket: at supply S and holdings h_i, minting s
+requires ceil(s×h_i/S) per asset with user limits. Bootstrap uses a predefined
+basket/share scale. Exit returns floor(s×h_i/S); the last holder receives all
+remaining managed holdings after accrued fee liabilities are separated. Reject
+useless dust mints, enforce minima, and test donations/first-depositor attacks.
+No backend-marked NAV issuance. In-kind exits include unresolved claims; cash-only
+exits require executable quotes. No bid means ROLL_DEFERRED and retained holdings.
+Policy changes create a new vault version; existing holders retain exits.
+
+Target NEP-245 P/N and NEP-141/145/148 shares after a pinned compatibility spike.
+Keep namespaces distinct and implement/test full receiver/resolver and registration
+semantics before claiming conformance. Until then the internal ledger/SDK is the
+explicit interface; token composability is incomplete. A keeper has no user
+withdrawal or upgrade authority. See [the threat model](THREAT_MODEL.md).
+
+## Delivery boundary
+
+Sandbox and testnet use committed synthetic observations and disclosed test
+signers. Testnet prominently labels DEMO ORACLE — SYNTHETIC PRICES; it uses real
+receipts and normal chain time. Paid data, API credentials and mainnet funds are
+not correctness dependencies. G9 completes the hackathon release; production
+source independence, verified payout recovery and audit remain G10 gates.

@@ -1,0 +1,10 @@
+{
+  "fictional": true,
+  "scenario_id": "fictional-saver-v1",
+  "canary": "HEDGEVEIL_FICTIONAL_SAVER_7E2B1D",
+  "collateral_near": "100",
+  "expenses_usd": "120",
+  "horizon_days": 30,
+  "constraints": ["No borrowing", "No automatic transactions", "Explain losses below strike and settlement delays"]
+}
+
