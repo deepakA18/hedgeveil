@@ -55,6 +55,9 @@ def transaction(method='transfer'):
         'set_market_pause': {'paused':True},
         'cancel_quote': {'nonce': '1'}, 'request_resolution': {'series_id': 's1'},
         'request_withdrawal': dict(amount='100', receiver='alice.testnet'),
+        'create_vault': dict(vault_id='v1', seed=[leg('P')], initial_shares='100'),
+        'set_vault_mint_pause': {'paused': True},
+        'transfer_vault_shares': dict(vault_id='v1', shares='10', receiver='bob.testnet'),
         'vault_mint_basket': dict(vault_id='v1', shares='100', max_inputs=[leg(), leg('P')]),
         'vault_redeem_in_kind': dict(vault_id='v1', shares='100', min_outputs=[leg(amount='0'), leg('P')]),
     }
@@ -130,6 +133,13 @@ class PublicLedgerTests(unittest.TestCase):
             bad = ticket(); bad.update(state=state, balance_restored=True, receipt_id='B'*44); self.reject(bad)
         valid = ticket(); valid.update(state='FAILED_CONFIRMED', balance_restored=True, receipt_id='B'*44); validate(valid)
         bad = copy.deepcopy(valid); bad['receipt_id'] = None; self.reject(bad)
+
+    def test_vault_seed_and_share_bounds(self):
+        for seed in ([leg()], [leg('P'), leg('P')], [leg('VAULT_SHARE')],
+                     [leg('P', 's'+str(i)) for i in range(5)]):
+            bad = transaction('create_vault'); bad['args']['seed'] = seed; self.reject(bad)
+        for shares in ('0', str(2**128)):
+            bad = transaction('create_vault'); bad['args']['initial_shares'] = shares; self.reject(bad)
 
     def test_immutable_terms_units_and_window_shape(self):
         for field, value in (('strike', '0'), ('price_scale', '100'), ('collateral_kind', 'ETH'), ('mint_cutoff_ns', '201')):

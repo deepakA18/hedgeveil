@@ -35,6 +35,34 @@ impl Clearinghouse {
                 );
             }
         }
+        if let Some(v) = &self.vault {
+            put(
+                &core,
+                "STORAGE",
+                "vault",
+                "COLLATERAL",
+                self.vault_storage(),
+            );
+            for leg in &v.holdings {
+                put(&core, "VAULT", &v.vault_id, &leg.asset.id(), leg.amount.0);
+            }
+            for (owner, shares) in &v.holders {
+                put(
+                    owner,
+                    "FREE",
+                    &v.vault_id,
+                    &format!("VAULT_SHARE:{}", v.vault_id),
+                    shares.0,
+                );
+            }
+            put(
+                &core,
+                "SUPPLY",
+                &v.vault_id,
+                &format!("VAULT_SHARE:{}", v.vault_id),
+                v.supply.0,
+            );
+        }
         for (id, s) in &self.series {
             put(&core, "SERIES_RESERVE", id, "COLLATERAL", s.reserve.0);
             put(&core, "SUPPLY", id, &format!("P:{id}"), s.outstanding_p.0);
@@ -80,7 +108,7 @@ impl Clearinghouse {
         let deltas:Vec<Value>=keys.into_iter().filter_map(|k| {
             let old=*before.get(&k).unwrap_or(&0);let new=*after.get(&k).unwrap_or(&0);
             if old==new{return None;}
-            let asset=if k.3=="COLLATERAL" {Asset::Collateral} else {let (leg,id)=k.3.split_once(':').expect("asset ID");if leg=="P" {Asset::P{series_id:id.into()}} else {Asset::N{series_id:id.into()}}};
+            let asset=if let Some(id)=k.3.strip_prefix("VAULT_SHARE:") {json!({"kind":"VAULT_SHARE","vault_id":id})} else {let a=if k.3=="COLLATERAL" {Asset::Collateral} else {let (leg,id)=k.3.split_once(':').expect("asset ID");if leg=="P" {Asset::P{series_id:id.into()}} else {Asset::N{series_id:id.into()}}};json!(a)};
             Some(json!({"account_id":k.0,"bucket":k.1,"ledger_id":k.2,"asset":asset,"direction":if new>old {"CREDIT"} else {"DEBIT"},"amount":Amount(new.abs_diff(old))}))
         }).collect();
         require!(deltas.len() <= 32, "event delta bound");
@@ -96,6 +124,24 @@ impl Clearinghouse {
         ));
     }
     fn assert_invariants(&self) {
+        if let Some(v) = &self.vault {
+            require!(
+                v.holders.values().map(|s| s.0).sum::<u128>() == v.supply.0
+                    && v.supply.0 <= MAX_SUPPLY,
+                "share conservation"
+            );
+            require!(
+                v.holders
+                    .keys()
+                    .all(|id| self.accounts.get(id).is_some_and(|a| !a.closing)),
+                "share holder registration"
+            );
+            require!(
+                v.supply.0 != 0 || v.holdings.iter().all(|l| l.amount.0 == 0),
+                "unowned vault assets"
+            );
+            require!(!v.closed || v.supply.0 == 0, "closed vault supply");
+        }
         require!(
             self.markets.len() <= MAX_ACCOUNTS
                 && self.market_storage == self.markets.len() as u128 * self.minimum_storage(),
@@ -128,7 +174,8 @@ impl Clearinghouse {
             .map(|t| t.amount.0)
             .sum();
         require!(
-            free + reserve + pending == self.collateral && self.collateral <= MAX_COLLATERAL,
+            free + self.vault_amount(&Asset::Collateral) + reserve + pending == self.collateral
+                && self.collateral <= MAX_COLLATERAL,
             "collateral conservation"
         );
         for s in self.series.values() {
@@ -138,6 +185,9 @@ impl Clearinghouse {
                     .values()
                     .map(|a| a.positions[slot].p.0)
                     .sum::<u128>()
+                    + self.vault_amount(&Asset::P {
+                        series_id: s.config.series_id.clone()
+                    })
                     == s.outstanding_p.0,
                 "P supply mismatch"
             );
@@ -146,6 +196,9 @@ impl Clearinghouse {
                     .values()
                     .map(|a| a.positions[slot].n.0)
                     .sum::<u128>()
+                    + self.vault_amount(&Asset::N {
+                        series_id: s.config.series_id.clone()
+                    })
                     == s.outstanding_n.0,
                 "N supply mismatch"
             );
@@ -191,7 +244,8 @@ impl Clearinghouse {
                 <= STORAGE_BYTES
                     * (1 + self.accounts.len() as u128
                         + self.series.len() as u128
-                        + self.markets.len() as u128),
+                        + self.markets.len() as u128
+                        + u128::from(self.vault.is_some())),
             "storage allowance exceeded"
         );
         require!(
@@ -199,6 +253,7 @@ impl Clearinghouse {
                 <= OPERATING
                     + self.series_storage
                     + self.market_storage
+                    + self.vault_storage()
                     + self.accounts.len() as u128 * self.minimum_storage(),
             "storage not separately funded"
         );

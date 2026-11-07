@@ -6,7 +6,7 @@ from jsonschema import Draft202012Validator
 SCHEMA = json.loads(Path(__file__).with_name('public-ledger.schema.json').read_text())
 MAX_U128 = 2**128 - 1
 MAX_U64 = 2**64 - 1
-UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount', 'pair_amount', 'maker_collateral'}
+UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount', 'pair_amount', 'maker_collateral', 'initial_shares'}
 UINT64_FIELDS = {'ticket_id', 'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns', 'epoch'}
 
 
@@ -40,16 +40,18 @@ def validate(data):
                     raise ValueError('u128 overflow')
                 if key in UINT64_FIELDS and not (key == 'ticket_id' and value.get('kind') == 'withdrawal') and int(child) > MAX_U64:
                     raise ValueError('u64 overflow')
-                if key in ('maker_gives', 'taker_gives', 'max_inputs', 'min_outputs'):
+                if key in ('maker_gives', 'taker_gives', 'max_inputs', 'min_outputs', 'seed'):
                     identities = [asset_key(leg['asset']) for leg in child]
                     if len(set(identities)) != len(identities):
                         raise ValueError('duplicate asset ID')
-                    if key in ('max_inputs', 'min_outputs'):
+                    if key in ('max_inputs', 'min_outputs', 'seed'):
                         if any(leg['asset']['kind'] == 'VAULT_SHARE' for leg in child):
                             raise ValueError('vault cannot hold its own or other vault shares')
                         series = {leg['asset']['series_id'] for leg in child if 'series_id' in leg['asset']}
                         if len(series) > 4:
                             raise ValueError('vault exceeds four series')
+                        if key == 'seed' and not series:
+                            raise ValueError('vault seed needs at least one claim series')
                 walk(child)
         elif isinstance(value, list):
             for child in value:

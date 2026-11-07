@@ -61,6 +61,12 @@ impl Clearinghouse {
             a.free.0 == 0 && a.no_claims() && a.retained_tickets == 0,
             "account has obligations"
         );
+        require!(
+            self.vault
+                .as_ref()
+                .is_none_or(|v| !v.holders.contains_key(&who)),
+            "account owns vault shares"
+        );
         let amount = a.storage_paid;
         if let Some(market) = self.markets.get_mut(&who) {
             market.invalidate(market.epoch.0.checked_add(1).expect("epoch overflow"));
@@ -90,6 +96,7 @@ impl Clearinghouse {
     }
     pub fn custody_snapshot(&self) -> Value {
         let free: u128 = self.accounts.values().map(|a| a.free.0).sum();
+        let vault_cash = self.vault_amount(&protocol_types::Asset::Collateral);
         let reserves: u128 = self.series.values().map(|s| s.reserve.0).sum();
         let storage: u128 = self.accounts.values().map(|a| a.storage_paid.0).sum();
         let pending: u128 = self
@@ -105,6 +112,8 @@ impl Clearinghouse {
             .map(|t| t.amount.0)
             .sum();
         let retained = free
+            + vault_cash
+            + self.vault_storage()
             + reserves
             + storage
             + self.fees
@@ -112,6 +121,6 @@ impl Clearinghouse {
             + self.market_storage
             + OPERATING;
         let native = env::account_balance().as_yoctonear();
-        json!({"native_balance":Amount(native),"free_collateral":Amount(free),"series_reserves":Amount(reserves),"refundable_storage":Amount(storage),"fees":Amount(self.fees),"series_storage_fund":Amount(self.series_storage),"market_storage_fund":Amount(self.market_storage),"operating_allocation":Amount(OPERATING),"pending_in_flight":Amount(pending),"unknown_in_flight":Amount(unknown),"tracked_user_collateral":Amount(self.collateral),"retained_categories":Amount(retained),"retained_categories_covered":native>=retained,"unallocated_or_in_flight_return":Amount(native.saturating_sub(retained)),"storage_bytes":Num64(env::storage_usage()),"storage_byte_cost":Amount(self.storage_byte_cost),"next_ticket_id":Num64(self.next_ticket),"operation_sequence":Num64(self.operation)})
+        json!({"native_balance":Amount(native),"free_collateral":Amount(free),"vault_collateral":Amount(vault_cash),"vault_storage_fund":Amount(self.vault_storage()),"series_reserves":Amount(reserves),"refundable_storage":Amount(storage),"fees":Amount(self.fees),"series_storage_fund":Amount(self.series_storage),"market_storage_fund":Amount(self.market_storage),"operating_allocation":Amount(OPERATING),"pending_in_flight":Amount(pending),"unknown_in_flight":Amount(unknown),"tracked_user_collateral":Amount(self.collateral),"retained_categories":Amount(retained),"retained_categories_covered":native>=retained,"unallocated_or_in_flight_return":Amount(native.saturating_sub(retained)),"storage_bytes":Num64(env::storage_usage()),"storage_byte_cost":Amount(self.storage_byte_cost),"next_ticket_id":Num64(self.next_ticket),"operation_sequence":Num64(self.operation)})
     }
 }

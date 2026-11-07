@@ -33,3 +33,9 @@ request-time automatic epoch cancellation on bad reference data or marked loss.
 It does not monitor a continuous feed. A no-quote response is not a successful
 cancel transaction; inspect its outcomes and the registry. The future G6
 ROLL_DEFERRED/in-kind-exit flow is still an acceptance requirement, not a G5 API.
+
+G6 VLT-01 now exposes `vault_redeem_in_kind` for the experimental Sandbox basket,
+even when vault mints/markets/deposits are paused or claims are matured pending.
+It returns actual unresolved claims without promising cash. `vault_risk` explicitly
+reports POLICY_UNSELECTED; no keeper runs. Last exit closes the vault permanently.
+There is no automatic rebootstrap, policy replacement or admin asset withdrawal.

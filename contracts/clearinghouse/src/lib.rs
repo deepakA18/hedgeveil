@@ -6,6 +6,7 @@ mod rfq;
 mod rfq_types;
 mod series;
 mod types;
+mod vault;
 mod withdrawals;
 
 use near_sdk::{env, near, require, AccountId, PanicOnDefault};
@@ -33,6 +34,7 @@ pub struct Clearinghouse {
     markets: BTreeMap<AccountId, rfq_types::MakerState>,
     market_storage: u128,
     market_paused: bool,
+    vault: Option<vault::Vault>,
 }
 #[near]
 impl Clearinghouse {
@@ -78,6 +80,7 @@ impl Clearinghouse {
             markets: BTreeMap::new(),
             market_storage: 0,
             market_paused: false,
+            vault: None,
         };
         this.finish("INITIALIZED", BTreeMap::new(), 0);
         this

@@ -85,6 +85,9 @@ def build():
         'cancel_quote': obj({'nonce': ref('uint64')}),
         'request_resolution': obj({'series_id': ref('id')}),
         'request_withdrawal': obj({'amount': ref('positive'), 'receiver': ref('account')}),
+        'create_vault': obj({'vault_id': ref('id'), 'seed': array(ref('leg'), 9), 'initial_shares': ref('positive')}),
+        'set_vault_mint_pause': obj({'paused': {'type': 'boolean'}}),
+        'transfer_vault_shares': obj({'vault_id': ref('id'), 'shares': ref('positive'), 'receiver': ref('account')}),
         'vault_mint_basket': obj({'vault_id': ref('id'), 'shares': ref('positive'), 'max_inputs': array(ref('leg'), 9)}),
         'vault_redeem_in_kind': obj({'vault_id': ref('id'), 'shares': ref('positive'), 'min_outputs': array(ref('limit'), 9)}),
     }
@@ -96,7 +99,7 @@ def build():
     event = obj({'kind': const('event'), 'schema_version': const('0.2.0'), 'domain': ref('domain'),
                  'operation_id': ref('hash256'), 'actor': ref('account'),
                  'event': {'enum': ['DEPOSIT', 'SERIES_CREATED', 'SPLIT', 'TRANSFER', 'MERGE', 'QUOTE_FILLED',
-                                    'QUOTE_CANCELLED', 'SIGNING_KEY_REGISTERED', 'SIGNING_KEY_REVOKED', 'QUOTE_EPOCH_ADVANCED', 'MARKET_PAUSE_CHANGED', 'PAIR_MATCHED', 'FINALIZED', 'REDEEMED', 'VAULT_MINTED', 'VAULT_EXITED',
+                                    'QUOTE_CANCELLED', 'SIGNING_KEY_REGISTERED', 'SIGNING_KEY_REVOKED', 'QUOTE_EPOCH_ADVANCED', 'MARKET_PAUSE_CHANGED', 'PAIR_MATCHED', 'FINALIZED', 'REDEEMED', 'VAULT_MINTED', 'VAULT_EXITED', 'VAULT_CREATED', 'VAULT_PAUSE_CHANGED', 'VAULT_SHARES_TRANSFERRED',
                                     'ROLL_EXECUTED', 'ROLL_DEFERRED', 'WITHDRAWAL_REQUESTED', 'WITHDRAWAL_SUCCEEDED',
                                     'WITHDRAWAL_FAILED_CONFIRMED', 'WITHDRAWAL_UNKNOWN', 'DUST_RELEASED', 'INITIALIZED', 'STORAGE_DEPOSIT', 'STORAGE_RELEASED', 'STORAGE_REFUND_REQUESTED', 'TICKET_CLOSED', 'PAUSE_CHANGED', 'RESOLUTION_REQUESTED', 'RESOLUTION_REJECTED']},
                  'deltas': array(obj({'account_id': ref('account'),

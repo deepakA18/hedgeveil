@@ -186,3 +186,12 @@ fee rules and bounded atomic execution before implementation. Native/P/N ledger
 units and payoff equations are unchanged. G5 is a new clearinghouse state layout
 for fresh demo deployments, not an in-place upgrade of G3/G4 state. No policy
 approval or production market readiness follows from local maker execution.
+
+## G6 basket mechanics increment (VLT-01)
+
+Before implementation, [VAULT](VAULT.md) defines one Sandbox-only, immutable
+basket-demo vault: exact seeded bootstrap, ceiling proportional inputs, floor
+in-kind exits and complete last-holder allocation. Shares use a separate internal
+ledger. There are no management/performance liabilities or keeper authority in
+this increment. G2 policy selection and VLT-02 guards remain pending; no rolling
+strategy is enabled. This changes core state layout and requires fresh accounts.

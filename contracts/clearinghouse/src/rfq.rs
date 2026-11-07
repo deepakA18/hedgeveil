@@ -334,11 +334,11 @@ impl Clearinghouse {
             );
         }
     }
-    fn debit(&self, a: &mut LedgerAccount, asset: &Asset, amount: u128) {
+    pub(crate) fn debit(&self, a: &mut LedgerAccount, asset: &Asset, amount: u128) {
         let balance = self.balance_mut(a, asset);
         balance.0 = balance.0.checked_sub(amount).expect("unfunded quote leg");
     }
-    fn credit_asset(&self, a: &mut LedgerAccount, asset: &Asset, amount: u128) {
+    pub(crate) fn credit_asset(&self, a: &mut LedgerAccount, asset: &Asset, amount: u128) {
         let balance = self.balance_mut(a, asset);
         balance.0 = balance.0.checked_add(amount).expect("balance overflow");
     }

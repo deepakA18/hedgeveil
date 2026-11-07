@@ -26,8 +26,9 @@ adds committed observations, a replayable archive, bonded challenges, historical
 fallback/adjudication, delayed settlement and bond-credit withdrawals, with real
 core import tests. The [G5 funded market](docs/MARKET.md) adds registered Ed25519
 keys, exact atomic fills, pair matching, replay/cancellation protection and two
-separate local maker processes with direct old/new rolls. The vault, full SDK,
-RFQ relay and UI are **not built yet**.
+separate local maker processes with direct old/new rolls. The [G6 basket increment](docs/VAULT.md)
+adds Sandbox-only proportional issuance, internal shares and in-kind exits. Keeper
+trading, an approved vault policy, the full SDK, RFQ relay and UI are **not built yet**.
 No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
@@ -132,13 +133,24 @@ node tests/sandbox/g3.mjs --report research/reports/g5-core-regression.json
 See [G5 results](research/reports/G5_FUNDED_MARKET.md),
 [signing codec](packages/rfq/README.md) and [maker usage](services/maker/README.md).
 The latest core requires fresh state; it has no migration from G3/G4 deployments.
-Next is G6's vault. Economic review and a passing vault policy candidate remain
-open; these local fills do not establish strategy profitability.
+G6's VLT-01 basket mechanics are implemented for Sandbox only. Economic review,
+a passing vault policy and VLT-02 keeper guards remain open; local fills do not
+establish strategy profitability. Run the basket and compatibility suites with:
+
+```sh
+python3 scripts/build-core.py
+node tests/sandbox/g6.mjs
+node tests/sandbox/g3.mjs --report research/reports/g6-core-regression.json
+node tests/sandbox/g5.mjs --report research/reports/g6-market-regression.json
+```
+
+See [G6 basket results](research/reports/G6_BASKET.md). The new state layout requires
+fresh accounts; original G3–G5 receipt reports remain historical evidence.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1, G3, G4 and G5 local harnesses are runnable.
+product modes are not yet runnable; G1, G3, G4, G5 and G6 local harnesses are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 

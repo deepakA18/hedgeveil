@@ -39,3 +39,11 @@ taker's existing free balance to the signed receiver. The local bots charge five
 basis points. Each maker received 80 NEAR collateral plus separate storage/gas
 wallet funding from Sandbox genesis; all volume is subsidized test activity.
 Reported marked P/L excludes operating/storage costs and is not economic profit.
+
+G6's [basket report](../research/reports/G6_BASKET.md) retains actual gas per
+receipt for bounded nine-asset issuance/exit and 16-holder storage coverage.
+Vault creation prepays another 4096 bytes (0.04096 NEAR at the local queried price)
+plus one yocto. This permanently allocated storage never becomes collateral or
+last-holder proceeds. Share holders use existing account registration; ordinary
+operations pay one yocto from their wallet. No management/performance fees accrue
+inside the basket. Its share cap is a local arithmetic limit, not a liquidity budget.

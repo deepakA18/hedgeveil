@@ -43,3 +43,9 @@ Historical receipt manifests are preserved, not relabeled as tests of the new
 artifact. Both maker account keys and separate RFQ keys are ephemeral and remain
 in memory; only public keys and signatures are evidence. No testnet deployment
 or production authority claim follows from these local runs.
+
+G6 VLT-01 adds optional vault state and again requires fresh core deployment.
+The contract rejects experimental vault creation in a testnet domain. Local
+G6 receipts and G3/G5 regressions are saved in new reports; historical reports
+and the empty active deployment registry are preserved. No strategy is approved
+and no keeper is enabled by this accounting increment.

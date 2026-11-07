@@ -5,6 +5,7 @@ implemented portions. CORE-01/02/03/04 now have a bounded Sandbox implementation
 FIN-02 now has a reproducible synthetic experiment with no passing rolling-policy
 candidate. ORC-01/02 now have a local G4 demo oracle/collector implementation.
 MKT-01/02 now have local G5 market/maker implementation and receipt evidence.
+VLT-01 has Sandbox basket mechanics; VLT-02 strategy/keeper remains pending.
 Other product epics remain pending. G1 fixtures are not product implementations.
 Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
@@ -34,7 +35,8 @@ G2's first comparison is in [G2 evidence](../research/reports/G2_ECONOMICS.md).
 No candidate passes its frozen training gates; G6 policy selection stays open.
 G4's local settlement evidence is in [G4 results](../research/reports/G4_SETTLEMENT.md).
 G5's local funded execution is in [G5 results](../research/reports/G5_FUNDED_MARKET.md).
-Next is G6; further economic experiments require a new holdout. Actual local fills
+G6 VLT-01 evidence is in [G6 results](../research/reports/G6_BASKET.md).
+Next is VLT-02; further economic experiments require a new holdout. Actual local fills
 do not resolve FIN-02's failed policy selection.
 
 ## Implementation epics
@@ -51,7 +53,7 @@ do not resolve FIN-02's failed policy selection.
 | ORC-02 / G4 local demo implemented | ORC-01, CORE-02 | One-way finality, immutable request binding and bond conservation | Publisher authentication; bonded proposal/challenge; historical fallback/adjudication/delay; real core callback import; credits, slashing/refunds and failed/unknown native transfers. G7 evidence UI/indexing and independent review remain | Oracle/contracts/security — pending |
 | MKT-01 / G5 — locally implemented | CORE-01/02, FIN-02 experiment; independent reviews pending | Funded exact legs/fees atomic, nonce used once | Registered keys, distinct trade/pair encodings, 256 nonce slots/epoch, revocation and unregister persistence; 29 Sandbox checks reject invalid/replayed/stale/unfunded fills and exercise both cancellation orderings. Broader concurrency/capacity and independent review pending | Market/contracts/security — pending |
 | MKT-02 / G5 — locally implemented | MKT-01, FIN-02 experiment; policy selection remains open | Maker escrow ownership, atomic direct rolls | Two separate processes, four actual maker fills, integer spreads, TTL/inventory/position/loss guards and receipt-backed epoch cancellation; synthetic marks, P/L, subsidy and no-maker outcomes published. Testnet, relay, continuous monitoring and broader depth/load evidence pending | Market/quant — pending |
-| VLT-01 / G6 | FIN-02, CORE-03, ORC-02, MKT-01 | Basket entry/exit does not dilute holders | Shares/proportional mint/in-kind exit/last-holder dust; first depositor, donation, stale marks, receiver burns and useless mint tests | Contracts/economics |
+| VLT-01 / G6 — local basket mechanics | CORE-03, ORC-02, MKT-01; FIN-02 policy/review unresolved | Basket entry/exit does not dilute holders | Immutable seed, ceil mint/floor exit, internal share transfer, last-holder allocation and closure; compiled-Wasm model/event reconciliation, donations, dust/minima, maturity/pauses and holder-capacity checks. No receiver callbacks/token interface, selected policy or testnet vault; review and RFQ convenience flows pending | Contracts/economics — pending |
 | VLT-02 / G6 | VLT-01, MKT-02, FIN-02 | Keeper policy-bound with no withdrawal authority | Four-series/fee/notional/freshness guards; no bid/stale reference yields ROLL_DEFERRED with exits; policy changes create new vault version | Quant/contracts |
 | APP-01 / G7 | CORE-02/03/04, MKT-01, VLT-01 | SDK/contract units, domain and receipt states agree | Typed SDK/wallet/recovery CLI; disconnect, ambiguous send, wrong network and repeated actions recover from chain state | Product/contracts |
 | APP-02 / G7 | APP-01, VLT-02, INF-01 | Display actual ownership/executable outcomes | User/maker UI, evidence viewer and browser lifecycle; uncertain NAV, illiquidity, unresolved settlement, synthetic prices, subsidies and keys visible | Product/QA |

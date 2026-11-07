@@ -31,6 +31,15 @@ execution, signature interoperability or an independent security review. Retaine
 maker/key limits can exhaust lifetime capacity; production reuse/migration design
 is separate. The new core passes the complete G3 payout-fault regression.
 
+G6 VLT-01 [basket evidence](../research/reports/G6_BASKET.md) covers seeded
+bootstrap, proportional rounding, complete limits, share ownership and storage,
+donation isolation, pauses, unresolved/finalized claim exits and permanent final
+closure. Managed native cash and claims participate in existing conservation
+checks; share supply is separately reconciled. There is no token callback surface
+or keeper authority yet. The profile rejects testnet vault creation and does not
+claim selected strategy safety. Independent review and combined interleaving/fuzz
+coverage remain pending.
+
 Required SEC-01 layers: unit/serialization tests; shared rational/Rust vectors;
 stateful conservation across split/transfer/trade/merge/finalize/redeem;
 compiled-Wasm Sandbox receipts; oracle/withdrawal interleaving models; bounded

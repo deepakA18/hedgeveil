@@ -1,7 +1,8 @@
-# Bounded collateral core and G5 market (Sandbox development)
+# Bounded collateral core, market and basket vault (Sandbox development)
 
 This workspace implements the public internal ledger. It does not advertise FT/MT
-standards or vault shares. G5 adds signed funded RFQs and pair matching. The root payoff crate remains authoritative
+standards. G5 adds signed funded RFQs and pair matching; G6 VLT-01 adds internal
+shares and basket entry/exit on Sandbox only. The root payoff crate remains authoritative
 for coefficient and payout arithmetic; this workspace uses the G1-tested Rust
 1.96.0 / near-sdk 5.30.1 runtime. Independent review remains pending. No public
 custody deployment is authorized by these local tests.
@@ -59,7 +60,8 @@ Implementation contract (specified before coding):
 - Storage funding bounds are checked against serialized state and actual code/state
   stake. Custody views report free/reserve/storage/fees/series-storage/operations
   separately from pending/UNKNOWN funds in flight. G5 adds permanent maker-registry
-  storage as a separate allocation. They do not add in-flight funds
+  storage and G6 adds permanent vault storage as separate allocations. Vault cash
+  is reported separately from account free collateral. They do not add in-flight funds
   to available native custody. Persistent indexing/full receipt recovery are future work.
 
 `test-fixtures/oracle` is explicitly admin-controlled and synthetic: tests set
@@ -138,6 +140,30 @@ views encode/hash only and do not authorize execution. See [MARKET](../docs/MARK
 for signing bytes, fee aliases, durable registry limits and maturity restrictions.
 
 The normalized shared-schema transaction envelope is an SDK/review intent, not an
-RPC method: send its method/args and attached deposit separately. Vault intents
-remain drafts; G5 implements native/P/N RFQs with at most four legs per side. See
+RPC method: send its method/args and attached deposit separately. G6 implements
+basket mint/exit intents; keeper and token-standard interfaces remain pending.
+G5 implements native/P/N RFQs with at most four legs per side. See
 [G3 results](../research/reports/G3_COLLATERAL_CORE.md) for evidence and limits.
+
+## G6 VLT-01 basket interface
+
+The [basket profile](../docs/VAULT.md) is experimental and rejects creation outside
+Sandbox. It requires fresh state; there is no migration from G3–G5 deployments.
+All methods below except views require one yocto; creation additionally prepays
+`vault_risk.storage_payment`. There are no management/performance fees.
+
+| Method | Parameters / authority |
+|---|---|
+| `create_vault` | `vault_id`, `seed: [{asset,amount}]`, `initial_shares`; guardian; one immutable vault |
+| `vault_mint_basket` | `vault_id`, exact `shares`, complete `max_inputs`; caller supplies its own ledger basket |
+| `vault_redeem_in_kind` | `vault_id`, `shares`, complete `min_outputs`; caller burns only its own shares |
+| `transfer_vault_shares` | `vault_id`, `shares`, registered `receiver`; caller's shares only |
+| `set_vault_mint_pause` | `paused`; guardian; affects issuance only |
+| `get_vault` | View of seed, holdings, supply, holder balances and pause/closure |
+| `vault_risk` | View of experimental profile, limits and explicit POLICY_UNSELECTED status; no NAV |
+
+Run `node tests/sandbox/g6.mjs` after `build-core.py`. Preserve earlier reports by
+running the G3/G5 regressions with `--report research/reports/g6-core-regression.json`
+and `--report research/reports/g6-market-regression.json`, respectively. The
+[G6 report](../research/reports/G6_BASKET.md) distinguishes basket accounting
+from the unimplemented VLT-02 keeper and unresolved economic selection.

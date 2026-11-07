@@ -516,6 +516,9 @@
             "cancel_quote",
             "request_resolution",
             "request_withdrawal",
+            "create_vault",
+            "set_vault_mint_pause",
+            "transfer_vault_shares",
             "vault_mint_basket",
             "vault_redeem_in_kind"
           ]
@@ -961,6 +964,84 @@
         {
           "properties": {
             "method": {
+              "const": "create_vault"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "vault_id",
+                "seed",
+                "initial_shares"
+              ],
+              "properties": {
+                "vault_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "seed": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/leg"
+                  },
+                  "minItems": 1,
+                  "maxItems": 9
+                },
+                "initial_shares": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "set_vault_mint_pause"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "paused"
+              ],
+              "properties": {
+                "paused": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "transfer_vault_shares"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "vault_id",
+                "shares",
+                "receiver"
+              ],
+              "properties": {
+                "vault_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "shares": {
+                  "$ref": "#/$defs/positive"
+                },
+                "receiver": {
+                  "$ref": "#/$defs/account"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
               "const": "vault_mint_basket"
             },
             "args": {
@@ -1072,6 +1153,9 @@
             "REDEEMED",
             "VAULT_MINTED",
             "VAULT_EXITED",
+            "VAULT_CREATED",
+            "VAULT_PAUSE_CHANGED",
+            "VAULT_SHARES_TRANSFERRED",
             "ROLL_EXECUTED",
             "ROLL_DEFERRED",
             "WITHDRAWAL_REQUESTED",
