@@ -3,6 +3,9 @@
 Status: product specification. A [G1 synthetic oracle experiment](../research/g1/README.md)
 and deterministic observation replay are implemented; the product oracle/collector
 and bond distribution are not. See plan §8 and ORC-01/02 in [BACKLOG](BACKLOG.md).
+G3's [local core tests](../research/reports/G3_COLLATERAL_CORE.md) now exercise
+private request/version/config-bound resolution import. Their admin-controlled
+oracle is an explicit failure-testing fixture, not the G4 settlement mechanism.
 
 Settlement resolves the historical observation at M. A separate current-price
 pipeline supports execution guards and reporting; it cannot overwrite settlement.

@@ -43,6 +43,9 @@ def terms():
 def transaction(method='transfer'):
     args = {
         'deposit_collateral': {}, 'create_series': {'config': terms()},
+        'storage_deposit': {}, 'release_storage_excess': {'amount': '100'}, 'unregister': {},
+        'close_ticket': {'ticket_id': '0'}, 'release_dust': {'series_id': 's1'},
+        'set_pauses': {'pauses': {'deposits': True, 'series': False, 'splits': False}},
         'split': dict(series_id='s1', amount='100'), 'merge': dict(series_id='s1', amount='100'),
         'transfer': dict(asset=leg()['asset'], amount='100', receiver='alice.testnet'),
         'redeem': dict(series_id='s1', leg='P', amount='100'), 'fill_quote': {'quote': quote()},

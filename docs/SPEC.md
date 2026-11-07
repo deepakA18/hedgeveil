@@ -2,9 +2,10 @@
 
 Status: implementation baseline pending independent review. Supersedes the
 privacy-track specification. [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md)
-is authoritative. The payoff library/reference, draft schemas and isolated
-[G1 feasibility fixtures](../research/g1/SPEC.md) exist; this is not a deployed
-product ABI or audited custody system. G1 sponsor-funded storage and fault hooks
+is authoritative. The payoff library/reference, draft schemas,
+[G1 feasibility fixtures](../research/g1/SPEC.md) and a
+[bounded G3 core](../contracts/README.md) exist; this is not an audited custody
+system or a public deployment. G1 sponsor-funded storage and fault hooks
 are experiment constraints, not amendments to this product's accounting rules.
 
 ## Product and units
@@ -147,3 +148,14 @@ signers. Testnet prominently labels DEMO ORACLE — SYNTHETIC PRICES; it uses re
 receipts and normal chain time. Paid data, API credentials and mainnet funds are
 not correctness dependencies. G9 completes the hackathon release; production
 source independence, verified payout recovery and audit remain G10 gates.
+
+## G3 implementation profile
+
+The first bounded internal-ledger implementation is specified in
+[contracts/README.md](../contracts/README.md). Its explicit storage/refund categories,
+local caps, fixed series creation fee, dust-to-fees destination, one-yocto fees,
+canonical IDs, event framing and scoped pauses refine this specification for
+Sandbox development. It reuses payoff-math without changing financial equations.
+No token conformance or independent review is implied. Storage-refund failure
+restores storage funding (not collateral), while collateral-withdrawal failure
+restores free collateral. Both use the same quarantine discipline.

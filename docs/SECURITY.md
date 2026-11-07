@@ -1,12 +1,15 @@
 # Security evidence and release gates
 
-No current custody contract is implemented, audited or verified. Read the
+The bounded collateral core is implemented and tested in local Sandbox; it is
+not independently audited or formally verified. Read the
 [threat model](THREAT_MODEL.md) and [accounting assumptions](../verification/assumptions.md).
 Arithmetic and schema tests cover only their stated scopes. G1 additionally runs
 compiled-Wasm callback/receiver/oracle fault cases in Sandbox, with bounds and
 remaining gaps in [the G1 report](../research/reports/G1_PUBLIC_LEDGER.md). Fixture
 test issuance, sponsored storage and fault-only entry points must not be promoted
-to the product contracts.
+to the product contracts. G3 uses user-funded storage, a separate operating
+allocation and a distinct normal artifact; its stateful, event-replay and callback
+evidence is in [the G3 report](../research/reports/G3_COLLATERAL_CORE.md).
 
 Required SEC-01 layers: unit/serialization tests; shared rational/Rust vectors;
 stateful conservation across split/transfer/trade/merge/finalize/redeem;

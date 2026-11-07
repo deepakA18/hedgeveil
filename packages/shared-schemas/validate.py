@@ -7,7 +7,7 @@ SCHEMA = json.loads(Path(__file__).with_name('public-ledger.schema.json').read_t
 MAX_U128 = 2**128 - 1
 MAX_U64 = 2**64 - 1
 UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount'}
-UINT64_FIELDS = {'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns'}
+UINT64_FIELDS = {'ticket_id', 'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns'}
 
 
 def loads_strict(raw):
@@ -38,7 +38,7 @@ def validate(data):
             for key, child in value.items():
                 if key in UINT128_FIELDS and int(child) > MAX_U128:
                     raise ValueError('u128 overflow')
-                if key in UINT64_FIELDS and int(child) > MAX_U64:
+                if key in UINT64_FIELDS and not (key == 'ticket_id' and value.get('kind') == 'withdrawal') and int(child) > MAX_U64:
                     raise ValueError('u64 overflow')
                 if key in ('maker_gives', 'taker_gives', 'max_inputs', 'min_outputs'):
                     identities = [asset_key(leg['asset']) for leg in child]

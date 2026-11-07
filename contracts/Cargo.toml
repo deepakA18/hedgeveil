@@ -1,0 +1,12 @@
+[workspace]
+members = ["clearinghouse", "test-fixtures/oracle", "test-fixtures/account", "../crates/protocol-types"]
+resolver = "2"
+[workspace.dependencies]
+near-sdk = "=5.30.1"
+protocol-types = { path = "../crates/protocol-types" }
+[profile.release]
+overflow-checks = true
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"

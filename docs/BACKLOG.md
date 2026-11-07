@@ -1,8 +1,9 @@
 # Open Innovation backlog
 
 Updated 7 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
-implemented portions. Product epics remain pending; G1 fixtures are not product
-implementations. Reviewer roles must be assigned and do not constitute
+implemented portions. CORE-01/02/03/04 now have a bounded Sandbox implementation;
+other product epics remain pending. G1 fixtures are not product implementations.
+Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
 
 ## Immediate feasibility (G1)
@@ -24,8 +25,9 @@ flows/collector left to G4. G1-PAYOUT demonstrates success, restoration and UNKN
 quarantine, including callback panic/gas exhaustion; production verified recovery
 remains unimplemented. Independent G0 review is still pending.
 
-Finish those gate decisions, then implement G3 in Sandbox. G2 can
-proceed alongside core work; final vault policy depends on its results.
+The internal-ledger fallback is now implemented in G3; this does not close the
+independent-review or wallet/indexer gates. See [G3 evidence](../research/reports/G3_COLLATERAL_CORE.md).
+G2 can proceed alongside G4 settlement; final vault policy depends on its results.
 
 ## Implementation epics
 
@@ -33,10 +35,10 @@ proceed alongside core work; final vault policy depends on its results.
 |---|---|---|---|---|
 | FIN-01 / G0–G2 — partial | G0 | Complementarity, bounded payouts, explicit units | Retained rational/Rust code and 565 vectors; independent dimensional/fee/rounding review and limits; reject bad strike/units/overflow | Economics/protocol |
 | FIN-02 / G2 | FIN-01 | Executable economics distinct from solvency | Seeded liquidity/capital model and four-policy held-out comparison; crash/no bids/delay/maker exit/disagreement and losing cases published | Quant/economics |
-| CORE-01 / G3 | G0, G1-RUNTIME | Collateral/storage/operations/fees/in-flight categories isolated | Custody/storage ledger and reconciliation; registration, spam, wrong asset, donations and insufficient storage tests | Contracts/security |
-| CORE-02 / G3 | CORE-01, G1-TOKEN, FIN-01 | Exact backed pairs, immutable terms, series isolation | Public series/P/N, split/transfer/merge; caps, duplicate IDs, cutoff by block time, unauthorized debits and partial batch rollback | Contracts/protocol |
-| CORE-03 / G3–G4 | CORE-02, FIN-01; ORC-02 for live imports | Rounded payouts bounded by reserves; claims burn once | Mock settlement initially; finalized payout accounting, zero-payout burns, fragmented redemption, late merge and premature dust-sweep rejection | Contracts/economics |
-| CORE-04 / G3, G10 recovery | CORE-01, G1-PAYOUT | Debit first, confirmed restoration once | Tickets/private callbacks/quarantine and recovery CLI; success then callback failure and duplicate results; reviewed production recovery separately | Contracts/security |
+| CORE-01 / G3 — locally implemented | G0 review pending, G1-RUNTIME | Collateral/storage/operations/fees/in-flight categories isolated | Bounded custody/storage ledger, excess release and registration refund, donation/cap failures and full event replay; independent review/production limits pending | Contracts/security |
+| CORE-02 / G3 — locally implemented | CORE-01, internal-ledger fallback, FIN-01 | Exact backed pairs, immutable terms, series isolation | Public series/P/N split/transfer/merge, caps/cutoffs/permissions and seeded stateful comparison; no token callback/standards surface | Contracts/protocol |
+| CORE-03 / G3–G4 — local core implemented | CORE-02, FIN-01; ORC-02 for product oracle | Rounded payouts bounded by reserves; claims burn once | Fixture-backed authenticated import, zero-payout burns, fragmentation, late-merge/dust-sweep rejection; G4 must replace the oracle fixture | Contracts/economics |
+| CORE-04 / G3, G10 — local tickets implemented | CORE-01, G1-PAYOUT | Debit first, confirmed restoration once | Collateral/storage-refund tickets, private callbacks, quarantine and cleanup; success-then-callback-failure and duplicate results; CLI and reviewed production recovery pending | Contracts/security |
 | ORC-01 / G4, G10 sources | G0, G1-ORACLE | Historical M, fixed units/window | Synthetic collector/evidence hashes/restart replay; missing/inverse/stale/zero failures; independent production sources/retention later | Oracle/data |
 | ORC-02 / G4 | ORC-01, CORE-02 | One-way finality, immutable request binding | Versioned proposal/challenge/finality; equivocation, wrong-series/forged callbacks and arbitrator timeout; delay on total failure | Oracle/contracts/security |
 | MKT-01 / G5 | FIN-02, CORE-01/02 | Funded exact legs/fees atomic, nonce used once | Registered keys, domain-separated encoding, fills/cancellation; replay/revocation/stale/reused inventory/cancellation races rejected | Market/contracts/security |

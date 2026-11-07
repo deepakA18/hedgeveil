@@ -1,0 +1,16 @@
+[package]
+name = "hedgeveil-clearinghouse"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+publish = false
+[lib]
+crate-type = ["cdylib"]
+test = false
+doctest = false
+[dependencies]
+near-sdk.workspace = true
+protocol-types.workspace = true
+payoff-math = { path = "../../crates/payoff-math" }
+[features]
+fault-injection = []

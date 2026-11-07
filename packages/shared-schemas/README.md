@@ -43,3 +43,14 @@ outcomes and predecessor authorization must be checked by contracts. Passing thi
 offline validator never authorizes a debit, finalizes a price or verifies a payout.
 Receipt IDs are checked for base58 shape only; the eventual SDK must decode and
 correlate actual receipt IDs and results rather than trusting this field.
+
+G3 adds six internal-ledger client intents (storage deposit/release/unregister,
+ticket cleanup, dust release, scoped pause) and their event types. SUPPLY is a
+separate mirror of issued P/N, not another owned balance; OPERATING identifies the
+bootstrap allocation. Actual G3 events are validated against this schema by the
+Sandbox runner. The normalized withdrawal record above is not the raw core ticket
+view: core ticket IDs are decimal u64 strings, receipt correlation comes from
+recorded execution outcomes, and closing a terminal ticket removes its state.
+The implemented ABI and cap rules are documented in `contracts/README.md`;
+protocol-types strictly decodes canonical decimal strings. Future quote/vault
+intents remain drafts and are not exposed by the G3 core.

@@ -383,6 +383,12 @@
         "method": {
           "enum": [
             "deposit_collateral",
+            "storage_deposit",
+            "release_storage_excess",
+            "unregister",
+            "close_ticket",
+            "release_dust",
+            "set_pauses",
             "create_series",
             "split",
             "merge",
@@ -411,6 +417,125 @@
               "additionalProperties": false,
               "required": [],
               "properties": {}
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "storage_deposit"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {}
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "release_storage_excess"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "amount": {
+                  "$ref": "#/$defs/positive"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "unregister"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {}
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "close_ticket"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "ticket_id"
+              ],
+              "properties": {
+                "ticket_id": {
+                  "$ref": "#/$defs/uint64"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "release_dust"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "series_id"
+              ],
+              "properties": {
+                "series_id": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "set_pauses"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pauses"
+              ],
+              "properties": {
+                "pauses": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "deposits",
+                    "series",
+                    "splits"
+                  ],
+                  "properties": {
+                    "deposits": {
+                      "type": "boolean"
+                    },
+                    "series": {
+                      "type": "boolean"
+                    },
+                    "splits": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
             }
           }
         },
@@ -731,7 +856,15 @@
             "WITHDRAWAL_SUCCEEDED",
             "WITHDRAWAL_FAILED_CONFIRMED",
             "WITHDRAWAL_UNKNOWN",
-            "DUST_RELEASED"
+            "DUST_RELEASED",
+            "INITIALIZED",
+            "STORAGE_DEPOSIT",
+            "STORAGE_RELEASED",
+            "STORAGE_REFUND_REQUESTED",
+            "TICKET_CLOSED",
+            "PAUSE_CHANGED",
+            "RESOLUTION_REQUESTED",
+            "RESOLUTION_REJECTED"
           ]
         },
         "deltas": {
@@ -760,7 +893,9 @@
                   "FEE",
                   "BOND",
                   "STORAGE",
-                  "WITHDRAWAL"
+                  "WITHDRAWAL",
+                  "SUPPLY",
+                  "OPERATING"
                 ]
               },
               "ledger_id": {

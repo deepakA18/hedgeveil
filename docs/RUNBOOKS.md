@@ -1,12 +1,14 @@
 # Recovery and operations requirements
 
-Status: future runbook acceptance requirements; no operational recovery CLI exists.
-Use these cases to implement and test CORE-04, INF-01, DEM-01 and REL-02.
+Status: operational runbook acceptance requirements; no recovery CLI exists yet.
+G3 implements local collateral/storage-refund tickets and their callback/quarantine
+paths; use these cases to extend CORE-04, INF-01, DEM-01 and REL-02.
 
 | Incident | Required behavior | Evidence before closing |
 |---|---|---|
 | Ambiguous transaction submission | Query authoritative operation/ticket state; no blind repeat of money movement | Final receipt correlation or visible unresolved state |
 | Confirmed payout failure | Restore original owner's free balance once via authenticated outcome | Ticket/receipt, one restoration event and custody reconciliation |
+| Confirmed storage-refund failure | Restore original storage funding, clear closing flag and retain failed ticket for owner cleanup | Storage remains outside collateral; recreate a deleted account only under its legitimate account authority |
 | Unknown payout / failed callback | Quarantine; no timeout refund/resend; display and alert | Reviewed authenticated recovery result; unresolved remains locked |
 | Lost collector/source | Replay committed demo history; apply fixed fallback then delayed resolution | Same historical window/config/hash, never substituted spot |
 | Dispute/arbitrator outage | Follow precommitted deadline/fallback; retain delayed status if unresolved | Public evidence and finality record, or explicit outstanding risk |

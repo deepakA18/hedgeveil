@@ -1,0 +1,11 @@
+[package]
+name = "protocol-types"
+version = "0.1.0"
+edition = "2021"
+workspace = "../../contracts"
+publish = false
+[lib]
+test = false
+doctest = false
+[dependencies]
+near-sdk.workspace = true

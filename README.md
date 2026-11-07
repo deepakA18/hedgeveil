@@ -14,10 +14,12 @@ in the plan; this project implements and evaluates it on NEAR.
 The Python rational reference, checked Rust payoff library, 565 differential
 vectors, and validation tests are implemented. [G1 Sandbox experiments](research/g1/README.md)
 exercise native receipts, a synthetic-oracle lifecycle, and FT/MT namespace and
-resolver behavior. These are isolated feasibility fixtures. The public clearinghouse,
-settlement oracle, funded market, vault, SDK and UI are **not built yet**. No
-current product contract is deployed. Do not treat arithmetic tests as contract
-safety evidence or the future release checklist as completed work.
+resolver behavior. A [bounded G3 clearinghouse](contracts/README.md) now implements
+the public internal ledger: separately funded storage, deposits, immutable series,
+P/N split/transfer/merge, authenticated resolution import, rounded redemption,
+dust accounting and withdrawal tickets. It is tested locally with an explicitly
+synthetic oracle fixture. The G4 oracle, funded market, vault, SDK and UI are
+**not built yet**. No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
 [the historical archive](archive/privacy-track/README.md), excluded from active
@@ -57,10 +59,11 @@ configuration; existing local secrets are not read by the active checks.
 
 [STATUS.md](docs/STATUS.md) distinguishes implemented, pending and superseded work.
 [BACKLOG.md](docs/BACKLOG.md) gives dependencies and acceptance evidence for every
-epic. [G1 evidence and limits](research/reports/G1_PUBLIC_LEDGER.md) records the
-local results. Finish independent specification review and the remaining token/
-wallet/indexer compatibility decisions before treating G1 as complete, then build
-the G3 collateral core. Run the new experiments with:
+epic. [G1 evidence](research/reports/G1_PUBLIC_LEDGER.md) and
+[G3 evidence](research/reports/G3_COLLATERAL_CORE.md) record the local results and
+remaining limits. Internal-ledger development proceeds under the plan's fallback;
+full token/wallet compatibility and independent review remain open gates.
+Run the G1 experiments with:
 
 ```sh
 npm ci --prefix tests/sandbox --ignore-scripts
@@ -72,10 +75,22 @@ G1 uses an isolated Rust 1.96.0 toolchain and requires Node 22.22.2+; see its
 [setup instructions](research/g1/README.md). First use downloads dependencies and
 the pinned Sandbox binary. No API credentials or public-chain account are needed.
 
+Run the G3 core lifecycle, stateful accounting and fault tests with:
+
+```sh
+python3 scripts/build-core.py
+node tests/sandbox/g3.mjs
+```
+
+The core uses the same pinned local runtime. Its separate Cargo workspace is under
+`contracts/`; the shared wire types are in `crates/protocol-types`. See
+[contracts/README.md](contracts/README.md) for build, lint, ABI and local-limit details.
+Next are G2 liquidity/stress/policy experiments and G4's product settlement oracle.
+
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; the G1 local harness is runnable.
+product modes are not yet runnable; G1 and G3 local harnesses are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 
