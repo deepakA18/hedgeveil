@@ -159,3 +159,12 @@ Sandbox development. It reuses payoff-math without changing financial equations.
 No token conformance or independent review is implied. Storage-refund failure
 restores storage funding (not collateral), while collateral-withdrawal failure
 restores free collateral. Both use the same quarantine discipline.
+
+## G2 research profile
+
+The offline economic simulation is specified in
+[the frozen experiment protocol](../research/policy-comparison/PROTOCOL.md).
+It preserves these payoff units and rounding rules. Diagnostic model prices are
+quantized before integer ledger execution; they are synthetic quote inputs, never
+chain prices or observed market liquidity. Research policy parameters, simulated
+fees and benchmark debt are not changes to the contract or approved vault terms.

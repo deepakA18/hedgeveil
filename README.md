@@ -12,7 +12,10 @@ in the plan; this project implements and evaluates it on NEAR.
 ## Current implementation
 
 The Python rational reference, checked Rust payoff library, 565 differential
-vectors, and validation tests are implemented. [G1 Sandbox experiments](research/g1/README.md)
+vectors, and validation tests are implemented. [G2 economics experiments](research/reports/G2_ECONOMICS.md)
+add finite maker funding, four policy families, synthetic stress and held-out
+comparisons. No rolling policy passes the frozen training gates, so vault policy
+selection remains open. [G1 Sandbox experiments](research/g1/README.md)
 exercise native receipts, a synthetic-oracle lifecycle, and FT/MT namespace and
 resolver behavior. A [bounded G3 clearinghouse](contracts/README.md) now implements
 the public internal ledger: separately funded storage, deposits, immutable series,
@@ -52,6 +55,20 @@ python3 packages/shared-schemas/build_schema.py --check
 ```
 
 Or use `uv run --with jsonschema==4.23.0 python -m unittest discover -s tests/schemas -v`.
+Run the G2 economics suite with Python 3.9+ (standard library only):
+
+```sh
+python3 -m unittest discover -s tests/economics -v
+python3 research/scenarios/generate.py --check
+python3 research/policy-comparison/run.py --check
+```
+
+The final command reruns all 9,180 strategy cases and checks the committed results.
+To regenerate after an intentional change, omit `--check` and review the evidence.
+Change frozen assumptions only in a new experiment version with new held-out
+seeds. These are synthetic simulations, not transaction receipts or market data.
+See [experiment protocol](research/policy-comparison/PROTOCOL.md).
+
 No `.env` is needed for these checks. `.env.example` describes future local/demo
 configuration; existing local secrets are not read by the active checks.
 
@@ -85,7 +102,8 @@ node tests/sandbox/g3.mjs
 The core uses the same pinned local runtime. Its separate Cargo workspace is under
 `contracts/`; the shared wire types are in `crates/protocol-types`. See
 [contracts/README.md](contracts/README.md) for build, lint, ABI and local-limit details.
-Next are G2 liquidity/stress/policy experiments and G4's product settlement oracle.
+Next is G4's product settlement oracle. G2's first experiment is implemented;
+economic review and a passing policy candidate remain open.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose

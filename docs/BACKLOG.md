@@ -2,7 +2,8 @@
 
 Updated 7 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
 implemented portions. CORE-01/02/03/04 now have a bounded Sandbox implementation;
-other product epics remain pending. G1 fixtures are not product implementations.
+FIN-02 now has a reproducible synthetic experiment with no passing rolling-policy
+candidate. Other product epics remain pending. G1 fixtures are not product implementations.
 Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
 
@@ -27,14 +28,16 @@ remains unimplemented. Independent G0 review is still pending.
 
 The internal-ledger fallback is now implemented in G3; this does not close the
 independent-review or wallet/indexer gates. See [G3 evidence](../research/reports/G3_COLLATERAL_CORE.md).
-G2 can proceed alongside G4 settlement; final vault policy depends on its results.
+G2's first comparison is in [G2 evidence](../research/reports/G2_ECONOMICS.md).
+No candidate passes its frozen training gates; G6 policy selection stays open.
+Next implement G4 settlement; further economic experiments require a new holdout.
 
 ## Implementation epics
 
 | Epic / gate | Dependencies | Invariant | Failure path / completion artifact | Reviewer |
 |---|---|---|---|---|
 | FIN-01 / G0–G2 — partial | G0 | Complementarity, bounded payouts, explicit units | Retained rational/Rust code and 565 vectors; independent dimensional/fee/rounding review and limits; reject bad strike/units/overflow | Economics/protocol |
-| FIN-02 / G2 | FIN-01 | Executable economics distinct from solvency | Seeded liquidity/capital model and four-policy held-out comparison; crash/no bids/delay/maker exit/disagreement and losing cases published | Quant/economics |
+| FIN-02 / G2 — local experiment implemented; selection failed | FIN-01; independent G0/economics review pending | Funded simulation conserves collateral; executable outcomes distinct from marks/solvency | 9,180 strategy runs, 612 benchmarks, four policy families, frozen train/holdout seeds and published crash/no-bid/delay/maker-exit/disagreement losses; no passing candidate; actual G5 maker validation and broader reviewed assumptions remain | Quant/economics — pending |
 | CORE-01 / G3 — locally implemented | G0 review pending, G1-RUNTIME | Collateral/storage/operations/fees/in-flight categories isolated | Bounded custody/storage ledger, excess release and registration refund, donation/cap failures and full event replay; independent review/production limits pending | Contracts/security |
 | CORE-02 / G3 — locally implemented | CORE-01, internal-ledger fallback, FIN-01 | Exact backed pairs, immutable terms, series isolation | Public series/P/N split/transfer/merge, caps/cutoffs/permissions and seeded stateful comparison; no token callback/standards surface | Contracts/protocol |
 | CORE-03 / G3–G4 — local core implemented | CORE-02, FIN-01; ORC-02 for product oracle | Rounded payouts bounded by reserves; claims burn once | Fixture-backed authenticated import, zero-payout burns, fragmentation, late-merge/dust-sweep rejection; G4 must replace the oracle fixture | Contracts/economics |
