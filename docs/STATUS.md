@@ -10,7 +10,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G1 feasibility — partial | Pinned local Wasm/Sandbox harness, FT/MT resolver experiments, synthetic oracle lifecycle and real payout callback faults | Independent G0 review, complete token conformance/wallet/indexer decision and testnet measurements; production recovery/source limits remain separate |
 | G2 economics — local experiment implemented | Rational/Rust payoff agreement; 9,180 synthetic strategy runs, four policy families, finite makers, 612 benchmark runs, held-out results and failure envelope | No rolling candidate passes frozen training gates; independent review, broader market assumptions and G5 execution validation; vault policy unselected |
 | G3 collateral core — local implementation | Bounded public ledger, separate storage/refunds, immutable series/P/N, split/transfer/merge, rounded redemption/dust, scoped pauses, native tickets, canonical events and compiled-Wasm tests | Independent review, broader adversarial/load coverage, production key/recovery controls; full SDK/CLI remains G7 |
-| G4 settlement | G1 synthetic lifecycle; G3 request/version/config-bound import exercised with a clearly labelled oracle fixture | Product oracle/collector, bond release/slashing, full failure hierarchy and evidence UI |
+| G4 settlement — local demo implementation | Committed synthetic archive/replay, authenticated publishers, bonded proposals/challenges, fallback/arbitration/delay, immutable resolution import and bond-credit custody | Independent review, broader timing/load/interleaving coverage, G7 evidence UI/indexing; production historical sources and economic bond sizing remain G10 |
 | G5 market | Draft quote schema only | Registered signing keys, funded fills, nonce/cancellation handling, two makers and direct rolls |
 | G6 vault | Proportional basket/exit specification only | Shares, bounded keeper, last-holder rounding, no-bid/stale-reference exits and policy selection |
 | G7 application | Not implemented | SDK, wallet/UI, indexer, recovery CLI and working local/testnet modes |
@@ -33,6 +33,11 @@ settlement, permanent resolution loss, future-data independence, depth/capital
 limits, metrics and training-only selection. Eighty-one analytic/binomial pricing
 cross-checks accompany the synthetic experiment. See [G2 report](../research/reports/G2_ECONOMICS.md).
 
+G4 adds six collector/schema test groups and 38 compiled-Wasm checks with 174
+recorded transactions and 151 validated oracle events. Its normal clearinghouse
+artifact is byte-identical to G3. See [G4 evidence](../research/reports/G4_SETTLEMENT.md)
+for sample/capacity coverage, costs and remaining review limits.
+
 Commands are in [README](../README.md). The [G1 report](../research/reports/G1_PUBLIC_LEDGER.md)
 and [G3 report](../research/reports/G3_COLLATERAL_CORE.md) link source-hashed
 receipt evidence. The core reuses the unchanged payoff library. Normal and
@@ -46,7 +51,9 @@ of the earlier migration, not the latest implementation status.
 The documented internal-ledger fallback is the current interface decision; no
 standards conformance is claimed. G0 independent review and G1 integration gaps
 remain open, so local G3 implementation does not imply those gates passed.
-Next advance ORC-01/02/G4 product settlement in [BACKLOG](BACKLOG.md). FIN-02's
+Next advance MKT-01/02/G5 funded RFQs and maker execution in [BACKLOG](BACKLOG.md).
+G4's demo lifecycle and collector are local implementations; see the
+[G4 report](../research/reports/G4_SETTLEMENT.md). FIN-02's
 first synthetic experiment is reproducible but selects no passing rolling policy;
 revising economic assumptions requires a new experiment/holdout and review. Production
 oracle sourcing and verified payout recovery remain separate from testnet.

@@ -21,8 +21,11 @@ resolver behavior. A [bounded G3 clearinghouse](contracts/README.md) now impleme
 the public internal ledger: separately funded storage, deposits, immutable series,
 P/N split/transfer/merge, authenticated resolution import, rounded redemption,
 dust accounting and withdrawal tickets. It is tested locally with an explicitly
-synthetic oracle fixture. The G4 oracle, funded market, vault, SDK and UI are
-**not built yet**. No public product contract is deployed or independently reviewed.
+synthetic oracle fixture. The [G4 demo oracle](contracts/settlement-oracle/README.md)
+adds committed observations, a replayable archive, bonded challenges, historical
+fallback/adjudication, delayed settlement and bond-credit withdrawals, with real
+core import tests. The funded market, vault, SDK and UI are **not built yet**.
+No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
 [the historical archive](archive/privacy-track/README.md), excluded from active
@@ -102,13 +105,24 @@ node tests/sandbox/g3.mjs
 The core uses the same pinned local runtime. Its separate Cargo workspace is under
 `contracts/`; the shared wire types are in `crates/protocol-types`. See
 [contracts/README.md](contracts/README.md) for build, lint, ABI and local-limit details.
-Next is G4's product settlement oracle. G2's first experiment is implemented;
-economic review and a passing policy candidate remain open.
+Run the G4 committed-observation lifecycle and bond fault checks with:
+
+```sh
+python3 scripts/build-oracle.py
+node tests/sandbox/g4.mjs
+UV_CACHE_DIR=/private/tmp/hedgeveil-uv-cache uv run --with jsonschema==4.23.0 python -m unittest discover -s tests/oracle -v
+```
+
+See [G4 results](research/reports/G4_SETTLEMENT.md) and
+[collector usage](services/observation-collector/README.md). All data and source
+accounts are disclosed synthetic demo inputs, not independent market sources.
+Next is G5's funded RFQ market and maker execution. Economic review and a passing
+vault policy candidate remain open.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1 and G3 local harnesses are runnable.
+product modes are not yet runnable; G1, G3 and G4 local harnesses are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 

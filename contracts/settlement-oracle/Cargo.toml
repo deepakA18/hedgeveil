@@ -1,0 +1,15 @@
+[package]
+name = "hedgeveil-settlement-oracle"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+publish = false
+[lib]
+crate-type = ["cdylib"]
+test = false
+doctest = false
+[dependencies]
+near-sdk.workspace = true
+protocol-types.workspace = true
+[features]
+fault-injection = []

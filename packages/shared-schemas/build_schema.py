@@ -128,3 +128,5 @@ if __name__ == '__main__':
         print('Public-ledger schema is reproducible.')
     else:
         DESTINATION.write_text(content)
+    from build_oracle_schema import write as write_oracle
+    write_oracle(args.check)

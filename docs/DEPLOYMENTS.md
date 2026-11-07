@@ -1,8 +1,8 @@
 # Deployment records
 
 There are **no active Open Innovation deployments**. `deploy/deployments.json`
-is the empty active registry. G1/G3 create temporary local Sandbox deployments,
-records receipts/artifact hashes and removes the node after each run; these are
+is the empty active registry. G1/G3/G4 create temporary local Sandbox deployments,
+record receipts/artifact hashes and remove the node after each run; these are
 not persistent testnet/product deployments. Example configs are disabled planning templates;
 no deployment loader or contract currently consumes them. Mainnet stays disabled.
 
@@ -12,8 +12,8 @@ Wasm must never be used as the current clearinghouse, oracle or token deployment
 No chain state or access key was changed by this repository reconciliation.
 
 G1 pins its local SDK/Sandbox/client/toolchain in `research/g1` and
-`tests/sandbox`; `contracts` pins the same SDK/toolchain for the G3 core. The G3
-runner queries storage byte cost from the node and pins it in initialization.
+`tests/sandbox`; `contracts` pins the same SDK/toolchain for the G3 core and G4
+oracle. Their runners query storage byte cost from the node and pin it in initialization.
 The normal core has no upgrade method; raw full-access deployment authority still
 exists in Sandbox and is not constrained by contract-level pause flags. Each later public release
 record must include network and contract identities, source commit, compiler and
@@ -27,3 +27,10 @@ Testnet may retain disclosed upgrade keys; block upgrades with unsettled
 operations. A missing upgrade method is not evidence of immutability: audit the
 actual full-access/deploy/delete/transfer authority before a production claim.
 New core versions require opt-in migration and preserve active series terms.
+
+The G4 oracle is a separate contract using `demo-v1` and predetermined synthetic
+observations. Its registrar, six publisher accounts and adjudicator are local test
+roles under one operator. There is no production historical-source deployment.
+The G4 workspace lock change adds only the new oracle package; the clearinghouse
+Wasm is identical to the G3 artifact. Original G3 source manifests remain evidence
+for their recorded revision; G4 records the updated workspace manifest separately.

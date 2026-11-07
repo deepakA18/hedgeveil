@@ -22,3 +22,9 @@ publish measured lifecycle costs and subsidy sources. Storage/operations never
 silently consume promised collateral. Fixed fees must be explicit; defer
 performance fees until independent valuation/high-water-mark review. User-paid
 keeper/oracle costs need disclosed hard maxima before implementation.
+
+G4's [oracle report](../research/reports/G4_SETTLEMENT.md) measures local receipt
+gas and storage. The oracle retains prepaid account/series storage separately
+from refundable/slashable proposal bonds and withdrawable credits. A separate
+20-NEAR bootstrap allocation covers code/operations. Its fixed 0.1-NEAR demo
+bonds are test parameters, not an economic-security budget for production TVL.

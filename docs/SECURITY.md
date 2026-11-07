@@ -11,6 +11,15 @@ to the product contracts. G3 uses user-funded storage, a separate operating
 allocation and a distinct normal artifact; its stateful, event-replay and callback
 evidence is in [the G3 report](../research/reports/G3_COLLATERAL_CORE.md).
 
+G4 adds a bounded synthetic settlement contract and independent archive replay.
+Its [evidence](../research/reports/G4_SETTLEMENT.md) covers committed publisher
+authorization, historical aggregation, disputes, deadlines, bond conservation and
+real credit-transfer faults. File hashes authenticate the selected data, not its
+truth. All publishers/arbitrators remain test roles under one operator; future
+production data independence, economic security and exact release review remain
+open. G4 events currently carry aggregate bond totals and state commitments;
+G7 still needs per-account indexing/reconciliation and an evidence UI.
+
 Required SEC-01 layers: unit/serialization tests; shared rational/Rust vectors;
 stateful conservation across split/transfer/trade/merge/finalize/redeem;
 compiled-Wasm Sandbox receipts; oracle/withdrawal interleaving models; bounded

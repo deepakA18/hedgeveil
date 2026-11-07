@@ -1,11 +1,13 @@
 # Settlement and demo oracle
 
-Status: product specification. A [G1 synthetic oracle experiment](../research/g1/README.md)
-and deterministic observation replay are implemented; the product oracle/collector
-and bond distribution are not. See plan §8 and ORC-01/02 in [BACKLOG](BACKLOG.md).
-G3's [local core tests](../research/reports/G3_COLLATERAL_CORE.md) now exercise
-private request/version/config-bound resolution import. Their admin-controlled
-oracle is an explicit failure-testing fixture, not the G4 settlement mechanism.
+Status: a [bounded G4 demo oracle](../contracts/settlement-oracle/README.md) and
+[synthetic archive/replay collector](../services/observation-collector/README.md)
+are implemented locally. The lifecycle includes committed publishers, bonded
+proposals/challenges, fallback/adjudication, immutable finality, delayed resolution
+and credit withdrawals. See [G4 evidence](../research/reports/G4_SETTLEMENT.md),
+plan §8 and ORC-01/02 in [BACKLOG](BACKLOG.md). Independent review, production
+historical sources and G7's evidence UI remain pending. The old G1/G3 oracle
+fixtures remain distinct historical/failure-testing artifacts.
 
 Settlement resolves the historical observation at M. A separate current-price
 pipeline supports execution guards and reporting; it cannot overwrite settlement.
@@ -40,3 +42,18 @@ G10 separately requires independent historical-source coverage/retention,
 adjudicator independence, aggregate shared-oracle exposure caps and economic
 security review. No vendor is selected. The plan's candidate five-minute window,
 three sources and 24-hour challenge are research parameters, not approved defaults.
+
+G4 pins `demo-v1`: twelve uniform 10-second samples per source in the committed
+fixture, three publisher accounts per primary/fallback group, integer source mean
+then median, and strict missing/zero/correction rejection. All six accounts and
+the adjudicator are test roles under one operator. Per-series hashes commit source
+records, units/window, publishers, bonds and deadlines before the window starts.
+The SDK's JSON order preservation is handled with explicit recursive key sorting
+so the independent Python collector and Rust agree on commitment bytes.
+
+No observed market price, current-price pipeline or production source is supplied
+by this tool. Arbitrators can choose only a verified committed group; they cannot
+type a replacement settlement price. This profile makes RESOLUTION_DELAYED
+terminal after all deadlines; it does not silently reopen a case. In that outcome,
+both parties recover their own posted bonds as credits while single-leg core
+claims remain unresolved. Unknown native credit withdrawals remain quarantined.

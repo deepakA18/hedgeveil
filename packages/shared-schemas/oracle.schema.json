@@ -1,0 +1,430 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hedgeveil.invalid/oracle-v1.schema.json",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/evidence"
+    },
+    {
+      "$ref": "#/$defs/registration"
+    },
+    {
+      "$ref": "#/$defs/event"
+    }
+  ],
+  "$defs": {
+    "uint128": {
+      "type": "string",
+      "maxLength": 39,
+      "pattern": "^(0|[1-9][0-9]{0,38})(?![\\s\\S])"
+    },
+    "uint64": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^(0|[1-9][0-9]{0,19})(?![\\s\\S])"
+    },
+    "positive": {
+      "type": "string",
+      "maxLength": 39,
+      "pattern": "^[1-9][0-9]{0,38}(?![\\s\\S])"
+    },
+    "account": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:[-_][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "hash256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "series_terms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "series_id",
+        "version",
+        "collateral_kind",
+        "index_definition_hash",
+        "payoff_kind",
+        "strike",
+        "price_scale",
+        "maturity_ns",
+        "mint_cutoff_ns",
+        "observation_window",
+        "oracle_account_id",
+        "oracle_version",
+        "oracle_config_hash",
+        "finalization_policy_hash",
+        "max_supply"
+      ],
+      "properties": {
+        "series_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "const": "1"
+        },
+        "collateral_kind": {
+          "const": "NATIVE_NEAR"
+        },
+        "index_definition_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "payoff_kind": {
+          "const": "CAPPED_USD_COMPLEMENT"
+        },
+        "strike": {
+          "$ref": "#/$defs/positive"
+        },
+        "price_scale": {
+          "const": "1000000000000"
+        },
+        "maturity_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "mint_cutoff_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "observation_window": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start_ns",
+            "end_ns"
+          ],
+          "properties": {
+            "start_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "end_ns": {
+              "$ref": "#/$defs/uint64"
+            }
+          }
+        },
+        "oracle_account_id": {
+          "$ref": "#/$defs/account"
+        },
+        "oracle_version": {
+          "$ref": "#/$defs/id"
+        },
+        "oracle_config_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "finalization_policy_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "max_supply": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "series_id",
+        "dataset_hash",
+        "source_id",
+        "asset",
+        "quote",
+        "price_scale",
+        "samples"
+      ],
+      "properties": {
+        "series_id": {
+          "$ref": "#/$defs/id"
+        },
+        "dataset_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "source_id": {
+          "$ref": "#/$defs/id"
+        },
+        "asset": {
+          "const": "NEAR"
+        },
+        "quote": {
+          "const": "USD"
+        },
+        "price_scale": {
+          "const": "1000000000000"
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "timestamp_ns",
+              "price"
+            ],
+            "properties": {
+              "timestamp_ns": {
+                "$ref": "#/$defs/uint64"
+              },
+              "price": {
+                "$ref": "#/$defs/positive"
+              }
+            }
+          },
+          "minItems": 2,
+          "maxItems": 12
+        }
+      }
+    },
+    "registration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config",
+        "observation",
+        "policy"
+      ],
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/series_terms"
+        },
+        "observation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "asset",
+            "quote",
+            "price_scale",
+            "dataset_hash",
+            "window",
+            "sample_step_ns",
+            "min_price",
+            "max_price",
+            "primary",
+            "fallback"
+          ],
+          "properties": {
+            "label": {
+              "const": "DEMO ORACLE \u2014 SYNTHETIC PRICES"
+            },
+            "asset": {
+              "const": "NEAR"
+            },
+            "quote": {
+              "const": "USD"
+            },
+            "price_scale": {
+              "const": "1000000000000"
+            },
+            "dataset_hash": {
+              "$ref": "#/$defs/hash256"
+            },
+            "window": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "start_ns",
+                "end_ns"
+              ],
+              "properties": {
+                "start_ns": {
+                  "$ref": "#/$defs/uint64"
+                },
+                "end_ns": {
+                  "$ref": "#/$defs/uint64"
+                }
+              }
+            },
+            "sample_step_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "min_price": {
+              "$ref": "#/$defs/positive"
+            },
+            "max_price": {
+              "$ref": "#/$defs/positive"
+            },
+            "primary": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "source_id",
+                  "publisher",
+                  "evidence_hash"
+                ],
+                "properties": {
+                  "source_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "publisher": {
+                    "$ref": "#/$defs/account"
+                  },
+                  "evidence_hash": {
+                    "$ref": "#/$defs/hash256"
+                  }
+                }
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "fallback": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "source_id",
+                  "publisher",
+                  "evidence_hash"
+                ],
+                "properties": {
+                  "source_id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "publisher": {
+                    "$ref": "#/$defs/account"
+                  },
+                  "evidence_hash": {
+                    "$ref": "#/$defs/hash256"
+                  }
+                }
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        "policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "primary_ns",
+            "fallback_ns",
+            "arbitration_ns",
+            "challenge_ns",
+            "proposal_bond",
+            "challenge_bond",
+            "arbitrator"
+          ],
+          "properties": {
+            "primary_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "fallback_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "arbitration_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "challenge_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "proposal_bond": {
+              "$ref": "#/$defs/positive"
+            },
+            "challenge_bond": {
+              "$ref": "#/$defs/positive"
+            },
+            "arbitrator": {
+              "$ref": "#/$defs/account"
+            }
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "standard",
+        "version",
+        "event",
+        "data"
+      ],
+      "properties": {
+        "standard": {
+          "const": "hedgeveil_oracle"
+        },
+        "version": {
+          "const": "1.0.0"
+        },
+        "event": {
+          "enum": [
+            "INITIALIZED",
+            "ACCOUNT_REGISTERED",
+            "SERIES_REGISTERED",
+            "OBSERVATION_PUBLISHED",
+            "PROPOSED",
+            "DISPUTED",
+            "FINALIZED",
+            "RESOLUTION_DELAYED",
+            "CREDIT_REQUESTED",
+            "CREDIT_RESULT",
+            "CREDIT_UNKNOWN",
+            "TICKET_CLOSED"
+          ]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sequence",
+              "series_id",
+              "state_hash",
+              "received",
+              "paid",
+              "locked",
+              "credits",
+              "in_flight"
+            ],
+            "properties": {
+              "sequence": {
+                "$ref": "#/$defs/uint64"
+              },
+              "series_id": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/id"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "state_hash": {
+                "$ref": "#/$defs/hash256"
+              },
+              "received": {
+                "$ref": "#/$defs/uint128"
+              },
+              "paid": {
+                "$ref": "#/$defs/uint128"
+              },
+              "locked": {
+                "$ref": "#/$defs/uint128"
+              },
+              "credits": {
+                "$ref": "#/$defs/uint128"
+              },
+              "in_flight": {
+                "$ref": "#/$defs/uint128"
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 1
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 [workspace]
-members = ["clearinghouse", "test-fixtures/oracle", "test-fixtures/account", "../crates/protocol-types"]
+members = ["clearinghouse", "settlement-oracle", "test-fixtures/oracle", "test-fixtures/account", "../crates/protocol-types"]
 resolver = "2"
 [workspace.dependencies]
 near-sdk = "=5.30.1"

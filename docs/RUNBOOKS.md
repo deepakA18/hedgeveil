@@ -3,11 +3,15 @@
 Status: operational runbook acceptance requirements; no recovery CLI exists yet.
 G3 implements local collateral/storage-refund tickets and their callback/quarantine
 paths; use these cases to extend CORE-04, INF-01, DEM-01 and REL-02.
+G4 adds content-addressed observation replay and oracle bond-credit tickets.
+Use the [collector commands](../services/observation-collector/README.md) to replay
+the exact manifest; a missing file must not be replaced with a current quote.
 
 | Incident | Required behavior | Evidence before closing |
 |---|---|---|
 | Ambiguous transaction submission | Query authoritative operation/ticket state; no blind repeat of money movement | Final receipt correlation or visible unresolved state |
 | Confirmed payout failure | Restore original owner's free balance once via authenticated outcome | Ticket/receipt, one restoration event and custody reconciliation |
+| Confirmed oracle credit payout failure | Restore the original owner's oracle credit once | Private callback receipt and oracle custody reconciliation; never credit clearinghouse collateral |
 | Confirmed storage-refund failure | Restore original storage funding, clear closing flag and retain failed ticket for owner cleanup | Storage remains outside collateral; recreate a deleted account only under its legitimate account authority |
 | Unknown payout / failed callback | Quarantine; no timeout refund/resend; display and alert | Reviewed authenticated recovery result; unresolved remains locked |
 | Lost collector/source | Replay committed demo history; apply fixed fallback then delayed resolution | Same historical window/config/hash, never substituted spot |

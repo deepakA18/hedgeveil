@@ -168,3 +168,12 @@ It preserves these payoff units and rounding rules. Diagnostic model prices are
 quantized before integer ledger execution; they are synthetic quote inputs, never
 chain prices or observed market liquidity. Research policy parameters, simulated
 fees and benchmark debt are not changes to the contract or approved vault terms.
+
+## G4 demo settlement profile
+
+[The G4 oracle profile](../contracts/settlement-oracle/README.md) fixes the
+synthetic evidence format, publishers, historical fallback, deadlines and bond
+allocation before implementation. Oracle bond/storage/operating custody is
+separate from clearinghouse collateral. Failed bond withdrawals restore only
+original credits; UNKNOWN remains quarantined. This demo profile does not approve
+production source independence, economic security, or administrative keys.

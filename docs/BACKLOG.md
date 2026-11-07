@@ -3,7 +3,8 @@
 Updated 7 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
 implemented portions. CORE-01/02/03/04 now have a bounded Sandbox implementation;
 FIN-02 now has a reproducible synthetic experiment with no passing rolling-policy
-candidate. Other product epics remain pending. G1 fixtures are not product implementations.
+candidate. ORC-01/02 now have a local G4 demo oracle/collector implementation.
+Other product epics remain pending. G1 fixtures are not product implementations.
 Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
 
@@ -30,7 +31,8 @@ The internal-ledger fallback is now implemented in G3; this does not close the
 independent-review or wallet/indexer gates. See [G3 evidence](../research/reports/G3_COLLATERAL_CORE.md).
 G2's first comparison is in [G2 evidence](../research/reports/G2_ECONOMICS.md).
 No candidate passes its frozen training gates; G6 policy selection stays open.
-Next implement G4 settlement; further economic experiments require a new holdout.
+G4's local settlement evidence is in [G4 results](../research/reports/G4_SETTLEMENT.md).
+Next implement G5 funded RFQs/makers; further economic experiments require a new holdout.
 
 ## Implementation epics
 
@@ -42,8 +44,8 @@ Next implement G4 settlement; further economic experiments require a new holdout
 | CORE-02 / G3 — locally implemented | CORE-01, internal-ledger fallback, FIN-01 | Exact backed pairs, immutable terms, series isolation | Public series/P/N split/transfer/merge, caps/cutoffs/permissions and seeded stateful comparison; no token callback/standards surface | Contracts/protocol |
 | CORE-03 / G3–G4 — local core implemented | CORE-02, FIN-01; ORC-02 for product oracle | Rounded payouts bounded by reserves; claims burn once | Fixture-backed authenticated import, zero-payout burns, fragmentation, late-merge/dust-sweep rejection; G4 must replace the oracle fixture | Contracts/economics |
 | CORE-04 / G3, G10 — local tickets implemented | CORE-01, G1-PAYOUT | Debit first, confirmed restoration once | Collateral/storage-refund tickets, private callbacks, quarantine and cleanup; success-then-callback-failure and duplicate results; CLI and reviewed production recovery pending | Contracts/security |
-| ORC-01 / G4, G10 sources | G0, G1-ORACLE | Historical M, fixed units/window | Synthetic collector/evidence hashes/restart replay; missing/inverse/stale/zero failures; independent production sources/retention later | Oracle/data |
-| ORC-02 / G4 | ORC-01, CORE-02 | One-way finality, immutable request binding | Versioned proposal/challenge/finality; equivocation, wrong-series/forged callbacks and arbitrator timeout; delay on total failure | Oracle/contracts/security |
+| ORC-01 / G4 local demo implemented, G10 sources pending | G0 review pending, G1-ORACLE | Historical M, fixed units/window | Committed synthetic source objects, content-addressed archive and separate-process replay; missing/corrupt/inverse/stale/zero rejection; no production collector/vendor or independent source claim | Oracle/data — pending |
+| ORC-02 / G4 local demo implemented | ORC-01, CORE-02 | One-way finality, immutable request binding and bond conservation | Publisher authentication; bonded proposal/challenge; historical fallback/adjudication/delay; real core callback import; credits, slashing/refunds and failed/unknown native transfers. G7 evidence UI/indexing and independent review remain | Oracle/contracts/security — pending |
 | MKT-01 / G5 | FIN-02, CORE-01/02 | Funded exact legs/fees atomic, nonce used once | Registered keys, domain-separated encoding, fills/cancellation; replay/revocation/stale/reused inventory/cancellation races rejected | Market/contracts/security |
 | MKT-02 / G5 | MKT-01, FIN-02 | Maker escrow ownership, atomic direct rolls | Two separately running funded makers, TTL/inventory/loss limits; spreads/depth/fill/subsidy evidence; no bids or inventory means no fill | Market/quant |
 | VLT-01 / G6 | FIN-02, CORE-03, ORC-02, MKT-01 | Basket entry/exit does not dilute holders | Shares/proportional mint/in-kind exit/last-holder dust; first depositor, donation, stale marks, receiver burns and useless mint tests | Contracts/economics |
