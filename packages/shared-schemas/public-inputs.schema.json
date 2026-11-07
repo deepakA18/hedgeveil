@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hedgeveil.invalid/schemas/public-inputs/0.1.0",
+  "title": "Hedgeveil draft semantic public inputs (not circuit serialization)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "domain",
+    "verifier_key_hash",
+    "operation",
+    "root",
+    "nullifiers",
+    "outputs",
+    "expiry_ns",
+    "fee",
+    "context"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol_version",
+        "network",
+        "pool_id",
+        "deployment_id"
+      ],
+      "properties": {
+        "protocol_version": {
+          "const": "1"
+        },
+        "network": {
+          "enum": [
+            "sandbox",
+            "testnet"
+          ]
+        },
+        "pool_id": {
+          "$ref": "#/$defs/digest"
+        },
+        "deployment_id": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "verifier_key_hash": {
+      "$ref": "#/$defs/digest"
+    },
+    "operation": {
+      "enum": [
+        "deposit",
+        "transfer",
+        "pair_split",
+        "pair_merge",
+        "redeem",
+        "withdraw"
+      ]
+    },
+    "root": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/digest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullifiers": {
+      "type": "array",
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/digest"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "commitment",
+          "ciphertext_digest"
+        ],
+        "properties": {
+          "commitment": {
+            "$ref": "#/$defs/digest"
+          },
+          "ciphertext_digest": {
+            "$ref": "#/$defs/digest"
+          }
+        }
+      }
+    },
+    "expiry_ns": {
+      "$ref": "#/$defs/positiveAmount"
+    },
+    "fee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amount",
+        "recipient_commitment"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/uint128"
+        },
+        "recipient_commitment": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "context": {
+      "type": "object"
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "operation": {
+          "const": "deposit"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "amount"
+          ],
+          "properties": {
+            "amount": {
+              "$ref": "#/$defs/positiveAmount"
+            }
+          }
+        },
+        "root": {
+          "type": "null"
+        },
+        "nullifiers": {
+          "maxItems": 0
+        },
+        "outputs": {
+          "maxItems": 1
+        },
+        "fee": {
+          "properties": {
+            "amount": {
+              "const": "0"
+            }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "operation": {
+          "const": "transfer"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "asset_kind",
+            "asset_id"
+          ],
+          "properties": {
+            "asset_kind": {
+              "enum": [
+                "COLLATERAL",
+                "P",
+                "N",
+                "VAULT_SHARE"
+              ]
+            },
+            "asset_id": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/digest"
+        },
+        "nullifiers": {
+          "minItems": 1
+        }
+      }
+    },
+    {
+      "properties": {
+        "operation": {
+          "const": "pair_split"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "series_id",
+            "series_state_digest"
+          ],
+          "properties": {
+            "series_id": {
+              "$ref": "#/$defs/digest"
+            },
+            "series_state_digest": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/digest"
+        },
+        "nullifiers": {
+          "minItems": 1
+        },
+        "outputs": {
+          "minItems": 2
+        }
+      }
+    },
+    {
+      "properties": {
+        "operation": {
+          "const": "pair_merge"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "series_id",
+            "series_state_digest"
+          ],
+          "properties": {
+            "series_id": {
+              "$ref": "#/$defs/digest"
+            },
+            "series_state_digest": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/digest"
+        },
+        "nullifiers": {
+          "minItems": 2
+        }
+      }
+    },
+    {
+      "properties": {
+        "operation": {
+          "const": "redeem"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "series_id",
+            "finalization_digest",
+            "leg",
+            "coefficient"
+          ],
+          "properties": {
+            "series_id": {
+              "$ref": "#/$defs/digest"
+            },
+            "finalization_digest": {
+              "$ref": "#/$defs/digest"
+            },
+            "leg": {
+              "enum": [
+                "P",
+                "N"
+              ]
+            },
+            "coefficient": {
+              "$ref": "#/$defs/uint128"
+            }
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/digest"
+        },
+        "nullifiers": {
+          "minItems": 1
+        }
+      }
+    },
+    {
+      "properties": {
+        "operation": {
+          "const": "withdraw"
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "amount",
+            "recipient",
+            "recovery_commitment"
+          ],
+          "properties": {
+            "amount": {
+              "$ref": "#/$defs/positiveAmount"
+            },
+            "recipient": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*(?![\\s\\S])"
+            },
+            "recovery_commitment": {
+              "$ref": "#/$defs/digest"
+            }
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/digest"
+        },
+        "nullifiers": {
+          "minItems": 1
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "uint128": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,38})(?![\\s\\S])",
+      "maxLength": 39
+    },
+    "positiveAmount": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]{0,38}(?![\\s\\S])",
+      "maxLength": 39
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
+      "minLength": 64,
+      "maxLength": 64
+    }
+  }
+}
