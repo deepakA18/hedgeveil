@@ -62,6 +62,12 @@ impl Clearinghouse {
             "account has obligations"
         );
         let amount = a.storage_paid;
+        if let Some(market) = self.markets.get_mut(&who) {
+            market.invalidate(market.epoch.0.checked_add(1).expect("epoch overflow"));
+            for key in market.keys.values_mut() {
+                key.revoked = true;
+            }
+        }
         a.storage_paid = Amount(0);
         a.closing = true;
         self.accounts.insert(who.clone(), a);
@@ -98,8 +104,14 @@ impl Clearinghouse {
             .filter(|t| t.state == TicketState::Unknown)
             .map(|t| t.amount.0)
             .sum();
-        let retained = free + reserves + storage + self.fees + self.series_storage + OPERATING;
+        let retained = free
+            + reserves
+            + storage
+            + self.fees
+            + self.series_storage
+            + self.market_storage
+            + OPERATING;
         let native = env::account_balance().as_yoctonear();
-        json!({"native_balance":Amount(native),"free_collateral":Amount(free),"series_reserves":Amount(reserves),"refundable_storage":Amount(storage),"fees":Amount(self.fees),"series_storage_fund":Amount(self.series_storage),"operating_allocation":Amount(OPERATING),"pending_in_flight":Amount(pending),"unknown_in_flight":Amount(unknown),"tracked_user_collateral":Amount(self.collateral),"retained_categories":Amount(retained),"retained_categories_covered":native>=retained,"unallocated_or_in_flight_return":Amount(native.saturating_sub(retained)),"storage_bytes":Num64(env::storage_usage()),"storage_byte_cost":Amount(self.storage_byte_cost),"next_ticket_id":Num64(self.next_ticket),"operation_sequence":Num64(self.operation)})
+        json!({"native_balance":Amount(native),"free_collateral":Amount(free),"series_reserves":Amount(reserves),"refundable_storage":Amount(storage),"fees":Amount(self.fees),"series_storage_fund":Amount(self.series_storage),"market_storage_fund":Amount(self.market_storage),"operating_allocation":Amount(OPERATING),"pending_in_flight":Amount(pending),"unknown_in_flight":Amount(unknown),"tracked_user_collateral":Amount(self.collateral),"retained_categories":Amount(retained),"retained_categories_covered":native>=retained,"unallocated_or_in_flight_return":Amount(native.saturating_sub(retained)),"storage_bytes":Num64(env::storage_usage()),"storage_byte_cost":Amount(self.storage_byte_cost),"next_ticket_id":Num64(self.next_ticket),"operation_sequence":Num64(self.operation)})
     }
 }

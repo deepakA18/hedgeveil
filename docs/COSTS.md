@@ -28,3 +28,14 @@ gas and storage. The oracle retains prepaid account/series storage separately
 from refundable/slashable proposal bonds and withdrawable credits. A separate
 20-NEAR bootstrap allocation covers code/operations. Its fixed 0.1-NEAR demo
 bonds are test parameters, not an economic-security budget for production TVL.
+
+G5's [market report](../research/reports/G5_FUNDED_MARKET.md) records 5.823–8.664
+Tgas for successful exact fills and 6.247 Tgas for pair matching in this local run.
+Each lifetime maker registry prepays 4096 bytes (0.04096 NEAR at the measured node
+storage price), separately from refundable user registration and collateral.
+All key/epoch/cancel/fill calls also pay one yocto; the first key adds the registry
+storage payment. Signed trade fees are capped at 0.01 NEAR and paid from the
+taker's existing free balance to the signed receiver. The local bots charge five
+basis points. Each maker received 80 NEAR collateral plus separate storage/gas
+wallet funding from Sandbox genesis; all volume is subsidized test activity.
+Reported marked P/L excludes operating/storage costs and is not economic profit.

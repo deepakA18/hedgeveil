@@ -16,6 +16,8 @@ async function hashes(dir,prefix){const out={};for(const e of await readdir(dir,
 evidence.sources={...await hashes(path.join(ROOT,'contracts'),'contracts'),...await hashes(path.join(ROOT,'crates/protocol-types'),'crates/protocol-types'),...await hashes(path.join(ROOT,'crates/payoff-math'),'crates/payoff-math')};
 for(const file of ['tests/sandbox/g3.mjs','tests/sandbox/package.json','tests/sandbox/package-lock.json','scripts/build-core.py','packages/shared-schemas/public-ledger.schema.json'])evidence.sources[file]=createHash('sha256').update(await readFile(path.join(ROOT,file))).digest('hex');
 evidence.base_commit=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();
+const reportFile=process.argv[2]==='--report'?process.argv[3]:'research/reports/g3-sandbox.json';
+if(!reportFile)throw Error('missing --report path');
 let sandbox,provider,byteCost;
 const eventBalances=new Map(),seenOps=new Set();
 const check=(name,actual,expected)=>{assert.deepEqual(actual,expected,name);evidence.checks.push(name);console.log('PASS',name);};
@@ -175,7 +177,7 @@ try{
  await writeFile(path.join(ROOT,'target/g3-events.json'),JSON.stringify(evidence.events.map(x=>x.event)));
  execFileSync('uv',['run','--offline','--with','jsonschema==4.23.0','python','-c',"import sys,json;sys.path.insert(0,'packages/shared-schemas');from validate import validate;[validate(e) for e in json.load(open('target/g3-events.json'))]"],{cwd:ROOT,env:{...process.env,UV_CACHE_DIR:'/private/tmp/hedgeveil-uv-cache'},stdio:'pipe'});
  check('all emitted events validate against shared schema',true,true);evidence.passed=true;
- await writeFile(path.join(ROOT,'research/reports/g3-sandbox.json'),JSON.stringify(evidence,(_,v)=>typeof v==='bigint'?v.toString():v,2)+'\n');
+ await writeFile(path.join(ROOT,reportFile),JSON.stringify(evidence,(_,v)=>typeof v==='bigint'?v.toString():v,2)+'\n');
  console.log(`G3: ${evidence.checks.length} named checks, ${evidence.transactions.length} transactions, ${evidence.events.length} events.`);
 }catch(error){evidence.passed=false;evidence.error=String(error);await writeFile(path.join(ROOT,'target/g3-failed.json'),JSON.stringify(evidence,(_,v)=>typeof v==='bigint'?v.toString():v,2)+'\n');throw error;}
 finally{if(sandbox)await sandbox.tearDown();}

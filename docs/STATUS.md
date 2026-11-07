@@ -8,10 +8,10 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 |---|---|---|
 | G0 specification | Public SPEC, threat model, accounting assumptions, ADRs, draft schema v0.2 | Independent review; pin wire encodings, IDs, caps and unresolved choices |
 | G1 feasibility — partial | Pinned local Wasm/Sandbox harness, FT/MT resolver experiments, synthetic oracle lifecycle and real payout callback faults | Independent G0 review, complete token conformance/wallet/indexer decision and testnet measurements; production recovery/source limits remain separate |
-| G2 economics — local experiment implemented | Rational/Rust payoff agreement; 9,180 synthetic strategy runs, four policy families, finite makers, 612 benchmark runs, held-out results and failure envelope | No rolling candidate passes frozen training gates; independent review, broader market assumptions and G5 execution validation; vault policy unselected |
+| G2 economics — local experiment implemented | Rational/Rust payoff agreement; 9,180 synthetic strategy runs, four policy families, finite makers, 612 benchmark runs, held-out results and failure envelope; G5 adds a local execution sample | No rolling candidate passes frozen training gates; independent review, broader market assumptions and testnet/load execution validation; vault policy unselected |
 | G3 collateral core — local implementation | Bounded public ledger, separate storage/refunds, immutable series/P/N, split/transfer/merge, rounded redemption/dust, scoped pauses, native tickets, canonical events and compiled-Wasm tests | Independent review, broader adversarial/load coverage, production key/recovery controls; full SDK/CLI remains G7 |
 | G4 settlement — local demo implementation | Committed synthetic archive/replay, authenticated publishers, bonded proposals/challenges, fallback/arbitration/delay, immutable resolution import and bond-credit custody | Independent review, broader timing/load/interleaving coverage, G7 evidence UI/indexing; production historical sources and economic bond sizing remain G10 |
-| G5 market | Draft quote schema only | Registered signing keys, funded fills, nonce/cancellation handling, two makers and direct rolls |
+| G5 market — local implementation | Registered Ed25519 keys, funded exact fills/pair issuance, durable nonce/epoch cancellation, two separate maker processes, atomic direct rolls and receipt/event reconciliation | Independent review, broader capacity/interleavings, testnet maker funding/measurements; relay/wallet flows remain G7 |
 | G6 vault | Proportional basket/exit specification only | Shares, bounded keeper, last-holder rounding, no-bid/stale-reference exits and policy selection |
 | G7 application | Not implemented | SDK, wallet/UI, indexer, recovery CLI and working local/testnet modes |
 | G8 adversarial | Arithmetic/schema checks, G1 faults, G3 seeded stateful ledger comparison, event replay and capacity/receipt faults | Broader fuzz/interleavings/load coverage, models/proof scope and independent review/remediation |
@@ -23,7 +23,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 
 Five Python financial tests include 2,000 seeded rational identity cases and
 1,000 fragmentation cases. Two Rust unit tests and one differential test cover
-565 shared vectors. Nine public-schema test groups cover 18 transaction intent
+565 shared vectors. Nine public-schema test groups cover 23 transaction intent
 shapes, public accounting, domain/amount constraints, vault baskets and withdrawal
 restoration restrictions. Offline schema validity is not authorization or
 signature verification.
@@ -35,8 +35,16 @@ cross-checks accompany the synthetic experiment. See [G2 report](../research/rep
 
 G4 adds six collector/schema test groups and 38 compiled-Wasm checks with 174
 recorded transactions and 151 validated oracle events. Its normal clearinghouse
-artifact is byte-identical to G3. See [G4 evidence](../research/reports/G4_SETTLEMENT.md)
+artifact at that recorded revision is byte-identical to G3. See [G4 evidence](../research/reports/G4_SETTLEMENT.md)
 for sample/capacity coverage, costs and remaining review limits.
+
+G5 adds four signing-codec tests, two public binary vectors and 29 compiled-Wasm
+checks: 97 transactions, 61 canonical ledger events and 11 signed fills (four
+from the two maker processes). The new core also passes the complete G3 lifecycle,
+capacity and withdrawal-fault regression. See [G5 evidence](../research/reports/G5_FUNDED_MARKET.md).
+Maker marks/demand are synthetic; funding is Sandbox genesis capital. Production
+price feeds, continuous maker monitoring and independent economic/security review
+remain open. Original G3/G4 receipts remain historical evidence for their artifacts.
 
 Commands are in [README](../README.md). The [G1 report](../research/reports/G1_PUBLIC_LEDGER.md)
 and [G3 report](../research/reports/G3_COLLATERAL_CORE.md) link source-hashed
@@ -51,7 +59,8 @@ of the earlier migration, not the latest implementation status.
 The documented internal-ledger fallback is the current interface decision; no
 standards conformance is claimed. G0 independent review and G1 integration gaps
 remain open, so local G3 implementation does not imply those gates passed.
-Next advance MKT-01/02/G5 funded RFQs and maker execution in [BACKLOG](BACKLOG.md).
+MKT-01/02 now have local implementation/evidence. Next is VLT-01/02/G6 in
+[BACKLOG](BACKLOG.md), with policy selection still unresolved.
 G4's demo lifecycle and collector are local implementations; see the
 [G4 report](../research/reports/G4_SETTLEMENT.md). FIN-02's
 first synthetic experiment is reproducible but selects no passing rolling policy;

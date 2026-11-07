@@ -48,6 +48,13 @@ impl Clearinghouse {
             self.series_storage,
         );
         put(&core, "FEE", "protocol", "COLLATERAL", self.fees);
+        put(
+            &core,
+            "STORAGE",
+            "market",
+            "COLLATERAL",
+            self.market_storage,
+        );
         put(&core, "OPERATING", "bootstrap", "COLLATERAL", OPERATING);
         for t in self
             .tickets
@@ -89,6 +96,22 @@ impl Clearinghouse {
         ));
     }
     fn assert_invariants(&self) {
+        require!(
+            self.markets.len() <= MAX_ACCOUNTS
+                && self.market_storage == self.markets.len() as u128 * self.minimum_storage(),
+            "market storage invariant"
+        );
+        for maker in self.markets.values() {
+            require!(
+                maker.keys.len() <= 4
+                    && maker
+                        .consumed
+                        .iter()
+                        .zip(maker.cancelled.iter())
+                        .all(|(a, b)| a & b == 0),
+                "market replay invariant"
+            );
+        }
         require!(
             self.accounts.len() <= MAX_ACCOUNTS && self.series.len() <= MAX_SERIES,
             "state bound"
@@ -164,13 +187,18 @@ impl Clearinghouse {
         }
         let bytes = near_sdk::borsh::to_vec(self).expect("encode").len() as u128;
         require!(
-            bytes <= STORAGE_BYTES * (1 + self.accounts.len() as u128 + self.series.len() as u128),
+            bytes
+                <= STORAGE_BYTES
+                    * (1 + self.accounts.len() as u128
+                        + self.series.len() as u128
+                        + self.markets.len() as u128),
             "storage allowance exceeded"
         );
         require!(
             (env::storage_usage() as u128 + bytes) * self.storage_byte_cost
                 <= OPERATING
                     + self.series_storage
+                    + self.market_storage
                     + self.accounts.len() as u128 * self.minimum_storage(),
             "storage not separately funded"
         );

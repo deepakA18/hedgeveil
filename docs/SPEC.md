@@ -177,3 +177,12 @@ allocation before implementation. Oracle bond/storage/operating custody is
 separate from clearinghouse collateral. Failed bond withdrawals restore only
 original credits; UNKNOWN remains quarantined. This demo profile does not approve
 production source independence, economic security, or administrative keys.
+
+## G5 funded market profile
+
+The [G5 market specification](../docs/MARKET.md) pins domain-separated RFQ and
+pair-creation signing bytes, prepaid market storage, permanent replay protection,
+fee rules and bounded atomic execution before implementation. Native/P/N ledger
+units and payoff equations are unchanged. G5 is a new clearinghouse state layout
+for fresh demo deployments, not an in-place upgrade of G3/G4 state. No policy
+approval or production market readiness follows from local maker execution.

@@ -2,6 +2,8 @@ mod accounting;
 mod claims;
 mod events;
 mod permissions;
+mod rfq;
+mod rfq_types;
 mod series;
 mod types;
 mod withdrawals;
@@ -28,6 +30,9 @@ pub struct Clearinghouse {
     collateral: u128,
     series_storage: u128,
     pauses: Pauses,
+    markets: BTreeMap<AccountId, rfq_types::MakerState>,
+    market_storage: u128,
+    market_paused: bool,
 }
 #[near]
 impl Clearinghouse {
@@ -70,6 +75,9 @@ impl Clearinghouse {
             collateral: 0,
             series_storage: 0,
             pauses: Pauses::default(),
+            markets: BTreeMap::new(),
+            market_storage: 0,
+            market_paused: false,
         };
         this.finish("INITIALIZED", BTreeMap::new(), 0);
         this

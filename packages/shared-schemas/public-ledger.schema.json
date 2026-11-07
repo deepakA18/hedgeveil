@@ -10,6 +10,9 @@
       "$ref": "#/$defs/quote"
     },
     {
+      "$ref": "#/$defs/pair_quote"
+    },
+    {
       "$ref": "#/$defs/event"
     },
     {
@@ -352,6 +355,116 @@
         }
       }
     },
+    "pair_quote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_version",
+        "domain",
+        "maker",
+        "taker",
+        "fee",
+        "fill_rule",
+        "rounding",
+        "nonce",
+        "cancellation_epoch",
+        "expiry_ns",
+        "signing_key_id",
+        "signature_scheme",
+        "signature",
+        "series_id",
+        "pair_amount",
+        "maker_leg",
+        "maker_collateral"
+      ],
+      "properties": {
+        "kind": {
+          "const": "pair_quote"
+        },
+        "schema_version": {
+          "const": "0.2.0"
+        },
+        "domain": {
+          "$ref": "#/$defs/domain"
+        },
+        "maker": {
+          "$ref": "#/$defs/account"
+        },
+        "taker": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/account"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fee": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "asset",
+            "amount",
+            "receiver"
+          ],
+          "properties": {
+            "asset": {
+              "const": "NATIVE_NEAR"
+            },
+            "amount": {
+              "$ref": "#/$defs/uint128"
+            },
+            "receiver": {
+              "$ref": "#/$defs/account"
+            }
+          }
+        },
+        "fill_rule": {
+          "const": "ALL_OR_NOTHING"
+        },
+        "rounding": {
+          "const": "EXACT_AMOUNTS"
+        },
+        "nonce": {
+          "$ref": "#/$defs/uint64"
+        },
+        "cancellation_epoch": {
+          "$ref": "#/$defs/uint64"
+        },
+        "expiry_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "signing_key_id": {
+          "$ref": "#/$defs/id"
+        },
+        "signature_scheme": {
+          "const": "ed25519"
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 128,
+          "maxLength": 128,
+          "pattern": "^[0-9a-f]{128}(?![\\s\\S])"
+        },
+        "series_id": {
+          "$ref": "#/$defs/id"
+        },
+        "pair_amount": {
+          "$ref": "#/$defs/positive"
+        },
+        "maker_leg": {
+          "enum": [
+            "P",
+            "N"
+          ]
+        },
+        "maker_collateral": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
     "transaction": {
       "type": "object",
       "additionalProperties": false,
@@ -395,6 +508,11 @@
             "transfer",
             "redeem",
             "fill_quote",
+            "match_pair",
+            "register_signing_key",
+            "revoke_signing_key",
+            "advance_quote_epoch",
+            "set_market_pause",
             "cancel_quote",
             "request_resolution",
             "request_withdrawal",
@@ -683,6 +801,105 @@
         {
           "properties": {
             "method": {
+              "const": "match_pair"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "quote"
+              ],
+              "properties": {
+                "quote": {
+                  "$ref": "#/$defs/pair_quote"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "register_signing_key"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "key_id",
+                "public_key"
+              ],
+              "properties": {
+                "key_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "public_key": {
+                  "$ref": "#/$defs/hash256"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "revoke_signing_key"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "key_id"
+              ],
+              "properties": {
+                "key_id": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "advance_quote_epoch"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "epoch"
+              ],
+              "properties": {
+                "epoch": {
+                  "$ref": "#/$defs/uint64"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "set_market_pause"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "paused"
+              ],
+              "properties": {
+                "paused": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
               "const": "cancel_quote"
             },
             "args": {
@@ -846,6 +1063,11 @@
             "MERGE",
             "QUOTE_FILLED",
             "QUOTE_CANCELLED",
+            "SIGNING_KEY_REGISTERED",
+            "SIGNING_KEY_REVOKED",
+            "QUOTE_EPOCH_ADVANCED",
+            "MARKET_PAUSE_CHANGED",
+            "PAIR_MATCHED",
             "FINALIZED",
             "REDEEMED",
             "VAULT_MINTED",

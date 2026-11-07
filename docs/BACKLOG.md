@@ -4,6 +4,7 @@ Updated 7 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
 implemented portions. CORE-01/02/03/04 now have a bounded Sandbox implementation;
 FIN-02 now has a reproducible synthetic experiment with no passing rolling-policy
 candidate. ORC-01/02 now have a local G4 demo oracle/collector implementation.
+MKT-01/02 now have local G5 market/maker implementation and receipt evidence.
 Other product epics remain pending. G1 fixtures are not product implementations.
 Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
@@ -32,22 +33,24 @@ independent-review or wallet/indexer gates. See [G3 evidence](../research/report
 G2's first comparison is in [G2 evidence](../research/reports/G2_ECONOMICS.md).
 No candidate passes its frozen training gates; G6 policy selection stays open.
 G4's local settlement evidence is in [G4 results](../research/reports/G4_SETTLEMENT.md).
-Next implement G5 funded RFQs/makers; further economic experiments require a new holdout.
+G5's local funded execution is in [G5 results](../research/reports/G5_FUNDED_MARKET.md).
+Next is G6; further economic experiments require a new holdout. Actual local fills
+do not resolve FIN-02's failed policy selection.
 
 ## Implementation epics
 
 | Epic / gate | Dependencies | Invariant | Failure path / completion artifact | Reviewer |
 |---|---|---|---|---|
 | FIN-01 / G0–G2 — partial | G0 | Complementarity, bounded payouts, explicit units | Retained rational/Rust code and 565 vectors; independent dimensional/fee/rounding review and limits; reject bad strike/units/overflow | Economics/protocol |
-| FIN-02 / G2 — local experiment implemented; selection failed | FIN-01; independent G0/economics review pending | Funded simulation conserves collateral; executable outcomes distinct from marks/solvency | 9,180 strategy runs, 612 benchmarks, four policy families, frozen train/holdout seeds and published crash/no-bid/delay/maker-exit/disagreement losses; no passing candidate; actual G5 maker validation and broader reviewed assumptions remain | Quant/economics — pending |
+| FIN-02 / G2 — local experiment implemented; selection failed | FIN-01; independent G0/economics review pending | Funded simulation conserves collateral; executable outcomes distinct from marks/solvency | 9,180 strategy runs, 612 benchmarks, four policy families, frozen train/holdout seeds and published crash/no-bid/delay/maker-exit/disagreement losses; no passing candidate; G5 adds a local execution sample, while testnet/load validation and broader reviewed assumptions remain | Quant/economics — pending |
 | CORE-01 / G3 — locally implemented | G0 review pending, G1-RUNTIME | Collateral/storage/operations/fees/in-flight categories isolated | Bounded custody/storage ledger, excess release and registration refund, donation/cap failures and full event replay; independent review/production limits pending | Contracts/security |
 | CORE-02 / G3 — locally implemented | CORE-01, internal-ledger fallback, FIN-01 | Exact backed pairs, immutable terms, series isolation | Public series/P/N split/transfer/merge, caps/cutoffs/permissions and seeded stateful comparison; no token callback/standards surface | Contracts/protocol |
 | CORE-03 / G3–G4 — local core implemented | CORE-02, FIN-01; ORC-02 for product oracle | Rounded payouts bounded by reserves; claims burn once | Fixture-backed authenticated import, zero-payout burns, fragmentation, late-merge/dust-sweep rejection; G4 must replace the oracle fixture | Contracts/economics |
 | CORE-04 / G3, G10 — local tickets implemented | CORE-01, G1-PAYOUT | Debit first, confirmed restoration once | Collateral/storage-refund tickets, private callbacks, quarantine and cleanup; success-then-callback-failure and duplicate results; CLI and reviewed production recovery pending | Contracts/security |
 | ORC-01 / G4 local demo implemented, G10 sources pending | G0 review pending, G1-ORACLE | Historical M, fixed units/window | Committed synthetic source objects, content-addressed archive and separate-process replay; missing/corrupt/inverse/stale/zero rejection; no production collector/vendor or independent source claim | Oracle/data — pending |
 | ORC-02 / G4 local demo implemented | ORC-01, CORE-02 | One-way finality, immutable request binding and bond conservation | Publisher authentication; bonded proposal/challenge; historical fallback/adjudication/delay; real core callback import; credits, slashing/refunds and failed/unknown native transfers. G7 evidence UI/indexing and independent review remain | Oracle/contracts/security — pending |
-| MKT-01 / G5 | FIN-02, CORE-01/02 | Funded exact legs/fees atomic, nonce used once | Registered keys, domain-separated encoding, fills/cancellation; replay/revocation/stale/reused inventory/cancellation races rejected | Market/contracts/security |
-| MKT-02 / G5 | MKT-01, FIN-02 | Maker escrow ownership, atomic direct rolls | Two separately running funded makers, TTL/inventory/loss limits; spreads/depth/fill/subsidy evidence; no bids or inventory means no fill | Market/quant |
+| MKT-01 / G5 — locally implemented | CORE-01/02, FIN-02 experiment; independent reviews pending | Funded exact legs/fees atomic, nonce used once | Registered keys, distinct trade/pair encodings, 256 nonce slots/epoch, revocation and unregister persistence; 29 Sandbox checks reject invalid/replayed/stale/unfunded fills and exercise both cancellation orderings. Broader concurrency/capacity and independent review pending | Market/contracts/security — pending |
+| MKT-02 / G5 — locally implemented | MKT-01, FIN-02 experiment; policy selection remains open | Maker escrow ownership, atomic direct rolls | Two separate processes, four actual maker fills, integer spreads, TTL/inventory/position/loss guards and receipt-backed epoch cancellation; synthetic marks, P/L, subsidy and no-maker outcomes published. Testnet, relay, continuous monitoring and broader depth/load evidence pending | Market/quant — pending |
 | VLT-01 / G6 | FIN-02, CORE-03, ORC-02, MKT-01 | Basket entry/exit does not dilute holders | Shares/proportional mint/in-kind exit/last-holder dust; first depositor, donation, stale marks, receiver burns and useless mint tests | Contracts/economics |
 | VLT-02 / G6 | VLT-01, MKT-02, FIN-02 | Keeper policy-bound with no withdrawal authority | Four-series/fee/notional/freshness guards; no bid/stale reference yields ROLL_DEFERRED with exits; policy changes create new vault version | Quant/contracts |
 | APP-01 / G7 | CORE-02/03/04, MKT-01, VLT-01 | SDK/contract units, domain and receipt states agree | Typed SDK/wallet/recovery CLI; disconnect, ambiguous send, wrong network and repeated actions recover from chain state | Product/contracts |

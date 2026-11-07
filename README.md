@@ -24,7 +24,10 @@ dust accounting and withdrawal tickets. It is tested locally with an explicitly
 synthetic oracle fixture. The [G4 demo oracle](contracts/settlement-oracle/README.md)
 adds committed observations, a replayable archive, bonded challenges, historical
 fallback/adjudication, delayed settlement and bond-credit withdrawals, with real
-core import tests. The funded market, vault, SDK and UI are **not built yet**.
+core import tests. The [G5 funded market](docs/MARKET.md) adds registered Ed25519
+keys, exact atomic fills, pair matching, replay/cancellation protection and two
+separate local maker processes with direct old/new rolls. The vault, full SDK,
+RFQ relay and UI are **not built yet**.
 No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
@@ -116,13 +119,26 @@ UV_CACHE_DIR=/private/tmp/hedgeveil-uv-cache uv run --with jsonschema==4.23.0 py
 See [G4 results](research/reports/G4_SETTLEMENT.md) and
 [collector usage](services/observation-collector/README.md). All data and source
 accounts are disclosed synthetic demo inputs, not independent market sources.
-Next is G5's funded RFQ market and maker execution. Economic review and a passing
-vault policy candidate remain open.
+Run the G5 signed market, maker and core regression checks with:
+
+```sh
+node --test tests/market/codec.test.mjs
+node scripts/generate-rfq-vectors.mjs --check
+python3 scripts/build-core.py
+node tests/sandbox/g5.mjs
+node tests/sandbox/g3.mjs --report research/reports/g5-core-regression.json
+```
+
+See [G5 results](research/reports/G5_FUNDED_MARKET.md),
+[signing codec](packages/rfq/README.md) and [maker usage](services/maker/README.md).
+The latest core requires fresh state; it has no migration from G3/G4 deployments.
+Next is G6's vault. Economic review and a passing vault policy candidate remain
+open; these local fills do not establish strategy profitability.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1, G3 and G4 local harnesses are runnable.
+product modes are not yet runnable; G1, G3, G4 and G5 local harnesses are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 

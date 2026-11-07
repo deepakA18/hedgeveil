@@ -1,7 +1,7 @@
-# G3 bounded collateral core (Sandbox development)
+# Bounded collateral core and G5 market (Sandbox development)
 
 This workspace implements the public internal ledger. It does not advertise FT/MT
-standards, funded RFQs or vault shares. The root payoff crate remains authoritative
+standards or vault shares. G5 adds signed funded RFQs and pair matching. The root payoff crate remains authoritative
 for coefficient and payout arithmetic; this workspace uses the G1-tested Rust
 1.96.0 / near-sdk 5.30.1 runtime. Independent review remains pending. No public
 custody deployment is authorized by these local tests.
@@ -48,7 +48,7 @@ Implementation contract (specified before coding):
   restores the original category/owner exactly once. Unexpected result or missing
   callback stays UNKNOWN. No payout retry/recovery method exists. Terminal tickets
   may be removed by their owner; IDs are monotonic and never reused.
-- Scoped guardian pauses affect deposits, series creation and splits only. Valid
+- Scoped guardian pauses affect deposits, series creation, splits and G5 fills. Valid
   transfers/merges/final redemption/withdrawal remain available. There is no admin
   price setter, asset seizure, fee withdrawal or upgrade method. Full-access deploy
   keys still exist in Sandbox; absence of an upgrade method is not immutability.
@@ -58,7 +58,8 @@ Implementation contract (specified before coding):
   must not count supply mirrors as balances. Public lists are paginated (limit<=16).
 - Storage funding bounds are checked against serialized state and actual code/state
   stake. Custody views report free/reserve/storage/fees/series-storage/operations
-  separately from pending/UNKNOWN funds in flight. They do not add in-flight funds
+  separately from pending/UNKNOWN funds in flight. G5 adds permanent maker-registry
+  storage as a separate allocation. They do not add in-flight funds
   to available native custody. Persistent indexing/full receipt recovery are future work.
 
 `test-fixtures/oracle` is explicitly admin-controlled and synthetic: tests set
@@ -77,6 +78,7 @@ From the repository root, using the G1-installed toolchain and Node dependencies
 npm ci --prefix tests/sandbox --ignore-scripts
 python3 scripts/build-core.py
 node tests/sandbox/g3.mjs
+node tests/sandbox/g5.mjs
 cargo +1.96.0 fmt --manifest-path contracts/Cargo.toml --all -- --check
 cargo +1.96.0 clippy --manifest-path contracts/Cargo.toml --workspace --target wasm32-unknown-unknown --locked -- -D warnings
 cargo +1.96.0 clippy --manifest-path contracts/Cargo.toml -p hedgeveil-clearinghouse --features fault-injection --target wasm32-unknown-unknown --locked -- -D warnings
@@ -89,6 +91,11 @@ down its node. It records source/lock/Wasm hashes, actual receipts, event replay
 seeded reference comparisons, gas and custody in
 [g3-sandbox.json](../research/reports/g3-sandbox.json). Failed runs exit nonzero and
 write ignored `target/g3-failed.json`, without replacing successful evidence.
+To preserve the original G3 record when testing the G5 binary, use
+`node tests/sandbox/g3.mjs --report research/reports/g5-core-regression.json`.
+G5 writes [g5-sandbox.json](../research/reports/g5-sandbox.json). The state layout
+changed for maker registries; deploy to fresh local accounts only. No migration
+entry point exists for old core state.
 
 ## Implemented interface
 
@@ -110,6 +117,13 @@ All Amount/Num64 values are canonical decimal strings. The normal Wasm exposes:
 | `mark_unknown` | Decimal `ticket_id`; overdue pending ticket only, no monetary release |
 | `close_ticket` | Decimal `ticket_id`; one yocto; owner and terminal outcome only |
 | `set_pauses` | `pauses: {deposits, series, splits}`; guardian and one yocto |
+| `register_signing_key` | `key_id`, `public_key` (32-byte lowercase hex); own registered account; first key prepays `market_config.registration_storage` plus one yocto, subsequent keys one yocto |
+| `revoke_signing_key` | `key_id`; own registry; one yocto; irreversible ID revocation |
+| `cancel_quote` | Decimal `nonce` (0..255); own current epoch; one yocto |
+| `advance_quote_epoch` | Decimal `epoch` greater than current; own registry; one yocto |
+| `fill_quote` | Signed `quote`; taker predecessor; one yocto; exact funded legs and fee |
+| `match_pair` | Signed `pair_quote` passed as `quote`; taker predecessor; one yocto; joint collateral mint |
+| `set_market_pause` | `paused` boolean; guardian and one yocto; fills/pairs only |
 | `on_resolution`, `on_withdrawal_result` | Private versioned callbacks, never client methods |
 
 Views: `storage_quote`, `custody_snapshot`, `get_pauses`, `get_account(account_id)`,
@@ -118,9 +132,12 @@ Views: `storage_quote`, `custody_snapshot`, `get_pauses`, `get_account(account_i
 `list_tickets` also requires `account_id`. Internal structs use fixed claim slots
 indexed by immutable `Series.slot`; asset ownership remains keyed by the public
 series ID in events. Account closure removes its storage-refund ticket on success;
-the final outcome remains in canonical receipt events.
+the final outcome remains in canonical receipt events. G5 views are `market_config`,
+`get_market(maker)`, `quote_digest(quote)` and `pair_quote_digest(quote)`; digest
+views encode/hash only and do not authorize execution. See [MARKET](../docs/MARKET.md)
+for signing bytes, fee aliases, durable registry limits and maturity restrictions.
 
 The normalized shared-schema transaction envelope is an SDK/review intent, not an
-RPC method: send its method/args and attached deposit separately. RFQ and vault
-intents in that draft have no G3 implementation. See
+RPC method: send its method/args and attached deposit separately. Vault intents
+remain drafts; G5 implements native/P/N RFQs with at most four legs per side. See
 [G3 results](../research/reports/G3_COLLATERAL_CORE.md) for evidence and limits.

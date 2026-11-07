@@ -20,6 +20,17 @@ production data independence, economic security and exact release review remain
 open. G4 events currently carry aggregate bond totals and state commitments;
 G7 still needs per-account indexing/reconciliation and an evidence UI.
 
+G5's [market evidence](../research/reports/G5_FUNDED_MARKET.md) covers signed exact
+fills/pair issuance, invalid domains/signatures, cancellation ordering, reused
+inventory, durable replay protection across unregistration, maturity/cutoff and
+market pauses. JS/Rust encodings agree and every fill is linked to a signed
+payload and actual receipt. Two separate local workers exercise request-time
+freshness/loss withdrawal; there is no continuous feed monitor or production
+reference authentication yet. These bounded tests are not exhaustive concurrent
+execution, signature interoperability or an independent security review. Retained
+maker/key limits can exhaust lifetime capacity; production reuse/migration design
+is separate. The new core passes the complete G3 payout-fault regression.
+
 Required SEC-01 layers: unit/serialization tests; shared rational/Rust vectors;
 stateful conservation across split/transfer/trade/merge/finalize/redeem;
 compiled-Wasm Sandbox receipts; oracle/withdrawal interleaving models; bounded

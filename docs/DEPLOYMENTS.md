@@ -1,7 +1,7 @@
 # Deployment records
 
 There are **no active Open Innovation deployments**. `deploy/deployments.json`
-is the empty active registry. G1/G3/G4 create temporary local Sandbox deployments,
+is the empty active registry. G1/G3/G4/G5 create temporary local Sandbox deployments,
 record receipts/artifact hashes and remove the node after each run; these are
 not persistent testnet/product deployments. Example configs are disabled planning templates;
 no deployment loader or contract currently consumes them. Mainnet stays disabled.
@@ -32,5 +32,14 @@ The G4 oracle is a separate contract using `demo-v1` and predetermined synthetic
 observations. Its registrar, six publisher accounts and adjudicator are local test
 roles under one operator. There is no production historical-source deployment.
 The G4 workspace lock change adds only the new oracle package; the clearinghouse
-Wasm is identical to the G3 artifact. Original G3 source manifests remain evidence
+Wasm at that recorded revision is identical to the G3 artifact. Original G3 source manifests remain evidence
 for their recorded revision; G4 records the updated workspace manifest separately.
+
+G5 changes the clearinghouse state layout to retain maker registries and their
+separate storage allocation. It runs on fresh ephemeral accounts only; there is
+no migration from G3/G4 state. The normal/fault artifact hashes and complete G3
+regression on the new binary are recorded in [G5 evidence](../research/reports/G5_FUNDED_MARKET.md).
+Historical receipt manifests are preserved, not relabeled as tests of the new
+artifact. Both maker account keys and separate RFQ keys are ephemeral and remain
+in memory; only public keys and signatures are evidence. No testnet deployment
+or production authority claim follows from these local runs.

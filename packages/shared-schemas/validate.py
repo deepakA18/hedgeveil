@@ -6,8 +6,8 @@ from jsonschema import Draft202012Validator
 SCHEMA = json.loads(Path(__file__).with_name('public-ledger.schema.json').read_text())
 MAX_U128 = 2**128 - 1
 MAX_U64 = 2**64 - 1
-UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount'}
-UINT64_FIELDS = {'ticket_id', 'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns'}
+UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount', 'pair_amount', 'maker_collateral'}
+UINT64_FIELDS = {'ticket_id', 'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns', 'epoch'}
 
 
 def loads_strict(raw):
@@ -33,7 +33,7 @@ def validate(data):
 
     def walk(value):
         if isinstance(value, dict):
-            if value.get('kind') == 'quote' and int(value['expiry_ns']) == 0:
+            if value.get('kind') in ('quote', 'pair_quote') and int(value['expiry_ns']) == 0:
                 raise ValueError('quote expiry must be positive')
             for key, child in value.items():
                 if key in UINT128_FIELDS and int(child) > MAX_U128:
@@ -55,12 +55,15 @@ def validate(data):
             for child in value:
                 walk(child)
     walk(data)
+    pair = data if data.get('kind') == 'pair_quote' else (data.get('args', {}).get('quote') if data.get('method') == 'match_pair' else None)
+    if pair and int(pair['maker_collateral']) >= int(pair['pair_amount']):
+        raise ValueError('pair contributions must both be positive')
 
     if data['kind'] == 'transaction':
         method, args = data['method'], data['args']
         if method == 'deposit_collateral' and int(data['attached_deposit']) == 0:
             raise ValueError('collateral deposit must be positive')
-        if method == 'fill_quote' and args['quote']['domain'] != data['domain']:
+        if method in ('fill_quote', 'match_pair') and args['quote']['domain'] != data['domain']:
             raise ValueError('quote transaction domain mismatch')
         if method == 'create_series':
             config = args['config']

@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {generateKeyPairSync} from 'node:crypto';
+import {signingBytes,digest,signQuote,verifyQuote,uint} from '../../packages/rfq/codec.mjs';
+const {vectors}=JSON.parse(await readFile(new URL('../../fixtures/rfq/encoding-v1.json',import.meta.url)));
+test('canonical integer boundaries and no floating-point money',()=>{for(const bad of [1,1.5,'01','-1','1e6',String(2n**128n)])assert.throws(()=>uint(bad));assert.equal(uint(String(2n**128n-1n)),2n**128n-1n);assert.throws(()=>uint(String(2n**64n),64));});
+test('public unsigned binary vectors',()=>{for(const v of vectors){assert.equal(signingBytes(v.quote).toString('hex'),v.signing_bytes);assert.equal(digest(v.quote),v.sha256);assert.equal(digest(Object.fromEntries(Object.entries(v.quote).reverse())),v.sha256);}});
+test('signatures bind domain, exact legs, fee, recipient, epoch and expiry',()=>{const key=generateKeyPairSync('ed25519'),pub=key.publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex');const q=signQuote(vectors[0].quote,key.privateKey);assert(verifyQuote(q,pub));for(const edit of [q=>q.domain.network='testnet',q=>q.domain.contract_id='other.sandbox',q=>q.maker='other.sandbox',q=>q.taker='other.sandbox',q=>q.maker_gives[0].amount='2',q=>q.fee.receiver='other.sandbox',q=>q.fee.amount='1',q=>q.nonce='1',q=>q.cancellation_epoch='1',q=>q.expiry_ns='1',q=>q.signing_key_id='other']){const bad=structuredClone(q);edit(bad);assert(!verifyQuote(bad,pub));}});
+test('pair issuance and exchange have distinct signing domains',()=>{const key=generateKeyPairSync('ed25519'),pub=key.publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex');const pair=signQuote(vectors[1].quote,key.privateKey);assert(verifyQuote(pair,pub));assert(!verifyQuote({...vectors[0].quote,signature:pair.signature},pub));const bad={...pair,maker_collateral:'1'};assert(!verifyQuote(bad,pub));});
