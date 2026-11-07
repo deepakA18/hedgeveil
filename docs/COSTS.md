@@ -13,8 +13,10 @@ Free hosted services are conveniences; local reproduction must remain possible.
 | Services | Local DB, RPC/Sandbox, makers, keeper, indexer; optional hosting | RPC/archive capacity, hosting, availability/on-call |
 | Security/recovery | Local fault suites and documented review scope | Independent review, incident response, recovery operations, bounties |
 
-No current-runtime gas/storage benchmark or production budget is available.
-Historical verifier costs do not estimate the new clearinghouse. DEM-01 must
+G1 records local fixture receipt gas and storage in
+[its report](../research/reports/G1_PUBLIC_LEDGER.md). These are not estimates for
+the unbuilt clearinghouse or a production budget. Historical verifier costs do
+not estimate the new clearinghouse either. DEM-01 must
 publish measured lifecycle costs and subsidy sources. Storage/operations never
 silently consume promised collateral. Fixed fees must be explicit; defer
 performance fees until independent valuation/high-water-mark review. User-paid

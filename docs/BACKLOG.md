@@ -1,7 +1,8 @@
 # Open Innovation backlog
 
-Reconciled 7 November 2026. FIN-01 and SEC-01 have implemented portions; all
-other tasks are pending. Reviewer roles must be assigned and do not constitute
+Updated 7 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
+implemented portions. Product epics remain pending; G1 fixtures are not product
+implementations. Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
 
 ## Immediate feasibility (G1)
@@ -13,7 +14,17 @@ sign-off. G0 independent review remains pending. The root plan is authoritative.
 | G1-ORACLE | G0 observation definition, G1-RUNTIME | Only bound authenticated final record sets price | Synthetic evidence restart replay, proposal/challenge/deadline/delayed paths and wrong request/config/window callbacks; production source limits recorded separately | Oracle/contracts |
 | G1-PAYOUT | G0 custody model, G1-RUNTIME | One payout or one restoration, never both | Success, failure, duplicate callback, callback gas exhaustion and success then callback failure; UNKNOWN persists without timeout resend/refund; production recovery gap documented | Contracts/security |
 
-These require executable measurements. Then implement G3 in Sandbox. G2 can
+Local evidence now lives in [G1_PUBLIC_LEDGER](../research/reports/G1_PUBLIC_LEDGER.md).
+G1-RUNTIME has pinned compiled-Wasm receipt evidence on macOS ARM64, with no
+testnet/cross-platform measurement yet. G1-TOKEN has namespace and adversarial
+resolver evidence, but full MT conformance and wallet/indexer compatibility are
+pending; use the internal-ledger product path meanwhile. G1-ORACLE demonstrates
+the synthetic lifecycle and immutable authenticated bindings, with product bond
+flows/collector left to G4. G1-PAYOUT demonstrates success, restoration and UNKNOWN
+quarantine, including callback panic/gas exhaustion; production verified recovery
+remains unimplemented. Independent G0 review is still pending.
+
+Finish those gate decisions, then implement G3 in Sandbox. G2 can
 proceed alongside core work; final vault policy depends on its results.
 
 ## Implementation epics

@@ -1,7 +1,8 @@
 # Settlement and demo oracle
 
-Status: specification; no oracle contract or collector is implemented. See plan
-§8 and ORC-01/02 in [BACKLOG](BACKLOG.md).
+Status: product specification. A [G1 synthetic oracle experiment](../research/g1/README.md)
+and deterministic observation replay are implemented; the product oracle/collector
+and bond distribution are not. See plan §8 and ORC-01/02 in [BACKLOG](BACKLOG.md).
 
 Settlement resolves the historical observation at M. A separate current-price
 pipeline supports execution guards and reporting; it cannot overwrite settlement.

@@ -1,0 +1,39 @@
+{
+  "scenario_id": "g1-flat-four",
+  "label": "DEMO ORACLE — SYNTHETIC PRICES",
+  "units": "USD/NEAR",
+  "price_scale": "1000000000000",
+  "window_start_ns": "1700000000000000000",
+  "window_end_ns": "1700000300000000000",
+  "sampling_interval_ns": "60000000000",
+  "aggregation": "equal-duration-mean-floor",
+  "samples": [
+    {
+      "timestamp_ns": "1700000000000000000",
+      "price": "3800000000000"
+    },
+    {
+      "timestamp_ns": "1700000060000000000",
+      "price": "3900000000000"
+    },
+    {
+      "timestamp_ns": "1700000120000000000",
+      "price": "4000000000000"
+    },
+    {
+      "timestamp_ns": "1700000180000000000",
+      "price": "4100000000000"
+    },
+    {
+      "timestamp_ns": "1700000240000000000",
+      "price": "4200000000000"
+    }
+  ],
+  "policy": {
+    "proposer": "alice.sandbox",
+    "adjudicator": "bob.sandbox",
+    "challenge_ns": "30000000000",
+    "arbitration_ns": "60000000000",
+    "bond": "10000000000000000000000"
+  }
+}

@@ -1,6 +1,6 @@
 [workspace]
 members = ["crates/payoff-math"]
-exclude = ["archive/privacy-track"]
+exclude = ["archive/privacy-track", "research/g1"]
 resolver = "2"
 
 [workspace.package]

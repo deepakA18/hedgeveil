@@ -1,0 +1,8 @@
+{
+  "name": "hedgeveil-g1-sandbox",
+  "private": true,
+  "type": "module",
+  "scripts": {"test": "node g1.mjs"},
+  "engines": {"node": ">=22.22.2"},
+  "dependencies": {"near-api-js": "7.4.0", "near-sandbox": "0.3.5"}
+}

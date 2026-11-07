@@ -12,8 +12,9 @@ in the plan; this project implements and evaluates it on NEAR.
 ## Current implementation
 
 The Python rational reference, checked Rust payoff library, 565 differential
-vectors, and validation tests are implemented. The specification, public-ledger
-schemas and backlog are aligned with the revised plan. The public clearinghouse,
+vectors, and validation tests are implemented. [G1 Sandbox experiments](research/g1/README.md)
+exercise native receipts, a synthetic-oracle lifecycle, and FT/MT namespace and
+resolver behavior. These are isolated feasibility fixtures. The public clearinghouse,
 settlement oracle, funded market, vault, SDK and UI are **not built yet**. No
 current product contract is deployed. Do not treat arithmetic tests as contract
 safety evidence or the future release checklist as completed work.
@@ -56,13 +57,26 @@ configuration; existing local secrets are not read by the active checks.
 
 [STATUS.md](docs/STATUS.md) distinguishes implemented, pending and superseded work.
 [BACKLOG.md](docs/BACKLOG.md) gives dependencies and acceptance evidence for every
-epic. The next stage is G1: runtime/Sandbox compatibility, token-interface
-compatibility, the synthetic demo oracle interface, and withdrawal quarantine.
+epic. [G1 evidence and limits](research/reports/G1_PUBLIC_LEDGER.md) records the
+local results. Finish independent specification review and the remaining token/
+wallet/indexer compatibility decisions before treating G1 as complete, then build
+the G3 collateral core. Run the new experiments with:
+
+```sh
+npm ci --prefix tests/sandbox --ignore-scripts
+python3 scripts/build-g1.py
+npm test --prefix tests/sandbox
+```
+
+G1 uses an isolated Rust 1.96.0 toolchain and requires Node 22.22.2+; see its
+[setup instructions](research/g1/README.md). First use downloads dependencies and
+the pinned Sandbox binary. No API credentials or public-chain account are needed.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
-upgrade/test signer keys and maker subsidies, and use real receipts. These modes
-are not yet runnable. G9 is the complete hackathon release; G10/G11 are separate
+upgrade/test signer keys and maker subsidies, and use real receipts. The complete
+product modes are not yet runnable; the G1 local harness is runnable.
+G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 
 Start with [SPEC](docs/SPEC.md), [THREAT_MODEL](docs/THREAT_MODEL.md),

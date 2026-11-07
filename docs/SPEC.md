@@ -2,8 +2,10 @@
 
 Status: implementation baseline pending independent review. Supersedes the
 privacy-track specification. [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md)
-is authoritative. Only the payoff library/reference and draft schemas exist;
-this is not a deployed ABI or audited custody system.
+is authoritative. The payoff library/reference, draft schemas and isolated
+[G1 feasibility fixtures](../research/g1/SPEC.md) exist; this is not a deployed
+product ABI or audited custody system. G1 sponsor-funded storage and fault hooks
+are experiment constraints, not amendments to this product's accounting rules.
 
 ## Product and units
 

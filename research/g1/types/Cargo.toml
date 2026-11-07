@@ -1,0 +1,10 @@
+[package]
+name = "g1-types"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[lib]
+test = false
+doctest = false
+[dependencies]
+near-sdk.workspace = true

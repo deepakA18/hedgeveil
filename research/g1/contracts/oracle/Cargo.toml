@@ -1,0 +1,15 @@
+[package]
+name = "g1-oracle"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+test = false
+doctest = false
+
+[dependencies]
+near-sdk.workspace = true
+g1-types = { path = "../../types" }

@@ -1,7 +1,9 @@
 # Deployment records
 
 There are **no active Open Innovation deployments**. `deploy/deployments.json`
-is the empty active registry. Example configs are disabled planning templates;
+is the empty active registry. G1 creates temporary local Sandbox deployments,
+records receipts/artifact hashes and removes the node after each run; these are
+not persistent testnet/product deployments. Example configs are disabled planning templates;
 no deployment loader or contract currently consumes them. Mainnet stays disabled.
 
 The historical noncustodial verifier deployment is preserved in
@@ -9,7 +11,8 @@ The historical noncustodial verifier deployment is preserved in
 Wasm must never be used as the current clearinghouse, oracle or token deployment.
 No chain state or access key was changed by this repository reconciliation.
 
-G1 must pin a tested SDK/Sandbox/client/toolchain combination. Each later release
+G1 pins its local SDK/Sandbox/client/toolchain in `research/g1` and
+`tests/sandbox` (see the G1 report). Each later product release
 record must include network and contract identities, source commit, compiler and
 dependency locks, Wasm SHA-256, actual deployment receipt/transaction, public
 access-key inventory and permissions, oracle/policy config hashes, initial caps,
