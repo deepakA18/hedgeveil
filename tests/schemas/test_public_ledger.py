@@ -42,6 +42,9 @@ def terms():
 
 def transaction(method='transfer'):
     args = {
+        'configure_vault_roll': {'policy': dict(version='roll-demo-v1', keeper='keeper.testnet', reference_publisher='reference.testnet', fee_receiver='fees.testnet', old_series_id='old', new_series_id='new', not_before_ns='1', deadline_ns='100', min_remaining_ns='1', max_remaining_ns='100', max_reference_age_ns='50', quote_horizon_ns='30', max_notional='100', max_cash_input='1', max_fee='1', total_fee_budget='2', total_loss_budget='1', min_receive='1', max_loss_bps=100)},
+        'publish_vault_reference': {'reference':dict(sequence='1', observed_ns='1', old_price='100', new_price='100')},
+        'execute_vault_roll': {'quote':None, 'reference_sequence':'1'},
         'deposit_collateral': {}, 'create_series': {'config': terms()},
         'storage_deposit': {}, 'release_storage_excess': {'amount': '100'}, 'unregister': {},
         'close_ticket': {'ticket_id': '0'}, 'release_dust': {'series_id': 's1'},
@@ -146,6 +149,12 @@ class PublicLedgerTests(unittest.TestCase):
             bad = transaction('create_series'); bad['args']['config'][field] = value; self.reject(bad)
         bad = transaction('create_series'); bad['args']['config']['observation_window']['end_ns'] = '201'; self.reject(bad)
         bad = transaction('create_series'); bad['args']['config']['observation_window']['start_ns'] = '200'; self.reject(bad)
+
+    def test_keeper_intents_remain_bounded_and_domain_bound(self):
+        bad = transaction('publish_vault_reference'); bad['args']['reference']['sequence'] = str(2**64); self.reject(bad)
+        bad = transaction('configure_vault_roll'); bad['args']['policy']['total_loss_budget'] = str(2**128); self.reject(bad)
+        bad = transaction('configure_vault_roll'); bad['args']['policy']['max_loss_bps'] = 1001; self.reject(bad)
+        bad = transaction('execute_vault_roll'); bad['args']['quote'] = quote(); bad['args']['quote']['domain']['contract_id'] = 'other.testnet'; self.reject(bad)
 
     def test_strict_json(self):
         for raw in ('{"amount":"1","amount":"2"}', '{"value":NaN}'):

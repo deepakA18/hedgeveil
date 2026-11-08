@@ -63,7 +63,18 @@ def build():
                  'oracle_config_hash': ref('hash256'), 'finalization_policy_hash': ref('hash256'),
                  'max_supply': ref('positive')})
     series_amount = obj({'series_id': ref('id'), 'amount': ref('positive')})
+    roll_policy = obj({'version': const('roll-demo-v1'), 'keeper': ref('account'),
+                       'reference_publisher': ref('account'), 'fee_receiver': ref('account'),
+                       'old_series_id': ref('id'), 'new_series_id': ref('id'),
+                       **{k: ref('uint64') for k in ('not_before_ns', 'deadline_ns', 'min_remaining_ns', 'max_remaining_ns', 'max_reference_age_ns', 'quote_horizon_ns')},
+                       **{k: ref('uint128') for k in ('max_notional', 'max_cash_input', 'max_fee', 'total_fee_budget', 'total_loss_budget', 'min_receive')},
+                       'max_loss_bps': {'type': 'integer', 'minimum': 0, 'maximum': 1000}})
+    current_reference = obj({'sequence': ref('uint64'), 'observed_ns': ref('uint64'),
+                             'old_price': ref('positive'), 'new_price': ref('positive')})
     methods = {
+        'configure_vault_roll': obj({'policy': roll_policy}),
+        'publish_vault_reference': obj({'reference': current_reference}),
+        'execute_vault_roll': obj({'quote': {'anyOf': [ref('quote'), {'type': 'null'}]}, 'reference_sequence': ref('uint64')}),
         'deposit_collateral': obj({}),
         'storage_deposit': obj({}),
         'release_storage_excess': obj({'amount': ref('positive')}),
@@ -99,7 +110,7 @@ def build():
     event = obj({'kind': const('event'), 'schema_version': const('0.2.0'), 'domain': ref('domain'),
                  'operation_id': ref('hash256'), 'actor': ref('account'),
                  'event': {'enum': ['DEPOSIT', 'SERIES_CREATED', 'SPLIT', 'TRANSFER', 'MERGE', 'QUOTE_FILLED',
-                                    'QUOTE_CANCELLED', 'SIGNING_KEY_REGISTERED', 'SIGNING_KEY_REVOKED', 'QUOTE_EPOCH_ADVANCED', 'MARKET_PAUSE_CHANGED', 'PAIR_MATCHED', 'FINALIZED', 'REDEEMED', 'VAULT_MINTED', 'VAULT_EXITED', 'VAULT_CREATED', 'VAULT_PAUSE_CHANGED', 'VAULT_SHARES_TRANSFERRED',
+                                    'QUOTE_CANCELLED', 'SIGNING_KEY_REGISTERED', 'SIGNING_KEY_REVOKED', 'QUOTE_EPOCH_ADVANCED', 'MARKET_PAUSE_CHANGED', 'PAIR_MATCHED', 'FINALIZED', 'REDEEMED', 'VAULT_MINTED', 'VAULT_EXITED', 'VAULT_CREATED', 'VAULT_POLICY_CONFIGURED', 'VAULT_REFERENCE_PUBLISHED', 'VAULT_PAUSE_CHANGED', 'VAULT_SHARES_TRANSFERRED',
                                     'ROLL_EXECUTED', 'ROLL_DEFERRED', 'WITHDRAWAL_REQUESTED', 'WITHDRAWAL_SUCCEEDED',
                                     'WITHDRAWAL_FAILED_CONFIRMED', 'WITHDRAWAL_UNKNOWN', 'DUST_RELEASED', 'INITIALIZED', 'STORAGE_DEPOSIT', 'STORAGE_RELEASED', 'STORAGE_REFUND_REQUESTED', 'TICKET_CLOSED', 'PAUSE_CHANGED', 'RESOLUTION_REQUESTED', 'RESOLUTION_REJECTED']},
                  'deltas': array(obj({'account_id': ref('account'),

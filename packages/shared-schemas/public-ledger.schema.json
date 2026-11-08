@@ -495,6 +495,9 @@
         },
         "method": {
           "enum": [
+            "configure_vault_roll",
+            "publish_vault_reference",
+            "execute_vault_roll",
             "deposit_collateral",
             "storage_deposit",
             "release_storage_excess",
@@ -528,6 +531,178 @@
         }
       },
       "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "configure_vault_roll"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "policy"
+              ],
+              "properties": {
+                "policy": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "version",
+                    "keeper",
+                    "reference_publisher",
+                    "fee_receiver",
+                    "old_series_id",
+                    "new_series_id",
+                    "not_before_ns",
+                    "deadline_ns",
+                    "min_remaining_ns",
+                    "max_remaining_ns",
+                    "max_reference_age_ns",
+                    "quote_horizon_ns",
+                    "max_notional",
+                    "max_cash_input",
+                    "max_fee",
+                    "total_fee_budget",
+                    "total_loss_budget",
+                    "min_receive",
+                    "max_loss_bps"
+                  ],
+                  "properties": {
+                    "version": {
+                      "const": "roll-demo-v1"
+                    },
+                    "keeper": {
+                      "$ref": "#/$defs/account"
+                    },
+                    "reference_publisher": {
+                      "$ref": "#/$defs/account"
+                    },
+                    "fee_receiver": {
+                      "$ref": "#/$defs/account"
+                    },
+                    "old_series_id": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "new_series_id": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "not_before_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "deadline_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "min_remaining_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "max_remaining_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "max_reference_age_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "quote_horizon_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "max_notional": {
+                      "$ref": "#/$defs/uint128"
+                    },
+                    "max_cash_input": {
+                      "$ref": "#/$defs/uint128"
+                    },
+                    "max_fee": {
+                      "$ref": "#/$defs/uint128"
+                    },
+                    "total_fee_budget": {
+                      "$ref": "#/$defs/uint128"
+                    },
+                    "total_loss_budget": {
+                      "$ref": "#/$defs/uint128"
+                    },
+                    "min_receive": {
+                      "$ref": "#/$defs/uint128"
+                    },
+                    "max_loss_bps": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1000
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "publish_vault_reference"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reference"
+              ],
+              "properties": {
+                "reference": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "sequence",
+                    "observed_ns",
+                    "old_price",
+                    "new_price"
+                  ],
+                  "properties": {
+                    "sequence": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "observed_ns": {
+                      "$ref": "#/$defs/uint64"
+                    },
+                    "old_price": {
+                      "$ref": "#/$defs/positive"
+                    },
+                    "new_price": {
+                      "$ref": "#/$defs/positive"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "execute_vault_roll"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "quote",
+                "reference_sequence"
+              ],
+              "properties": {
+                "quote": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/quote"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "reference_sequence": {
+                  "$ref": "#/$defs/uint64"
+                }
+              }
+            }
+          }
+        },
         {
           "properties": {
             "method": {
@@ -1154,6 +1329,8 @@
             "VAULT_MINTED",
             "VAULT_EXITED",
             "VAULT_CREATED",
+            "VAULT_POLICY_CONFIGURED",
+            "VAULT_REFERENCE_PUBLISHED",
             "VAULT_PAUSE_CHANGED",
             "VAULT_SHARES_TRANSFERRED",
             "ROLL_EXECUTED",

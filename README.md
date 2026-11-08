@@ -27,8 +27,9 @@ fallback/adjudication, delayed settlement and bond-credit withdrawals, with real
 core import tests. The [G5 funded market](docs/MARKET.md) adds registered Ed25519
 keys, exact atomic fills, pair matching, replay/cancellation protection and two
 separate local maker processes with direct old/new rolls. The [G6 basket increment](docs/VAULT.md)
-adds Sandbox-only proportional issuance, internal shares and in-kind exits. Keeper
-trading, an approved vault policy, the full SDK, RFQ relay and UI are **not built yet**.
+adds Sandbox-only proportional issuance, internal shares and in-kind exits. The optional [VLT-02 guard](docs/KEEPER.md) now executes one experimental
+Sandbox roll using authenticated synthetic references and competing makers. An
+approved strategy, the full SDK, RFQ relay and UI are **not built yet**.
 No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
@@ -133,9 +134,9 @@ node tests/sandbox/g3.mjs --report research/reports/g5-core-regression.json
 See [G5 results](research/reports/G5_FUNDED_MARKET.md),
 [signing codec](packages/rfq/README.md) and [maker usage](services/maker/README.md).
 The latest core requires fresh state; it has no migration from G3/G4 deployments.
-G6's VLT-01 basket mechanics are implemented for Sandbox only. Economic review,
-a passing vault policy and VLT-02 keeper guards remain open; local fills do not
-establish strategy profitability. Run the basket and compatibility suites with:
+G6's VLT-01 basket mechanics and optional VLT-02 one-shot guard are implemented
+for Sandbox only. Economic review and a passing recurring policy remain open;
+local fills do not establish strategy profitability. Run the basket and compatibility suites with:
 
 ```sh
 python3 scripts/build-core.py
@@ -146,6 +147,23 @@ node tests/sandbox/g5.mjs --report research/reports/g6-market-regression.json
 
 See [G6 basket results](research/reports/G6_BASKET.md). The new state layout requires
 fresh accounts; original G3–G5 receipt reports remain historical evidence.
+
+Run the experimental keeper and compatibility checks with:
+
+```sh
+node --test tests/keeper/planner.test.mjs
+python3 scripts/build-core.py
+node tests/sandbox/g6-keeper.mjs
+node tests/sandbox/g3.mjs --report research/reports/g6-keeper-core-regression.json
+node tests/sandbox/g5.mjs --report research/reports/g6-keeper-market-regression.json
+node tests/sandbox/g6.mjs --report research/reports/g6-keeper-basket-regression.json
+```
+
+See [keeper evidence](research/reports/G6_KEEPER.md) and
+[service usage](services/keeper/README.md). Guard terms are fixed before deposits;
+failed guards preserve holdings and in-kind exits. The next application increment
+is the local SDK/receipt recovery layer; economic selection and independent review
+remain release dependencies.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose

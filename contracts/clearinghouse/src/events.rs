@@ -35,6 +35,7 @@ impl Clearinghouse {
                 );
             }
         }
+        put(&core, "STORAGE", "roll", "COLLATERAL", self.roll_storage());
         if let Some(v) = &self.vault {
             put(
                 &core,
@@ -124,6 +125,15 @@ impl Clearinghouse {
         ));
     }
     fn assert_invariants(&self) {
+        if let Some(r) = &self.vault_roll {
+            require!(
+                self.vault.is_some()
+                    && self.network == "sandbox"
+                    && r.fees_spent.0 <= r.policy.total_fee_budget.0
+                    && r.marked_loss_spent.0 <= r.policy.total_loss_budget.0,
+                "roll budget invariant"
+            );
+        }
         if let Some(v) = &self.vault {
             require!(
                 v.holders.values().map(|s| s.0).sum::<u128>() == v.supply.0
@@ -245,7 +255,8 @@ impl Clearinghouse {
                     * (1 + self.accounts.len() as u128
                         + self.series.len() as u128
                         + self.markets.len() as u128
-                        + u128::from(self.vault.is_some())),
+                        + u128::from(self.vault.is_some())
+                        + u128::from(self.vault_roll.is_some())),
             "storage allowance exceeded"
         );
         require!(
@@ -254,6 +265,7 @@ impl Clearinghouse {
                     + self.series_storage
                     + self.market_storage
                     + self.vault_storage()
+                    + self.roll_storage()
                     + self.accounts.len() as u128 * self.minimum_storage(),
             "storage not separately funded"
         );

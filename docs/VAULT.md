@@ -47,8 +47,11 @@ deposits/transfers remain outside the vault; they cannot change share ratios.
 Canonical events include VAULT holdings, FREE share balances and a SUPPLY mirror;
 shares are not native collateral and must never be counted as backing twice.
 
-VLT-02 is not implemented: no keeper trading, current-price feed, roll budget,
-cash-only exit or RFQ-and-mint convenience operation. Risk view explicitly reports
-`ROLL_DEFERRED` / `POLICY_UNSELECTED`, no NAV and `keeper_enabled=false`. This is an
-experimental basket custody profile, not a selected tracking strategy. A future
-policy change requires a new reviewed version; existing holders retain exits.
+Without an opt-in roll profile, the risk view reports `ROLL_DEFERRED` /
+`POLICY_UNSELECTED`, no NAV and `keeper_enabled=false`. VLT-02 now has the optional
+[one-shot Sandbox guard profile](KEEPER.md), configured once before bootstrap.
+It adds authenticated synthetic references and bounded funded rolls; it does not
+select an economic strategy. After a roll, proportional issuance uses current
+holdings and their maturities. Cash-only exits, RFQ-and-mint convenience operations
+and an approved recurring policy remain pending. A policy change requires a new
+reviewed version; existing holders retain exits.

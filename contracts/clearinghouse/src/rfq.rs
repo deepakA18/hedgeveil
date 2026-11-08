@@ -112,6 +112,7 @@ impl Clearinghouse {
         );
         let payload = bytes(b"HEDGEVEIL:RFQ:1\0", &quote);
         self.authorize_quote(
+            &env::predecessor_account_id(),
             &quote.domain,
             &quote.maker,
             &quote.taker,
@@ -189,6 +190,7 @@ impl Clearinghouse {
         );
         let payload = bytes(b"HEDGEVEIL:PAIR:1\0", &quote);
         self.authorize_quote(
+            &env::predecessor_account_id(),
             &quote.domain,
             &quote.maker,
             &quote.taker,
@@ -264,8 +266,9 @@ impl Clearinghouse {
 }
 impl Clearinghouse {
     #[allow(clippy::too_many_arguments)]
-    fn authorize_quote(
+    pub(crate) fn authorize_quote(
         &self,
+        caller: &AccountId,
         domain: &Domain,
         maker: &AccountId,
         taker: &Option<AccountId>,
@@ -282,9 +285,8 @@ impl Clearinghouse {
                 && domain.contract_id == env::current_account_id(),
             "wrong domain"
         );
-        let caller = env::predecessor_account_id();
         require!(
-            caller != *maker && taker.as_ref().is_none_or(|a| a == &caller),
+            caller != maker && taker.as_ref().is_none_or(|a| a == caller),
             "wrong taker"
         );
         let now = env::block_timestamp();
@@ -308,7 +310,7 @@ impl Clearinghouse {
             "invalid RFQ signature"
         );
     }
-    fn consume(&mut self, maker: &AccountId, nonce: Num64) {
+    pub(crate) fn consume(&mut self, maker: &AccountId, nonce: Num64) {
         let m = self.markets.get_mut(maker).expect("registry");
         m.consumed[nonce.0 as usize / 8] |= 1 << (nonce.0 % 8);
     }
@@ -319,7 +321,7 @@ impl Clearinghouse {
         );
         self.account(&fee.receiver);
     }
-    fn pay_fee(&mut self, fee: &Fee) {
+    pub(crate) fn pay_fee(&mut self, fee: &Fee) {
         let a = self.accounts.get_mut(&fee.receiver).expect("fee receiver");
         a.free.0 = a.free.0.checked_add(fee.amount.0).expect("fee overflow");
     }
@@ -353,7 +355,7 @@ impl Clearinghouse {
             }
         }
     }
-    fn fill_event(
+    pub(crate) fn fill_event(
         &self,
         mode: &str,
         maker: &AccountId,

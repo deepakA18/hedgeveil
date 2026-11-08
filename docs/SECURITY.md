@@ -40,6 +40,16 @@ or keeper authority yet. The profile rejects testnet vault creation and does not
 claim selected strategy safety. Independent review and combined interleaving/fuzz
 coverage remain pending.
 
+VLT-02's [one-shot guard evidence](../research/reports/G6_KEEPER.md) adds maker
+quotes explicitly bound to the core account, authenticated current-reference
+publication and immutable timing/fee/loss/notional/series checks. Ordinary fills
+retain predecessor authorization. Expected deferrals do not move holdings or
+consume a nonce; signature-verification failures revert. Publisher truth remains
+a separate trust assumption, even when signatures and freshness pass. The local
+keeper/planner and publisher are distinct accounts/process roles under one test
+operator. No production source independence, signed quote-creation timestamp,
+approved recurring policy or exhaustive concurrent-state proof is claimed.
+
 Required SEC-01 layers: unit/serialization tests; shared rational/Rust vectors;
 stateful conservation across split/transfer/trade/merge/finalize/redeem;
 compiled-Wasm Sandbox receipts; oracle/withdrawal interleaving models; bounded

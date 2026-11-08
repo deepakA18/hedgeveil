@@ -39,3 +39,14 @@ even when vault mints/markets/deposits are paused or claims are matured pending.
 It returns actual unresolved claims without promising cash. `vault_risk` explicitly
 reports POLICY_UNSELECTED; no keeper runs. Last exit closes the vault permanently.
 There is no automatic rebootstrap, policy replacement or admin asset withdrawal.
+
+The optional [VLT-02 profile](KEEPER.md) adds `get_vault_roll` and
+`execute_vault_roll`. Inspect the returned state and actual receipt: a successful
+transaction can record ROLL_DEFERRED without executing any trade. Record its reason,
+current reference sequence, maker nonce and unchanged holdings. Refreshing data
+alone cannot clear a latched deferral; a valid funded roll must succeed. Never
+treat a selected off-chain proposal as a fill or send a compensating payout.
+In-kind exits remain available during reference/maker outages and after policy
+exhaustion. If the publisher or keeper is compromised, pause market fills and
+new vault mints; do not seize holdings or change a funded policy. Policy replacement
+and production authority recovery are not implemented.

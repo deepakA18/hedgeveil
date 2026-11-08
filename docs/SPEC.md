@@ -195,3 +195,12 @@ in-kind exits and complete last-holder allocation. Shares use a separate interna
 ledger. There are no management/performance liabilities or keeper authority in
 this increment. G2 policy selection and VLT-02 guards remain pending; no rolling
 strategy is enabled. This changes core state layout and requires fresh accounts.
+
+## VLT-02 experimental guard profile
+
+The [keeper profile](KEEPER.md) defines an optional, immutable, one-shot Sandbox
+roll configured before initial shares exist. It adds authenticated synthetic
+current references, direct maker-funded P-to-P execution, explicit native fee/loss
+budgets and persistent deferral without affecting exits. It is not FIN-02 policy
+selection or an approved tracking strategy. Existing basket-only creation remains
+available. New optional state requires fresh deployments, with no migration.

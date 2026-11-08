@@ -166,4 +166,31 @@ Run `node tests/sandbox/g6.mjs` after `build-core.py`. Preserve earlier reports 
 running the G3/G5 regressions with `--report research/reports/g6-core-regression.json`
 and `--report research/reports/g6-market-regression.json`, respectively. The
 [G6 report](../research/reports/G6_BASKET.md) distinguishes basket accounting
-from the unimplemented VLT-02 keeper and unresolved economic selection.
+from the then-unimplemented VLT-02 keeper and unresolved economic selection.
+
+## Optional VLT-02 one-shot Sandbox guard
+
+The [keeper profile](../docs/KEEPER.md) can be configured only before the first
+shares are minted. It has immutable terms, a distinct authenticated synthetic
+reference publisher and one successful full-old-P roll. It does not approve an
+economic policy. Fresh state is required; no migration is implemented.
+
+| Method | Parameters / authority |
+|---|---|
+| `configure_vault_roll` | `policy` as documented in KEEPER; guardian, unseeded vault; extra 4096-byte prepayment plus one yocto |
+| `publish_vault_reference` | `reference: {sequence, observed_ns, old_price, new_price}`; configured publisher; one yocto |
+| `execute_vault_roll` | `quote` (G5 quote or null), `reference_sequence`; configured keeper; one yocto |
+| `get_vault_roll` | Immutable policy, latest reference, deferral, exhaustion and spent budgets |
+
+The quote must bind its taker to this core account. That account represents the
+single managed vault only inside this guarded method; ordinary RFQ callers still
+authorize their own ledger debits. Expected guard failures return ROLL_DEFERRED
+without consuming the quote or moving holdings; invalid authority/signatures
+revert. Publishing data does not clear a latched deferral. Exits always retain
+their ordinary owner/minimum checks, independently of reference freshness.
+
+`vault_risk` labels the experimental profile, absent NAV, enabled/exhausted state
+and current deferral. Custody adds `roll_storage_fund`, separate from managed
+cash and collateral. The [keeper report](../research/reports/G6_KEEPER.md) records
+actual local execution and regression coverage. The earlier G6 basket report
+describes the revision before this optional guard existed.

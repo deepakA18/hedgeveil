@@ -1,6 +1,6 @@
 # Implementation status
 
-Reconciled 7 November 2026 against the Open Innovation revision of
+Reconciled 8 November 2026 against the Open Innovation revision of
 [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md). The plan defines the target;
 this file records evidence. Documents and fixtures alone do not complete a gate.
 
@@ -12,7 +12,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G3 collateral core — local implementation | Bounded public ledger, separate storage/refunds, immutable series/P/N, split/transfer/merge, rounded redemption/dust, scoped pauses, native tickets, canonical events and compiled-Wasm tests | Independent review, broader adversarial/load coverage, production key/recovery controls; full SDK/CLI remains G7 |
 | G4 settlement — local demo implementation | Committed synthetic archive/replay, authenticated publishers, bonded proposals/challenges, fallback/arbitration/delay, immutable resolution import and bond-credit custody | Independent review, broader timing/load/interleaving coverage, G7 evidence UI/indexing; production historical sources and economic bond sizing remain G10 |
 | G5 market — local implementation | Registered Ed25519 keys, funded exact fills/pair issuance, durable nonce/epoch cancellation, two separate maker processes, atomic direct rolls and receipt/event reconciliation | Independent review, broader capacity/interleavings, testnet maker funding/measurements; relay/wallet flows remain G7 |
-| G6 vault — VLT-01 local mechanics | Sandbox-only immutable seed basket, ceiling issuance, internal shares/transfers, floor in-kind exits and last-holder dust; no NAV input or keeper authority | Independent review, policy selection, VLT-02 guarded rolls/current reference, RFQ-and-mint/cash-only conveniences and testnet deployment |
+| G6 vault — local basket and experimental guards | Sandbox-only basket/share mechanics plus optional immutable one-shot roll, authenticated synthetic reference, competing maker execution, fee/loss/notional limits and deferred inflows with exits | Independent review, selected recurring policy/current-source trust, broader interleavings, RFQ-and-mint/cash-only conveniences and testnet deployment |
 | G7 application | Not implemented | SDK, wallet/UI, indexer, recovery CLI and working local/testnet modes |
 | G8 adversarial | Arithmetic/schema checks, G1 faults, G3 seeded stateful ledger comparison, event replay and capacity/receipt faults | Broader fuzz/interleavings/load coverage, models/proof scope and independent review/remediation |
 | G9 hackathon release | Not started | Complete no-paid-key testnet demo, real receipts and disclosure/submission bundle |
@@ -23,7 +23,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 
 Five Python financial tests include 2,000 seeded rational identity cases and
 1,000 fragmentation cases. Two Rust unit tests and one differential test cover
-565 shared vectors. Ten public-schema test groups cover 26 transaction intent
+565 shared vectors. Eleven public-schema test groups cover 29 transaction intent
 shapes, public accounting, domain/amount constraints, vault baskets and withdrawal
 restoration restrictions. Offline schema validity is not authorization or
 signature verification.
@@ -53,6 +53,14 @@ The new binary also passes G3 lifecycle/fault and G5 market regressions, recorde
 separately. See [G6 evidence](../research/reports/G6_BASKET.md). This is a Sandbox
 basket profile with no approved policy, NAV or enabled keeper.
 
+VLT-02 now adds 13 guard checks, 136 transactions and 119 canonical events across
+three fresh Sandbox cores. Two funded maker processes provide competing quotes
+and a separate planner proposes one actual atomic vault roll. Reference freshness,
+immutable budgets, deferral/exit paths and post-roll issuance are exercised.
+G3, G5 and basket regressions pass on the new artifact. See
+[keeper evidence](../research/reports/G6_KEEPER.md). This one-shot profile remains
+experimental; economic policy selection and independent source/review gates stay open.
+
 Commands are in [README](../README.md). The [G1 report](../research/reports/G1_PUBLIC_LEDGER.md)
 and [G3 report](../research/reports/G3_COLLATERAL_CORE.md) link source-hashed
 receipt evidence. The core reuses the unchanged payoff library. Normal and
@@ -66,10 +74,11 @@ of the earlier migration, not the latest implementation status.
 The documented internal-ledger fallback is the current interface decision; no
 standards conformance is claimed. G0 independent review and G1 integration gaps
 remain open, so local G3 implementation does not imply those gates passed.
-MKT-01/02 and VLT-01 now have local implementation/evidence. Continue G6 with
-VLT-02 in [BACKLOG](BACKLOG.md); policy selection and current-reference guards
-remain unresolved. The basket profile enables no rolling strategy and rejects
-vault creation outside Sandbox. See [G6 evidence](../research/reports/G6_BASKET.md).
+MKT-01/02 and VLT-01/02 now have local implementation/evidence, with VLT-02
+limited to an experimental one-shot Sandbox policy. Next is APP-01 local SDK/CLI
+and receipt recovery in [BACKLOG](BACKLOG.md). Economic selection, reviewed current
+reference sources and independent review remain unresolved; no approved recurring
+strategy or testnet vault is enabled. See [keeper evidence](../research/reports/G6_KEEPER.md).
 G4's demo lifecycle and collector are local implementations; see the
 [G4 report](../research/reports/G4_SETTLEMENT.md). FIN-02's
 first synthetic experiment is reproducible but selects no passing rolling policy;

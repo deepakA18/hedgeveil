@@ -34,4 +34,10 @@ evidence. A new experiment version and new holdout are required before
 changing assumptions or gates to reconsider policy selection. G6 policy remains
 unselected; G5 does not waive that dependency for G6.
 
+VLT-02 now has a [one-shot Sandbox guard](../research/reports/G6_KEEPER.md) with
+actual competing maker execution and explicit reference-valued loss limits.
+Its synthetic current references and test budgets are not a newly selected
+economic policy or an independent data model. FIN-02's frozen results remain
+unchanged; a recurring strategy still needs new reviewed assumptions/holdout.
+
 Accounting backing does not guarantee a USD peg, profit, liquidity or low losses.

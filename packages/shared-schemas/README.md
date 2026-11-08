@@ -36,8 +36,8 @@ Schema v0.1/proof/nullifier/opening fields are rejected rather than reinterprete
 
 The G3/G5 ABI, asset IDs, key management, scoped permissions, ledger log framing
 and bounded views are in [contracts/README](../../contracts/README.md).
-Vault roll proposals, non-demo oracle records, receiver/resolver interfaces and
-the full G7 SDK remain future work. Current state,
+VLT-02 adds experimental roll proposals; non-demo oracle records, receiver/resolver
+interfaces and the full G7 SDK remain future work. Current state,
 block time, balances, signature authenticity, fees, economic caps, receipt
 outcomes and predecessor authorization must be checked by contracts. Passing this
 offline validator never authorizes a debit, finalizes a price or verifies a payout.
@@ -84,3 +84,12 @@ checks exact bootstrap scale, complete input/output limits, funding, registered
 share ownership and maturity. Canonical events use VAULT for managed assets,
 FREE for holder shares and SUPPLY for their mirror; never count shares as native
 backing. Passing a schema does not approve a policy or enable testnet creation.
+
+VLT-02 adds three intent shapes (29 total): `configure_vault_roll`,
+`publish_vault_reference` and `execute_vault_roll`, plus policy/reference ledger
+events. A null quote explicitly requests deferral. Reference sequence/times are
+u64; prices and budgets are u128; basis-point loss is bounded to 0..1000. Actual
+role checks, pre-bootstrap immutability, reference age, inventory and policy bounds
+are enforced on chain. The separate `hedgeveil_vault_roll` audit envelope records
+exact quantities and reference-valued native loss; it is not a NAV or USD-return
+claim. Canonical accounting still uses ordinary ledger events.

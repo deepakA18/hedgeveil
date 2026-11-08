@@ -1,11 +1,12 @@
 # Open Innovation backlog
 
-Updated 7 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
+Updated 8 November 2026. FIN-01/SEC-01 and the four G1 feasibility tasks have
 implemented portions. CORE-01/02/03/04 now have a bounded Sandbox implementation;
 FIN-02 now has a reproducible synthetic experiment with no passing rolling-policy
 candidate. ORC-01/02 now have a local G4 demo oracle/collector implementation.
 MKT-01/02 now have local G5 market/maker implementation and receipt evidence.
-VLT-01 has Sandbox basket mechanics; VLT-02 strategy/keeper remains pending.
+VLT-01 has Sandbox basket mechanics; VLT-02 has an experimental one-shot guard.
+Economic strategy selection and independent review remain pending.
 Other product epics remain pending. G1 fixtures are not product implementations.
 Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
@@ -36,7 +37,8 @@ No candidate passes its frozen training gates; G6 policy selection stays open.
 G4's local settlement evidence is in [G4 results](../research/reports/G4_SETTLEMENT.md).
 G5's local funded execution is in [G5 results](../research/reports/G5_FUNDED_MARKET.md).
 G6 VLT-01 evidence is in [G6 results](../research/reports/G6_BASKET.md).
-Next is VLT-02; further economic experiments require a new holdout. Actual local fills
+VLT-02 local guard evidence is in [keeper results](../research/reports/G6_KEEPER.md).
+Next is APP-01; further economic experiments require a new holdout. Actual local fills
 do not resolve FIN-02's failed policy selection.
 
 ## Implementation epics
@@ -54,7 +56,7 @@ do not resolve FIN-02's failed policy selection.
 | MKT-01 / G5 — locally implemented | CORE-01/02, FIN-02 experiment; independent reviews pending | Funded exact legs/fees atomic, nonce used once | Registered keys, distinct trade/pair encodings, 256 nonce slots/epoch, revocation and unregister persistence; 29 Sandbox checks reject invalid/replayed/stale/unfunded fills and exercise both cancellation orderings. Broader concurrency/capacity and independent review pending | Market/contracts/security — pending |
 | MKT-02 / G5 — locally implemented | MKT-01, FIN-02 experiment; policy selection remains open | Maker escrow ownership, atomic direct rolls | Two separate processes, four actual maker fills, integer spreads, TTL/inventory/position/loss guards and receipt-backed epoch cancellation; synthetic marks, P/L, subsidy and no-maker outcomes published. Testnet, relay, continuous monitoring and broader depth/load evidence pending | Market/quant — pending |
 | VLT-01 / G6 — local basket mechanics | CORE-03, ORC-02, MKT-01; FIN-02 policy/review unresolved | Basket entry/exit does not dilute holders | Immutable seed, ceil mint/floor exit, internal share transfer, last-holder allocation and closure; compiled-Wasm model/event reconciliation, donations, dust/minima, maturity/pauses and holder-capacity checks. No receiver callbacks/token interface, selected policy or testnet vault; review and RFQ convenience flows pending | Contracts/economics — pending |
-| VLT-02 / G6 | VLT-01, MKT-02, FIN-02 | Keeper policy-bound with no withdrawal authority | Four-series/fee/notional/freshness guards; no bid/stale reference yields ROLL_DEFERRED with exits; policy changes create new vault version | Quant/contracts |
+| VLT-02 / G6 — experimental local guard | VLT-01, MKT-02; FIN-02 selection/review pending | Keeper policy-bound with no managed withdrawal authority | Pre-bootstrap immutable one-shot Sandbox terms; authenticated synthetic reference, signed full-old/new roll, four-series/maturity/fee/loss/notional guards, persistent deferral and exits. Actual competing maker fill and regressions; recurring economic policy, source independence, broader interleavings and testnet remain pending | Quant/contracts/security — pending |
 | APP-01 / G7 | CORE-02/03/04, MKT-01, VLT-01 | SDK/contract units, domain and receipt states agree | Typed SDK/wallet/recovery CLI; disconnect, ambiguous send, wrong network and repeated actions recover from chain state | Product/contracts |
 | APP-02 / G7 | APP-01, VLT-02, INF-01 | Display actual ownership/executable outcomes | User/maker UI, evidence viewer and browser lifecycle; uncertain NAV, illiquidity, unresolved settlement, synthetic prices, subsidies and keys visible | Product/QA |
 | INF-01 / G7 | CORE-01 events; ORC-02/MKT-01/VLT-01 coverage | Finalized event replay reconciles to chain | Local PostgreSQL indexer/API/metrics; restart/backfill/dedup, missed events/RPC outage; custody/quote/oracle/ticket alerts | Infrastructure/contracts |

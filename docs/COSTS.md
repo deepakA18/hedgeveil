@@ -47,3 +47,11 @@ plus one yocto. This permanently allocated storage never becomes collateral or
 last-holder proceeds. Share holders use existing account registration; ordinary
 operations pay one yocto from their wallet. No management/performance fees accrue
 inside the basket. Its share cap is a local arithmetic limit, not a liquidity budget.
+
+The optional VLT-02 profile prepays another 4096 bytes / 0.04096 NEAR at the local
+price, bringing permanent vault-plus-policy storage to 0.08192 NEAR. Reference
+publishers and keepers fund their own one-yocto calls. The successful local roll
+used 6.731 Tgas and debited a signed 0.00037425-NEAR fee from vault cash within
+immutable limits; its 0.003368261976047904191618-NEAR reference-valued loss is a
+synthetic mark calculation, not realized USD performance. See
+[keeper cost evidence](../research/reports/G6_KEEPER.md). No production budget follows.

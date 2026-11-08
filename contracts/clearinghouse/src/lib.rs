@@ -1,6 +1,7 @@
 mod accounting;
 mod claims;
 mod events;
+mod keeper;
 mod permissions;
 mod rfq;
 mod rfq_types;
@@ -35,6 +36,7 @@ pub struct Clearinghouse {
     market_storage: u128,
     market_paused: bool,
     vault: Option<vault::Vault>,
+    vault_roll: Option<keeper::RollState>,
 }
 #[near]
 impl Clearinghouse {
@@ -81,6 +83,7 @@ impl Clearinghouse {
             market_storage: 0,
             market_paused: false,
             vault: None,
+            vault_roll: None,
         };
         this.finish("INITIALIZED", BTreeMap::new(), 0);
         this

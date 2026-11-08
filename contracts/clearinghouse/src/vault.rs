@@ -83,6 +83,10 @@ impl Clearinghouse {
     }
 
     pub fn vault_risk(&self) -> Value {
+        if let Some(r) = &self.vault_roll {
+            let reason = self.roll_inflow_reason();
+            return json!({"profile":"roll-demo-v1","policy_selected":false,"state":if reason.is_some(){"ROLL_DEFERRED"}else{"ACTIVE"},"reason":reason,"keeper_enabled":!r.executed && self.vault.as_ref().is_some_and(|v| !v.closed && v.supply.0>0),"exhausted":r.executed,"nav":null,"reference_label":"SYNTHETIC CURRENT REFERENCE","storage_payment":Amount(self.minimum_storage()),"max_shares":Amount(MAX_SUPPLY)});
+        }
         json!({"profile":"basket-demo-v1","state":"ROLL_DEFERRED","reason":"POLICY_UNSELECTED","keeper_enabled":false,"nav":null,"storage_payment":Amount(self.minimum_storage()),"max_shares":Amount(MAX_SUPPLY)})
     }
 
@@ -107,7 +111,15 @@ impl Clearinghouse {
         require!(shares.0 > 0, "positive shares required");
         let total = v.supply.0.checked_add(shares.0).expect("share overflow");
         require!(total <= MAX_SUPPLY, "share supply cap");
-        self.vault_inflows_open(&v.seed);
+        require!(
+            self.roll_inflow_reason().is_none(),
+            "roll deferred: inflows disabled"
+        );
+        self.vault_inflows_open(if v.supply.0 == 0 {
+            &v.seed
+        } else {
+            &v.holdings
+        });
         let inputs = if v.supply.0 == 0 {
             require!(
                 shares == v.initial_shares,

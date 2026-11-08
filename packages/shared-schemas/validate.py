@@ -6,8 +6,8 @@ from jsonschema import Draft202012Validator
 SCHEMA = json.loads(Path(__file__).with_name('public-ledger.schema.json').read_text())
 MAX_U128 = 2**128 - 1
 MAX_U64 = 2**64 - 1
-UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount', 'pair_amount', 'maker_collateral', 'initial_shares'}
-UINT64_FIELDS = {'ticket_id', 'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns', 'epoch'}
+UINT128_FIELDS = {'amount', 'attached_deposit', 'shares', 'strike', 'max_supply', 'fee_amount', 'pair_amount', 'maker_collateral', 'initial_shares', 'max_notional', 'max_cash_input', 'max_fee', 'total_fee_budget', 'total_loss_budget', 'min_receive', 'old_price', 'new_price'}
+UINT64_FIELDS = {'ticket_id', 'nonce', 'cancellation_epoch', 'expiry_ns', 'maturity_ns', 'mint_cutoff_ns', 'start_ns', 'end_ns', 'epoch', 'not_before_ns', 'deadline_ns', 'min_remaining_ns', 'max_remaining_ns', 'max_reference_age_ns', 'quote_horizon_ns', 'reference_sequence', 'sequence', 'observed_ns'}
 
 
 def loads_strict(raw):
@@ -65,7 +65,7 @@ def validate(data):
         method, args = data['method'], data['args']
         if method == 'deposit_collateral' and int(data['attached_deposit']) == 0:
             raise ValueError('collateral deposit must be positive')
-        if method in ('fill_quote', 'match_pair') and args['quote']['domain'] != data['domain']:
+        if method in ('fill_quote', 'match_pair', 'execute_vault_roll') and args['quote'] is not None and args['quote']['domain'] != data['domain']:
             raise ValueError('quote transaction domain mismatch')
         if method == 'create_series':
             config = args['config']

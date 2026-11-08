@@ -49,3 +49,11 @@ The contract rejects experimental vault creation in a testnet domain. Local
 G6 receipts and G3/G5 regressions are saved in new reports; historical reports
 and the empty active deployment registry are preserved. No strategy is approved
 and no keeper is enabled by this accounting increment.
+
+The later VLT-02 increment adds a separately prepaid optional one-shot roll state.
+It also requires fresh accounts. Only an unseeded Sandbox-domain vault can opt in;
+existing holders cannot have a keeper/policy retrofitted. The local evidence uses
+dedicated keeper/reference accounts and ephemeral maker keys; all remain under
+one test operator. [Keeper evidence](../research/reports/G6_KEEPER.md) records the
+new artifact and regression hashes. No historical deployment or active public
+registry entry was changed, and production remains disabled.
