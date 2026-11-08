@@ -23,6 +23,9 @@ pub struct SettlementOracle {
 }
 #[near]
 impl SettlementOracle {
+    pub fn indexer_status(&self) -> near_sdk::serde_json::Value {
+        json!({"network":self.network,"contract_id":env::current_account_id(),"sequence":Num64(self.sequence)})
+    }
     #[init]
     pub fn new(
         network: String,

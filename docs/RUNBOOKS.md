@@ -81,3 +81,30 @@ money again. Review the previous receipt and current actual assets first. The
 [Sandbox evidence](../research/reports/G7_LOCAL_CLIENT.md) exercises recovery in
 fresh CLI processes; production incident ownership and independent review remain
 unassigned/pending.
+
+
+## Local indexer incident drill
+
+The [INF-01 worker/API](INDEXER.md) uses a dedicated PostgreSQL schema and one
+transaction for the accepted cursor, event projections and matched snapshots.
+During RPC/database outage or a custody/sequence mismatch, `/health` returns 503
+with risk disabled. Data endpoints retain the last accepted checkpoint and its
+health; a recent HTTP response is not proof of recent chain data. Check both
+checkpoint age and observed block lag. The service cannot pause a contract or
+send transactions; browser/UI enforcement and operator paging remain pending.
+
+Restart `serve` with the same private local config and schema. It resumes from
+the durable cursor and verifies every parent link. If history was pruned, provide
+another identity-matching local RPC retaining that history. Never advance the
+cursor manually, treat an unknown block as empty, or reconstruct balances from a
+current snapshot while claiming complete event replay. A fresh explicitly named
+schema can backfill from the recorded pre-deployment anchor; compare balances
+and custody to the existing accepted checkpoint before considering a repair.
+
+A reconciliation failure blocks publication and new-risk advice, while valid
+owner exits remain contract operations available through the recovery CLI. Keep
+UNKNOWN payouts quarantined and collect their linked receipts; restarting the
+indexer does not resolve them. An unknown quote-depth notice means no executable
+quote source has been integrated, not a zero spread, available bid or safe roll.
+Guardian pauses and independent incident adjudication still require their own
+authorized procedures; no automated notification or on-call sign-off is claimed.

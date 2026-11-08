@@ -32,6 +32,8 @@ Sandbox roll using authenticated synthetic references and competing makers. An
 approved strategy, browser wallet, RFQ relay and UI are **not built yet**. The
 [local APP-01 SDK/CLI](docs/CLIENT.md) now adds exact-amount transaction builders,
 a durable attempt journal and finalized receipt recovery for the internal ledger.
+The [local INF-01 indexer](docs/INDEXER.md) adds PostgreSQL-backed finalized replay,
+core/oracle custody reconciliation and a read-only API with health metrics.
 No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
@@ -182,13 +184,29 @@ deployment pins, explicit signer adapters, journals and read-only recovery.
 [G7 client evidence](research/reports/G7_LOCAL_CLIENT.md) covers real CLI
 merge/redemption/in-kind exits, interrupted sends and withdrawal callback faults.
 The local operation ID is not an on-chain idempotency key; never resend an unknown
-attempt or discard its journal. Next is INF-01 finalized event indexing and
-reconciliation, with browser wallet/UI and public testnet acceptance still pending.
+attempt or discard its journal. Run INF-01 local indexing/recovery checks with:
+
+```sh
+npm ci --prefix services/indexer --ignore-scripts
+node --test tests/indexer/model.test.mjs
+node --test tests/indexer/store.test.mjs
+python3 scripts/build-core.py
+python3 scripts/build-oracle.py
+node tests/sandbox/g7-indexer.mjs
+```
+
+The tests start an isolated native PostgreSQL 18.6 instance under ignored `target/`;
+no global database, Docker or paid API is needed. [Indexer usage](docs/INDEXER.md)
+explains deployment pins, retained block history, credentials, API endpoints,
+health limits and explicit unknown quote depth. [INF-01 evidence](research/reports/G7_INDEXER.md)
+records actual replay, failure injection and fresh-database backfill. Next are
+browser wallet/storage and UI flows; public testnet acceptance and independent
+review remain pending.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1, G3, G4, G5, G6 and APP-01 local harnesses are runnable.
+product modes are not yet runnable; G1, G3, G4, G5, G6, APP-01 and INF-01 local harnesses are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 

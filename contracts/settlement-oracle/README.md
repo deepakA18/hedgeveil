@@ -147,3 +147,14 @@ Observation/finalization algorithms are fixed by `demo-v1`: no quote conversion,
 zero/missing-sample substitution, outlier removal or post-commit correction exists.
 The observation and policy hashes commit their inputs; publishers authenticate
 with actual NEAR predecessor accounts, not unauthenticated pasted signatures.
+
+
+## INF-01 read-only sequence binding
+
+`indexer_status()` returns `{network, contract_id, sequence}`. The local indexer
+uses this with pinned code/chain identity and same-block custody views to detect
+missing oracle events, including a missing final event with unchanged custody.
+This additive view changes no state layout, settlement or financial behavior.
+[INF-01 evidence](../../research/reports/G7_INDEXER.md) records the new normal/fault
+Wasm hashes and actual local oracle lifecycle/reconciliation checks. Independent
+review remains pending; older G4 evidence retains its original artifact identity.
