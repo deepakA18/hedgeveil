@@ -29,7 +29,9 @@ keys, exact atomic fills, pair matching, replay/cancellation protection and two
 separate local maker processes with direct old/new rolls. The [G6 basket increment](docs/VAULT.md)
 adds Sandbox-only proportional issuance, internal shares and in-kind exits. The optional [VLT-02 guard](docs/KEEPER.md) now executes one experimental
 Sandbox roll using authenticated synthetic references and competing makers. An
-approved strategy, the full SDK, RFQ relay and UI are **not built yet**.
+approved strategy, browser wallet, RFQ relay and UI are **not built yet**. The
+[local APP-01 SDK/CLI](docs/CLIENT.md) now adds exact-amount transaction builders,
+a durable attempt journal and finalized receipt recovery for the internal ledger.
 No public product contract is deployed or independently reviewed.
 
 Previous privacy-track experiments and deployment evidence are preserved in
@@ -161,14 +163,32 @@ node tests/sandbox/g6.mjs --report research/reports/g6-keeper-basket-regression.
 
 See [keeper evidence](research/reports/G6_KEEPER.md) and
 [service usage](services/keeper/README.md). Guard terms are fixed before deposits;
-failed guards preserve holdings and in-kind exits. The next application increment
-is the local SDK/receipt recovery layer; economic selection and independent review
-remain release dependencies.
+failed guards preserve holdings and in-kind exits. Economic selection and
+independent review remain release dependencies.
+
+Run the local APP-01 SDK and CLI receipt checks with:
+
+```sh
+node --test tests/sdk/client.test.mjs
+# Type declarations: TypeScript 5.9.2
+tsc --noEmit --strict --target ES2022 --module NodeNext --moduleResolution NodeNext tests/sdk/types.mts
+python3 scripts/build-core.py
+node tests/sandbox/g7.mjs
+```
+
+The SDK uses Node built-ins; only the Sandbox harness needs the existing locked
+`tests/sandbox` dependencies. [Client usage](docs/CLIENT.md) explains public
+deployment pins, explicit signer adapters, journals and read-only recovery.
+[G7 client evidence](research/reports/G7_LOCAL_CLIENT.md) covers real CLI
+merge/redemption/in-kind exits, interrupted sends and withdrawal callback faults.
+The local operation ID is not an on-chain idempotency key; never resend an unknown
+attempt or discard its journal. Next is INF-01 finalized event indexing and
+reconciliation, with browser wallet/UI and public testnet acceptance still pending.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1, G3, G4, G5 and G6 local harnesses are runnable.
+product modes are not yet runnable; G1, G3, G4, G5, G6 and APP-01 local harnesses are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 

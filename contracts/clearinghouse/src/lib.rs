@@ -40,6 +40,9 @@ pub struct Clearinghouse {
 }
 #[near]
 impl Clearinghouse {
+    pub fn deployment_identity(&self) -> near_sdk::serde_json::Value {
+        near_sdk::serde_json::json!({"protocol_version":"1","network":self.network,"contract_id":env::current_account_id()})
+    }
     #[init]
     pub fn new(
         network: String,

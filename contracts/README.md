@@ -194,3 +194,15 @@ and current deferral. Custody adds `roll_storage_fund`, separate from managed
 cash and collateral. The [keeper report](../research/reports/G6_KEEPER.md) records
 actual local execution and regression coverage. The earlier G6 basket report
 describes the revision before this optional guard existed.
+
+
+## APP-01 deployment binding view
+
+`deployment_identity()` returns `{protocol_version:"1", network, contract_id}`.
+The local SDK checks it together with chain ID, genesis hash and deployed code
+hash before a signer is invoked or receipts are interpreted. This is an additive
+read-only view; it changes no state layout, accounting or financial behavior from
+the VLT-02 revision. The new compiled artifacts and real client/CLI receipt checks
+are recorded in [G7 client evidence](../research/reports/G7_LOCAL_CLIENT.md).
+Code checks are not atomic protection against authorized concurrent upgrades;
+local full-access test keys remain a disclosed trust assumption.

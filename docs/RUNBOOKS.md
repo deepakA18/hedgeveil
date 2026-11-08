@@ -1,6 +1,9 @@
 # Recovery and operations requirements
 
-Status: operational runbook acceptance requirements; no recovery CLI exists yet.
+Status: operational acceptance requirements plus a [local APP-01 CLI](CLIENT.md).
+The CLI reads finalized collateral transaction/ticket receipts and supports explicit
+merge, redemption and in-kind exit. Browser/testnet, storage-refund/oracle-credit
+CLI flows and reviewed on-chain UNKNOWN resolution remain pending.
 G3 implements local collateral/storage-refund tickets and their callback/quarantine
 paths; use these cases to extend CORE-04, INF-01, DEM-01 and REL-02.
 G4 adds content-addressed observation replay and oracle bond-credit tickets.
@@ -31,13 +34,15 @@ incident communication, key procedures, verified recovery and staged exposure ca
 The [local maker](../services/maker/README.md) supports explicit retirement and
 request-time automatic epoch cancellation on bad reference data or marked loss.
 It does not monitor a continuous feed. A no-quote response is not a successful
-cancel transaction; inspect its outcomes and the registry. The future G6
-ROLL_DEFERRED/in-kind-exit flow is still an acceptance requirement, not a G5 API.
+cancel transaction; inspect its outcomes and the registry. G6 now supplies the
+experimental ROLL_DEFERRED/in-kind-exit flow described below; it remains separate
+from maker cancellation and is not an approved recurring strategy.
 
 G6 VLT-01 now exposes `vault_redeem_in_kind` for the experimental Sandbox basket,
 even when vault mints/markets/deposits are paused or claims are matured pending.
 It returns actual unresolved claims without promising cash. `vault_risk` explicitly
-reports POLICY_UNSELECTED; no keeper runs. Last exit closes the vault permanently.
+reports POLICY_UNSELECTED without an optional guard; the one-shot guard below
+has its own experimental status and explicit keeper authority. Last exit closes the vault permanently.
 There is no automatic rebootstrap, policy replacement or admin asset withdrawal.
 
 The optional [VLT-02 profile](KEEPER.md) adds `get_vault_roll` and
@@ -50,3 +55,29 @@ In-kind exits remain available during reference/maker outages and after policy
 exhaustion. If the publisher or keeper is compromised, pause market fills and
 new vault mints; do not seize holdings or change a funded policy. Policy replacement
 and production authority recovery are not implemented.
+
+
+## Local CLI interruption drill
+
+Retain the public deployment config and the complete operation journal. Use
+`inspect --id` without RPC to see the retained intent, attempt marker, known hash
+and last result. Use `recover --id` against the same pinned live Sandbox to obtain
+matching FINAL execution and complete receipt links. If the hash was lost, obtain
+the actual attempt's hash from the signer before supplying `--hash`; an older
+identical transaction is not valid correlation. Commands and adapter contract are
+in [CLIENT](CLIENT.md). No `.env` or private key is read by the CLI.
+
+A failed native transfer followed by a successful restoration callback is
+WITHDRAWAL_FAILED_CONFIRMED. A successful transfer followed by a failed callback
+is WITHDRAWAL_UNKNOWN, even when its on-chain ticket is still PENDING. Missing
+terminal evidence, RPC failure and timeouts do not authorize cleanup, refund or
+resend. A callback confirmed in the original receipt tree remains evidence after
+the owner explicitly closes its terminal ticket. Never infer a completed send
+from balances alone. The CLI does not mark UNKNOWN or restore funds on-chain.
+
+A retained operation cannot be submitted again, including after cancellation or
+confirmed failure. A new operation ID is separate authorization and may move
+money again. Review the previous receipt and current actual assets first. The
+[Sandbox evidence](../research/reports/G7_LOCAL_CLIENT.md) exercises recovery in
+fresh CLI processes; production incident ownership and independent review remain
+unassigned/pending.
