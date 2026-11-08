@@ -3,8 +3,8 @@
 This is the future G9 acceptance narrative. APP-02 now has a disposable local
 Sandbox UI with two makers, real oracle and PostgreSQL; start it with the commands
 in [README](../README.md) and follow [APP](APP.md). It is not a public-wallet or
-complete release demo. DEM-01 still needs persistent lifecycle, fresh-clone and
-full walkthrough evidence before the steps below can be marked complete.
+complete release demo. DEM-01 now has [retained local restart](LOCAL_DEMO.md), but still needs
+fresh-clone and full walkthrough evidence before the steps below can be marked complete.
 
 Required modes are local Sandbox and faucet-funded testnet with real receipts.
 Optional live-data observation cannot settle claims or replace demo fixtures.

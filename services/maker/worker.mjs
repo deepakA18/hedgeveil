@@ -1,18 +1,23 @@
 // Local demo maker. Account keys arrive through IPC, remain in memory, never logged.
-import {generateKeyPairSync} from 'node:crypto';
+import {generateKeyPairSync,createPrivateKey,createPublicKey} from 'node:crypto';
+import {dirname} from 'node:path';
+import {privateRead,privateDirectory,durableWrite} from '../demo/storage.mjs';
 import {createRequire} from 'node:module';
 import {Q,uint,baseQuote,signQuote} from '../../packages/rfq/codec.mjs';
 const require=createRequire(new URL('../../tests/sandbox/package.json',import.meta.url));
 const {Account,JsonRpcProvider,actions}=await import(require.resolve('near-api-js'));
-const keys=generateKeyPairSync('ed25519');
-const publicHex=keys.publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex');
+let keys=generateKeyPairSync('ed25519');
+let publicHex=keys.publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex');
 let cfg,provider,account,epoch,issued=new Set(),hadQuotes=false,retired=false;
+async function persist(){if(cfg?.state_file)await durableWrite(cfg.state_file,{version:1,private_key:keys.privateKey.export({format:'der',type:'pkcs8'}).toString('base64'),epoch:epoch??null,issued:[...issued],had_quotes:hadQuotes,retired});}
+async function restore(){if(!cfg.state_file)return;await privateDirectory(dirname(cfg.state_file));let state;try{state=await privateRead(cfg.state_file);}catch(e){if(e.code!=='ENOENT'||cfg.resume)throw Error('MAKER_STATE_UNAVAILABLE');}
+ if(state){if(state.version!==1||!Array.isArray(state.issued)||state.issued.some(n=>!Number.isInteger(n)||n<0||n>255)||new Set(state.issued).size!==state.issued.length||typeof state.retired!=='boolean'||typeof state.had_quotes!=='boolean')throw Error('MAKER_STATE_INVALID');if(state.epoch!==null)uint(state.epoch,64);const privateKey=createPrivateKey({format:'der',type:'pkcs8',key:Buffer.from(state.private_key,'base64')});if(privateKey.asymmetricKeyType!=='ed25519')throw Error('MAKER_KEY_TYPE');keys={privateKey,publicKey:createPublicKey(privateKey)};publicHex=keys.publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex');epoch=state.epoch;issued=new Set(state.issued);hadQuotes=state.had_quotes;retired=state.retired;}await persist();}
 const view=(method,args={})=>provider.callFunction({contractId:cfg.contract,method,args,blockQuery:{finality:'final'}});
 const amount=(a,s,asset)=>asset.kind==='COLLATERAL'?BigInt(a.free):BigInt(a.positions[s.find(x=>x.config.series_id===asset.series_id).slot][asset.kind.toLowerCase()]);
 const id=a=>a.kind==='COLLATERAL'?'COLLATERAL':`${a.kind}:${a.series_id}`;
 const ceil=(n,d)=>(n+d-1n)/d;
 async function withdraw(reason){let cancellation=null;if(hadQuotes){const m=await view('get_market',{maker:cfg.maker});cancellation=await account.signAndSendTransaction({receiverId:cfg.contract,actions:[actions.functionCall('advance_quote_epoch',{epoch:String(BigInt(m.epoch)+1n)},80n*10n**12n,1n)],waitUntil:'FINAL',throwOnFailure:false});if(![cancellation.transaction_outcome,...cancellation.receipts_outcome].some(x=>x.outcome.status.Failure)){hadQuotes=false;issued.clear();epoch=String(BigInt(m.epoch)+1n);}}
- return {quote:null,reason,cancellation};}
+ await persist();return {quote:null,reason,cancellation};}
 async function quote(request){
  if(retired)return {quote:null,reason:'MAKER_WITHDRAWN'};
  const block=await provider.sendJsonRpc('block',{finality:'final'}),now=BigInt(block.header.timestamp_nanosec),ref=request.reference;
@@ -48,8 +53,8 @@ async function quote(request){
  if(q.fee.amount>Q/100n||q.maker_gives.some(l=>BigInt(l.amount)===0n))return {quote:null,reason:'DUST_OR_FEE_LIMIT'};
  for(const leg of q.maker_gives)if(amount(a,series,leg.asset)<BigInt(leg.amount))return {quote:null,reason:'INVENTORY_LIMIT'};
  for(const leg of q.taker_gives)if(leg.asset.kind!=='COLLATERAL'&&amount(a,series,leg.asset)+BigInt(leg.amount)>40n*Q)return {quote:null,reason:'POSITION_LIMIT'};
- const signed=signQuote(q,keys.privateKey);issued.add(nonce);hadQuotes=true;return {quote:signed,reason:null,diagnostics:{equity_atomic:String(equity),notional_atomic:String(notional),reference_timestamp_ns:ref.timestamp_ns}};
+ const signed=signQuote(q,keys.privateKey);issued.add(nonce);hadQuotes=true;await persist();return {quote:signed,reason:null,diagnostics:{equity_atomic:String(equity),notional_atomic:String(notional),reference_timestamp_ns:ref.timestamp_ns}};
 }
 let queue=Promise.resolve();
-process.on('message',message=>{queue=queue.then(async()=>{try{let result;if(message.method==='init'){cfg=message.config;if(new URL(cfg.rpc_url).hostname!=='127.0.0.1')throw Error('local Sandbox only');provider=new JsonRpcProvider({url:cfg.rpc_url});account=new Account(cfg.maker,provider,cfg.account_key);delete cfg.account_key;result={public_key:publicHex,pid:process.pid};}else if(message.method==='quote')result=await quote(message.request);else if(message.method==='withdraw'){retired=true;result=await withdraw('MAKER_WITHDRAWN');}else throw Error('unknown maker command');process.send({id:message.id,result});}catch(error){process.send({id:message.id,error:error.message});}});});
+process.on('message',message=>{queue=queue.then(async()=>{try{let result;if(message.method==='init'){if(cfg)throw Error('ALREADY_INITIALIZED');cfg=message.config;if(new URL(cfg.rpc_url).hostname!=='127.0.0.1')throw Error('local Sandbox only');provider=new JsonRpcProvider({url:cfg.rpc_url});account=new Account(cfg.maker,provider,cfg.account_key);delete cfg.account_key;await restore();result={public_key:publicHex,pid:process.pid};}else if(message.method==='quote')result=await quote(message.request);else if(message.method==='withdraw'){retired=true;await persist();result=await withdraw('MAKER_WITHDRAWN');}else throw Error('unknown maker command');process.send({id:message.id,result});}catch(error){process.send({id:message.id,error:cfg?.state_file?'MAKER_REQUEST_FAILED':error.message});}});});
 process.on('disconnect',()=>process.exit(0));

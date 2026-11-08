@@ -9,7 +9,10 @@ VLT-01 has Sandbox basket mechanics; VLT-02 has an experimental one-shot guard.
 Economic strategy selection and independent review remain pending.
 APP-01 now has a local SDK/journal/CLI foundation; browser/testnet acceptance remains pending.
 INF-01 now has local PostgreSQL replay/reconciliation, API, metrics and alerts;
-public testnet/load/operational acceptance remains pending. APP-02 remains pending. G1 fixtures are not product implementations.
+public testnet/load/operational acceptance remains pending. APP-02 has the local
+UI and browser evidence. DEM-01 now has explicit create/resume for retained local
+state; public-wallet/testnet and full release acceptance remain pending. G1
+fixtures are not product implementations.
 Reviewer roles must be assigned and do not constitute
 sign-off. G0 independent review remains pending. The root plan is authoritative.
 
@@ -42,7 +45,9 @@ G6 VLT-01 evidence is in [G6 results](../research/reports/G6_BASKET.md).
 VLT-02 local guard evidence is in [keeper results](../research/reports/G6_KEEPER.md).
 APP-01 local receipt evidence is in [client results](../research/reports/G7_LOCAL_CLIENT.md).
 INF-01 local execution is in [indexer results](../research/reports/G7_INDEXER.md).
-Next are the remaining APP-01 wallet/storage and APP-02 UI flows;
+APP-02 local execution is in [browser results](../research/reports/G7_APP.md).
+DEM-01 clean restart evidence is in [retained-demo results](../research/reports/G7_DEMO_RESUME.md).
+Next are public wallet/testnet integration and the full release walkthrough;
 further economic experiments require a new holdout. Actual local fills
 do not resolve FIN-02's failed policy selection.
 
@@ -65,7 +70,7 @@ do not resolve FIN-02's failed policy selection.
 | APP-01 / G7 — local foundation | CORE-02/03/04, MKT-01, VLT-01; independent review pending | SDK/contract units, deployment domain and finalized receipt states agree; retained local operation submits at most once | 14 exact-amount builders with TypeScript declarations, durable journal and local CLI; 14 unit tests and 19 real Sandbox checks cover restart, lost response, wrong deployment, repeat prevention and withdrawal callback faults. APP-02 adds durable browser pointers and local signing UX; public browser wallet, remaining methods, testnet and independent review pending | Product/contracts/security — pending |
 | APP-02 / G7 — local UI implemented | APP-01, VLT-02, INF-01; wallet/policy/reviews remain partial | Actual ownership and finalized receipts; no duplicate send or invented NAV/exit | Six views, same-block exact previews, durable browser pointers, receipt/evidence recovery and maker authorization controls; 35 actual browser checks / 43 recorded transactions. Public wallet/testnet, persistent demo, wider browser/fault/accessibility coverage and independent review pending; see G7_APP report | Product/QA/security — pending |
 | INF-01 / G7 — local implementation | CORE-01 events; ORC-02/MKT-01/VLT-01/02; APP-01 units/domain | Finalized replay and same-block views reconcile; gaps/failures never advance accepted cursor or resend funds | PostgreSQL atomic cursor/projections, receipt/log dedup, parent-hash backfill, read API/metrics and withdrawal/oracle/keeper notices; 21 actual Sandbox checks plus PostgreSQL rollback/restart/concurrent-writer tests. Quote depth explicitly unobserved; testnet, archival/load validation, notifications and independent review pending | Infrastructure/contracts/security — pending |
-| DEM-01 / G7–G9 | G1, FIN-02, APP-01/02, INF-01 | Fresh clone needs no paid service or invented receipts | Local bundle, funded testnet lifecycle/cost report; faucet outage retains Sandbox; visible demo labels | Release/QA |
+| DEM-01 / G7–G9 — retained local lifecycle | G1, FIN-02, APP-01/02, INF-01; public wallet/policy/reviews partial | Resume retains chain, journal and nonce history without reseeding or repeat sends | Named create/resume, private generated-key/node/database retention, stable browser origin and fail-closed guards; clean fresh-process restart and actual per-action local costs. Full orchestration/fresh-clone acceptance, testnet funding/costs and independent review pending | Release/QA/security — pending |
 | SEC-01 / G8 — partial | Arithmetic now; G3–G7 as available | Plan §15 invariants survive adversarial interleavings | Differential/schema checks retained; add stateful/compiled-Wasm/fault/model/browser suites, assumptions/counterexamples/gas limits | Security/QA |
 | SEC-02 / G8, G10 | SEC-01, exact candidate source/Wasm | Review claims match shipped artifacts/scope | Independent review, symbolic/formal coverage limits, critical/high fixes and regressions; no unsupported audit claim | Independent security reviewer |
 | REL-01 / G9 | G7–G8 testnet gates, DEM-01, SEC-02 testnet scope | Every demo/README claim reproducible | Testnet record, two makers, 12-step demo, reconciliation/recovery, submission bundle and fresh-clone/failed-frontend drill | Release owner |

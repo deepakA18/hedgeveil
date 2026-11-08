@@ -123,5 +123,6 @@ If the UI cannot use browser storage, preparation is disabled. If the indexer is
 unhealthy, new-risk previews are blocked while direct verified exits/recovery
 remain available. A gateway or journal loss is not evidence of failed execution.
 Restarting the disposable launcher creates another chain and cannot recover the
-old one. Preserve records; durable local/testnet deployment restart is a DEM-01
-requirement, not an implemented incident-recovery promise.
+old one. Preserve records; the explicit DEM-01 [retained mode](LOCAL_DEMO.md) now preserves a local
+deployment across clean stops. Forced termination/native-service recovery,
+backups and testnet incident drills remain separate acceptance work.

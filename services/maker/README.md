@@ -55,3 +55,11 @@ The [G5 report](../../research/reports/G5_FUNDED_MARKET.md) separates sampled
 spreads/fills, inventory, marked P/L, subsidies and failure outcomes. Risk guards
 do not promise liquidity or profitability; broader concurrency and production
 source/monitoring work remain pending.
+
+DEM-01 retained workspaces optionally supply `state_file` and `resume` over trusted
+local IPC. Those workers retain the generated RFQ key, issued nonce reservations,
+epoch and retirement flag in a private file. Nonces are durable before a signature
+is returned. Resume verifies the existing registered public key and never
+automatically re-registers it; missing/corrupt state refuses startup. Default G5
+and disposable APP-02 workers still generate ephemeral keys. See
+[retained-demo custody and limits](../../docs/LOCAL_DEMO.md).

@@ -13,7 +13,9 @@ fresh deployments; it neither reads `.env` nor imports existing accounts. Keep t
 process running while using the UI or recovery CLI. Restarting the launcher makes
 a different chain, not a restart of the old deployment. Journal and public client
 binding remain on disk, but an old Sandbox RPC and its ephemeral keys cannot be
-recovered by relaunching. Persistent deployment lifecycle belongs to DEM-01.
+recovered by relaunching. DEM-01 now offers an explicit retained mode through `scripts/demo.mjs`; see
+[LOCAL_DEMO](LOCAL_DEMO.md). It preserves generated local keys and the original
+chain across clean stops. The disposable launcher behavior above is unchanged.
 
 The implementation uses the repository's Node ESM stack and browser modules with
 neutral CSS tokens, system fonts and no runtime UI dependency/CDN. Playwright is
@@ -99,5 +101,4 @@ Evidence: [browser report](../research/reports/G7_APP.md) and source-hashed raw
 receipt run. Reviewer: Product/QA and independent security reviewer — **pending**.
 Remaining: public wallet/testnet conformance, broader browsers/accessibility review,
 browser presentation tests for every callback fault and delayed-oracle path,
-strategy/roll convenience flows and held-out economic selection, durable demo
-restart/fresh-clone release drill, load/security review. G7/G9 are not complete.
+strategy/roll convenience flows and held-out economic selection, broader crash recovery/fresh-clone release drill, load/security review. G7/G9 are not complete.

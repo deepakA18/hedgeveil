@@ -1,8 +1,8 @@
 # Cost boundary
 
 Current arithmetic/schema checks run locally without `.env` or paid services.
-Future core demo uses local database/services, synthetic data, Sandbox and
-faucet-funded testnet assets. No inference provider or paid oracle is required.
+The local demo now uses a database/services, synthetic data and Sandbox.
+Faucet-funded testnet lifecycle measurements remain pending. No inference provider or paid oracle is required.
 Free hosted services are conveniences; local reproduction must remain possible.
 
 | Category | Demo accounting | Production obligation, separately gated |
@@ -55,3 +55,11 @@ used 6.731 Tgas and debited a signed 0.00037425-NEAR fee from vault cash within
 immutable limits; its 0.003368261976047904191618-NEAR reference-valued loss is a
 synthetic mark calculation, not realized USD performance. See
 [keeper cost evidence](../research/reports/G6_KEEPER.md). No production budget follows.
+
+DEM-01 [retained-demo evidence](../research/reports/G7_DEMO_RESUME.md) records
+attached amounts, total receipt gas burned and tokens burned for four actual local
+actions: storage registration, collateral deposit, split and merge after restart.
+The machine report keeps their finalized receipts. These samples are neither a
+full operating budget nor testnet measurements. Existing Sandbox genesis funding
+still subsidizes wallets, maker capital, storage and gas; resuming adds no seed
+funding and does not turn that subsidy into trading revenue.

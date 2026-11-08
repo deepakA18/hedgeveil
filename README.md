@@ -222,6 +222,20 @@ labelled local signer, not a browser wallet. Keep the process running for recove
 restarting it creates a different chain. No `.env`, paid key or public funds are
 needed. See [application usage](docs/APP.md) and [APP-02 evidence](research/reports/G7_APP.md).
 
+To keep the same local deployment after stopping the process:
+
+```sh
+node scripts/demo.mjs create my-demo
+# Ctrl-C, then:
+node scripts/demo.mjs resume my-demo
+node scripts/demo.mjs inspect my-demo
+```
+
+This explicit mode retains generated **test** keys and native node/database state
+in a private ignored workspace. It refuses reseeding or overwriting an existing
+name. See [retained-demo usage and limits](docs/LOCAL_DEMO.md). No public-wallet
+or production custody support is implied.
+
 Run browser/model checks (Chromium download needed once):
 
 ```sh
@@ -234,7 +248,13 @@ The browser suite starts and stops its own isolated services, executes real
 transactions and writes source-hashed evidence. It tests cancellation, lost
 responses, exact-hash recovery, actual failed native payouts, disputed settlement,
 maker authorization controls and three viewport widths. Public wallet/testnet,
-persistent deployment lifecycle and independent review remain pending.
+full demo orchestration and independent review remain pending. Clean local
+restart now has [separate evidence](research/reports/G7_DEMO_RESUME.md):
+
+```sh
+node --test tests/demo/storage.test.mjs tests/demo/maker.test.mjs
+node tests/demo/resume.mjs
+```
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose

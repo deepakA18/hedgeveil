@@ -11,7 +11,7 @@ const leg=(asset,amount)=>({asset,amount});
 const positive=n=>BigInt(n)>0n;
 
 // A local Sandbox signing gateway, not a wallet or an internet-facing service.
-export function createApp({config,journal,accounts,signer,store,quoteProvider,afterSubmit=async()=>{}}) {
+export function createApp({config,journal,accounts,signer,store,quoteProvider,persistent=false,afterSubmit=async()=>{}}) {
     const client=new Client({config,journal});
     const allowed=new Set(accounts.map(a=>a.id));
     let queue=Promise.resolve();
@@ -117,7 +117,7 @@ export function createApp({config,journal,accounts,signer,store,quoteProvider,af
             if(req.method==='GET') {
                 const assets={'/':['./public/index.html','text/html'],'/app.mjs':['./public/app.mjs','text/javascript'],'/model.mjs':['./public/model.mjs','text/javascript'],'/style.css':['./public/style.css','text/css'],'/amounts.mjs':['../../packages/sdk/amounts.mjs','text/javascript']};
                 if(Object.hasOwn(assets,p)){const [file,type]=assets[p];res.writeHead(200,{'content-type':type});res.end(await readFile(new URL(file,import.meta.url)));return;}
-                if(p==='/api/session')return send(200,{network:'sandbox',...config,rpc_url:undefined,accounts,signer:'Ephemeral local Sandbox signer; full-access keys held in this Node process. No browser wallet.',subsidy:'All wallet balances, maker capital, storage and gas are subsidized by local Sandbox genesis. No real market returns.'});
+                if(p==='/api/session')return send(200,{network:'sandbox',...config,rpc_url:undefined,accounts,signer:persistent?'Local Sandbox signer; generated full-access and RFQ keys retained in the private demo workspace. No browser wallet.':'Ephemeral local Sandbox signer; full-access keys held in this Node process. No browser wallet.',subsidy:'All wallet balances, maker capital, storage and gas are subsidized by local Sandbox genesis. No real market returns.'});
                 if(p==='/api/operations')return send(200,{items:await operations()});
                 if(p==='/api/state')return send(200,await indexed('snapshots',{limit:200}));
                 if(p==='/api/live'){const s=await live(url.searchParams.get('account'));return send(200,{...s,view:undefined});}
@@ -140,6 +140,7 @@ export function createApp({config,journal,accounts,signer,store,quoteProvider,af
             if(p==='/api/submit'||p==='/api/cancel') {
                 const result=await serialize(async()=>{
                     const r=await record(body.id);
+                    if(r.attempted)fail('ALREADY_ATTEMPTED');
                     if(p==='/api/cancel'){await client.journal.claim(body.id);return client.journal.observe(body.id,{operation_id:body.id,state:'CANCELLED'});}
                     const check=await preview(r.intent);if(check.blockers.length)fail(check.blockers[0]);
                     const out=await client.submit(body.id,signer);
