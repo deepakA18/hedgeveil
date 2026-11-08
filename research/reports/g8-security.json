@@ -1,0 +1,227 @@
+{
+  "limitations": [
+    "Finite abstract models are not a proof of Rust or runtime refinement",
+    "Three seeds do not exhaust cross-module or concurrent transaction schedules",
+    "Observed gas/storage at local caps are not production throughput benchmarks",
+    "Existing G4-G7 and browser evidence remain separately scoped historical runs"
+  ],
+  "models": {
+    "path": "research/reports/g8-models.json",
+    "sha256": "168446fcdc1e9900cc1dd6cbf04c150467f31195f40cddcf384990478ac33f53"
+  },
+  "observed_gas_including_expected_failures": {
+    "close_and_delete": {
+      "attempts": 3,
+      "max_receipt_gas": 4012253510340,
+      "max_transaction_gas": 11407460652989
+    },
+    "close_ticket": {
+      "attempts": 18,
+      "max_receipt_gas": 3113424731971,
+      "max_transaction_gas": 3646049622206
+    },
+    "create_series": {
+      "attempts": 42,
+      "max_receipt_gas": 3822739881137,
+      "max_transaction_gas": 4388838739302
+    },
+    "deploy:core": {
+      "attempts": 3,
+      "max_receipt_gas": 42150050271020,
+      "max_transaction_gas": 47053867048990
+    },
+    "deploy:doomed": {
+      "attempts": 3,
+      "max_receipt_gas": 8105331859786,
+      "max_transaction_gas": 9534854430668
+    },
+    "deploy:fault": {
+      "attempts": 3,
+      "max_receipt_gas": 42558446413055,
+      "max_transaction_gas": 47504299394855
+    },
+    "deploy:oracle": {
+      "attempts": 3,
+      "max_receipt_gas": 11694257146185,
+      "max_transaction_gas": 13496789912762
+    },
+    "deposit_collateral": {
+      "attempts": 66,
+      "max_receipt_gas": 14714803246946,
+      "max_transaction_gas": 15246998983746
+    },
+    "fault_replay": {
+      "attempts": 6,
+      "max_receipt_gas": 2471781921082,
+      "max_transaction_gas": 7578255024130
+    },
+    "fault_withdrawal": {
+      "attempts": 6,
+      "max_receipt_gas": 3417463095214,
+      "max_transaction_gas": 6274527515199
+    },
+    "fill_quote": {
+      "attempts": 225,
+      "max_receipt_gas": 4328512130813,
+      "max_transaction_gas": 4894282272211
+    },
+    "mark_unknown": {
+      "attempts": 6,
+      "max_receipt_gas": 2413430017503,
+      "max_transaction_gas": 2946054907738
+    },
+    "merge": {
+      "attempts": 31,
+      "max_receipt_gas": 4352728184467,
+      "max_transaction_gas": 4885829911852
+    },
+    "on_resolution": {
+      "attempts": 3,
+      "max_receipt_gas": 1583386399905,
+      "max_transaction_gas": 2117632536450
+    },
+    "on_withdrawal_result": {
+      "attempts": 3,
+      "max_receipt_gas": 1590153572821,
+      "max_transaction_gas": 2124208974506
+    },
+    "redeem": {
+      "attempts": 193,
+      "max_receipt_gas": 4113195670611,
+      "max_transaction_gas": 4646869602576
+    },
+    "register": {
+      "attempts": 3,
+      "max_receipt_gas": 3039286403726,
+      "max_transaction_gas": 5229573380819
+    },
+    "register_signing_key": {
+      "attempts": 6,
+      "max_receipt_gas": 3215361542172,
+      "max_transaction_gas": 3752373334187
+    },
+    "release_dust": {
+      "attempts": 18,
+      "max_receipt_gas": 3518123863890,
+      "max_transaction_gas": 4050939488985
+    },
+    "release_storage_excess": {
+      "attempts": 9,
+      "max_receipt_gas": 2775287683245,
+      "max_transaction_gas": 3309343084930
+    },
+    "request_resolution": {
+      "attempts": 30,
+      "max_receipt_gas": 4242646007067,
+      "max_transaction_gas": 10134961435784
+    },
+    "request_withdrawal": {
+      "attempts": 207,
+      "max_receipt_gas": 16198738824241,
+      "max_transaction_gas": 32676962676300
+    },
+    "retry_withdrawal": {
+      "attempts": 3,
+      "max_receipt_gas": 888133285822,
+      "max_transaction_gas": 1644131473417
+    },
+    "set_mode": {
+      "attempts": 9,
+      "max_receipt_gas": 1305782693426,
+      "max_transaction_gas": 1838359899946
+    },
+    "set_pauses": {
+      "attempts": 9,
+      "max_receipt_gas": 3260159860255,
+      "max_transaction_gas": 3794692099090
+    },
+    "set_report": {
+      "attempts": 21,
+      "max_receipt_gas": 1452878477637,
+      "max_transaction_gas": 2022219828422
+    },
+    "split": {
+      "attempts": 323,
+      "max_receipt_gas": 15947548115132,
+      "max_transaction_gas": 16480745209947
+    },
+    "storage_deposit": {
+      "attempts": 60,
+      "max_receipt_gas": 5779712419409,
+      "max_transaction_gas": 6311765105064
+    },
+    "transfer": {
+      "attempts": 142,
+      "max_receipt_gas": 3859435016933,
+      "max_transaction_gas": 4395003198960
+    },
+    "unregister": {
+      "attempts": 9,
+      "max_receipt_gas": 4012513501236,
+      "max_transaction_gas": 8277505692928
+    }
+  },
+  "passed": true,
+  "runner_sha256": "ad949ef0a809634d4a75c17b0d4fd465f4ad62706230ee0b0c1cdc93d10a29c3",
+  "runs": [
+    {
+      "checks": 28,
+      "events": 477,
+      "limits": {
+        "accounts": 16,
+        "max_receipt_gas": "42558446413055",
+        "max_transaction_gas": "47504299394855",
+        "series": 8,
+        "storage_bytes": "629965",
+        "terminal_tickets": 64
+      },
+      "model_steps": 160,
+      "path": "research/reports/g8-stateful-20903.json",
+      "seed": 20903,
+      "sha256": "ff210956050e0727a85534cc8b722a7914ac375569b3e17df5dd0ece5506f11c",
+      "signed_fills": 23,
+      "transactions": 492
+    },
+    {
+      "checks": 28,
+      "events": 455,
+      "limits": {
+        "accounts": 16,
+        "max_receipt_gas": "42558446413055",
+        "max_transaction_gas": "47504299394855",
+        "series": 8,
+        "storage_bytes": "629965",
+        "terminal_tickets": 64
+      },
+      "model_steps": 160,
+      "path": "research/reports/g8-stateful-65537.json",
+      "seed": 65537,
+      "sha256": "52e9e17dea4d22d01b478f63025ab7de02bca44f19b1b24dd59ea0c1b510443e",
+      "signed_fills": 27,
+      "transactions": 478
+    },
+    {
+      "checks": 28,
+      "events": 474,
+      "limits": {
+        "accounts": 16,
+        "max_receipt_gas": "42558446413055",
+        "max_transaction_gas": "47504299394855",
+        "series": 8,
+        "storage_bytes": "629965",
+        "terminal_tickets": 64
+      },
+      "model_steps": 160,
+      "path": "research/reports/g8-stateful-3735928559.json",
+      "seed": 3735928559,
+      "sha256": "03056b0099d4bc7a49d35c145faa23e2bb6e88b9fbc1025b8cc60612f9c7e21b",
+      "signed_fills": 25,
+      "transactions": 493
+    }
+  ],
+  "scope": "Local SEC-01 bounded verification; independent review and general Rust refinement pending",
+  "symbolic": {
+    "path": "research/reports/g8-symbolic.json",
+    "sha256": "e7898242c04625c781314c913ca1de69e5ce1269402147f274fe315e8c2583c9"
+  }
+}

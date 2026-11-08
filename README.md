@@ -29,7 +29,8 @@ keys, exact atomic fills, pair matching, replay/cancellation protection and two
 separate local maker processes with direct old/new rolls. The [G6 basket increment](docs/VAULT.md)
 adds Sandbox-only proportional issuance, internal shares and in-kind exits. The optional [VLT-02 guard](docs/KEEPER.md) now executes one experimental
 Sandbox roll using authenticated synthetic references and competing makers. An
-approved strategy, browser wallet, RFQ relay and UI are **not built yet**. The
+approved strategy, browser wallet and RFQ relay remain pending. The local UI is
+described below. The
 [local APP-01 SDK/CLI](docs/CLIENT.md) now adds exact-amount transaction builders,
 a durable attempt journal and finalized receipt recovery for the internal ledger.
 The [local INF-01 indexer](docs/INDEXER.md) adds PostgreSQL-backed finalized replay,
@@ -255,6 +256,26 @@ restart now has [separate evidence](research/reports/G7_DEMO_RESUME.md):
 node --test tests/demo/storage.test.mjs tests/demo/maker.test.mjs
 node tests/demo/resume.mjs
 ```
+
+Run SEC-01's finite withdrawal/oracle/resolution/reserve models and seeded
+compiled-Wasm trading/accounting regressions with:
+
+```sh
+python3 verification/check_models.py --check
+UV_CACHE_DIR=/private/tmp/hedgeveil-uv-cache uv run --with-requirements verification/requirements.txt python verification/check_symbolic.py --check
+python3 scripts/check-security.py
+```
+
+The SMT command downloads a pinned open-source solver once, then supports offline
+checks. The final command builds the locked core and runs three sequential Sandbox
+seeds with real receipts, signed fills, failed-fill/replay checks, callback faults
+and local capacity measurements. It requires the existing Sandbox dependencies
+and cached `jsonschema==4.23.0` environment used by G3. See
+[security evidence](research/reports/G8_SECURITY.md) and
+[model assumptions and limits](verification/README.md). Finite enumeration and
+bounded symbolic accounting checks do not prove Rust/runtime refinement;
+independent review and remaining G8 acceptance
+stay pending. Historical reports are preserved.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose

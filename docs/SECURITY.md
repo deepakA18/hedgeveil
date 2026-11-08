@@ -50,6 +50,17 @@ keeper/planner and publisher are distinct accounts/process roles under one test
 operator. No production source independence, signed quote-creation timestamp,
 approved recurring policy or exhaustive concurrent-state proof is claimed.
 
+SEC-01 now adds [finite executable models](../verification/README.md) for
+withdrawal, oracle and resolution-import interleavings and bounded reserve
+redemption. Ten deliberately unsafe model mutations must produce counterexamples.
+The extended stateful Sandbox profile mixes signed trades into the independent
+ledger comparison and reports observed gas/storage at the local caps. See the
+[SEC-01 evidence and invariant matrix](../research/reports/G8_SECURITY.md).
+Separate bounded SMT checks find no counterexample to 32 accounting obligations
+at eight selected complementary coefficients and the actual supply cap. This is
+neither symbolic Rust execution nor an independent audit. General
+cross-module concurrency, production load and SEC-02 review remain open.
+
 Required SEC-01 layers: unit/serialization tests; shared rational/Rust vectors;
 stateful conservation across split/transfer/trade/merge/finalize/redeem;
 compiled-Wasm Sandbox receipts; oracle/withdrawal interleaving models; bounded

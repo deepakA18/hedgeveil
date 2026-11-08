@@ -14,7 +14,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G5 market — local implementation | Registered Ed25519 keys, funded exact fills/pair issuance, durable nonce/epoch cancellation, two separate maker processes, atomic direct rolls and receipt/event reconciliation | Independent review, broader capacity/interleavings, testnet maker funding/measurements; relay/wallet flows remain G7 |
 | G6 vault — local basket and experimental guards | Sandbox-only basket/share mechanics plus optional immutable one-shot roll, authenticated synthetic reference, competing maker execution, fee/loss/notional limits and deferred inflows with exits | Independent review, selected recurring policy/current-source trust, broader interleavings, RFQ-and-mint/cash-only conveniences and testnet deployment |
 | G7 application — local SDK, indexer and APP-02 UI | Exact SDK/journal/CLI and PostgreSQL replay/reconciliation; six browser views with real funding, RFQs, basket entry/exit, settlement, payout recovery and maker controls; 35 browser checks | Public wallet/testnet conformance, full demo orchestration/crash drills, remaining SDK/strategy UX and browser fault coverage, operator notifications/load/accessibility checks and independent review |
-| G8 adversarial | Arithmetic/schema checks, G1 faults, G3 seeded stateful ledger comparison, event replay and capacity/receipt faults | Broader fuzz/interleavings/load coverage, models/proof scope and independent review/remediation |
+| G8 adversarial — bounded local SEC-01 | Arithmetic/schema checks; finite withdrawal/oracle/import/reserve models; 32 bounded SMT obligations; multi-seed signed-trade/ledger comparison, event replay, capacity and receipt faults | General cross-module/concurrent schedules and sustained load, broader symbolic/refinement scope, independent SEC-02 review and remediation |
 | G9 hackathon release | Not started | Complete no-paid-key testnet demo, real receipts and disclosure/submission bundle |
 | G10 capped pilot | Separate, optional; blocked | Independent historical oracle, reviewed unknown-payout recovery, custody/key audit, limits and incident drills |
 | G11 expansion | Out of initial release | Pilot evidence and specification/review for each new trust boundary |
@@ -96,6 +96,20 @@ a real exit after resume. Three focused state/permission tests and the existing
 This covers clean local stops; public wallets, testnet, full fresh-clone/demo
 orchestration, broader crash/incident drills and independent review stay open.
 
+SEC-01 adds finite models reaching fixed points for withdrawals, oracle lifecycle,
+overlapping resolution imports and reserve redemptions, with ten unsafe model
+mutation counterexamples. Separate bounded integer SMT checks pass 32 obligations
+at eight complementary coefficients and the configured supply cap; a rounding-up
+mutation produces a checked counterexample. The compiled-Wasm stateful profile
+now mixes signed P/N trades, failed late-leg fills, nonce replay, finalized
+transfers and fragmented redemptions, retaining real fault/capacity/event checks.
+Three seeds pass 28 checks each: 480 stateful steps, 75 signed fills, 1,463
+recorded transactions and 1,406 reconciled events, with observed gas/storage at
+the local caps.
+See [SEC-01 evidence, measurements and limits](../research/reports/G8_SECURITY.md).
+These are local bounded tests, not an independent audit or Rust/runtime refinement
+proof; G8 remains open for broader schedules/load and SEC-02 review.
+
 Commands are in [README](../README.md). The [G1 report](../research/reports/G1_PUBLIC_LEDGER.md)
 and [G3 report](../research/reports/G3_COLLATERAL_CORE.md) link source-hashed
 receipt evidence. The core reuses the unchanged payoff library. Normal and
@@ -113,8 +127,9 @@ MKT-01/02 and VLT-01/02 now have local implementation/evidence, with VLT-02
 limited to an experimental one-shot Sandbox policy. APP-01 now has its local
 SDK/journal/CLI foundation, and INF-01 has local PostgreSQL indexing, reconciliation
 and a read API. APP-02 now supplies the local UI and durable browser pointers.
-DEM-01 now retains the local deployment across clean process stops. Next are
-public wallet/testnet integration under APP-01/02 and the complete fresh-clone
+DEM-01 now retains the local deployment across clean process stops. SEC-01 adds
+the local bounded model/SMT/stateful suite. Next are SEC-02's independent review
+of an exact release candidate, public wallet/testnet integration under APP-01/02 and the complete fresh-clone
 DEM-01 release workflow in [BACKLOG](BACKLOG.md). Economic selection, reviewed current
 reference sources and independent review remain unresolved; no approved recurring
 strategy or testnet vault is enabled. See [keeper evidence](../research/reports/G6_KEEPER.md).

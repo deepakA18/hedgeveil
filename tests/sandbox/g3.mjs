@@ -1,22 +1,28 @@
 import assert from 'node:assert/strict';
 import {readFile,writeFile,readdir} from 'node:fs/promises';
-import {createHash} from 'node:crypto';
+import {createHash,generateKeyPairSync} from 'node:crypto';
+import {parseArgs} from 'node:util';
+import {baseQuote,signQuote} from '../../packages/rfq/codec.mjs';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {Sandbox,GenesisAccount} from 'near-sandbox';
 import {Account,JsonRpcProvider,KeyPair,actions} from 'near-api-js';
 const ROOT=fileURLToPath(new URL('../../',import.meta.url)), Q=10n**24n,GAS=250n*10n**12n;
+const {values:options}=parseArgs({options:{report:{type:'string',default:'research/reports/g3-sandbox.json'},seed:{type:'string',default:'20903'},steps:{type:'string',default:'40'},trades:{type:'boolean',default:false}}});
+assert(/^[0-9]+$/.test(options.seed)&&BigInt(options.seed)>0n&&BigInt(options.seed)<=0xffffffffn,'nonzero u32 seed');
+assert(/^[0-9]+$/.test(options.steps)&&Number(options.steps)>=40&&Number(options.steps)<=200,'40..200 steps');
+const steps=Number(options.steps),initialSeed=Number(options.seed);
 const artifacts=JSON.parse(await readFile(path.join(ROOT,'target/core-artifacts/manifest.json'))),wasm={};
 for(const [file,meta] of Object.entries(artifacts)){wasm[file]=await readFile(path.join(ROOT,'target/core-artifacts',file));assert.equal(createHash('sha256').update(wasm[file]).digest('hex'),meta.sha256);}
 const exports=WebAssembly.Module.exports(await WebAssembly.compile(wasm['clearinghouse.wasm'])).map(x=>x.name);
 assert(!exports.some(x=>x.startsWith('fault_')));
-const evidence={scope:'G3 bounded internal ledger, local Sandbox only; oracle/account/fault fixtures are not product deployments',versions:{rust:'1.96.0',near_sdk:'5.30.1',near_api_js:'7.4.0',near_sandbox_js:'0.3.5',node:process.version,sandbox:'2.14.0'},artifacts,seed:'0x51a7',checks:[],transactions:[],events:[]};
+const evidence={scope:'G3 bounded internal ledger, local Sandbox only; oracle/account/fault fixtures are not product deployments',versions:{rust:'1.96.0',near_sdk:'5.30.1',near_api_js:'7.4.0',near_sandbox_js:'0.3.5',node:process.version,sandbox:'2.14.0'},artifacts,seed:String(initialSeed),steps,trades:options.trades,model_actions:[],quote_attempts:[],key_registrations:[],checks:[],transactions:[],events:[]};
 async function hashes(dir,prefix){const out={};for(const e of await readdir(dir,{withFileTypes:true})){if(['target','node_modules','__pycache__'].includes(e.name))continue;const key=path.posix.join(prefix,e.name),full=path.join(dir,e.name);if(e.isDirectory())Object.assign(out,await hashes(full,key));else if(/\.(rs|toml|lock|mjs|json|py)$/.test(e.name))out[key]=createHash('sha256').update(await readFile(full)).digest('hex');}return out;}
 evidence.sources={...await hashes(path.join(ROOT,'contracts'),'contracts'),...await hashes(path.join(ROOT,'crates/protocol-types'),'crates/protocol-types'),...await hashes(path.join(ROOT,'crates/payoff-math'),'crates/payoff-math')};
-for(const file of ['tests/sandbox/g3.mjs','tests/sandbox/package.json','tests/sandbox/package-lock.json','scripts/build-core.py','packages/shared-schemas/public-ledger.schema.json'])evidence.sources[file]=createHash('sha256').update(await readFile(path.join(ROOT,file))).digest('hex');
+for(const file of ['tests/sandbox/g3.mjs','tests/sandbox/package.json','tests/sandbox/package-lock.json','scripts/build-core.py','packages/rfq/codec.mjs','packages/shared-schemas/public-ledger.schema.json'])evidence.sources[file]=createHash('sha256').update(await readFile(path.join(ROOT,file))).digest('hex');
 evidence.base_commit=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();
-const reportFile=process.argv[2]==='--report'?process.argv[3]:'research/reports/g3-sandbox.json';
+const reportFile=options.report;
 if(!reportFile)throw Error('missing --report path');
 let sandbox,provider,byteCost;
 const eventBalances=new Map(),seenOps=new Set();
@@ -34,6 +40,7 @@ function record(label,tx){
 }
 async function call(who,c,method,args={},deposit=0n,expect='success'){
  const tx=await who.signAndSendTransaction({receiverId:c.accountId,actions:[actions.functionCall(method,args,GAS,deposit)],waitUntil:'FINAL',throwOnFailure:false});record(`${c.accountId}.${method}`,tx);
+ if(method==='fill_quote')evidence.quote_attempts.push({quote:args.quote,hash:tx.transaction.hash,succeeded:!failed(tx)});
  if(expect==='success')assert(!failed(tx),`${method}: ${JSON.stringify(tx.status)}`);else if(expect==='failure')assert(failed(tx),`expected failure: ${method}`);return tx;
 }
 const view=(c,method,args={})=>provider.callFunction({contractId:c.accountId,method,args,blockQuery:{finality:'final'}});
@@ -47,7 +54,7 @@ async function replayMatches(c){
  const expected=new Map();const put=(owner,bucket,id,asset,amount)=>{if(BigInt(amount)>0n)expected.set(JSON.stringify([c.accountId,owner,bucket,id,asset]),BigInt(amount));};
  for(const id of ids){const a=await view(c,'get_account',{account_id:id});put(id,'FREE','account','COLLATERAL',a.free);put(id,'STORAGE','account','COLLATERAL',a.storage_paid);for(const s of series){const p=a.positions[s.slot];put(id,'FREE',s.config.series_id,`P:${s.config.series_id}`,p.p);put(id,'FREE',s.config.series_id,`N:${s.config.series_id}`,p.n);}for(const t of await view(c,'list_tickets',{account_id:id,from_index:0,limit:16})){if(['PENDING','UNKNOWN'].includes(t.state))put(id,'WITHDRAWAL',`w-${t.id}`,'COLLATERAL',t.amount);}}
  for(const s of series){put(c.accountId,'SERIES_RESERVE',s.config.series_id,'COLLATERAL',s.reserve);put(c.accountId,'SUPPLY',s.config.series_id,`P:${s.config.series_id}`,s.outstanding_p);put(c.accountId,'SUPPLY',s.config.series_id,`N:${s.config.series_id}`,s.outstanding_n);}
- put(c.accountId,'STORAGE','series','COLLATERAL',snapshot.series_storage_fund);put(c.accountId,'FEE','protocol','COLLATERAL',snapshot.fees);put(c.accountId,'OPERATING','bootstrap','COLLATERAL',snapshot.operating_allocation);
+ put(c.accountId,'STORAGE','series','COLLATERAL',snapshot.series_storage_fund);put(c.accountId,'STORAGE','market','COLLATERAL',snapshot.market_storage_fund);put(c.accountId,'FEE','protocol','COLLATERAL',snapshot.fees);put(c.accountId,'OPERATING','bootstrap','COLLATERAL',snapshot.operating_allocation);
  const actual=new Map([...eventBalances].filter(([k,n])=>JSON.parse(k)[0]===c.accountId&&n>0n));assert.deepEqual(actual,expected,'canonical event replay equals state');return snapshot;
 }
 try{
@@ -76,16 +83,29 @@ try{
  for(const amount of ['01','-1','1e3','340282366920938463463374607431768211456'])await call(alice,core,'split',{series_id:'alpha',amount},1n,'failure');
  await call(alice,core,'split',{series_id:'alpha',amount:String(101n*Q)},1n,'failure');
  const model={a:{free:10n*Q+Q/10n,p:0n,n:0n},b:{free:2n*Q+Q/10n,p:0n,n:0n},reserve:0n,split:0n,merged:0n,paid:0n};
- const actors={a:alice,b:bob};let seed=0x51a7;const rand=n=>{seed^=seed<<13;seed^=seed>>>17;seed^=seed<<5;seed>>>=0;return seed%n;};
+ const actors={a:alice,b:bob},keys={},nonces={a:0,b:0};let seed=initialSeed;const rand=n=>{seed^=seed<<13;seed^=seed>>>17;seed^=seed<<5;seed>>>=0;return seed%n;};
+ if(options.trades)for(const id of ['a','b']){keys[id]=generateKeyPairSync('ed25519');const args={key_id:'stateful',public_key:keys[id].publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex')};await call(actors[id],core,'register_signing_key',args,minimum+1n);evidence.key_registrations.push({maker:actors[id].accountId,...args});}
  async function compare(){const s=await view(core,'get_series',{series_id:'alpha'});for(const id of ['a','b']){const a=await view(core,'get_account',{account_id:actors[id].accountId});assert.equal(a.free,String(model[id].free));assert.equal(a.positions[s.slot].p,String(model[id].p));assert.equal(a.positions[s.slot].n,String(model[id].n));}assert.equal(s.reserve,String(model.reserve));assert.equal(s.outstanding_p,String(model.a.p+model.b.p));assert.equal(s.outstanding_n,String(model.a.n+model.b.n));assert.equal(s.total_paid,String(model.paid));assert.equal(s.total_split,String(model.split));assert.equal(s.total_merged,String(model.merged));}
- for(let i=0;i<40;i++){
-  const id=rand(2)?'a':'b',other=id==='a'?'b':'a',a=model[id],b=model[other],amount=BigInt(1+rand(1000));const op=rand(4);
+ for(let i=0;i<steps;i++){
+  const id=rand(2)?'a':'b',other=id==='a'?'b':'a',a=model[id],b=model[other],amount=BigInt(1+rand(1000));const op=rand(options.trades?6:4);
+  evidence.model_actions.push({phase:'pre-final',step:i,actor:id,op,amount:String(amount)});
   if(op===0||i<4){await call(actors[id],core,'split',{series_id:'alpha',amount:String(amount)},1n);a.free-=amount;a.p+=amount;a.n+=amount;model.reserve+=amount;model.split+=amount;}
   else if(op===1){const q=[a.p,a.n,amount].reduce((x,y)=>x<y?x:y);if(q>0n){await call(actors[id],core,'merge',{series_id:'alpha',amount:String(q)},1n);a.p-=q;a.n-=q;a.free+=q;model.reserve-=q;model.merged+=q;}}
-  else {const leg=op===2?'p':'n',q=a[leg]<amount?a[leg]:amount;if(q>0n){await call(actors[id],core,'transfer',{asset:{kind:leg.toUpperCase(),series_id:'alpha'},amount:String(q),receiver:actors[other].accountId},1n);a[leg]-=q;b[leg]+=q;}}
+  else if(op<4){const leg=op===2?'p':'n',q=a[leg]<amount?a[leg]:amount;if(q>0n){await call(actors[id],core,'transfer',{asset:{kind:leg.toUpperCase(),series_id:'alpha'},amount:String(q),receiver:actors[other].accountId},1n);a[leg]-=q;b[leg]+=q;}}
+  else {
+   const leg=op===4?'p':'n',q=a[leg]<amount?a[leg]:amount;
+   if(q>0n){const cash=1n+q/2n,quote=baseQuote({contract:core.accountId,maker:actors[id].accountId,taker:actors[other].accountId,keyId:'stateful',nonce:nonces[id]++,epoch:0,expiry:await now()+240_000_000_000n,feeReceiver:alice.accountId});quote.maker_gives=[{asset:{kind:leg.toUpperCase(),series_id:'alpha'},amount:String(q)}];quote.taker_gives=[{asset:{kind:'COLLATERAL'},amount:String(cash)}];quote.fee.amount='1';const signed=signQuote(quote,keys[id].privateKey);
+    // Invalid late leg must revert all balances AND nonce, before the valid fill.
+    const invalid=signQuote({...quote,maker_gives:[...quote.maker_gives,{asset:{kind:leg==='p'?'N':'P',series_id:'alpha'},amount:String(a[leg==='p'?'n':'p']+1n)}]},keys[id].privateKey);
+    const marketBefore=await view(core,'get_market',{maker:actors[id].accountId});await call(actors[other],core,'fill_quote',{quote:invalid},1n,'failure');await compare();assert.deepEqual(await view(core,'get_market',{maker:actors[id].accountId}),marketBefore);
+    await call(actors[other],core,'fill_quote',{quote:signed},1n);a[leg]-=q;b[leg]+=q;a.free+=cash;b.free-=cash+1n;model.a.free++;
+    await call(actors[other],core,'fill_quote',{quote:signed},1n,'failure');
+   }
+  }
   await compare();
  }
- check('40 seeded pre-final model steps match independent BigInt ledger',true,true);
+ check(`${steps} seeded pre-final model steps match independent BigInt ledger`,true,true);
+ if(options.trades)check('seed exercises signed trades and failed-fill/replay rollback',evidence.quote_attempts.some(x=>x.succeeded),true);
  await call(alice,core,'split',{series_id:'alpha',amount:'20000'},1n);model.a.free-=20000n;model.a.p+=20000n;model.a.n+=20000n;model.reserve+=20000n;model.split+=20000n;await compare();
  await call(bob,core,'transfer',{asset:{kind:'P',series_id:'alpha'},amount:String(model.b.p+1n),receiver:alice.accountId,owner:alice.accountId},1n,'failure');
  await call(alice,core,'transfer',{asset:{kind:'COLLATERAL'},amount:'1',receiver:sink.accountId},1n,'failure');
@@ -113,12 +133,14 @@ try{
  await call(root,oracle,'set_report',{series_id:'alpha',report:{...report,price:'4000000000000'}});await call(alice,core,'request_resolution',{series_id:'alpha'});
  check('final price cannot be overwritten',(await view(core,'get_series',{series_id:'alpha'})).final_price,report.price);
  await call(alice,core,'merge',{series_id:'alpha',amount:'1'},1n,'failure');await call(alice,core,'release_dust',{series_id:'alpha'},1n,'failure');
- for(let i=0;i<40;i++){
+ for(let i=0;i<steps;i++){
   const candidates=['a','b'].flatMap(id=>['p','n'].filter(leg=>model[id][leg]>0n).map(leg=>[id,leg]));
   assert(candidates.length>0,'seeded redemption inventory');const [id,leg]=candidates[rand(candidates.length)];const requested=BigInt(1+rand(37)),amount=model[id][leg]<requested?model[id][leg]:requested;
-  await call(actors[id],core,'redeem',{series_id:'alpha',leg:leg.toUpperCase(),amount:String(amount)},1n);const paid=amount*(leg==='p'?p:n)/Q;model[id][leg]-=amount;model[id].free+=paid;model.reserve-=paid;model.paid+=paid;await compare();
+  evidence.model_actions.push({phase:'redemption',step:i,actor:id,leg,amount:String(amount)});
+  if(options.trades&&rand(3)===0){const other=id==='a'?'b':'a';await call(actors[id],core,'transfer',{asset:{kind:leg.toUpperCase(),series_id:'alpha'},amount:String(amount),receiver:actors[other].accountId},1n);model[id][leg]-=amount;model[other][leg]+=amount;await compare();}
+  else {await call(actors[id],core,'redeem',{series_id:'alpha',leg:leg.toUpperCase(),amount:String(amount)},1n);const paid=amount*(leg==='p'?p:n)/Q;model[id][leg]-=amount;model[id].free+=paid;model.reserve-=paid;model.paid+=paid;await compare();}
  }
- check('40 actual fragmented redemptions match independent ledger',true,true);
+ check(`${steps} fragmented redemption/transfer steps match independent ledger`,true,true);
  for(const id of ['a','b'])for(const leg of ['p','n']){const amount=model[id][leg];if(amount>0n){await call(actors[id],core,'redeem',{series_id:'alpha',leg:leg.toUpperCase(),amount:String(amount)},1n);const paid=amount*(leg==='p'?p:n)/Q;model[id][leg]=0n;model[id].free+=paid;model.reserve-=paid;model.paid+=paid;}}
  await compare();check('seeded fragmented redemptions never exceed backing',model.paid<=model.split-model.merged,true);
  await call(alice,core,'redeem',{series_id:'alpha',leg:'P',amount:'1'},1n,'failure');
@@ -172,6 +194,7 @@ try{
  evidence.custody={normal:await replayMatches(core),fault:await replayMatches(fault)};
  check('event replay reconciles every balance, reserve, supply and ticket',true,true);
  check('retained custody categories covered',evidence.custody.normal.retained_categories_covered,true);
+ evidence.limits={accounts:16,series:8,terminal_tickets:64,storage_bytes:evidence.custody.normal.storage_bytes,max_transaction_gas:evidence.transactions.reduce((n,t)=>BigInt(t.gas_burnt)>n?BigInt(t.gas_burnt):n,0n).toString(),max_receipt_gas:evidence.transactions.flatMap(t=>t.receipts).reduce((n,r)=>BigInt(r.gas_burnt)>n?BigInt(r.gas_burnt):n,0n).toString()};
  evidence.runtime=await provider.viewNodeStatus();check('pinned node version',evidence.runtime.version.version,'2.14.0');
  // Validate actual emitted event records with the same public shared schema.
  await writeFile(path.join(ROOT,'target/g3-events.json'),JSON.stringify(evidence.events.map(x=>x.event)));

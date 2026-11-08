@@ -1,0 +1,185 @@
+{
+  "mutation_counterexamples": {
+    "accept_stale_request": {
+      "invariant": "stale reply cannot consume current request",
+      "shortest_trace": [
+        "request",
+        "timeout",
+        "request",
+        "oracle_response:0:-1",
+        "callback:0"
+      ]
+    },
+    "duplicate_refund": {
+      "invariant": "owner obligation conservation",
+      "shortest_trace": [
+        "request:0",
+        "transfer:0:FAILURE",
+        "callback:0:FAILURE",
+        "duplicate_callback:0"
+      ]
+    },
+    "forged_callback": {
+      "invariant": "only authenticated failure restores",
+      "shortest_trace": [
+        "request:0",
+        "unauthorized_callback:0"
+      ]
+    },
+    "invent_delayed_price": {
+      "invariant": "core imports only final evidence",
+      "shortest_trace": [
+        "tick",
+        "tick",
+        "tick",
+        "tick",
+        "tick",
+        "tick",
+        "mark_delayed",
+        "invent_price"
+      ]
+    },
+    "overwrite_import": {
+      "invariant": "imported price immutable",
+      "shortest_trace": [
+        "request",
+        "oracle_response:0:1",
+        "callback:0",
+        "request",
+        "oracle_response:1:2",
+        "callback:1"
+      ]
+    },
+    "release_twice": {
+      "invariant": "bond conservation and single release",
+      "shortest_trace": [
+        "tick",
+        "tick",
+        "publish:1",
+        "propose:1:1",
+        "tick",
+        "tick",
+        "tick",
+        "tick",
+        "mark_delayed",
+        "mark_delayed"
+      ]
+    },
+    "resend_unknown": {
+      "invariant": "single transfer and restoration",
+      "shortest_trace": [
+        "request:0",
+        "transfer:0:SUCCESS",
+        "malformed_result:0",
+        "resend:0"
+      ]
+    },
+    "rewrite_final": {
+      "invariant": "terminal outcome immutable",
+      "shortest_trace": [
+        "tick",
+        "tick",
+        "tick",
+        "publish:0",
+        "publish:1",
+        "adjudicate:0",
+        "adjudicate:1"
+      ]
+    },
+    "round_up_payout": {
+      "invariant": "remaining obligation covered",
+      "shortest_trace": [
+        "redeem:p:1:Q=2:p=1:backing=1",
+        "redeem:n:1:Q=2:p=1:backing=1"
+      ]
+    },
+    "timeout_refund": {
+      "invariant": "owner obligation conservation",
+      "shortest_trace": [
+        "request:0",
+        "age:0",
+        "timeout:0"
+      ]
+    }
+  },
+  "oracle": {
+    "actions": {
+      "adjudicate": 300,
+      "challenge": 80,
+      "finalize": 14,
+      "import_final": 384,
+      "import_nonfinal_or_repeat": 721,
+      "mark_delayed": 48,
+      "propose": 8,
+      "publish": 128,
+      "tick": 857,
+      "unauthorized_adjudicate": 1105,
+      "unauthorized_import_callback": 1105
+    },
+    "edges": 4750,
+    "fixed_point": true,
+    "states": 1105
+  },
+  "passed": true,
+  "reserve": {
+    "bounds": {
+      "backing": [
+        1,
+        8
+      ],
+      "coefficients": "all integers 0..scale",
+      "scales": [
+        2,
+        3,
+        7
+      ]
+    },
+    "edges": 56182,
+    "fixed_point": true,
+    "instances": 120,
+    "states": 10268
+  },
+  "resolution": {
+    "actions": {
+      "callback": 250,
+      "oracle_response": 250,
+      "request": 17,
+      "timeout": 84,
+      "unauthorized_callback": 594
+    },
+    "edges": 1195,
+    "fixed_point": true,
+    "states": 309
+  },
+  "scope": "Finite explicit-state models; not symbolic verification, Rust refinement, cryptographic proof or independent review",
+  "sources": {
+    "contracts/clearinghouse/src/claims.rs": "2842fe323146a74e3cc47423f431d176c39e3abf36d1fcbe44a79f8cdbf0da01",
+    "contracts/clearinghouse/src/series.rs": "426935e594204f52e330357f34a49c7474a1ed23bcac9467c9f46362ec00e4c8",
+    "contracts/clearinghouse/src/withdrawals.rs": "6f94b074d5745e994db684ebc2b907612ccff9ecc87c1e4c4e5eda956ecdec69",
+    "contracts/settlement-oracle/src/lib.rs": "45ccafc7658e9e6d96a10b3dc34c64d5e219380ca2e0b56a8e770a04acddbbb5",
+    "contracts/settlement-oracle/src/lifecycle.rs": "95a8bef79fa5b8195829d7cd3abfcf2e9c1db29d1c0d1eb632fef5f2c0b51138",
+    "contracts/settlement-oracle/src/types.rs": "9c837afce94650244ebb382a5f7e3d00b2ca0654db921e433c1fb07577274af4",
+    "contracts/settlement-oracle/src/withdrawals.rs": "06a8c3aebbd7f522cd7406db5417b49d04290c4a205bba01217d256c519cf5a5",
+    "verification/check_models.py": "39c1274c83054dd423b748e976787b0fd4fc19ea283e3cd5e5bfbe516efbdbab"
+  },
+  "withdrawals": {
+    "actions": {
+      "age": 770,
+      "callback": 660,
+      "callback_panic": 660,
+      "close_other_owner": 2950,
+      "close_owner": 540,
+      "close_unsettled_or_closed": 2410,
+      "duplicate_callback": 540,
+      "malformed_result": 660,
+      "request": 60,
+      "retry_absent": 2950,
+      "timeout": 550,
+      "transfer": 660,
+      "unauthorized_callback": 2950
+    },
+    "edges": 16360,
+    "fixed_point": true,
+    "states": 1501
+  }
+}

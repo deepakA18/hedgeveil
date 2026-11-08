@@ -2,8 +2,9 @@
 
 This is a specification argument, not a mechanized proof. The bounded G3 core
 implements collateral/storage/series/ticket accounting and checks its local
-invariants after each mutation; market, oracle bonds and vault categories remain
-planned. See [compiled-Wasm evidence](../research/reports/G3_COLLATERAL_CORE.md).
+invariants after each mutation. G4–G6 add implemented oracle bond, market and
+vault categories with separately scoped compiled-Wasm evidence. See
+[SEC-01 model boundaries](README.md) and [core evidence](../research/reports/G3_COLLATERAL_CORE.md).
 Balances and supplies are observable; there is no confidential-note invariant.
 
 Let F be all user free/order-reserved collateral, R_s the backing reserve for
@@ -51,8 +52,11 @@ substitute for these records.
 Assumptions requiring continuing executable evidence: correct initial state, predecessor and
 callback authorization, atomic receipt effects, checked arithmetic, quote key and
 nonce checks, immutable terms, authenticated oracle imports and complete custody
-reconciliation. Upcoming symbolic/stateful tests must name limits and discovered
-counterexamples. G3's seeded model comparison and event replay cover a fixed
+reconciliation. SEC-01 now enumerates finite withdrawal, oracle, resolution-import
+and reserve states, with ten unsafe model mutation counterexamples. Separate SMT
+checks cover bounded integer reserve obligations at eight complementary
+coefficients and the actual supply cap; neither layer proves Rust/runtime
+refinement. G3's seeded model comparison and event replay cover a fixed
 16-account/8-series/64-ticket profile, not every interleaving or production load.
 The queried storage price is pinned at initialization; account keys and the
 protocol runtime are trusted deployment boundaries. Historical proof-verifier measurements provide none of this
