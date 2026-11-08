@@ -1,8 +1,10 @@
 # Demo acceptance script — pending implementation
 
-This is the future G9 acceptance narrative, not a runnable demo. Current runnable
-checks are in [README](../README.md). DEM-01 must supply local services, committed
-scenario data and scripts before these steps can be marked complete.
+This is the future G9 acceptance narrative. APP-02 now has a disposable local
+Sandbox UI with two makers, real oracle and PostgreSQL; start it with the commands
+in [README](../README.md) and follow [APP](APP.md). It is not a public-wallet or
+complete release demo. DEM-01 still needs persistent lifecycle, fresh-clone and
+full walkthrough evidence before the steps below can be marked complete.
 
 Required modes are local Sandbox and faucet-funded testnet with real receipts.
 Optional live-data observation cannot settle claims or replace demo fixtures.

@@ -74,7 +74,7 @@ All method arguments and deposits use exact base units. `parseNear('0.1')` retur
 amount. Non-funding methods attach exactly one yocto; funding methods require an
 explicit positive amount. `toWireIntent` removes the journal-only signer/gas
 metadata to produce the existing shared-schema transaction shape. Each of the
-11 builders is exercised by real Sandbox execution and schema validation.
+original 11 builders is exercised by real Sandbox execution and schema validation.
 
 Create a public JSON configuration from the running **local** deployment record:
 
@@ -178,3 +178,9 @@ operation IDs are not embedded on-chain. Supplying an older identical transactio
 cannot prove the newer attempt's outcome. Persisting `onHash` before losing the
 signer response is the preferred path; otherwise keep the operation unresolved
 until its actual transaction is identified.
+
+APP-02 adds typed `cancel_quote`, `advance_quote_epoch` and `revoke_signing_key`
+builders (14 total), validated against real browser-triggered receipts. These
+reduce the selected maker’s authorization without moving inventory. Portable
+`amounts.mjs` is shared with the browser. [APP](APP.md) documents the local signing
+gateway, durable pointers and its distinction from public wallet integration.

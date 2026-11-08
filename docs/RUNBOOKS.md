@@ -91,7 +91,7 @@ During RPC/database outage or a custody/sequence mismatch, `/health` returns 503
 with risk disabled. Data endpoints retain the last accepted checkpoint and its
 health; a recent HTTP response is not proof of recent chain data. Check both
 checkpoint age and observed block lag. The service cannot pause a contract or
-send transactions; browser/UI enforcement and operator paging remain pending.
+send transactions; APP-02 enforces the risk flag in its local signing gateway; operator paging remains pending.
 
 Restart `serve` with the same private local config and schema. It resumes from
 the durable cursor and verifies every parent link. If history was pruned, provide
@@ -108,3 +108,20 @@ indexer does not resolve them. An unknown quote-depth notice means no executable
 quote source has been integrated, not a zero spread, available bid or safe roll.
 Guardian pauses and independent incident adjudication still require their own
 authorized procedures; no automated notification or on-call sign-off is claimed.
+
+## Local browser recovery
+
+Keep the APP-02 demo process running. Reload the page, select the same account
+and open Transactions. Check the retained operation rather than re-entering a
+deposit. The browser recovers from the server journal even if its local pointers
+are lost. An exact hash from the signing attempt can be checked without sending.
+The displayed public client binding and journal directory also work with the
+[CLI](CLIENT.md) while that Sandbox RPC remains alive. No automatic signature,
+refund, resend or ticket cleanup occurs.
+
+If the UI cannot use browser storage, preparation is disabled. If the indexer is
+unhealthy, new-risk previews are blocked while direct verified exits/recovery
+remain available. A gateway or journal loss is not evidence of failed execution.
+Restarting the disposable launcher creates another chain and cannot recover the
+old one. Preserve records; durable local/testnet deployment restart is a DEM-01
+requirement, not an implemented incident-recovery promise.

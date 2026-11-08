@@ -38,6 +38,9 @@ export interface Quote {
     signature: string;
 }
 export interface MethodArgs {
+    cancel_quote: { nonce: UInt };
+    advance_quote_epoch: { epoch: UInt };
+    revoke_signing_key: { key_id: string };
     storage_deposit: Record<string, never>;
     deposit_collateral: Record<string, never>;
     split: {

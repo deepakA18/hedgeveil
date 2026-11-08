@@ -115,7 +115,8 @@ counts toward staleness. A large lag or stale checkpoint disables risk admission
 even if its old balances still reconcile. Historical API data remains available
 with its block hash and health attached. The API has no automatic access to an
 account capable of pausing contracts, and the SDK does not yet consume this
-admission flag; wallet/UI enforcement remains APP-01/02 work.
+admission flag; APP-02 now enforces it for new-risk previews and submissions in
+the local gateway. Public wallet/testnet enforcement remains pending.
 
 ## Read API and monitoring
 

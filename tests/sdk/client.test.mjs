@@ -173,3 +173,14 @@ test('failed refund child does not erase a committed atomic action; foreign even
     raw.receipts_outcome[0].outcome.logs = [raw.receipts_outcome[0].outcome.logs[0].replace('core.sandbox', 'attacker.sandbox')];
     assert.equal((await assess({}, raw, i, h(3))).state, 'PENDING');
 });
+
+test('maker controls retain exact bounded nonces, increasing epoch candidates and key IDs', () => {
+    for (const [method,args] of [['cancel_quote',{nonce:'255'}],['advance_quote_epoch',{epoch:'18446744073709551615'}],['revoke_signing_key',{key_id:'demo-key'}]]) {
+        const intent=buildIntent({...input,method,args});
+        assert.equal(intent.attached_deposit,'1');assert.deepEqual(intent.args,args);
+        assert.throws(()=>buildIntent({...input,method,args,attached_deposit:'2'}));
+    }
+    for (const nonce of ['256','-1',1])assert.throws(()=>buildIntent({...input,method:'cancel_quote',args:{nonce}}));
+    for (const epoch of ['0','18446744073709551616',1])assert.throws(()=>buildIntent({...input,method:'advance_quote_epoch',args:{epoch}}));
+    assert.throws(()=>buildIntent({...input,method:'revoke_signing_key',args:{key_id:'../key'}}));
+});

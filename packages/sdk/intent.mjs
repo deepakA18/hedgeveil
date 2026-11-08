@@ -1,27 +1,7 @@
 import {randomBytes} from 'node:crypto';
 
-export const Q = 10n ** 24n;
-export class ClientError extends Error {
-    constructor(code) { super(code); this.code = code; }
-}
-export function fail(code) { throw new ClientError(code); }
-export function uint(value, bits = 128, positive = false) {
-    if (typeof value !== 'string' || !/^(0|[1-9][0-9]*)$/.test(value) || value.length > 39) fail('INVALID_INTEGER');
-    const n = BigInt(value);
-    if (n >= (1n << BigInt(bits)) || (positive && n === 0n)) fail('INTEGER_BOUNDS');
-    return n;
-}
-export function parseNear(text) {
-    if (typeof text !== 'string' || text.length > 64 || !/^(0|[1-9][0-9]*)(\.[0-9]{1,24})?$/.test(text)) fail('INVALID_NEAR_AMOUNT');
-    const [whole, fraction = ''] = text.split('.');
-    const n = BigInt(whole) * Q + BigInt(fraction.padEnd(24, '0'));
-    uint(String(n));
-    return String(n);
-}
-export function formatNear(amount) {
-    const n = uint(amount), fraction = String(n % Q).padStart(24, '0').replace(/0+$/, '');
-    return `${n / Q}${fraction ? '.' + fraction : ''}`;
-}
+import {Q, fail, uint} from './amounts.mjs';
+export {Q, ClientError, fail, uint, parseNear, formatNear} from './amounts.mjs';
 export function canonical(value) {
     if (value === null || typeof value === 'string' || typeof value === 'boolean' || (typeof value === 'number' && Number.isSafeInteger(value))) return JSON.stringify(value);
     if (Array.isArray(value)) return '[' + value.map(canonical).join(',') + ']';
@@ -78,7 +58,7 @@ function quote(q, domain) {
     identifier(q.signing_key_id);
     if (!/^[0-9a-f]{128}$/.test(q.signature)) fail('INVALID_SIGNATURE_ENCODING');
 }
-export const METHODS = Object.freeze({ storage_deposit: 'STORAGE_DEPOSIT', deposit_collateral: 'DEPOSIT', split: 'SPLIT', merge: 'MERGE', transfer: 'TRANSFER', redeem: 'REDEEMED', fill_quote: 'QUOTE_FILLED', vault_mint_basket: 'VAULT_MINTED', vault_redeem_in_kind: 'VAULT_EXITED', request_withdrawal: 'WITHDRAWAL_REQUESTED', close_ticket: 'TICKET_CLOSED' });
+export const METHODS = Object.freeze({ cancel_quote: 'QUOTE_CANCELLED', advance_quote_epoch: 'QUOTE_EPOCH_ADVANCED', revoke_signing_key: 'SIGNING_KEY_REVOKED', storage_deposit: 'STORAGE_DEPOSIT', deposit_collateral: 'DEPOSIT', split: 'SPLIT', merge: 'MERGE', transfer: 'TRANSFER', redeem: 'REDEEMED', fill_quote: 'QUOTE_FILLED', vault_mint_basket: 'VAULT_MINTED', vault_redeem_in_kind: 'VAULT_EXITED', request_withdrawal: 'WITHDRAWAL_REQUESTED', close_ticket: 'TICKET_CLOSED' });
 export function buildIntent({ signer_id, contract_id, method, args, attached_deposit, operation_id = randomBytes(32).toString('hex') }) {
     account(signer_id);
     account(contract_id);
@@ -139,6 +119,18 @@ export function buildIntent({ signer_id, contract_id, method, args, attached_dep
             fields(args, ['amount', 'receiver']);
             uint(args.amount, 128, true);
             account(args.receiver);
+            break;
+        case 'cancel_quote':
+            fields(args, ['nonce']);
+            if (uint(args.nonce, 64) > 255n) fail('QUOTE_NONCE');
+            break;
+        case 'advance_quote_epoch':
+            fields(args, ['epoch']);
+            uint(args.epoch, 64, true);
+            break;
+        case 'revoke_signing_key':
+            fields(args, ['key_id']);
+            identifier(args.key_id);
             break;
         case 'close_ticket':
             fields(args, ['ticket_id']);

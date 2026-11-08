@@ -12,3 +12,8 @@ void client.prepare({ signer_id: 'alice.sandbox', method: 'redeem', args: { tick
 void client.prepare({ signer_id: 'alice.sandbox', method: 'fault_withdrawal', args: {} });
 // @ts-expect-error This increment does not support public networks.
 const invalid: Configuration = { ...config, network: 'mainnet' };
+void client.prepare({ signer_id: 'maker.sandbox', method: 'cancel_quote', args: { nonce: '255' } });
+void client.prepare({ signer_id: 'maker.sandbox', method: 'advance_quote_epoch', args: { epoch: '1' } });
+void client.prepare({ signer_id: 'maker.sandbox', method: 'revoke_signing_key', args: { key_id: 'demo-key' } });
+// @ts-expect-error Quote nonces must remain canonical strings.
+void client.prepare({ signer_id: 'maker.sandbox', method: 'cancel_quote', args: { nonce: 1 } });

@@ -1,0 +1,8 @@
+{
+  "name": "@hedgeveil/local-web",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22.22.2"},
+  "scripts": {"start": "node demo.mjs", "test": "node --test ../../tests/e2e/model.test.mjs", "test:browser": "node ../../tests/e2e/browser.mjs"},
+  "devDependencies": {"playwright": "1.62.1"}
+}

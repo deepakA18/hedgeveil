@@ -199,14 +199,47 @@ The tests start an isolated native PostgreSQL 18.6 instance under ignored `targe
 no global database, Docker or paid API is needed. [Indexer usage](docs/INDEXER.md)
 explains deployment pins, retained block history, credentials, API endpoints,
 health limits and explicit unknown quote depth. [INF-01 evidence](research/reports/G7_INDEXER.md)
-records actual replay, failure injection and fresh-database backfill. Next are
-browser wallet/storage and UI flows; public testnet acceptance and independent
-review remain pending.
+records actual replay, failure injection and fresh-database backfill. APP-02 now
+consumes this service in its local UI; public wallet/testnet acceptance and
+independent review remain pending.
+
+Run the APP-02 local browser desk with:
+
+```sh
+npm ci --prefix tests/sandbox --ignore-scripts
+npm ci --prefix services/indexer --ignore-scripts
+npm ci --prefix apps/web --ignore-scripts
+python3 scripts/build-core.py
+python3 scripts/build-oracle.py
+npm start --prefix apps/web
+```
+
+Open the printed loopback URL. The process creates a fresh Sandbox deployment,
+PostgreSQL instance, two funded makers and a new visitor account. Use Portfolio
+to register storage and deposit collateral, Trade for P/N and funded RFQs, Save
+for basket entry, and Transactions for receipt recovery. It uses an explicitly
+labelled local signer, not a browser wallet. Keep the process running for recovery;
+restarting it creates a different chain. No `.env`, paid key or public funds are
+needed. See [application usage](docs/APP.md) and [APP-02 evidence](research/reports/G7_APP.md).
+
+Run browser/model checks (Chromium download needed once):
+
+```sh
+npm exec --prefix apps/web -- playwright install chromium
+node --test tests/e2e/model.test.mjs tests/sdk/client.test.mjs
+node tests/e2e/browser.mjs
+```
+
+The browser suite starts and stops its own isolated services, executes real
+transactions and writes source-hashed evidence. It tests cancellation, lost
+responses, exact-hash recovery, actual failed native payouts, disputed settlement,
+maker authorization controls and three viewport widths. Public wallet/testnet,
+persistent deployment lifecycle and independent review remain pending.
 
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1, G3, G4, G5, G6, APP-01 and INF-01 local harnesses are runnable.
+product modes are not yet runnable; G1, G3, G4, G5, G6, APP-01 and INF-01 local harnesses plus the APP-02 local UI are runnable.
 G9 is the complete hackathon release; G10/G11 are separate
 production and expansion gates.
 
