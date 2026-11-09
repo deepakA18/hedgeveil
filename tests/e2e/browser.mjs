@@ -4,9 +4,11 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {parseArgs} from 'node:util';
 import {chromium} from '../../apps/web/node_modules/playwright/index.mjs';
 import {startDemo} from '../../apps/web/demo.mjs';
 const ROOT=fileURLToPath(new URL('../../',import.meta.url));
+const {values:options}=parseArgs({options:{report:{type:'string',default:'research/reports/g7-app.json'}}});
 const report={scope:'APP-02 local browser + ephemeral Sandbox signer; real compiled contract and PostgreSQL receipt evidence. No public wallet, testnet deployment or independent review.',checks:[],operations:[],versions:{node:process.version,playwright:'1.62.1',sandbox:'2.14.0'},base_commit:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim()};
 const check=(name,actual,expected)=>{assert.deepEqual(actual,expected,name);report.checks.push(name);console.log('PASS',name);};
 const sha=b=>createHash('sha256').update(b).digest('hex');
@@ -89,6 +91,6 @@ try {
  report.operations_retained=await demo.app.operations();report.transactions=demo.transactions;report.artifacts=demo.manifest;
  report.final_snapshots=(await demo.indexer.store.read('snapshots',{limit:200})).items;
  report.sources={...await hashes(path.join(ROOT,'apps/web'),'apps/web'),...await hashes(path.join(ROOT,'packages/sdk'),'packages/sdk'),...await hashes(path.join(ROOT,'tests/e2e'),'tests/e2e')};
- report.passed=true;await writeFile(path.join(ROOT,'research/reports/g7-app.json'),JSON.stringify(report,null,2)+'\n');console.log('Evidence research/reports/g7-app.json');
+ report.passed=true;await writeFile(path.resolve(ROOT,options.report),JSON.stringify(report,null,2)+'\n');console.log('Evidence',options.report);
 }catch(e){if(page){await mkdir(path.join(ROOT,'target'),{recursive:true});await page.screenshot({path:path.join(ROOT,'target/app02-failure.png'),fullPage:true}).catch(()=>{});console.error((await page.locator('body').innerText().catch(()=>'' )).slice(-5000));}throw e;}
 finally{if(browser)await browser.close();if(demo)await demo.stop();}

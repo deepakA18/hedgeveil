@@ -1,10 +1,20 @@
-# Demo acceptance script — pending implementation
+# Demo acceptance narrative — public release pending
 
-This is the future G9 acceptance narrative. APP-02 now has a disposable local
+This is the G9 acceptance narrative. [REL-01](RELEASE.md) now provides an executable
+local walkthrough, clean-checkout rehearsal and explicitly scoped evidence map.
+It includes a real CLI payout while the frontend HTTP server is offline. Keeper
+and payout-fault scenarios run in separate fixtures; crash/loss evidence comes
+from the synthetic economics experiment. Public testnet acceptance remains open.
+APP-02 has a disposable local
 Sandbox UI with two makers, real oracle and PostgreSQL; start it with the commands
 in [README](../README.md) and follow [APP](APP.md). It is not a public-wallet or
-complete release demo. DEM-01 now has [retained local restart](LOCAL_DEMO.md), but still needs
-fresh-clone and full walkthrough evidence before the steps below can be marked complete.
+complete public release demo. DEM-01 has [retained local restart](LOCAL_DEMO.md).
+The local rehearsal uses a temporary working-tree snapshot committed and cloned
+only inside its private test workspace; it does not certify an already published
+release commit. Read the generated acceptance map before claiming any step complete.
+The [retained REL-01 report](../research/reports/rel01-local.md) records 109 passed
+local checks and the exact public artifact digest; the public narrative remains
+the acceptance target below.
 
 Required modes are local Sandbox and faucet-funded testnet with real receipts.
 Optional live-data observation cannot settle claims or replace demo fixtures.

@@ -1,0 +1,650 @@
+{
+  "commands": [
+    {
+      "command": [
+        "git",
+        "-c",
+        "init.defaultBranch=release-snapshot",
+        "init",
+        "--quiet",
+        "--template="
+      ],
+      "exit_code": 0,
+      "label": "snapshot-init"
+    },
+    {
+      "command": [
+        "git",
+        "add",
+        "--all"
+      ],
+      "exit_code": 0,
+      "label": "snapshot-stage"
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "-c",
+        "commit.gpgSign=false",
+        "-c",
+        "user.name=Hedgeveil Local Rehearsal",
+        "-c",
+        "user.email=local-rehearsal@example.invalid",
+        "commit",
+        "--quiet",
+        "--no-verify",
+        "-m",
+        "Temporary local release input snapshot; not a project release commit"
+      ],
+      "exit_code": 0,
+      "label": "snapshot-commit"
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.hooksPath=/dev/null",
+        "clone",
+        "--quiet",
+        "--template=",
+        "--no-hardlinks",
+        "/Users/deepakagashe/Desktop/hedgeveil/target/releases/rel01-20261109-v2/snapshot",
+        "/Users/deepakagashe/Desktop/hedgeveil/target/releases/rel01-20261109-v2/checkout"
+      ],
+      "exit_code": 0,
+      "label": "fresh-clone"
+    },
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--prefix",
+        "tests/sandbox",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "label": "install-tests-sandbox"
+    },
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--prefix",
+        "services/indexer",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "label": "install-services-indexer"
+    },
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--prefix",
+        "apps/web",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "label": "install-apps-web"
+    },
+    {
+      "command": [
+        "npm",
+        "exec",
+        "--prefix",
+        "apps/web",
+        "--",
+        "playwright",
+        "install",
+        "chromium"
+      ],
+      "exit_code": 0,
+      "label": "chromium"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/build-core.py"
+      ],
+      "exit_code": 0,
+      "label": "core-build"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/build-oracle.py"
+      ],
+      "exit_code": 0,
+      "label": "oracle-build"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "research/reference-model",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "label": "reference"
+    },
+    {
+      "command": [
+        "python3",
+        "research/reference-model/generate_vectors.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "vectors"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "label": "math-tests"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "math-format"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "label": "math-clippy"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "label": "contracts-tests"
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "contracts-format"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "label": "contracts-clippy"
+    },
+    {
+      "command": [
+        "python3",
+        "packages/shared-schemas/build_schema.py"
+      ],
+      "exit_code": 0,
+      "label": "schema-generate"
+    },
+    {
+      "command": [
+        "python3",
+        "packages/shared-schemas/build_schema.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "schema-check"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--with",
+        "jsonschema==4.23.0",
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/schemas"
+      ],
+      "exit_code": 0,
+      "label": "schemas"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/release"
+      ],
+      "exit_code": 0,
+      "label": "release-unit"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/security"
+      ],
+      "exit_code": 0,
+      "label": "review-bundle-unit"
+    },
+    {
+      "command": [
+        "python3",
+        "verification/check_models.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "finite-models"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--with-requirements",
+        "verification/requirements.txt",
+        "python",
+        "verification/check_symbolic.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "symbolic"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/economics"
+      ],
+      "exit_code": 0,
+      "label": "economics-unit"
+    },
+    {
+      "command": [
+        "python3",
+        "research/scenarios/generate.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "scenarios"
+    },
+    {
+      "command": [
+        "python3",
+        "research/policy-comparison/run.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "label": "economics"
+    },
+    {
+      "command": [
+        "node",
+        "tests/release/walkthrough.mjs",
+        "target/release-public/walkthrough.json"
+      ],
+      "exit_code": 0,
+      "label": "walkthrough"
+    },
+    {
+      "command": [
+        "node",
+        "tests/e2e/browser.mjs",
+        "--report",
+        "target/release-public/browser.json"
+      ],
+      "exit_code": 0,
+      "label": "browser"
+    },
+    {
+      "command": [
+        "node",
+        "tests/sandbox/g6-keeper.mjs",
+        "--report",
+        "target/release-public/keeper.json"
+      ],
+      "exit_code": 0,
+      "label": "keeper"
+    },
+    {
+      "command": [
+        "node",
+        "tests/sandbox/g7.mjs",
+        "--report",
+        "target/release-public/payout.json"
+      ],
+      "exit_code": 0,
+      "label": "payout"
+    },
+    {
+      "command": [
+        "node",
+        "tests/demo/resume.mjs",
+        "--report",
+        "target/release-public/resume.json"
+      ],
+      "exit_code": 0,
+      "label": "resume"
+    }
+  ],
+  "project_base_commit": "d305605f41727ccc4b55310a7ef12765a1861d92",
+  "shared_caches": "Host npm/uv/Cargo download caches, Rust toolchains, Chromium and Sandbox binaries may be reused; no project build, node_modules, wallet, journal or database was copied",
+  "source_kind": "Working-tree inputs committed only in a temporary repository, then freshly cloned; not a public project release commit",
+  "source_sha256": {
+    ".env.example": "28e3fc4ed538ceda3f674ea6aeeea8c03b450624bc7af1d03190c3366e086603",
+    ".gitignore": "0f579b4828a7182683911b3f3f594472ac49db7cfa81120a8ad763849d278b00",
+    "AGENTS.md": "014a8797926dfaa5d8d25dbfc28aa8e9045614e10078d09e2b737c0c822776db",
+    "Cargo.lock": "f610ec2a1aaa37707eb15f621173be1627fc56a972f4e84066d9f9260d1c6422",
+    "Cargo.toml": "b1c025e1fe197a336000b1c7adef450bda3ad64c68928e55169500744c732353",
+    "IMPLEMENTATION_PLAN.md": "ca488b1f8b83376488c970907ca1638057ef3125487a75decfb83381d9dbb24f",
+    "README.md": "464fdcb34dac5be219efc4d8e355f1b8e840fab5ef63708487ffcf3c39c7290f",
+    "apps/web/demo.mjs": "af7c7fe92f6807505380f35c19614f1be8dca9ead9dbac0f3f167207f7460a47",
+    "apps/web/package-lock.json": "047675a84119d01a557e6d3e1abcc404d6d2978e7466cf0b18cd469ad82711ee",
+    "apps/web/package.json": "64757f237329febb92b00a0d1b13c45655f299bc890b4d02e33847de420dd51a",
+    "apps/web/public/amounts.mjs": "43a3a60e1515803b08c54d7c73cd585db535d91668d7cfbb80e647ff76923db6",
+    "apps/web/public/app.mjs": "ff2773f5e293a1f4efaf382e739e4690c42292b32b25441808b90fe418867f82",
+    "apps/web/public/index.html": "de41a2f24a7aa986bfbec59960cac053ff63723e083381bed807b43b59d6f3aa",
+    "apps/web/public/model.mjs": "94b08e795cdbbd3a464be9c7dde4a3c8626d7121544b6df41d82119a361c318e",
+    "apps/web/public/style.css": "263d2213264daf224eaa7c064b53543f151dce92579cca993c67cc3a272ade32",
+    "apps/web/server.mjs": "bc6cd907e5be6d263bec2835e22d378ae09bb4af2160e497a7a14e0a11f892d7",
+    "contracts/Cargo.lock": "0a05526f743ff15b8ad7cef15ba3d31b0b52a20d5538fb01d471d8758ef0fd54",
+    "contracts/Cargo.toml": "44fb0611af71907d859789b71f8577612c485ff795373ed5ab5bc58e959c0e9a",
+    "contracts/README.md": "0e3d8be2e8c197363a0b6ddabf5542eb3ad15e4f68fac350197e4d47b5274934",
+    "contracts/clearinghouse/Cargo.toml": "4329e0074429f71ed476649d0b5ff3ce0919b97912a7dc39ba5f1f3c76853984",
+    "contracts/clearinghouse/src/accounting.rs": "0dc47464cdf9b29a65f085ae9940810a0a7e1f625e51aa0364f7d0ab08920037",
+    "contracts/clearinghouse/src/claims.rs": "2842fe323146a74e3cc47423f431d176c39e3abf36d1fcbe44a79f8cdbf0da01",
+    "contracts/clearinghouse/src/events.rs": "25bde8ce82e3cf69be233c984542866242beda1f000811e2daa48c43cab9eb13",
+    "contracts/clearinghouse/src/keeper.rs": "1f7b8baf8f5fc345a04c5adb5b6e408ed9b84d810bf50f7670af91ed67922094",
+    "contracts/clearinghouse/src/lib.rs": "2b7ab279fc553f78a14e8b9fd5cc21045885ba748bb58b0f3f5b6a6e7422e16e",
+    "contracts/clearinghouse/src/permissions.rs": "524dabaefc1bb230a6842fd9e11ff34c00dba3ec36bc467c554e3c7781a37c25",
+    "contracts/clearinghouse/src/rfq.rs": "1c24b85e56196ce533b5ad43b74bb6aab4b4cb26a7e3d2a05f6d019457238209",
+    "contracts/clearinghouse/src/rfq_types.rs": "0ca6d3f8bdd2db9eb70127212a07a58779eab3df65f945d81fece277d80db30f",
+    "contracts/clearinghouse/src/series.rs": "426935e594204f52e330357f34a49c7474a1ed23bcac9467c9f46362ec00e4c8",
+    "contracts/clearinghouse/src/types.rs": "e7436541479f8eec2bc7312554ee69dd4e3cb8d7e4a463af92f94af7c933668f",
+    "contracts/clearinghouse/src/vault.rs": "a096da20c9e74939f0cdef610d76afd38421aa96061950a037823bcb3d8dad52",
+    "contracts/clearinghouse/src/withdrawals.rs": "6f94b074d5745e994db684ebc2b907612ccff9ecc87c1e4c4e5eda956ecdec69",
+    "contracts/rust-toolchain.toml": "0b4446cc9fc598cdf9f98e6678c9f0636a916f56e75187e26c8b660f1a44c242",
+    "contracts/settlement-oracle/Cargo.toml": "bcde547d6358f73f88550bd9ba387eccbe2e5b96c910f384177a4fe3704b044e",
+    "contracts/settlement-oracle/README.md": "54681d02f1d1052e27bd7031a36c13785fc1c2904009dd822e9243fd34baead0",
+    "contracts/settlement-oracle/src/lib.rs": "45ccafc7658e9e6d96a10b3dc34c64d5e219380ca2e0b56a8e770a04acddbbb5",
+    "contracts/settlement-oracle/src/lifecycle.rs": "95a8bef79fa5b8195829d7cd3abfcf2e9c1db29d1c0d1eb632fef5f2c0b51138",
+    "contracts/settlement-oracle/src/types.rs": "9c837afce94650244ebb382a5f7e3d00b2ca0654db921e433c1fb07577274af4",
+    "contracts/settlement-oracle/src/withdrawals.rs": "06a8c3aebbd7f522cd7406db5417b49d04290c4a205bba01217d256c519cf5a5",
+    "contracts/test-fixtures/account/Cargo.toml": "365d92d2bf97526051cb614111fce3a3722df8c49b63e263b94c2a83df190847",
+    "contracts/test-fixtures/account/src/lib.rs": "7c3d59cd591c6ca9b026a58bd742861597ef2ad2c4c79e8d30c8c8156a6de3e0",
+    "contracts/test-fixtures/oracle/Cargo.toml": "5ee8b3964fb8cd6dc7498555ec56a9fe0172975171c036e5411317d8cd7b9a48",
+    "contracts/test-fixtures/oracle/src/lib.rs": "986b93dcd0bc7f9464a0c472855764a8f5b34c91008f3bd8b0cff979934b4829",
+    "crates/payoff-math/Cargo.toml": "30662dc82e89c6a47fa6b6a31a2b2ea29b23bd802619e65664471cb69c3795a1",
+    "crates/payoff-math/src/lib.rs": "eaeb53474dd370e2479855a1f44890dcfdec6000c4068c9896f7da4909cc4b20",
+    "crates/payoff-math/tests/vectors.rs": "d549e49da40156a31cca4e64f3673ea5f8ea879781e2b41ec57629df0c491b5e",
+    "crates/protocol-types/Cargo.toml": "efb035cd20a5e2edac5d4a9b8527bfd338c3afb7a806a650c27bf8fab307da8a",
+    "crates/protocol-types/rust-toolchain.toml": "0b4446cc9fc598cdf9f98e6678c9f0636a916f56e75187e26c8b660f1a44c242",
+    "crates/protocol-types/src/lib.rs": "8984a1fe72b67cfac6f87be64ef4b00a91076c3b4a9eea8b5995173bcf936819",
+    "deploy/deployments.json": "fe13cb5e8f6fbcfde52415114fbacc7c4307a5a97d9a649afa8227472b987d19",
+    "deploy/mainnet/config.example.json": "f30b4b73c2e38c779bf3250850b9db8089929bb1d2d55791c9bdfc980f4e30d1",
+    "deploy/sandbox/config.example.json": "c765a67846cebdc7d3dc5dbc851227c520b97c366812e47c7b404fca54329035",
+    "deploy/testnet/config.example.json": "0eb5e616a936db95ed80222388b0d06cffcbb47e214dbb1f520da3a1cbe8a636",
+    "docs/ADRs/0001-foundation-and-gates.md": "15f1ca96000b1b801c8ce9f53c6cfae68bae8e6393694d4e7ed481059cd48ed1",
+    "docs/ADRs/0002-open-innovation-public-ledger.md": "0ac980df813c6d7e5ab81834864e9516db3827edd9783eac0a1a10324a263fb3",
+    "docs/ADRs/0003-g1-isolated-sandbox.md": "5de79d8be3de68790ebc3b87af5e40ae71f97ded5963dff4359ac35d0eaff515",
+    "docs/ADRs/0004-bounded-internal-ledger-core.md": "d5d9434427dd0640e079ccdf63276ac1c09ed28ccb5f99d580126380e9abd08f",
+    "docs/APP.md": "3d4ad086053a3443a83291695dea1d0665f233085642bd803d2cd88110183ef1",
+    "docs/BACKLOG.md": "f11282b77f9cb1efed2f9924b54b20233da5d48add67464dede1bb6f3d28f467",
+    "docs/CLIENT.md": "e31d4dcabdc50677fe5709914a814f26e6dcac93d2dd5cdce18e59ea540262d6",
+    "docs/COSTS.md": "4deb2adfbf8f6d020b22e3c30abea55cb2045bbb7f10e3779f2a794d44c37544",
+    "docs/DEMO.md": "49b195fa4c05c9fd92412832aa8ba505b797f6e65cc4700b0d18ec65c3e54ac8",
+    "docs/DEPLOYMENTS.md": "cc7158cbd27873a418db4532703da6665a7a38a8c23a294ffe81a5ed4c75f7df",
+    "docs/ECONOMICS.md": "a4ef3a089027ea9827e514114aa3bacb78caa5f7d6100190765c5d2cce040cd1",
+    "docs/INDEXER.md": "87a691f1f199a888b26d24326e8ab628a86e57cf08fcb66d4980cc3a9ac35caf",
+    "docs/KEEPER.md": "6bb2a178114f1651020c9defe9091f91cd46c914b35c49406d36c9791af42a66",
+    "docs/LOCAL_DEMO.md": "8e589693b3483f1c26e86f452f9c23025e4709a6e0cd49e48fd9fa1dfbd5cad7",
+    "docs/MARKET.md": "99dd13de3827bda7d9a23fad6cceb3f100ec99c5b294f2f95cea9ad47535cbca",
+    "docs/ORACLE.md": "ac89a9ea80ee79434a517fc55986a01283462f91257f8750965a8621cbaf37c5",
+    "docs/PRIVACY.md": "f68cf179bd623b426474c19c406b13d4b59f4c9733aaf29ebf84b8753cda9e2c",
+    "docs/RELEASE.md": "5cb9bbb11b8997615e24b54ae75e97518bd4a46fe279ece27d45614bf3b804a1",
+    "docs/RUNBOOKS.md": "17ace31fd7a4bff49f5eda36948dfd20789c8067a96ce7b1f89ba70a8b6ed984",
+    "docs/SECURITY.md": "260950f0b169afaf97b53ac78dfe2b8cc6312d2021445dc4d7fff50f5a54a11e",
+    "docs/SECURITY_REVIEW.md": "6209c33130c2ec99c5522c6e2780eb7ed8f7620655c7cb095324f4ac099d8da6",
+    "docs/SPEC.md": "00173dddc9a8f89d5838f35d2118cec88db50ed6509ed55601143a6d23bec9ba",
+    "docs/STATUS.md": "edbd9d25b140c7e5c3680a17db0a9135258bc0ee37bf4f8ea4b61fa1223a298b",
+    "docs/SUBMISSION.md": "2b275742e60fb94a4e4cb67ec21aee7b3cea8d86315cdb7ae0a12a8f9703173d",
+    "docs/THREAT_MODEL.md": "90f33d1fd3a3e68ee526810012c86ff3dea24daf816b4ebf949fc48d3d08c116",
+    "docs/VAULT.md": "09c3d07166e1c005ef54f601668fd7a81831eb6e82350a3d45d4f4c24de644c8",
+    "fixtures/market-scenarios/g2-paths.json": "c08880c87eb1da23bf83c293099867365fb14a9aace4b23daab481a9a7a9e27f",
+    "fixtures/payoff-vectors.json": "d99fb73a10400a5aaaec986cd6b2725a8959ca91e754f536dd879c597f34b8b7",
+    "fixtures/rfq/encoding-v1.json": "e3bcf4a73fc2b380f460ba3a5b1dd06b9a1347d4db93827d36c184f1ad470641",
+    "fixtures/synthetic-prices/g1-usd-near.json": "453a5fe6ba1e6e66bbf33811fc109913e31a274a66e2c8c54886b1b7d851abeb",
+    "fixtures/synthetic-prices/g4-demo.json": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+    "packages/rfq/README.md": "19b9e2f10ce9e4f7041908a2fa8cf41595235f31ddc9c832518e82eac9b8d1e9",
+    "packages/rfq/codec.mjs": "0ac53ecaeb2c4dad1507f59b04489d7a33d848155e9596f232ac79ff8df3e84c",
+    "packages/sdk/README.md": "c39ece027c78f953845183894ae695db9c787e8960b994c86d00c62412ae283e",
+    "packages/sdk/amounts.mjs": "aacc2b2d38c9c1f46eb54f8ebf97d50f2ea178a6d0eb83a02d452a7ef9614538",
+    "packages/sdk/client.mjs": "5d31fb3ea1e88d036ada28b96347f87dbf67b80cf74714291f2078133a4c4eec",
+    "packages/sdk/index.d.mts": "72b1d3ea446a7ba0ad460eadfb3638bca3a4c246df711834dbd1cbf36f64a356",
+    "packages/sdk/index.mjs": "65ca1d8373c28703fab4455a53b05698cc8f7fe2861ab0763f9b88d48a7934a8",
+    "packages/sdk/intent.mjs": "aa980f77c6e618835f558adc7e8e2e481804c1abff7d4ba38300bbe4cf33cb1b",
+    "packages/sdk/ipc-signer.mjs": "eaf4a45aa6b1ecaac4d1c7fb66797ea06bbc228d6b09326e5c98213dc795b980",
+    "packages/sdk/journal.mjs": "8035b1dd2a1398191d73f9ef3bcc5d81eaf8fffc7867f94440ad845cc6b2179a",
+    "packages/sdk/package.json": "000cafc31ebe8858533f6ec77ee043ad7460ff850956091f50b927f717ee9a32",
+    "packages/sdk/receipts.mjs": "4e5a681af14d9ec0d74ae7fa6896ef00f200618f7e8cb8a567e3b0d48c8b84a7",
+    "packages/sdk/rpc.mjs": "f446d56a7d03a36a8ec8a931358d49b29d23284faa256e1c2171b6e399a191f0",
+    "packages/shared-schemas/README.md": "3e0bb9bbbdffe353382b4d01c6a904cc5849c82bf74f032fdb695130350e52bf",
+    "packages/shared-schemas/build_oracle_schema.py": "af1c898fb523a537db5922cedf951586e0b72f4c0640a0d969e31392b7312f5e",
+    "packages/shared-schemas/build_schema.py": "432faece6485f2abdb1455007020b123f5664100405d2404e2dbed72d598f2b1",
+    "packages/shared-schemas/oracle.schema.json": "a634bde682289e891a6c8cd91eb866e2b14bf34ab418d3a9e2ceec909d455dae",
+    "packages/shared-schemas/public-ledger.schema.json": "415ff874041edd60e99c2563f9f41945c0808a1e7a56a5adf76517f5dbc8454d",
+    "packages/shared-schemas/validate.py": "d3c340f833887f9dd4d23ebdd5c7de07d828de5d1f61b4dfd8c4fb7514feff0a",
+    "research/g1/Cargo.lock": "8be703abf99afb7850a594e53daa7f061c12029fb6f1ec6bdbf2fdf5b2f04d0d",
+    "research/g1/Cargo.toml": "68a5973fff979c8f748a75eaf0ce986b56aac6d51d0692bbc907374fc4396fbe",
+    "research/g1/README.md": "668188ed4ad9074fbc5e23fc5f28184ec2b21da17cfa33809b064ebe18f882cc",
+    "research/g1/SPEC.md": "615a4c45e730604fe46e900dc607b5581e551ad0b73acdb40cd12fa18d032fd6",
+    "research/g1/contracts/core/Cargo.toml": "4f8c1c4146d58c43bce3b5f695377413b727147fa0f6d4099e47692d819bff04",
+    "research/g1/contracts/core/src/lib.rs": "fc88d8079bb549b93e3ade39286b025851765bddb5a153675544ee073f455fc4",
+    "research/g1/contracts/oracle/Cargo.toml": "f9a1523e33e5d42f9baf723478b6e0923d4a9259d19075f5ee5b166d62e9399d",
+    "research/g1/contracts/oracle/src/lib.rs": "354e292730ca73def11ee71514a3bcd46c5c9d297a2a2fffcc25f9641918ef4d",
+    "research/g1/contracts/receiver/Cargo.toml": "81afcda3d0710d4c21930d02f28d2296894d65502b7284fd99b7cd9280476f04",
+    "research/g1/contracts/receiver/src/lib.rs": "7e2b6ed0bc6d32d7c001d2fac24651a6505a607c21419dfb5d3d522643144c45",
+    "research/g1/contracts/tokens/Cargo.toml": "81a35a872e6b7bb36d55c3677709b90d98084d60f160a1b235ad4a3aaedd1e51",
+    "research/g1/contracts/tokens/src/lib.rs": "41d50bcc952b8532f5cd99f62ec089f8c625db1ae2a4cf280652927be3af7d67",
+    "research/g1/rust-toolchain.toml": "0b4446cc9fc598cdf9f98e6678c9f0636a916f56e75187e26c8b660f1a44c242",
+    "research/g1/types/Cargo.toml": "59ed410483fba58793d4d9077a4f60342766d17c40f05ec3e93e90afc900ff17",
+    "research/g1/types/src/lib.rs": "31f6ac43a03c751b3549569a33c8e508d5c3881e16866cf9050c114e7e0b66f9",
+    "research/policy-comparison/PROTOCOL.md": "1987ce326680423cf7529a2d2f09a8a6ca9bf1453a5ea582b688c2c073585f6b",
+    "research/policy-comparison/config.json": "3ca7dfe3e6f38345d5967f438340207f20bb5c41de22796a4d04f3657d400e58",
+    "research/policy-comparison/engine.py": "98450338289c2ec512e7a8386664c0d9b0bfe8585ef8e43b5f4f5ef9a86f2b2b",
+    "research/policy-comparison/metrics.py": "bf557cc1a0eb230c98f56d9bce5b6881a5cc18c52230b8385c7eaccb1fcbcabf",
+    "research/policy-comparison/pricing.py": "d5ce2669cc73aa9e94e620121b78366b3086f7ee69b0ad37fb268e3529152b50",
+    "research/policy-comparison/run.py": "32894ca6dafd185047cc1c2727e17361026cfca9bf3fe6fde43067c959edb18c",
+    "research/reference-model/generate_vectors.py": "bf1637584ec69fc3015a69464f0b7535c7d1687bcd4a168ae3cbb0642a6bee7f",
+    "research/reference-model/payoff.py": "83216b879ab6f8bff2c273bad242ef1f377c82d76519456c65595120e9b997e6",
+    "research/reference-model/test_payoff.py": "d120e7b7732b72f9c9c48867fef820c9d7b3862045e01ffade26f7269474a51e",
+    "research/reports/G1_PUBLIC_LEDGER.md": "29e38576e34c046e37924dfaebab9df8e070a4b35725b4f86fd7e968a82a3b65",
+    "research/reports/G2_ECONOMICS.md": "4528c9cb01b5da7f780c02bc46fac4cfac314b3513e43d2434542462c38a1ba2",
+    "research/reports/G3_COLLATERAL_CORE.md": "def590e104d15af49a6ce85d9591227190ae4ea16bbb5a609da353496eaa7769",
+    "research/reports/G4_SETTLEMENT.md": "39e353c13504d1796c2468ad6a6ba8c8da3973c9adabf13e53f389fddb64c544",
+    "research/reports/G5_FUNDED_MARKET.md": "44c05c8500f9494205f06835ef45149ead57f937f2b867fc60d3cfd429986b3a",
+    "research/reports/G6_BASKET.md": "bca18d5bd387782b8403042998dce186b749d000fe4373017620a698adb18ec9",
+    "research/reports/G6_KEEPER.md": "778c2255129b714eb844cd5517ec4f117ef8cfc5e7603abb541f96c8190c8b38",
+    "research/reports/G7_APP.md": "566bd86ee62cb47bfe480db8fa59c660fb19a3d2bd966f8a241bba8b844d63e4",
+    "research/reports/G7_DEMO_RESUME.md": "fd431c054eb78e13ebd15279f13f0653d6711eb660432fd04f6fc3cec046ae48",
+    "research/reports/G7_INDEXER.md": "4021dce07d4959de3995108151d2275f5c20ce9a1c0f32e6b433e0a34253c4c9",
+    "research/reports/G7_LOCAL_CLIENT.md": "641fb81bb7a41ff2262c50bffe2a758d518d6072fbf084195e14d3fbd37476f0",
+    "research/reports/G8_SECURITY.md": "e011486205efc6b50de875d7759eee4b8dd0fdd8abd9af28838efa48aea6b750",
+    "research/reports/SCOPE_RECONCILIATION.md": "983d337a94953f7d1475de6df13323f86c23cb598bf4280410ffed1fe50225f1",
+    "research/reports/g1-sandbox.json": "48852e3197efbe822f40f0c732b7fe504925ff27cbd0919176a9183bb4e5b57a",
+    "research/reports/g2-economics.json": "cd5971fcf1b07faeba01494c02edae269716af012203659599887bf603d071ee",
+    "research/reports/g3-sandbox.json": "edadce61dde09bee6841d4c67f3b7f40d868b1369771243634a952c5512dd1f0",
+    "research/reports/g4-sandbox.json": "b101618091f82b33f3ad30f8ac86a4e4fecf5dcf7ccc6c958d999584b07c229a",
+    "research/reports/g5-core-regression.json": "841088870a5963b252597149a2094f03db59d9c8f002015dcd3324b8bf67c57b",
+    "research/reports/g5-sandbox.json": "8a9e598f95202e98f60294fa4a671e8850acb437a201444f38e45fb32cdb2fe4",
+    "research/reports/g6-core-regression.json": "2a76bf8dd39d40adc3b9176b912da6d21c9077ee65f1260bad826f304fc80666",
+    "research/reports/g6-keeper-basket-regression.json": "3c60c7452c756bfaae66126366c44b3589b5bd43e256ab06987b59953794be67",
+    "research/reports/g6-keeper-core-regression.json": "773c11ccda443fdd928e6945fe390f6d965b9fb539f5223a9ae4058fbd5db8e7",
+    "research/reports/g6-keeper-market-regression.json": "bba7b9459b1e82f34d3573da279fcd139aa4f872d20ed0a11366e150eb4c9592",
+    "research/reports/g6-keeper.json": "a0661150d755ce3c4cf590f1842209875efbc3e67929c32dc091b4ea1207c751",
+    "research/reports/g6-market-regression.json": "3ffda9af550acb58d4e6a14f1d669d6625e74c16d3dc95dcdf2fee005a935796",
+    "research/reports/g6-vault.json": "91a281e9b0ba66cccbeaa910625b536135e6af141ebb25c6916937b17111aa99",
+    "research/reports/g7-app.json": "380fbbc99c4feb14feefec378fd604a91a08481fe9962874e4aa004b4c2a1eb9",
+    "research/reports/g7-client.json": "061fa29f72b71fba3fd1acd153f2513d840015b378df82b55b3d1a69c0af29d8",
+    "research/reports/g7-demo-resume.json": "80beead73d07fcf36e2873caa50e5bbc1c617a5b8f8e938e068a88f037a57095",
+    "research/reports/g7-indexer.json": "d20356fb3e722ca01f6de91b5c6d9c1521073b5f1f111cd24d9778be19542966",
+    "research/reports/g8-models.json": "168446fcdc1e9900cc1dd6cbf04c150467f31195f40cddcf384990478ac33f53",
+    "research/reports/g8-security.json": "5cbbb097a1d5fcc98034fa0f3b3847c0e0c9f0845aea5c6fb9a275d884520642",
+    "research/reports/g8-stateful-20903.json": "ff210956050e0727a85534cc8b722a7914ac375569b3e17df5dd0ece5506f11c",
+    "research/reports/g8-stateful-3735928559.json": "03056b0099d4bc7a49d35c145faa23e2bb6e88b9fbc1025b8cc60612f9c7e21b",
+    "research/reports/g8-stateful-65537.json": "52e9e17dea4d22d01b478f63025ab7de02bca44f19b1b24dd59ea0c1b510443e",
+    "research/reports/g8-symbolic.json": "e7898242c04625c781314c913ca1de69e5ce1269402147f274fe315e8c2583c9",
+    "research/reports/sec02-preparation.json": "f5a32b015abc82f8e6348193910168cca89a9fc7440bd69dd8c0b867804390e1",
+    "research/scenarios/generate.py": "d6f438853d70159cd5d6a135dbfee1dd44a67b88455508545bb4e2d09ab1afe9",
+    "rust-toolchain.toml": "8c1b9d6102b11557dabc1d74dc3f9a2efd076b85ed89c6ad39cd8840c416c626",
+    "scripts/build-core.py": "316a70b142aa8349e798332944826c6d9734492a42fd8baf21b6b227f4f4c638",
+    "scripts/build-g1.py": "c9608faf546eb49e6cf846f09fd4aad1febdf95132ccfd92ad116af25d86d402",
+    "scripts/build-oracle.py": "0f5101f34a5ba099d73d088371711a97068d7aa40fbc584aa5f2ec611bc22f3a",
+    "scripts/check-security.py": "ad949ef0a809634d4a75c17b0d4fd465f4ad62706230ee0b0c1cdc93d10a29c3",
+    "scripts/demo.mjs": "e4aaa08868f5bc8bb4c10636f02f889975416aae644f7e5156c19958fec3edf9",
+    "scripts/generate-rfq-vectors.mjs": "920a5d8526632985898512a68a5540ea3795806b5a4e5b8043a931753b81537b",
+    "scripts/recover.mjs": "1845c8b549b45413338ed4b85621a0a10f5e28cca43334b64d02d725dd946313",
+    "scripts/rehearse-release.py": "6a1e6b68d2a9bf65ffc3aae564f5e5bcc63399a073f2d3f315c0f94edbfdded1",
+    "scripts/replay-g1-observation.py": "23575a95f0d908737a6d4c1234992276fe21b89dbe552a51c0c11a3860d0f668",
+    "services/demo/runner.mjs": "b94ccf51c540e8c5fd3daca9e825ed7f737505d4be686512b4838171699158c6",
+    "services/demo/storage.mjs": "42d77109fb4ac0f07c433ab50859146d92d23a8cf344c140cb3e5c48a33877b7",
+    "services/demo/workspace.mjs": "7d104207ab37cc56a9c0330d326c283492a3f7ed48a3455774b637e79f752820",
+    "services/indexer/README.md": "c3c4cd550497ad6c496c453151e7d87b5945cc309095722fd34db25a50d7c408",
+    "services/indexer/api.mjs": "71672f664b87fd611586cdd1bef94c1028c22857eedcbf11bab5bd9601afd344",
+    "services/indexer/cli.mjs": "49c4e385548cb325c57f622ab72dee958974592d311f2b124b141733cfdc0f47",
+    "services/indexer/indexer.mjs": "f36e37c626817f7505b9fa74b448ba32aeb0ef8bba381ab1850da1ba24c54e56",
+    "services/indexer/model.mjs": "863521bd88e52beb8f935e76eac7a2572c6570e03b3aa8bb45bd583dd778c34b",
+    "services/indexer/package-lock.json": "8aaaeee63ba7ddab9063def9932f35cd9c56200d6b681c2b5278238d4fff1c35",
+    "services/indexer/package.json": "26f6d91496da5e6b1318d55c23321d2d0d95dde96db73c7b805567038330daf1",
+    "services/indexer/rpc.mjs": "5f653dbe8812e87e121fef69e8bfdc8d52a482ddafdb4dcd1bcf13142073d779",
+    "services/indexer/schema.sql": "a3a03c218b1c608b308fa6d235515c3de8f2d37da09beb031225a306f73085d3",
+    "services/indexer/store.mjs": "46d590767c2924280b8b93f086fba2d4b5a1cf3061383bcf165f09f9548124ad",
+    "services/keeper/README.md": "9a836a04a8c4f6e212b196c5ec93423b4d50ba92f7d9effa72ff7a85b5e06c3f",
+    "services/keeper/planner.mjs": "96c784602f5dda7547dfe770807f33835e2a776ca172d0b68e595183bc22e4fd",
+    "services/keeper/worker.mjs": "e0ff933b1e23f999d7021778269690a022c79437efc756b486bd529ec39f127c",
+    "services/maker/README.md": "86e35d716c7ad67a1a2fd07a6083dd688670d169fd65ac9cc5ae3e768254bc12",
+    "services/maker/worker.mjs": "31dfa835b620fff2d210d89bbe3f3b13d2c7f8f127ee489bef1f945f0943da48",
+    "services/observation-collector/README.md": "a880df0ae183c671967b2de30251ce692f8fbea0f0fffc2e6cb6aabb69394aaa",
+    "services/observation-collector/collector.py": "18436c9dc998a7fd26ff14b12252dbe3f58c14eba172af6d968fda7c0b7708c5",
+    "tests/demo/maker.test.mjs": "6f3641226768768caa1d5ab577d42d290a2f9d36b408f87b89748d1f57c3b13a",
+    "tests/demo/resume.mjs": "f2bfbe0027a78a32698ea5cda4c36e6c8a25cabe313d06160528391e7ce80b1e",
+    "tests/demo/storage.test.mjs": "f82738fe376c7da005eceed3744d4c6973b8475bb6fa4dc5ffbb211103008d43",
+    "tests/e2e/browser.mjs": "35f11bd5c43a20d69dc97b296cdc2adc6377e6c8608652556b95396169cbfd00",
+    "tests/e2e/model.test.mjs": "d8fe97d35393963bb3d1e41a480e1d4230bf7f146e274d02abae1d93692e27d4",
+    "tests/economics/test_economics.py": "7a13dc96d771f92a857df96c57dbf6da6f4326d80fe7ff757c64cf85e675a49c",
+    "tests/indexer/model.test.mjs": "21672c1a3b6e675cbb468c878eabfae38d4db69bb919ecbbf64535e9a03e3b33",
+    "tests/indexer/postgres.mjs": "094772a48ccf15b60e2393d078de17372084e46294779452d07ea109709efdd1",
+    "tests/indexer/store.test.mjs": "958a124e904d2fe9703207aac24235b7d16389f006ecfe0ee4e8613234b11549",
+    "tests/keeper/planner.test.mjs": "23436186dd49c99284b63993d9ed63ccb3b7ec81a370938302ba9e797bbdb153",
+    "tests/market/codec.test.mjs": "a7437da2c8f1040ed491cad433bebebb500f156bd9c443e053c5f0a73253fd3c",
+    "tests/oracle/test_collector.py": "0e9e870b13cf6561859fda9f284edcf78a972d9cef7912f7c48feeebb01d01cd",
+    "tests/release/test_package.py": "e8772c0974163a04fdb69a5764047f98ff53fc66b0a7184bd2f137985f3769dc",
+    "tests/release/walkthrough.mjs": "3284de4c08be0b318a19e71351823628401443a9d4215f05dd4f20a252cc75cc",
+    "tests/sandbox/g1.mjs": "b162146b2405bf9739832ec6689390b4d017cd1d066fb4795577eb5f77b4547a",
+    "tests/sandbox/g3.mjs": "97111236e66789ca8bc74486dc13e47d9bb24c841ddf188e19cc7773e6eb1c20",
+    "tests/sandbox/g4.mjs": "f286ec291e4b6dc2eb6211bba85a0c455427e261e57bd6d760afbcef77574528",
+    "tests/sandbox/g5.mjs": "3fdd1b3241271f21ab29a1b87b2e9627e89a27de48e3ea272815504c729ea1a4",
+    "tests/sandbox/g6-keeper.mjs": "3b23b7a2f7a88c580a4d548ee07c7377f78c0bea1834b7ce593a4cfb7e5d7094",
+    "tests/sandbox/g6.mjs": "7b943446bf05f5818576c58e7dbac0addc8f1178eb44bdb0b598e989e0ed4db8",
+    "tests/sandbox/g7-indexer.mjs": "b369518611485f4fb81848d83bf5b39438c7c699248d464cb15008cd4e1b70b9",
+    "tests/sandbox/g7.mjs": "18e498e7fe40ff02288fe022e85f5b6bead669341b1a2b4b429b072a332e5826",
+    "tests/sandbox/package-lock.json": "2a6fe483b21500a0fcd781ab56c40560849df2f8f64a8ee0faf14a5339c3b8e9",
+    "tests/sandbox/package.json": "3ebc5fd14b88e06391637099e174c415d33f950ec454d4f14f2f91ed1fc4eacc",
+    "tests/schemas/requirements.txt": "cb9e5058abe248be8579db704a1c9e30e655b30cb7d5dd093bebf97f44766591",
+    "tests/schemas/test_public_ledger.py": "9c06ae4c47836308b020e8b8fce82f5cae6d3549d2151673e1c21567528ef0a5",
+    "tests/sdk/client.test.mjs": "d041561101e356c49cbec771e945174d0dfe59aa911d9b58172b4f247f17f4f3",
+    "tests/sdk/types.mts": "108c410f37cdd746546bc63f9f9444e13e539f843cb6784fbdbbfeb8a9d7e78c",
+    "tests/security/test_review_bundle.py": "f2da22fbd1e055da729a24bdd716a265cf4e5c43d7ff264f4a19a8ceb70911b1",
+    "verification/README.md": "4732f63cf6b294f7dda56336b8e810e19b14f99920369c5dc00663f8251c5f3e",
+    "verification/assumptions.md": "bdc9d77d6f96d481f01bcbb118e5488acd03ae6cb8b196350d5cc4199afdb758",
+    "verification/check_models.py": "39c1274c83054dd423b748e976787b0fd4fc19ea283e3cd5e5bfbe516efbdbab",
+    "verification/check_symbolic.py": "82f3b3bfbe74def7381c07af8f0b5ee823def632a185fcfc97c729569c3bcc7b",
+    "verification/requirements.txt": "c16961a2626b2a47ccee41f2bbca2025de7c52f10fb85f326ef3957775785e96",
+    "verification/review_bundle.py": "e3afb246a2c00d0c1be704ba0b074aa97c63c17ba4c668c088742f6bee4ad97f",
+    "verification/smt/fragmentation-0.smt2": "59c2832972ddd655f976834da3c49d15bbb9a62de5e246da693a08c59791b860",
+    "verification/smt/fragmentation-1.smt2": "1d8b846f3cc73231c1502e4b813f3a9b36bf8a0ac253f1c7ab8fafe49c62f5b3",
+    "verification/smt/fragmentation-2.smt2": "f0e3ce876899515730f70de8189c8e42ea0abdf6fe46a094ae95c6d12c6059e8",
+    "verification/smt/fragmentation-3.smt2": "6e3efb8d1eda140eb0f0b153149d9f1a00941f2423a06ee1e683605d4f675e1e",
+    "verification/smt/fragmentation-4.smt2": "beaafc9e9215da246526b1f7694f828e45cc10d5a0411e1c8eea5c4dbf0ee018",
+    "verification/smt/fragmentation-5.smt2": "fa50b6611de2b1ec2214b64c4f5763d78a2024b82999603334cd7bd2a02a3e40",
+    "verification/smt/fragmentation-6.smt2": "dc4d3408c07f649b498bf390e58415a8e9e01e3b219d9fa783cf78dad41e9fb8",
+    "verification/smt/fragmentation-7.smt2": "55b7a334747a12f501081ba36ad8a5925b3d8be8fbe2a69c80fb506d885cb132",
+    "verification/smt/initial-backing-0.smt2": "ceb8c5acb7e375e1d83208cd81545c83ccec5abf7fe6a525ec0360a71ad29e41",
+    "verification/smt/initial-backing-1.smt2": "3fe9be90bacfa73053a15ab325ef60aa39cb018cc68b19471b3c0382343eb20b",
+    "verification/smt/initial-backing-2.smt2": "0e3e247c73dd88d56d4a4b9adc9d818fbb27dd631858c74405bd49fdcb609d76",
+    "verification/smt/initial-backing-3.smt2": "938ad5462ae9690175ea623545b212a7638ff713b6c89d389e6fa2a32fe668a7",
+    "verification/smt/initial-backing-4.smt2": "88f8bd4d1651ac795a26564f8322d291bd06bc2e99a6b15c167f53d17d929d71",
+    "verification/smt/initial-backing-5.smt2": "3db02e9aeb77ea2be2cde390e6e2214a5f319e3ff302b0ff50afb43171174558",
+    "verification/smt/initial-backing-6.smt2": "16885e607649487d00b41899e7604e4b70fe95b4a388bd100caa4ced021b6283",
+    "verification/smt/initial-backing-7.smt2": "ea41cb815be34bba84dfaccc076a86ec53f8f18a783bf301e46042807e12a8c7",
+    "verification/smt/mutation-round-up.smt2": "302e308c2b7cbc511a40e9448305a90e68107eaf1157f5f65079a58cfbb4c1be",
+    "verification/smt/redemption-0.smt2": "3ef117ad99538bc6f53368a2f578c9aa43eb62567f9307c9dfffed09b27b78c2",
+    "verification/smt/redemption-1.smt2": "a54d334ca16ab6ae509f134f04bc75374c163f03340ba00fb5ae319554156fad",
+    "verification/smt/redemption-2.smt2": "6ccaac022f21647803813dfed14b07af855247dbe171e94f350263728c80db0d",
+    "verification/smt/redemption-3.smt2": "ab2b94b044706b061d5c0fb09ad79f95d7bf11df91a01a757262b3cc6d0e444f",
+    "verification/smt/redemption-4.smt2": "777893b91c45004b0f805df9787b94d683baa89f4a0882b7e817bfaaee229484",
+    "verification/smt/redemption-5.smt2": "f06aca1d526838d3980d2ade79f42e746af7a707f3d050d2b3a4610c80df40e8",
+    "verification/smt/redemption-6.smt2": "807257c7ef15dfb38d2437dc9a5b8970111d1c203cab0e95a650dc482b3606f1",
+    "verification/smt/redemption-7.smt2": "0922f7ec7df66f275836d6baba1bb2f85ec292dd0978fcd3532f8e4caf4d84c7",
+    "verification/smt/wide-product-0.smt2": "cadbb5cb3fa34ed01a2eff3937ef57f119d29db978c79bc6ff6dd171d8d91ec3",
+    "verification/smt/wide-product-1.smt2": "b82aa2f8e1ce068601f8589b474a26888fd1c57d50d92e8f61e1c216351a6149",
+    "verification/smt/wide-product-2.smt2": "de29121f8e4995e24198f57ff46be114d8a0318fe2369eb42b8ba9774ceccbca",
+    "verification/smt/wide-product-3.smt2": "e7ac2077e44a6598e63fc1deccf81dbf5e5b93d1dffe940b106bea7f0729f785",
+    "verification/smt/wide-product-4.smt2": "bfce9bbf0a26cac563e3eea1402a034924d53916cb2c6e05bc74d7960d698236",
+    "verification/smt/wide-product-5.smt2": "2cb66fa7515063ae3a625d678c425f65126fc8871c7dcdd6b2f6028ab2517af9",
+    "verification/smt/wide-product-6.smt2": "59afb996d1240bdcbb92add2c7b04629da01d6821e6a0d6a76622f9646a1e632",
+    "verification/smt/wide-product-7.smt2": "679b5161f46e931acef3df92b1c495e0ecd3c1515b72cb5376286f3ab8912c01"
+  },
+  "temporary_snapshot_commit": "970d288ae1a2ca437da49ed4d12d1bdbbc0a01fc"
+}

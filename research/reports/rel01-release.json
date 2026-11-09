@@ -1,0 +1,136 @@
+{
+  "acceptance": {
+    "independent_review": "PENDING",
+    "local_rehearsal_passed": true,
+    "mode": "local-sandbox",
+    "public_testnet_complete": false,
+    "release_authorized": false,
+    "remaining": [
+      "Public wallet and testnet lifecycle/receipts/access-key inventory",
+      "Approved tracking/roll policy; testnet vault stays disabled",
+      "Independent G8/SEC-02 review and critical/high disposition",
+      "Public deployment links and walkthrough video; external submission not performed"
+    ],
+    "steps": [
+      {
+        "evidence": [
+          "walkthrough",
+          "browser"
+        ],
+        "requirement": "Fresh wallet/storage",
+        "scope": "Local generated signer only; public wallet pending",
+        "step": 1
+      },
+      {
+        "evidence": [
+          "walkthrough"
+        ],
+        "requirement": "Deposit/split/reserves",
+        "scope": "Actual Sandbox receipts and indexed custody",
+        "step": 2
+      },
+      {
+        "evidence": [
+          "walkthrough"
+        ],
+        "requirement": "Funded N sale",
+        "scope": "Two makers; exact signed sale executes",
+        "step": 3
+      },
+      {
+        "evidence": [
+          "walkthrough",
+          "browser"
+        ],
+        "requirement": "P basket/shares",
+        "scope": "Sandbox proportional basket; no selected tracking policy",
+        "step": 4
+      },
+      {
+        "evidence": [
+          "keeper"
+        ],
+        "requirement": "Bounded roll",
+        "scope": "Separate experimental one-shot fixture; no approved recurring strategy",
+        "step": 5
+      },
+      {
+        "evidence": [
+          "economics"
+        ],
+        "requirement": "Crash/loss/accounting",
+        "scope": "Synthetic offline stress simulation, not a live browser price-crash transaction",
+        "step": 6
+      },
+      {
+        "evidence": [
+          "walkthrough",
+          "keeper"
+        ],
+        "requirement": "No liquidity/deferred roll/in-kind exit",
+        "scope": "Same-demo maker removal/exit; deferred roll in separate experimental fixture",
+        "step": 7
+      },
+      {
+        "evidence": [
+          "walkthrough"
+        ],
+        "requirement": "Dispute/finality/both-leg redemption",
+        "scope": "Real committed synthetic oracle receipts",
+        "step": 8
+      },
+      {
+        "evidence": [
+          "walkthrough",
+          "payout"
+        ],
+        "requirement": "Failed and UNKNOWN payouts",
+        "scope": "Normal failed transfer plus separate deterministic fault artifact",
+        "step": 9
+      },
+      {
+        "evidence": [
+          "walkthrough"
+        ],
+        "requirement": "Withdraw/reconcile",
+        "scope": "Confirmed CLI payout and core/oracle indexer reconciliation",
+        "step": 10
+      },
+      {
+        "evidence": [
+          "walkthrough",
+          "resume"
+        ],
+        "requirement": "Restart/frontend-offline recovery",
+        "scope": "Actual closed HTTP listener and CLI exit; separate retained-process restart",
+        "step": 11
+      },
+      {
+        "evidence": [
+          "economics"
+        ],
+        "requirement": "Stress/risk report",
+        "scope": "Frozen 9,180 synthetic cases rerun; no passing rolling candidate",
+        "step": 12
+      }
+    ],
+    "track": "open"
+  },
+  "archive": "target/releases/rel01-20261109-v2/hedgeveil-local-rehearsal.tar.gz",
+  "archive_sha256": "bb23ae359ed21ed6c3b210be879c8bdcd519580dbc9f84598a7f5170a91acb27",
+  "passed": true,
+  "phase_checks": {
+    "browser": 35,
+    "keeper": 13,
+    "payout": 19,
+    "resume": 24,
+    "walkthrough": 18
+  },
+  "project_base_commit": "d305605f41727ccc4b55310a7ef12765a1861d92",
+  "public_testnet_complete": false,
+  "release_authorized": false,
+  "scope": "REL-01 local release rehearsal only",
+  "source_files": 263,
+  "source_manifest_sha256": "84ee014cd69f64d25c772bf79b50a90c835d388f22c09aa4e334b08fc8bafac7",
+  "temporary_snapshot_commit": "970d288ae1a2ca437da49ed4d12d1bdbbc0a01fc"
+}

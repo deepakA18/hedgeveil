@@ -13,8 +13,13 @@ export async function startPostgres() {
     const directory=await mkdtemp(root+'inf01-pg-'),port=await freePort(),password=randomUUID();
     const runtime=new EmbeddedPostgres({databaseDir:directory+'/data',port,user:'postgres',password,
         persistent:true,createPostgresUser:false,autoRehydrateSymlinks:true,
-        postgresFlags:['-h','127.0.0.1','-k',directory],initdbFlags:['--locale=C','--encoding=UTF8'],onLog:()=>{},onError:()=>{}});
+        // Clients use loopback TCP. A checkout path can exceed Unix socket limits.
+        postgresFlags:['-h','127.0.0.1','-k',''],initdbFlags:['--locale=C','--encoding=UTF8'],onLog:()=>{},onError:()=>{}});
     try {await runtime.initialise();await runtime.start();}
-    catch(e){await runtime.stop().catch(()=>{});throw e;}
+    catch{
+        // stop() waits for a close event; do not wait again after an early exit.
+        if(runtime.process&&runtime.process.exitCode===null&&runtime.process.signalCode===null)await runtime.stop().catch(()=>{});
+        throw Error('POSTGRES_START_FAILED');
+    }
     return {runtime,directory,config:{host:'127.0.0.1',port,user:'postgres',password,database:'postgres'}};
 }

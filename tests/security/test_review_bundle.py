@@ -142,7 +142,7 @@ class ReviewBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "private-key-shaped"):
             review.no_secret("fixture.json", private)
         with self.assertRaises(ValueError):
-            review.no_secret("fixture.txt", b"-----BEGIN PRIVATE KEY-----")
+            review.no_secret("fixture.txt", b"-----BEGIN " + b"PRIVATE KEY-----")
         review.no_secret("receipt.json", b'{"signature":"ed25519:' + b"A" * 88 + b'"}')
 
     def test_evidence_inputs_current_and_historical_are_distinguished(self):

@@ -5,9 +5,11 @@ import {readFile,writeFile,readdir,stat,chmod,mkdir} from 'node:fs/promises';
 import {randomUUID,createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {parseArgs} from 'node:util';
 import {Client} from '../../packages/sdk/client.mjs';
 import {chromium} from '../../apps/web/node_modules/playwright/index.mjs';
 const ROOT=fileURLToPath(new URL('../../',import.meta.url));
+const {values:options}=parseArgs({options:{report:{type:'string',default:'research/reports/g7-demo-resume.json'}}});
 const name='resume-'+randomUUID().slice(0,8),report={scope:'DEM-01 retained local Sandbox lifecycle; generated test credentials are excluded from evidence; no testnet or public wallet acceptance',checks:[],operations:[],versions:{node:process.version,sandbox:'2.14.0'},base_commit:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim()};
 const check=(name,a,b)=>{assert.deepEqual(a,b,name);report.checks.push(name);console.log('PASS',name);};
 let current,browser;
@@ -69,5 +71,5 @@ try {
  report.sources={...await recordSources(path.join(ROOT,'services/demo'),'services/demo'),...await recordSources(path.join(ROOT,'tests/demo'),'tests/demo')};
  for(const f of ['apps/web/demo.mjs','apps/web/server.mjs','services/maker/worker.mjs','scripts/demo.mjs','tests/sandbox/package-lock.json','services/indexer/package-lock.json'])report.sources[f]=createHash('sha256').update(await readFile(path.join(ROOT,f))).digest('hex');
  check('public output contains no private key material',/PRIVATE KEY|ed25519:[1-9A-HJ-NP-Za-km-z]{70,}/.test(current.output()),false);
- report.passed=true;await writeFile(path.join(ROOT,'research/reports/g7-demo-resume.json'),JSON.stringify(report,null,2)+'\n');console.log('Evidence research/reports/g7-demo-resume.json');
+ report.passed=true;await writeFile(path.resolve(ROOT,options.report),JSON.stringify(report,null,2)+'\n');console.log('Evidence',options.report);
 }finally{if(browser)await browser.close();if(current&&!current.error)await current.stop();}

@@ -14,6 +14,13 @@ The new packaging tool and this documentation are preparation work outside that
 candidate commit; the tool's bytes are included separately under `tooling/`.
 Later source commits require a new package and digest.
 
+REL-01's fresh-checkout rehearsal found that this historical source allowlist
+omitted the indexer's SQL schema. The current generator includes `.sql`; see
+[the regression and fresh-clone evidence](../research/reports/rel01-local.md).
+The old package and digest remain historical evidence, not a complete runnable
+application snapshot or approval of the current candidate. Regenerate a new
+candidate bundle after committing the changes and retain its new digest.
+
 The local output is `target/reviews/sec02-544192849af2/`. Its manifest SHA-256 is:
 
 ```text
@@ -31,7 +38,8 @@ python3 scripts/build-core.py
 python3 scripts/build-oracle.py
 # Use a new output path; existing packages are never overwritten.
 python3 verification/review_bundle.py create --commit 544192849af2ad63bf995b25ea8b675402a5bede --out target/reviews/sec02-copy
-python3 verification/review_bundle.py verify target/reviews/sec02-copy --sha256 3b2e2dff75c540803a49134d85f9aa2eec5281ff052faf51d0209e42b3e0e50b
+# Use the digest printed by this creation; changed tooling changes the package.
+python3 verification/review_bundle.py verify target/reviews/sec02-copy --sha256 THE_NEW_PRINTED_SHA256
 python3 -m unittest discover -s tests/security -v
 ```
 

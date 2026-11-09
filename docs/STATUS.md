@@ -15,7 +15,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G6 vault — local basket and experimental guards | Sandbox-only basket/share mechanics plus optional immutable one-shot roll, authenticated synthetic reference, competing maker execution, fee/loss/notional limits and deferred inflows with exits | Independent review, selected recurring policy/current-source trust, broader interleavings, RFQ-and-mint/cash-only conveniences and testnet deployment |
 | G7 application — local SDK, indexer and APP-02 UI | Exact SDK/journal/CLI and PostgreSQL replay/reconciliation; six browser views with real funding, RFQs, basket entry/exit, settlement, payout recovery and maker controls; 35 browser checks | Public wallet/testnet conformance, full demo orchestration/crash drills, remaining SDK/strategy UX and browser fault coverage, operator notifications/load/accessibility checks and independent review |
 | G8 adversarial — bounded local SEC-01 | Arithmetic/schema checks; finite withdrawal/oracle/import/reserve models; 32 bounded SMT obligations; multi-seed signed-trade/ledger comparison, event replay, capacity and receipt faults | General cross-module/concurrent schedules and sustained load, broader symbolic/refinement scope, independent SEC-02 review and remediation |
-| G9 hackathon release | Not started | Complete no-paid-key testnet demo, real receipts and disclosure/submission bundle |
+| G9 hackathon release — local rehearsal verified | 109 fresh-local-clone checks, actual frontend-offline CLI exit, scoped twelve-step map, verified source/Wasm/evidence archive and unsubmitted draft; see [REL-01](../research/reports/rel01-local.md) | Public wallet/testnet lifecycle and records, policy decision, independent review, published-candidate reproduction and walkthrough video |
 | G10 capped pilot | Separate, optional; blocked | Independent historical oracle, reviewed unknown-payout recovery, custody/key audit, limits and incident drills |
 | G11 expansion | Out of initial release | Pilot evidence and specification/review for each new trust boundary |
 
@@ -93,8 +93,9 @@ keys, maker nonce reservations and SDK journal. 24 lifecycle checks preserve
 identity/ownership without reseeding, keep uncertain sends unresolved and execute
 a real exit after resume. Three focused state/permission tests and the existing
 35 browser checks pass. See [restart evidence](../research/reports/G7_DEMO_RESUME.md).
-This covers clean local stops; public wallets, testnet, full fresh-clone/demo
-orchestration, broader crash/incident drills and independent review stay open.
+This covers clean local stops; REL-01 below adds local fresh-clone orchestration
+and frontend-offline recovery. Public wallets, testnet, broader crash/incident
+drills and independent review stay open.
 
 SEC-01 adds finite models reaching fixed points for withdrawals, oracle lifecycle,
 overlapping resolution imports and reserve redemptions, with ten unsafe model
@@ -150,3 +151,13 @@ tooling and original specifications are preserved in
 [archive/privacy-track](../archive/privacy-track/README.md). They are not active
 dependencies or evidence for revised G1/G8 gates. The old account was not changed
 or deleted. Local `.env` values were not changed during migration.
+
+REL-01 adds a temporary source-snapshot repository and real fresh local clone,
+locked installs/builds, 109 runtime checks, the frozen 9,180-case stress rerun and
+a hash-verified public package. The walkthrough executes a real CLI payout with
+the HTTP frontend closed; separate keeper, UNKNOWN-fault and retained-restart
+fixtures have explicit scope labels. The rehearsal exposed and fixed the long
+PostgreSQL socket-path and omitted SQL-source failures; zero process exit alone
+cannot pass a phase without evidence. See [REL-01 results](../research/reports/rel01-local.md)
+and [release usage](RELEASE.md). No public deployment, external submission or
+independent approval occurred; REL-01/G9 remain incomplete.

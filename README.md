@@ -291,6 +291,24 @@ See [the review handoff](docs/SECURITY_REVIEW.md) for verification, exact candid
 scope and remediation records. Bundle verification checks integrity; independent
 review and release approval remain pending.
 
+REL-01 provides a clean-checkout local release rehearsal:
+
+```sh
+python3 scripts/rehearse-release.py run local-release-01
+```
+
+It creates a temporary source snapshot and fresh local Git clone, installs locked
+dependencies, builds Wasm, and runs the funded walkthrough, actual browser,
+experimental keeper, payout faults, restart and synthetic economics checks.
+The walkthrough executes a real CLI exit with the HTTP frontend shut down.
+Only the designated public `.tar.gz` is suitable for sharing; the surrounding
+private workspace contains generated test state. See [release usage and limits](docs/RELEASE.md)
+and the [unsubmitted draft](docs/SUBMISSION.md). Public wallet/testnet acceptance,
+policy selection, independent review and the final video remain pending.
+The [retained REL-01 run](research/reports/rel01-local.md) passed all 109 local
+runtime checks and verified its archive; it also records the fresh-checkout
+PostgreSQL and missing-schema fixes.
+
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete

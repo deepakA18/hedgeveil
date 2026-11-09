@@ -10,7 +10,7 @@
 
 The [official Open Innovation brief](https://github.com/nearai/near-hackathon-prompt-examples/blob/main/tracks/13-open.md) invites experimental approaches to money and ownership. Its inheritance-account prompt is an example, not this product's specification. The published brief does not impose that example's Chain Signatures architecture on all submissions. The contribution here is an implementation and economic evaluation of options-backed index exposure on NEAR, with explicit attribution to the original research.
 
-**Status (9 November 2026):** this remains the authoritative target, not a completion claim. Local G1–G6 contract/economic experiments and G7 SDK, indexer and APP-02 browser work now have recorded evidence in [STATUS](docs/STATUS.md), including [35 local browser checks](research/reports/G7_APP.md) and [DEM-01 retained local restart evidence](research/reports/G7_DEMO_RESUME.md). [SEC-01 bounded local verification](research/reports/G8_SECURITY.md) now adds finite interleaving models, bounded symbolic accounting checks and seeded signed-trade/ledger/fault coverage; G8 still requires broader acceptance and independent review. [SEC-02 review preparation](docs/SECURITY_REVIEW.md) now pins a committed local candidate and its source/Wasm/evidence bundle; independent findings and sign-off remain pending. Public wallet/testnet acceptance, remaining release work and independent review are pending; G7/G9 are not complete. Production deployment is a separate, optional workstream with paid operations and independent review requirements; it is not a hackathon completion gate. Local arithmetic or Sandbox checks do not establish production safety.
+**Status (9 November 2026):** this remains the authoritative target, not a completion claim. Local G1–G6 contract/economic experiments and G7 SDK, indexer and APP-02 browser work now have recorded evidence in [STATUS](docs/STATUS.md), including [35 local browser checks](research/reports/G7_APP.md) and [DEM-01 retained local restart evidence](research/reports/G7_DEMO_RESUME.md). [SEC-01 bounded local verification](research/reports/G8_SECURITY.md) now adds finite interleaving models, bounded symbolic accounting checks and seeded signed-trade/ledger/fault coverage; G8 still requires broader acceptance and independent review. [SEC-02 review preparation](docs/SECURITY_REVIEW.md) now pins a committed local candidate and its source/Wasm/evidence bundle; independent findings and sign-off remain pending. [REL-01 local release rehearsal](research/reports/rel01-local.md) now adds 109 fresh-local-clone runtime checks and a verified source/Wasm/evidence archive. Public wallet/testnet acceptance, policy selection, independent review, published-candidate reproduction and video remain pending; G7/G9 are not complete. Production deployment is a separate, optional workstream with paid operations and independent review requirements; it is not a hackathon completion gate. Local arithmetic or Sandbox checks do not establish production safety.
 
 No implementation plan can guarantee zero bugs or zero losses. This plan specifies the loss mechanisms, separates solvency from tracking performance, and requires evidence before moving between stages.
 
@@ -590,6 +590,16 @@ Production checklist:
 - All depositors can understand the in-kind exit and oracle-lockup risks.
 
 **19. Demonstration and submission package**
+
+**Local evidence (9 November 2026):** [REL-01 rehearsal](research/reports/rel01-local.md)
+now records 109 passed checks from a fresh local clone of a temporary working-tree
+snapshot, including an actual frontend-offline CLI exit, plus the frozen stress
+rerun and a verified source/Wasm/evidence archive. [Usage](docs/RELEASE.md) and the
+[unsubmitted draft](docs/SUBMISSION.md) retain the scope limits. This does not
+complete the public narrative below: public wallet/testnet receipts and authority
+records, policy selection, independent review, published-candidate reproduction
+and video remain pending. Separate keeper/fault/restart fixtures and offline
+crash simulations are not one continuous public-wallet demonstration.
 
 Use one reproducible narrative:
 

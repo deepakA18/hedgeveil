@@ -20,7 +20,7 @@ ROOT_DIRS = {"contracts", "crates", "packages", "apps", "services", "tests",
              "verification", "research", "fixtures", "scripts", "docs", "deploy"}
 EXCLUDED = {"archive", ".git", ".local", ".aws", ".venv", "node_modules", "target", "__pycache__"}
 EXTENSIONS = {".rs", ".toml", ".lock", ".md", ".json", ".mjs", ".mts", ".js",
-              ".css", ".html", ".py", ".txt", ".csv", ".sh", ".yaml", ".yml", ".smt2"}
+              ".css", ".html", ".py", ".txt", ".csv", ".sh", ".yaml", ".yml", ".smt2", ".sql"}
 ARTIFACTS = {
     "target/core-artifacts": {"clearinghouse.wasm": "normal", "clearinghouse-fault.wasm": "fixtures",
                               "account-fixture.wasm": "fixtures", "oracle-fixture.wasm": "fixtures"},
