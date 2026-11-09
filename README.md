@@ -277,6 +277,20 @@ bounded symbolic accounting checks do not prove Rust/runtime refinement;
 independent review and remaining G8 acceptance
 stay pending. Historical reports are preserved.
 
+SEC-02 now has a local review-bundle generator and offline integrity verifier:
+
+```sh
+python3 -m unittest discover -s tests/security -v
+python3 scripts/build-core.py
+python3 scripts/build-oracle.py
+python3 verification/review_bundle.py create --commit HEAD --out target/reviews/candidate
+```
+
+Use a new output directory and retain the printed manifest digest separately.
+See [the review handoff](docs/SECURITY_REVIEW.md) for verification, exact candidate
+scope and remediation records. Bundle verification checks integrity; independent
+review and release approval remain pending.
+
 Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
 observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
 upgrade/test signer keys and maker subsidies, and use real receipts. The complete

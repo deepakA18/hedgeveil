@@ -1,0 +1,34 @@
+{
+  "bundle_directory": "target/reviews/sec02-544192849af2",
+  "candidate_commit": "544192849af2ad63bf995b25ea8b675402a5bede",
+  "committed_source_files": 253,
+  "evidence_reports": 22,
+  "file_count": 261,
+  "findings_status": "NOT_SUPPLIED",
+  "historical_input_reports": 14,
+  "independent_review": "PENDING",
+  "manifest_sha256": "3b2e2dff75c540803a49134d85f9aa2eec5281ff052faf51d0209e42b3e0e50b",
+  "matching_recorded_input_reports": 8,
+  "normal_artifacts": {
+    "wasm/normal/clearinghouse.wasm": {
+      "bytes": 614630,
+      "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007"
+    },
+    "wasm/normal/settlement-oracle.wasm": {
+      "bytes": 384252,
+      "sha256": "2ccced7a6ba697f38a142e627c96acf3bbe0eb3e128c5a4375141810843f8e75"
+    }
+  },
+  "release_authorized": false,
+  "scope": "SEC-02 local handoff preparation only; no independent review or release authorization",
+  "tooling_sources": {
+    "tests/security/test_review_bundle.py": "04c94a26a7be6b3e8d4ae619e994b9e7ba934dfd5ccf0fd80d19b3485aa233ed",
+    "verification/review_bundle.py": "174cc9a0781510d02ee2eb17a6ab9dee846dedaf3633dc8e5c54ce131797c8aa"
+  },
+  "validation": {
+    "bundle_verified_using_embedded_verifier": true,
+    "normal_fault_exports_absent": true,
+    "rebuilt_artifacts_match_retained_evidence": true,
+    "unit_tests": 12
+  }
+}

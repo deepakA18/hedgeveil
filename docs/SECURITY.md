@@ -68,6 +68,12 @@ symbolic or formal analysis with assumptions; actual browser flows; load and
 storage/gas limits. SEC-02 maps independent review and remediation to the exact
 source/Wasm candidate. Publish coverage boundaries and counterexamples.
 
+SEC-02's [local review handoff](SECURITY_REVIEW.md) now packages an exact committed
+candidate, separates normal/fault artifacts and labels historical evidence by
+input mismatches. The verifier requires an externally retained manifest digest;
+it cannot grant approval or interpret missing findings as a clean review.
+Independent review, remediation and reviewer retest remain pending.
+
 Mandatory failures include forged/replayed quotes, cancelled/revoked keys, shared
 maker inventory, near-maturity delays, missing storage, malicious receivers,
 wrong-series results, unauthorized callbacks, equivocation, arbitrator timeout,

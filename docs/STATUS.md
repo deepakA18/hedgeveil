@@ -1,6 +1,6 @@
 # Implementation status
 
-Reconciled 8 November 2026 against the Open Innovation revision of
+Reconciled 9 November 2026 against the Open Innovation revision of
 [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md). The plan defines the target;
 this file records evidence. Documents and fixtures alone do not complete a gate.
 
@@ -109,6 +109,12 @@ the local caps.
 See [SEC-01 evidence, measurements and limits](../research/reports/G8_SECURITY.md).
 These are local bounded tests, not an independent audit or Rust/runtime refinement
 proof; G8 remains open for broader schedules/load and SEC-02 review.
+
+SEC-02 now has a local review-bundle generator and offline integrity verifier,
+with an exact committed candidate, normal/fault Wasm separation and current versus
+historical evidence inventory. Twelve negative/roundtrip tests and a real package
+verification pass. See [review handoff](SECURITY_REVIEW.md). Independent review,
+finding disposition and release approval remain pending; packaging is not sign-off.
 
 Commands are in [README](../README.md). The [G1 report](../research/reports/G1_PUBLIC_LEDGER.md)
 and [G3 report](../research/reports/G3_COLLATERAL_CORE.md) link source-hashed
