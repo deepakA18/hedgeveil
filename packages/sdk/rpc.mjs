@@ -24,13 +24,16 @@ export function hash32(value) {
 export function configuration(config) {
     fields(config, ['rpc_url', 'network', 'chain_id', 'genesis_hash', 'contract_id', 'code_hash']);
     const url = new URL(config.rpc_url);
-    if (config.network !== 'sandbox' || url.protocol !== 'http:' || url.hostname !== '127.0.0.1' ||
-        url.username || url.password || url.search || url.hash || url.pathname !== '/') fail('LOCAL_SANDBOX_ONLY');
+    if (!['sandbox', 'testnet'].includes(config.network)) fail('NETWORK_DISABLED');
+    if (url.username || url.password || url.search || url.hash || url.pathname !== '/') fail('INVALID_RPC_URL');
+    if (config.network === 'sandbox' && (url.protocol !== 'http:' || url.hostname !== '127.0.0.1')) fail('LOCAL_SANDBOX_ONLY');
+    if (config.network === 'testnet' && url.protocol !== 'https:') fail('TESTNET_HTTPS_REQUIRED');
     account(config.contract_id);
     hash32(config.genesis_hash);
     hash32(config.code_hash);
-    if (typeof config.chain_id !== 'string' || !config.chain_id || ['mainnet','testnet'].includes(config.chain_id)) fail('INVALID_CHAIN');
-    return structuredClone(config);
+    if (typeof config.chain_id !== 'string' || !config.chain_id ||
+        (config.network === 'testnet' ? config.chain_id !== 'testnet' : ['mainnet','testnet'].includes(config.chain_id))) fail('INVALID_CHAIN');
+    return Object.freeze(structuredClone(config));
 }
 export function binding(config) {
     const {rpc_url, ...identity} = config;

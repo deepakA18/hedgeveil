@@ -56,7 +56,7 @@ test('unsupported methods, extra fields, wrong deposit, quote domain and duplica
     assert.throws(() => buildIntent({ ...input, method: 'vault_mint_basket', args: { vault_id: 'v1', shares: '1', max_inputs: [leg, leg] } }));
     assert.throws(() => buildIntent({ ...input, method: 'fill_quote', args: { quote: { domain: { network: 'testnet' } } } }));
 });
-test('public chain and non-loopback RPC config rejected', () => {
+test('inconsistent profiles and non-loopback Sandbox RPC config rejected', () => {
     for (const patch of [{ network: 'testnet' }, { rpc_url: 'https://rpc.testnet.near.org/' }, { chain_id: 'mainnet' }, { rpc_url: 'http://user:secret@127.0.0.1:1234/' }])
         assert.throws(() => new Rpc({ ...config, ...patch }));
 });

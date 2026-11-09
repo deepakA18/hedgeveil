@@ -1,5 +1,6 @@
 /** All money and nanosecond values are canonical unsigned decimal strings, checked at runtime. */
 export type UInt = string;
+export type Network = 'sandbox' | 'testnet';
 export type Asset = {
     kind: 'COLLATERAL';
 } | {
@@ -12,7 +13,7 @@ export interface Leg {
 }
 export interface Domain {
     protocol_version: '1';
-    network: 'sandbox';
+    network: Network;
     contract_id: string;
 }
 export interface Quote {
@@ -102,7 +103,7 @@ export type Intent = Input & {
 };
 export interface Configuration {
     rpc_url: string;
-    network: 'sandbox';
+    network: Network;
     chain_id: string;
     genesis_hash: string;
     contract_id: string;
@@ -113,6 +114,7 @@ export interface Result {
     operation_id?: string;
     state: State;
     hash?: string | null;
+    candidate_hash?: string;
     reason?: string;
     warnings?: string[];
     receipt_id?: string;
@@ -124,7 +126,7 @@ export interface Result {
 export interface SignRequest {
     signerId: string;
     receiverId: string;
-    network: 'sandbox';
+    network: Network;
     operationId: string;
     actions: [
         {
@@ -147,6 +149,7 @@ export interface JournalRecord {
     binding: Omit<Configuration, 'rpc_url'>;
     attempted: boolean;
     hash: string | null;
+    candidate_hash: string | null;
     result: Result | null;
 }
 export class FileJournal {
@@ -170,7 +173,7 @@ export class Client {
     prepare(input: Input): Promise<Intent>;
     record(id: string): Promise<JournalRecord>;
     balances(account_id: string): Promise<{
-        network: 'sandbox';
+        network: Network;
         contract_id: string;
         account_id: string;
         account: unknown;
@@ -180,12 +183,17 @@ export class Client {
         consistency: string;
     }>;
     submit(id: string, signer: Signer): Promise<Result>;
+    handoff(id: string): Promise<SignRequest>;
+    rememberHash(id: string, hash: string): Promise<void>;
     recover(id: string, suppliedHash?: string): Promise<Result>;
 }
 export function buildIntent(input: Input & {
     contract_id: string;
+    network?: Network;
 }): Intent;
 export function parseNear(value: string): UInt;
 export function formatNear(value: UInt): string;
 export const METHODS: Readonly<Record<Method, string>>;
 export function toWireIntent(intent: Intent): Omit<Intent, 'signer_id' | 'gas'>;
+export {walletSelectorSigner, walletReturn} from './wallet.mjs';
+export {nearConnectSigner} from './near-connect.mjs';

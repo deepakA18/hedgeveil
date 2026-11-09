@@ -41,6 +41,22 @@ Previous privacy-track experiments and deployment evidence are preserved in
 [the historical archive](archive/privacy-track/README.md), excluded from active
 builds and release gates. No AI credential, circuit or prover is needed here.
 
+## Connect a testnet wallet
+
+The separate NEAR Connect desk offers Meteor/Intear account connection with the
+existing neutral UI:
+
+```sh
+npm ci --prefix apps/web
+npm --prefix apps/web run build:wallet
+npm --prefix apps/web run wallet
+```
+
+Open `http://127.0.0.1:8790`. Connection needs no API keys; without a verified
+contract configuration transactions remain disabled. New funding also awaits a
+reconciled testnet indexer. [Wallet desk setup and limits](docs/NEAR_CONNECT.md)
+cover configuration, executor integrity and durable receipt recovery.
+
 ## Run the implemented checks
 
 Requires Python 3.9+ and Rust 1.91.0, pinned in `rust-toolchain.toml`.
@@ -84,6 +100,14 @@ See [experiment protocol](research/policy-comparison/PROTOCOL.md).
 
 No `.env` is needed for these checks. `.env.example` describes future local/demo
 configuration; existing local secrets are not read by the active checks.
+
+The SDK now also has an explicit HTTPS testnet profile and a browser-portable
+wallet signing boundary. Handoff is durable before prompting; wallet hashes are
+untrusted recovery hints until matched to RPC transactions, and one retained
+receipt cannot confirm two local operations. The existing desk remains local-only.
+See [wallet usage and verification](docs/WALLET.md) and the
+[14-check Chromium/Sandbox boundary evidence](research/reports/G7_WALLET_BOUNDARY.md).
+Installed-wallet UI and public-testnet acceptance are still pending.
 
 ## Next work
 

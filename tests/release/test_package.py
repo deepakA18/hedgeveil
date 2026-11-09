@@ -5,6 +5,7 @@ from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("release", ROOT / "scripts/rehearse-release.py")
@@ -52,7 +53,15 @@ class PackageTests(unittest.TestCase):
     def test_fresh_source_contains_indexer_database_schema(self):
         self.assertTrue(release.review.selected("services/indexer/schema.sql"))
         release.public_path("source/services/indexer/schema.sql")
-        self.assertIn(b"CREATE TABLE", release.source_inputs()["services/indexer/schema.sql"])
+        # Isolate the source-selection regression from unrelated untracked work.
+        root = Path(self.temp.name)
+        schema = root / "services/indexer/schema.sql"
+        schema.parent.mkdir(parents=True)
+        schema.write_bytes(b"CREATE TABLE retained_evidence (id integer);")
+        with patch.object(release, "ROOT", root), patch.object(release, "NEW_INPUTS", set()), patch.object(
+            release.subprocess, "check_output", side_effect=[b"services/indexer/schema.sql\0", b""]
+        ):
+            self.assertEqual(release.source_inputs()["services/indexer/schema.sql"], schema.read_bytes())
 
     def test_existing_output_and_wrong_external_digest_rejected(self):
         digest = release.package(self.path, self.files)

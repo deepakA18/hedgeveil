@@ -1,0 +1,12 @@
+{
+  "name": "hedgeveil-wallet-conformance",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "devDependencies": {
+    "@near-wallet-selector/core": "10.1.4",
+    "esbuild": "0.28.2"
+  }
+}

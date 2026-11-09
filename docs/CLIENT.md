@@ -1,4 +1,4 @@
-# APP-01 local SDK and receipt recovery
+# APP-01 SDK and receipt recovery
 
 Dependencies: CORE-02/03/04, MKT-01 and VLT-01. Reviewer: product/contracts/security,
 independent review pending. Invariant: a local operation is submitted at most once
@@ -6,7 +6,10 @@ from its retained journal, and only matching finalized receipt evidence establis
 its outcome. RPC failure, an absent hash, a missing ticket or a timeout never
 authorizes another send, refund or withdrawal restoration.
 
-This increment targets pinned local Sandbox only. The client binds network/domain,
+The SDK supports pinned local Sandbox and an explicit HTTPS testnet profile.
+The [wallet signing boundary](WALLET.md) adds a browser adapter and durable
+handoff; external-wallet/public-testnet acceptance remains pending. Mainnet and
+experimental testnet vault methods stay disabled. The client binds network/domain,
 chain ID, genesis hash, core account and deployed code hash before handing a
 transaction request to a signer. `deployment_identity` is an additive read-only
 core view; it changes neither state layout nor financial behavior. Code pinning
@@ -27,7 +30,8 @@ an on-chain action. Back up the journal; never reconstruct send eligibility from
 balances or a timeout. Corrupt/incomplete files fail closed.
 
 Signing is injected through an explicit adapter. No SDK/CLI secret-key loader,
-`.env` parsing or browser wallet integration is included. The local harness keeps
+`.env` parsing or connected external-wallet UI is included. A separately tested
+browser signing adapter is documented in [WALLET](WALLET.md). The local harness keeps
 ephemeral account keys in memory and tests CLI submission through an IPC signer.
 A cancelled-before-broadcast adapter response is displayed as cancellation but
 still consumes the local attempt; arbitrary thrown errors remain ambiguous.
@@ -48,9 +52,10 @@ ticket cleanup, refund, mark-unknown transaction or resend is performed. CLI
 recovery is read-only; explicit merge, redemption and in-kind exit requests are
 separate user-authorized operations with their own journal entries.
 
-This is a local client/CLI foundation. Browser wallets, public testnet flows,
-token-standard interfaces, the PostgreSQL indexer, provider failover and production
-verified payout recovery remain separate work. Unit transport fixtures exercise
+This is a client/CLI foundation with a tested browser signing boundary. Connected
+external wallets, public testnet acceptance, token-standard interfaces, provider
+failover and production verified payout recovery remain separate work. INF-01
+provides the local PostgreSQL indexer. Unit transport fixtures exercise
 client failures; claimed execution evidence comes from real compiled-Wasm Sandbox
 transactions and callbacks.
 
@@ -115,7 +120,9 @@ An adapter is executable trusted local code, selected explicitly with `--signer`
 only load one you trust. It exports `async sign(request, onHash)`. The request binds
 `signerId`, `receiverId`, `network`, `operationId`, and a single FunctionCall with
 exact `methodName`, `args`, `deposit`, `gas`. Await `onHash(hash)` as soon as the
-actual hash is available, and return `{hash}`. An adapter may explicitly return
+actual hash is available, and return `{hash}`. This durably records an untrusted
+candidate; only a matching RPC transaction binds it. One validated hash cannot
+confirm two operations in the same retained deployment journal. An adapter may explicitly return
 `{cancelled_before_submission:true}`; throwing, disappearing or timing out is
 ambiguous. No adapter-provided success flag is trusted. The included `ipc-signer`
 only works under a parent that supplies an IPC signing service, as the real

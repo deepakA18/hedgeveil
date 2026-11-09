@@ -13,7 +13,7 @@ const report={scope:'APP-02 local browser + ephemeral Sandbox signer; real compi
 const check=(name,actual,expected)=>{assert.deepEqual(actual,expected,name);report.checks.push(name);console.log('PASS',name);};
 const sha=b=>createHash('sha256').update(b).digest('hex');
 let demo,browser,page;
-async function hashes(dir,prefix){const out={};for(const e of await readdir(dir,{withFileTypes:true})){if(['node_modules','target'].includes(e.name))continue;const key=path.posix.join(prefix,e.name),full=path.join(dir,e.name);if(e.isDirectory())Object.assign(out,await hashes(full,key));else out[key]=sha(await readFile(full));}return out;}
+async function hashes(dir,prefix){const out={};for(const e of await readdir(dir,{withFileTypes:true})){if(e.name.startsWith('.')||['node_modules','target'].includes(e.name))continue;const key=path.posix.join(prefix,e.name),full=path.join(dir,e.name);if(e.isDirectory())Object.assign(out,await hashes(full,key));else out[key]=sha(await readFile(full));}return out;}
 try {
  demo=await startDemo();browser=await chromium.launch();report.versions.browser=browser.version();
  const context=await browser.newContext({viewport:{width:1280,height:900}});page=await context.newPage();page.setDefaultTimeout(60000);

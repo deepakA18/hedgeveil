@@ -1,0 +1,93 @@
+{
+  "scope": "NEAR Connect 0.12.0 in Chromium with controlled iframe fixture; actual local Sandbox receipts. No external-wallet/public-testnet acceptance or independent review.",
+  "passed": true,
+  "checks": [
+    "production picker contains only the two pinned wallets at three widths",
+    "wallet desk visibly labels testnet and disables unconfigured transactions",
+    "wallet dialog fits 375px",
+    "wallet dialog fits 768px",
+    "wallet dialog fits 1280px",
+    "multiple accounts require an explicit choice",
+    "selected account is shown without enabling unconfigured funding",
+    "reload restores connected wallet but requires multi-account selection again",
+    "disconnect clears account selection",
+    "failed vendor sign-out cannot restore the local connection on reload",
+    "actual connector iframe runs under wallet-mode CSP",
+    "unconfigured gateway rejects prepare",
+    "cross-origin wallet API writes are rejected",
+    "gateway fixture preserves unhealthy-indexer funding gate",
+    "blocked handoff never consumes attempt",
+    "gateway fixture leaves verified exit preview available",
+    "concurrent HTTP handoffs have one durable winner",
+    "browser-wallet profile never invokes server submit",
+    "hint survives gateway recovery outage without claiming success",
+    "attempted wallet action cannot be cancelled or reauthorized",
+    "real connector iframe sends storage registration and SDK confirms receipts",
+    "lost response after real deposit stays unknown",
+    "matching hash recovers actual deposit without another wallet send",
+    "one send per retained operation despite lost wallet response",
+    "exact one-yocto precision survives connector serialization"
+  ],
+  "operations": [
+    {
+      "intent": {
+        "args": {},
+        "attached_deposit": "40960000000000000000000",
+        "domain": {
+          "contract_id": "core.sandbox",
+          "network": "sandbox",
+          "protocol_version": "1"
+        },
+        "gas": "250000000000000",
+        "kind": "transaction",
+        "method": "storage_deposit",
+        "operation_id": "bbe69c3046d23cf9cecac528dca27ff6f1eced0ecbf5386b6fd0d9fd2d8c3f23",
+        "schema_version": "0.2.0",
+        "signer_id": "visitor.sandbox"
+      },
+      "result": {
+        "hash": "8N6Sj1bVDQtEcJvxi1My83srVzAFqAyQaiaixC7yjRi6",
+        "operation_id": "bbe69c3046d23cf9cecac528dca27ff6f1eced0ecbf5386b6fd0d9fd2d8c3f23",
+        "warnings": [],
+        "receipt_id": "CNsrNu5p4D8EY6rz7u9sQzFsxKXT73wAjjFdTU7DvMho",
+        "ledger_operation_id": "8233a1fab4fa0be936e995f92c5cf052274e297e3e0bc4c35c82255d5cc72cd8",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "args": {},
+        "attached_deposit": "1000000000000000000000001",
+        "domain": {
+          "contract_id": "core.sandbox",
+          "network": "sandbox",
+          "protocol_version": "1"
+        },
+        "gas": "250000000000000",
+        "kind": "transaction",
+        "method": "deposit_collateral",
+        "operation_id": "c96194a1ee681727e22d73e970640d3c7fed60b08e250d0e5ee48565cb04a4cb",
+        "schema_version": "0.2.0",
+        "signer_id": "visitor.sandbox"
+      },
+      "result": {
+        "hash": "CRrij9TTV5VaRYSDfpjRTVGCtpaGwwhb8QqgXyNGnUCC",
+        "operation_id": "c96194a1ee681727e22d73e970640d3c7fed60b08e250d0e5ee48565cb04a4cb",
+        "warnings": [],
+        "receipt_id": "HyPXc2WYL39LuhJaKTmjX2vUQTTiWgnS3VbvpZk8wnY4",
+        "ledger_operation_id": "36822bca0be128b0dac9649a93729860d4003e936549f04310970d799943bb92",
+        "state": "SUCCEEDED"
+      }
+    }
+  ],
+  "sources": {
+    "packages/sdk/near-connect.mjs": "95275e69c9ef1180e7e0801c09742f20b7ce9dc98294b137e54f3bee7e7fe280",
+    "apps/web/public/wallet.mjs": "0f6d69e560f1f4b50e180cbb4a5ed21ad907c793955b5fbd83a77513f65ebb74",
+    "apps/web/public/app.mjs": "b9ac866e247c89a4035a5ac891d779b655228612d7d77bc6f233c598d8d99c0a",
+    "apps/web/server.mjs": "59fdfaf34cc6143362b5825abf7d0ae6c3a12cf2243105f1a19e3a705e329d7c",
+    "apps/web/wallets/lock.json": "8b59fa1e62d94a326e3aff100f5aedc01a794bf67212d6cb8ed583ffe35218f6",
+    "apps/web/package-lock.json": "72986fdf174c6660ebc6c4a898ade18408545a8db2340c2cdd05a17602acf585",
+    "tests/wallet/near-connect-browser.mjs": "92914ee4d934ba40a4a8a59ae037377406258debeb4db166d56267509971bd22"
+  },
+  "transactions": 19
+}

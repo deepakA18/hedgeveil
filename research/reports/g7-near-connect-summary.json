@@ -1,0 +1,39 @@
+{
+  "scope": "APP-01/02 NEAR Connect local wallet desk; no public-testnet/vendor acceptance or independent review",
+  "passed": true,
+  "unit_groups": 34,
+  "connector_gateway_checks": 25,
+  "sandbox_app_regression_checks": 35,
+  "sources": {
+    "packages/sdk/near-connect.mjs": "95275e69c9ef1180e7e0801c09742f20b7ce9dc98294b137e54f3bee7e7fe280",
+    "packages/sdk/near-connect.d.mts": "d6067518a107f627824caac1827cb98e3320e6d53f565575d5025b672268de67",
+    "packages/sdk/index.mjs": "ebf9c5dcf639396cefd2e7439672371e8f91e2c0d800cc6d0fc2143670adef0a",
+    "packages/sdk/index.d.mts": "afe50b3debc6e42d25c7b397c008b9057b6464dec9aa288d5f5c2a51b5abc22d",
+    "apps/web/server.mjs": "59fdfaf34cc6143362b5825abf7d0ae6c3a12cf2243105f1a19e3a705e329d7c",
+    "apps/web/public/app.mjs": "b9ac866e247c89a4035a5ac891d779b655228612d7d77bc6f233c598d8d99c0a",
+    "apps/web/public/index.html": "21ff50234b5b38860239dd66ff334f96319e781aad9a47dffd5206f2dff5acac",
+    "apps/web/public/wallet.mjs": "0f6d69e560f1f4b50e180cbb4a5ed21ad907c793955b5fbd83a77513f65ebb74",
+    "apps/web/build-wallet.mjs": "b5e8a462ae5cadb40cafd938db77bfa796ef18cb85519c2ac2f762046bfdc98c",
+    "apps/web/wallet.mjs": "270e76cf17ec0f4c4bb00989fa196e1039a141a3dead5336c219a7f3fab92311",
+    "apps/web/wallets/lock.json": "8b59fa1e62d94a326e3aff100f5aedc01a794bf67212d6cb8ed583ffe35218f6",
+    "apps/web/package.json": "8384d7b7d52a8452371359f2368b7b93ea1408e5eab9269d8a84a5d0ca714c2e",
+    "apps/web/package-lock.json": "72986fdf174c6660ebc6c4a898ade18408545a8db2340c2cdd05a17602acf585",
+    "tests/wallet/near-connect.test.mjs": "d5b1309c17586a9df398442b18d1b1990e3c87f166456c7d97eeb509ba5c2565",
+    "tests/wallet/near-connect-browser.mjs": "92914ee4d934ba40a4a8a59ae037377406258debeb4db166d56267509971bd22",
+    "tests/wallet/types.mts": "1215c0150094c82ef6ccda190bd4d7718372f25cf5e33a57657458c3ffd2a32a",
+    "tests/e2e/browser.mjs": "3b8ad625c727632dbfa748ca0b0341e4edfbf31b78be968ae55c12333bf3e422",
+    "scripts/rehearse-release.py": "e8cc1d47487a35b34a3b4021727272b10411b48b441f36d94c06415191eff4c7"
+  },
+  "reports": {
+    "g7-near-connect-browser.json": "69d167aa9da89eab3efd44f914b11e68c993e76186acb10e599df9834368c5b5",
+    "g7-near-connect-app-regression.json": "be665deba8307279a1003b77c7824c680af7f90a02a282d5127f0d6c3b6e6ee1",
+    "G7_NEAR_CONNECT.md": "0d1afafe39c6cbc18633ec108bec1ababbb332690c1a2b5a46e88fc3e9a7759e"
+  },
+  "pending": [
+    "Actual installed Meteor/Intear signing and mobile/popup conformance",
+    "Public testnet deployment and receipts",
+    "Reconciled testnet indexer; new funding remains disabled",
+    "Hosted authentication if required",
+    "Independent review and fresh full release rehearsal"
+  ]
+}

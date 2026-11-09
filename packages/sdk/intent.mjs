@@ -1,5 +1,3 @@
-import {randomBytes} from 'node:crypto';
-
 import {Q, fail, uint} from './amounts.mjs';
 export {Q, ClientError, fail, uint, parseNear, formatNear} from './amounts.mjs';
 export function canonical(value) {
@@ -59,11 +57,14 @@ function quote(q, domain) {
     if (!/^[0-9a-f]{128}$/.test(q.signature)) fail('INVALID_SIGNATURE_ENCODING');
 }
 export const METHODS = Object.freeze({ cancel_quote: 'QUOTE_CANCELLED', advance_quote_epoch: 'QUOTE_EPOCH_ADVANCED', revoke_signing_key: 'SIGNING_KEY_REVOKED', storage_deposit: 'STORAGE_DEPOSIT', deposit_collateral: 'DEPOSIT', split: 'SPLIT', merge: 'MERGE', transfer: 'TRANSFER', redeem: 'REDEEMED', fill_quote: 'QUOTE_FILLED', vault_mint_basket: 'VAULT_MINTED', vault_redeem_in_kind: 'VAULT_EXITED', request_withdrawal: 'WITHDRAWAL_REQUESTED', close_ticket: 'TICKET_CLOSED' });
-export function buildIntent({ signer_id, contract_id, method, args, attached_deposit, operation_id = randomBytes(32).toString('hex') }) {
+const operationId = () => Array.from(globalThis.crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
+export function buildIntent({ signer_id, contract_id, network = 'sandbox', method, args, attached_deposit, operation_id = operationId() }) {
     account(signer_id);
     account(contract_id);
+    if (!['sandbox', 'testnet'].includes(network)) fail('NETWORK_DISABLED');
     if (!Object.hasOwn(METHODS, method))
         fail('UNSUPPORTED_METHOD');
+    if (network === 'testnet' && method.startsWith('vault_')) fail('TESTNET_VAULT_DISABLED');
     if (!/^[0-9a-f]{64}$/.test(operation_id))
         fail('INVALID_OPERATION_ID');
     if (attached_deposit === undefined) {
@@ -71,7 +72,7 @@ export function buildIntent({ signer_id, contract_id, method, args, attached_dep
             fail('FUNDING_AMOUNT_REQUIRED');
         attached_deposit = '1';
     }
-    const domain = { protocol_version: '1', network: 'sandbox', contract_id };
+    const domain = { protocol_version: '1', network, contract_id };
     switch (method) {
         case 'storage_deposit':
         case 'deposit_collateral':
@@ -143,7 +144,7 @@ export function buildIntent({ signer_id, contract_id, method, args, attached_dep
 }
 // The journal envelope additionally retains signer/gas; the public wire intent does not.
 export function toWireIntent(intent) {
-    const checked = buildIntent({ ...intent, contract_id: intent.domain.contract_id });
+    const checked = buildIntent({ ...intent, network: intent.domain.network, contract_id: intent.domain.contract_id });
     if (canonical(checked) !== canonical(intent))
         fail('INVALID_INTENT');
     const { signer_id, gas, ...wire } = checked;

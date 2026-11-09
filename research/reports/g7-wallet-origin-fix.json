@@ -1,0 +1,14 @@
+{
+  "scope": "APP-02 document navigation and local-origin guards; no transaction or public-wallet acceptance claim",
+  "passed": true,
+  "http_cases": 40,
+  "chromium_scenarios": 1,
+  "node_test_results_including_parent": 42,
+  "sources": {
+    "apps/web/server.mjs": "aa52eb1c3a038573087f24df8bc23cd8540424436f76b59ab6fddf8693c7d3e4",
+    "tests/e2e/origin.test.mjs": "3461261cf3dd87fdec8320251b50f482fa8197887f7019282bf74fdac0f77b07",
+    "scripts/rehearse-release.py": "4121f4e2851daa019a6464c71122ff1f6e64c5e21f0a05c9e471bba6d37ebde7",
+    "research/reports/G7_WALLET_ORIGIN_FIX.md": "36e1990cfb5b7e13bce5a94fa9d930365b1fbe2043f5896ef5690ff268d9fae0"
+  },
+  "independent_review": "pending"
+}

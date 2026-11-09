@@ -1,0 +1,69 @@
+{
+  "base_commit": "9c05cc871d4e1fb834fa858ff5818523ecaf73b1",
+  "external_wallet_acceptance": false,
+  "full_release_rehearsal_for_this_increment": "NOT_RUN; prior REL-01 archive remains historical",
+  "independent_review": "PENDING",
+  "other_checks": [
+    "reference model (5 tests), 565 vectors",
+    "locked Rust workspace tests, format and Clippy in both workspaces",
+    "schema regeneration/check and 11 schema groups",
+    "SDK NodeNext declaration checks",
+    "Wallet Selector interop call-site check with bundler resolution and skipLibCheck; upstream declarations not fully checked"
+  ],
+  "passed": true,
+  "production_enabled": false,
+  "public_testnet_execution": false,
+  "reports": [
+    {
+      "checks": 14,
+      "path": "research/reports/g7-wallet-boundary.json",
+      "recorded_transactions": 24,
+      "sha256": "886716dc150fa13ca74a515af50823d6971df7b9eb229f89e4e14e2b1990d732"
+    },
+    {
+      "checks": 19,
+      "path": "research/reports/g7-wallet-client-regression.json",
+      "recorded_transactions": 31,
+      "sha256": "80370f3acb1be89069db027ff3d0716069c4f6c79b52e9649c05b1d5e5015f5b"
+    },
+    {
+      "checks": 35,
+      "path": "research/reports/g7-wallet-app-regression.json",
+      "recorded_transactions": 43,
+      "sha256": "82ce849e955e122217dac649f43c41fa7eb2bcb04abf64bf9ba6455d1a8d4725"
+    }
+  ],
+  "scope": "APP-01 testnet profile and browser signing boundary; local test-wallet transport and actual Sandbox receipts only",
+  "sources": {
+    "packages/sdk/README.md": "299e653e61ff7e77ace7e9ef652e24e4a104cd94aa2ce8c12e12d3f4e7bf7d86",
+    "packages/sdk/amounts.mjs": "aacc2b2d38c9c1f46eb54f8ebf97d50f2ea178a6d0eb83a02d452a7ef9614538",
+    "packages/sdk/client.mjs": "7dd8cc2dd1dbe690e7ac21b3d37dd1d269e2ab85296feec3cb89c32eb57f3eea",
+    "packages/sdk/index.d.mts": "79ba72bec8da09d1079c670d2e447e349fe3f134ce611a70333b8f23056d046f",
+    "packages/sdk/index.mjs": "f36f4685a7de73540c44a0f1685aaf815c301fd6cb1141702a45b95b07be0295",
+    "packages/sdk/intent.mjs": "08b4d06d83e4381b040e44d4068cf6ce0491d7ba9cc8e6002ad1220c8b465cef",
+    "packages/sdk/ipc-signer.mjs": "eaf4a45aa6b1ecaac4d1c7fb66797ea06bbc228d6b09326e5c98213dc795b980",
+    "packages/sdk/journal.mjs": "9e570ee30da7f280092dfa1906c866a2f2b742cba59f5a9ac58ada89b2096dbd",
+    "packages/sdk/package.json": "000cafc31ebe8858533f6ec77ee043ad7460ff850956091f50b927f717ee9a32",
+    "packages/sdk/receipts.mjs": "4e5a681af14d9ec0d74ae7fa6896ef00f200618f7e8cb8a567e3b0d48c8b84a7",
+    "packages/sdk/rpc.mjs": "4265c6c2081df814830b9e6a32c17c9f3524c9666b8ea4ea4a29ce34515ddd70",
+    "packages/sdk/wallet.d.mts": "b4cae6d449de92d5263388c5ba1764894cf5055d0b3c5693c22853793766fbf2",
+    "packages/sdk/wallet.mjs": "356b176c543be59d92fd0faf1599a7f82c401b54e4ee2ac8d96b7e09aa25da5c",
+    "scripts/recover.mjs": "27a223ec511e5c08c4f08965048ca5c16e66185519a0390ad80118514b367083",
+    "scripts/rehearse-release.py": "841b38e34f57b4849022fd8694c73bf8322165faecbb9e7df7c803d9211ea3bc",
+    "tests/release/test_package.py": "aefdfdfcb43b57b3d2e963e030139b15217027954347a5eb93071340ced221cb",
+    "tests/sdk/client.test.mjs": "3cca45a57d8e4eb50b258abbb6b86271ca9a7c594a7aa4c914670783438312f4",
+    "tests/sdk/types.mts": "d7e549a006f5abb3d4fb77b6392504cad4da6b0f23512dbcc8ab2d62ee96e9c2",
+    "tests/wallet/boundary.test.mjs": "016bee0c23e5d9492978a0dcd54db6f3deb07f599cc295c79251cb9aa6cad53f",
+    "tests/wallet/browser-entry.mjs": "4ec42411858316dbcd22d27e41b1194fecbad4f529d6636913e2b6f6c0102f95",
+    "tests/wallet/browser.mjs": "66daa9a215655b965de6e875609cee88390969936eccc1dffb7fdd43f71833d2",
+    "tests/wallet/package-lock.json": "11c789b038f7c2fbb69d6a799da1bb995d4610b9253b4d3c600e3163c4258a2a",
+    "tests/wallet/package.json": "725c8dd7df4aa06df85158ce7366594aaa3bb679702985961e545ca10d3ed58d",
+    "tests/wallet/types.mts": "84723588a33da826059ebba2815ee6528e631f642abcb050d9dfd68cd31c0261"
+  },
+  "unit_checks": {
+    "release_package": 9,
+    "review_package": 12,
+    "sdk": 14,
+    "wallet": 12
+  }
+}

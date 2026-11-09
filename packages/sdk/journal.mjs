@@ -1,7 +1,8 @@
 import {mkdir, open, link, unlink, readFile, readdir, stat} from 'node:fs/promises';
 import {join} from 'node:path';
-import {randomUUID} from 'node:crypto';
+import {randomUUID, createHash} from 'node:crypto';
 import {canonical, fail} from './intent.mjs';
+import {hash32} from './rpc.mjs';
 
 const terminals = new Set(['SUCCEEDED', 'FAILED_CONFIRMED', 'WITHDRAWAL_SUCCEEDED', 'WITHDRAWAL_FAILED_CONFIRMED']);
 export const terminal = state => terminals.has(state);
@@ -65,7 +66,9 @@ export class FileJournal {
         const done = observations.filter(x => terminal(x.result.state));
         const terminalIdentities = done.map(x => canonical([x.result.state, x.result.hash ?? null, x.result.ticket_id ?? null]));
         if (new Set(terminalIdentities).size > 1) fail('JOURNAL_EVIDENCE_CONFLICT');
-        return {...value, attempted, hash:hash?.hash ?? null, result:(done.at(-1) || observations.at(-1))?.result ?? null};
+        return {...value, attempted, hash:hash?.hash ?? null,
+            candidate_hash:observations.filter(x => x.result.candidate_hash).at(-1)?.result.candidate_hash ?? null,
+            result:(done.at(-1) || observations.at(-1))?.result ?? null};
     }
     async claim(id) {
         await this.get(id);
@@ -76,6 +79,33 @@ export class FileJournal {
         }
     }
     async bind(id, hash) {
+        hash32(hash);
+        const current = await this.get(id);
+        if (!current.attempted) fail('NOT_ATTEMPTED');
+        if (current.hash && current.hash !== hash) fail('HASH_CONFLICT');
+        const domain = canonical(current.binding);
+        // Preserve old journals: hashes bound before the owner index also count.
+        // Run one client version per retained journal during upgrades.
+        for (const other of await readdir(this.directory)) {
+            if (other === id || !/^[a-f0-9]{64}$/.test(other)) continue;
+            const value = await read(join(this.path(other), 'hash.json'));
+            if (value?.hash === hash) {
+                const intent = await read(join(this.path(other), 'intent.json'));
+                if (!intent?.binding) fail('JOURNAL_CORRUPT');
+                if (canonical(intent.binding) === domain) fail('HASH_ALREADY_BOUND');
+            }
+        }
+        const owners = join(this.directory, '.hash-bindings');
+        const key = createHash('sha256').update(domain).digest('hex') + '-' + hash;
+        try {
+            // Claim first so concurrent recovery of identical intents has one winner.
+            // A crash here reserves the hash for this ID; it never authorizes a resend.
+            await exclusive(owners, key, {operation_id:id});
+            await syncDir(this.directory);
+        } catch (e) {
+            if (e.code !== 'EEXIST') throw e;
+            if ((await read(join(owners, key)))?.operation_id !== id) fail('HASH_ALREADY_BOUND');
+        }
         try { await exclusive(this.path(id), 'hash.json', {hash}); }
         catch (e) {
             if (e.code !== 'EEXIST') throw e;

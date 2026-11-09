@@ -26,6 +26,13 @@ try {
         case 'recover':
             result = await client.recover(v.id, v.hash);
             break;
+        case 'handoff':
+            result = await client.handoff(v.id);
+            break;
+        case 'remember-hash':
+            await client.rememberHash(v.id, v.hash);
+            result = await client.record(v.id);
+            break;
         case 'submit': {
             if (!v.signer)
                 fail('SIGNER_REQUIRED');

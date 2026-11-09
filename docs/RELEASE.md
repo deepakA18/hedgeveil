@@ -14,8 +14,9 @@ python3 scripts/rehearse-release.py run local-release-01
 ```
 
 Use a new lowercase name. Existing rehearsal directories and packages are never
-overwritten. Python 3.9+, Git, Node 22.22.2+, npm, uv and the repository's pinned
-Rust toolchains/wasm target are prerequisites. First use needs network access for
+overwritten. Newly added active source must be tracked by Git before rehearsal;
+the runner rejects unaccounted untracked inputs. Python 3.9+, Git, Node 22.22.2+, npm, uv and the repository's pinned
+Rust toolchains/wasm target and TypeScript 5.9.2 are prerequisites. First use needs network access for
 public locked packages, runtime binaries and Chromium. No paid API key, `.env`,
 external wallet or public funds are needed.
 
@@ -40,6 +41,12 @@ model checks, reruns the frozen economics experiment and executes:
 - The experimental keeper suite, including a one-shot bounded roll and deferral.
 - The SDK/CLI payout-fault suite, including paid-but-unacknowledged UNKNOWN.
 - The retained-demo restart suite, including UI/indexer/journal continuity.
+- The browser wallet-boundary suite with the official v10 action factory and
+  test-wallet transport; installed-wallet/public-testnet acceptance stays pending.
+  SDK/wallet unit and declaration checks also run.
+
+These additions apply to future rehearsals. The retained 109-check REL-01 archive
+predates the wallet increment and has not been rerun or relabelled.
 
 The twelve requirements are mapped in the generated `evidence/acceptance.json`.
 They are deliberately not all labelled one continuous public-wallet flow. The
@@ -90,3 +97,9 @@ labelled synthetic simulation evidence; local checks never authorize public
 release. Failure paths: failed phase, changed source, lost response, no liquidity,
 unknown payout or invalid package leaves the corresponding acceptance unmet.
 Reviewer: Release/QA and independent security reviewer — pending.
+
+The NEAR Connect increment adds a required `near_connect` rehearsal phase and
+integrity-checked wallet asset preparation. Its controlled browser/HTTP fixtures
+and Sandbox receipts do not satisfy installed Meteor/Intear or public testnet
+acceptance. A fresh complete rehearsal for this candidate remains pending; see
+[wallet desk scope](NEAR_CONNECT.md).

@@ -8,7 +8,7 @@ export class Client {
         this.journal = new FileJournal(journal);
     }
     async prepare(input) {
-        const intent = buildIntent({ ...input, contract_id: this.rpc.config.contract_id });
+        const intent = buildIntent({ ...input, network: this.rpc.config.network, contract_id: this.rpc.config.contract_id });
         await this.rpc.verify();
         await this.journal.create(intent, binding(this.rpc.config));
         return intent;
@@ -16,9 +16,11 @@ export class Client {
     async record(id) {
         const record = await this.journal.get(id);
         const i = record.intent;
-        const rebuilt = buildIntent({ ...i, contract_id: i.domain.contract_id });
-        if (canonical(rebuilt) !== canonical(i) || canonical(record.binding) !== canonical(binding(this.rpc.config)))
+        const rebuilt = buildIntent({ ...i, network: i.domain.network, contract_id: i.domain.contract_id });
+        if (canonical(rebuilt) !== canonical(i) || canonical(record.binding) !== canonical(binding(this.rpc.config)) ||
+            i.domain.network !== this.rpc.config.network || i.domain.contract_id !== this.rpc.config.contract_id)
             fail('JOURNAL_DEPLOYMENT_MISMATCH');
+        if (record.candidate_hash) hash32(record.candidate_hash);
         return record;
     }
     async balances(account_id) {
@@ -30,24 +32,27 @@ export class Client {
             this.rpc.view('get_vault'),
             this.rpc.view('list_series', { from_index: 0, limit: 16 })
         ]);
-        return { network: 'sandbox', contract_id: this.rpc.config.contract_id, account_id,
+        return { network: this.rpc.config.network, contract_id: this.rpc.config.contract_id, account_id,
             account: accountState, tickets, vault, series,
             consistency: 'Independent finalized views; not an atomic snapshot or proof of a prior send.' };
     }
-    async submit(id, signer) {
+    async handoff(id) {
         const { intent } = await this.record(id);
         await this.rpc.verify();
-        // Durable point of no retry. Even a cancelled prompt consumes this operation ID.
+        // Durable point of no retry, before returning any request to a wallet.
         await this.journal.claim(id);
-        const request = Object.freeze({ signerId: intent.signer_id, receiverId: intent.domain.contract_id,
-            network: 'sandbox', operationId: id, actions: [{ type: 'FunctionCall', methodName: intent.method,
+        return Object.freeze({ signerId: intent.signer_id, receiverId: intent.domain.contract_id,
+            network: intent.domain.network, operationId: id, actions: [{ type: 'FunctionCall', methodName: intent.method,
                     args: structuredClone(intent.args), deposit: intent.attached_deposit, gas: intent.gas }] });
-        const onHash = async (hash) => this.journal.bind(id, hash32(hash));
+    }
+    async submit(id, signer) {
+        const request = await this.handoff(id);
+        const onHash = async (hash) => this.rememberHash(id, hash);
         try {
             const response = await signer(request, onHash);
             if (response?.hash)
                 await onHash(response.hash);
-            else if (response?.cancelled_before_submission === true && !(await this.journal.get(id)).hash) {
+            else if (response?.cancelled_before_submission === true && !(await this.journal.get(id)).hash && !(await this.journal.get(id)).candidate_hash) {
                 return this.journal.observe(id, { operation_id: id, state: 'CANCELLED' });
             }
         }
@@ -57,10 +62,19 @@ export class Client {
         }
         return this.recover(id);
     }
+    async rememberHash(id, hash) {
+        const record = await this.record(id);
+        if (!record.attempted) fail('NOT_ATTEMPTED');
+        hash32(hash);
+        if (record.hash && record.hash !== hash) fail('HASH_CONFLICT');
+        // A wallet/redirect value is an untrusted hint, not an immutable binding.
+        await this.journal.observe(id, { operation_id: id, state: 'SUBMISSION_UNKNOWN',
+            candidate_hash: hash, reason: 'SIGNER_HASH_UNVERIFIED' });
+    }
     async recover(id, suppliedHash) {
         const record = await this.record(id);
         await this.rpc.verify();
-        const hash = suppliedHash ?? record.hash;
+        const hash = suppliedHash ?? record.hash ?? record.candidate_hash;
         if (!hash)
             return record.result ?? { operation_id: id, state: record.attempted ? 'SUBMISSION_UNKNOWN' : 'PREPARED' };
         hash32(hash);

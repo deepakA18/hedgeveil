@@ -1,7 +1,8 @@
 import {createServer} from 'node:http';
 import {readFile,readdir} from 'node:fs/promises';
+import {randomBytes} from 'node:crypto';
 import {Client} from '../../packages/sdk/client.mjs';
-import {ClientError,fail,uint,canonical} from '../../packages/sdk/intent.mjs';
+import {ClientError,fail,uint,canonical,account as validAccount} from '../../packages/sdk/intent.mjs';
 import {verifyQuote} from '../../packages/rfq/codec.mjs';
 import {owned,basket,shortfalls} from './public/model.mjs';
 
@@ -11,12 +12,14 @@ const leg=(asset,amount)=>({asset,amount});
 const positive=n=>BigInt(n)>0n;
 
 // A local Sandbox signing gateway, not a wallet or an internet-facing service.
-export function createApp({config,journal,accounts,signer,store,quoteProvider,persistent=false,afterSubmit=async()=>{}}) {
-    const client=new Client({config,journal});
+export function createApp({config,journal,accounts=[],signer,store,quoteProvider,persistent=false,wallet=null,afterSubmit=async()=>{}}) {
+    if(wallet&&config&&config.network!=='testnet')fail('WALLET_TESTNET_ONLY');
+    if(wallet&&signer)fail('WALLET_LOCAL_SIGNER_FORBIDDEN');
+    const client=config?new Client({config,journal}):null;
     const allowed=new Set(accounts.map(a=>a.id));
     let queue=Promise.resolve();
     const serialize=fn=>{const p=queue.then(fn);queue=p.catch(()=>{});return p;};
-    const checkAccount=id=>{if(!allowed.has(id))fail('UNKNOWN_DEMO_ACCOUNT');};
+    const checkAccount=id=>{if(wallet)validAccount(id);else if(!allowed.has(id))fail('UNKNOWN_DEMO_ACCOUNT');};
     async function record(id) {const r=await client.record(id);checkAccount(r.intent.signer_id);return r;}
     async function indexed(resource,options) {return store.read(resource,options);}
     async function live(id) {
@@ -107,17 +110,31 @@ export function createApp({config,journal,accounts,signer,store,quoteProvider,pe
     }
     const server=createServer(async(req,res)=>{
         const origin=`http://127.0.0.1:${server.address().port}`;
+        const nonce=randomBytes(24).toString('base64');
         res.setHeader('cache-control','no-store');res.setHeader('x-content-type-options','nosniff');
         res.setHeader('referrer-policy','no-referrer');
         res.setHeader('content-security-policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
+        // NEAR Connect uses nonce-bearing srcdoc scripts and inline modal styles.
+        // Remote executable code is served only from the integrity-verified asset map.
+        if(wallet)res.setHeader('content-security-policy',`default-src 'self'; script-src 'self' 'nonce-${nonce}'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://wallet.intear.tech https://mc.meteorwallet.app https://wallet.meteorwallet.app https://test.rpc.fastnear.com https://rpc.testnet.near.org https://archival-rpc.testnet.near.org; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`);
         const send=(code,value)=>{res.writeHead(code,{'content-type':'application/json'});res.end(JSON.stringify(value));};
         try {
-            if(req.headers.host!==new URL(origin).host||req.headers.origin&&req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')return send(403,{error:'LOCAL_ORIGIN_ONLY'});
             const url=new URL(req.url,origin),p=url.pathname;
+            // Opening a link (including a wallet return) can be cross-site. Only
+            // the top-level GET document is public; APIs, assets, frames and all
+            // writes retain the strict local-origin checks.
+            const documentNavigation=req.method==='GET'&&p==='/'&&
+                req.headers['sec-fetch-mode']==='navigate'&&req.headers['sec-fetch-dest']==='document';
+            if(req.headers.host!==new URL(origin).host||url.origin!==origin||
+                req.headers.origin&&req.headers.origin!==origin||
+                req.headers['sec-fetch-site']==='cross-site'&&!documentNavigation)return send(403,{error:'LOCAL_ORIGIN_ONLY'});
             if(req.method==='GET') {
+                if(wallet?.assets.has(p)){res.writeHead(200,{'content-type':'text/javascript'});res.end(wallet.assets.get(p));return;}
                 const assets={'/':['./public/index.html','text/html'],'/app.mjs':['./public/app.mjs','text/javascript'],'/model.mjs':['./public/model.mjs','text/javascript'],'/style.css':['./public/style.css','text/css'],'/amounts.mjs':['../../packages/sdk/amounts.mjs','text/javascript']};
-                if(Object.hasOwn(assets,p)){const [file,type]=assets[p];res.writeHead(200,{'content-type':type});res.end(await readFile(new URL(file,import.meta.url)));return;}
+                if(Object.hasOwn(assets,p)){const [file,type]=assets[p];res.writeHead(200,{'content-type':type});let data=await readFile(new URL(file,import.meta.url));if(p==='/'&&wallet)data=data.toString().replace('</head>',`<meta name="wallet-nonce" content="${nonce}"></head>`);res.end(data);return;}
+                if(p==='/api/session'&&wallet)return send(200,{...config,network:'testnet',rpc_url:undefined,wallet:true,configured:!!config,manifest:wallet.manifest,accounts:[],signer:'Browser wallet signs. This loopback-only service retains the journal and verifies finalized receipts; connection is not server authentication.',subsidy:'Testnet assets only. Synthetic oracle data. Production and testnet vault actions remain disabled.'});
                 if(p==='/api/session')return send(200,{network:'sandbox',...config,rpc_url:undefined,accounts,signer:persistent?'Local Sandbox signer; generated full-access and RFQ keys retained in the private demo workspace. No browser wallet.':'Ephemeral local Sandbox signer; full-access keys held in this Node process. No browser wallet.',subsidy:'All wallet balances, maker capital, storage and gas are subsidized by local Sandbox genesis. No real market returns.'});
+                if(!client)fail('DEPLOYMENT_NOT_CONFIGURED');
                 if(p==='/api/operations')return send(200,{items:await operations()});
                 if(p==='/api/state')return send(200,await indexed('snapshots',{limit:200}));
                 if(p==='/api/live'){const s=await live(url.searchParams.get('account'));return send(200,{...s,view:undefined});}
@@ -131,18 +148,22 @@ export function createApp({config,journal,accounts,signer,store,quoteProvider,pe
             if(req.headers.origin!==origin||req.headers['content-type']!=='application/json')return send(403,{error:'LOCAL_ORIGIN_ONLY'});
             let text='';for await(const chunk of req){text+=chunk;if(Buffer.byteLength(text)>65536)fail('BODY_LIMIT');}
             let body;try{body=JSON.parse(text);}catch{fail('INVALID_JSON');}
+            if(!client)fail('DEPLOYMENT_NOT_CONFIGURED');
+            if(wallet&&p==='/api/submit')fail('BROWSER_WALLET_REQUIRED');
+            if(wallet&&p==='/api/remember-hash'){await record(body.id);await client.rememberHash(body.id,body.hash);return send(200,{retained:true});}
             if(p==='/api/prepare') {
                 checkAccount(body.signer_id);
                 // SDK builds and persists an immutable, domain-bound exact integer intent.
                 const intent=await client.prepare(body);return send(200,await preview(intent));
             }
             if(p==='/api/recover'){await record(body.id);return send(200,await client.recover(body.id,body.hash));}
-            if(p==='/api/submit'||p==='/api/cancel') {
+            if(p==='/api/submit'||p==='/api/cancel'||wallet&&p==='/api/handoff') {
                 const result=await serialize(async()=>{
                     const r=await record(body.id);
                     if(r.attempted)fail('ALREADY_ATTEMPTED');
                     if(p==='/api/cancel'){await client.journal.claim(body.id);return client.journal.observe(body.id,{operation_id:body.id,state:'CANCELLED'});}
                     const check=await preview(r.intent);if(check.blockers.length)fail(check.blockers[0]);
+                    if(p==='/api/handoff')return client.handoff(body.id);
                     const out=await client.submit(body.id,signer);
                     await afterSubmit().catch(()=>{});return out;
                 });return send(200,result);

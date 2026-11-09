@@ -17,7 +17,7 @@ review = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(review)
 NEW_INPUTS = {"scripts/rehearse-release.py", "tests/release/walkthrough.mjs",
               "tests/release/test_package.py", "docs/RELEASE.md", "docs/SUBMISSION.md"}
-PHASE_REPORTS = ("walkthrough", "browser", "keeper", "payout", "resume")
+PHASE_REPORTS = ("walkthrough", "browser", "keeper", "payout", "resume", "wallet", "near_connect")
 
 
 def sha(data):
@@ -68,7 +68,7 @@ def acceptance(reports):
     # Every row states its actual surface. Separate fixtures are never relabelled
     # as a single approved strategy or a public testnet lifecycle.
     rows = [
-        (1, "Fresh wallet/storage", ["walkthrough", "browser"], "Local generated signer only; public wallet pending"),
+        (1, "Fresh wallet/storage", ["walkthrough", "browser", "wallet", "near_connect"], "Local generated signer and browser test-wallet transport only; external wallet/testnet acceptance pending"),
         (2, "Deposit/split/reserves", ["walkthrough"], "Actual Sandbox receipts and indexed custody"),
         (3, "Funded N sale", ["walkthrough"], "Two makers; exact signed sale executes"),
         (4, "P basket/shares", ["walkthrough", "browser"], "Sandbox proportional basket; no selected tracking policy"),
@@ -179,9 +179,11 @@ def rehearse(name):
     for relative in ("target", "node_modules", "tests/sandbox/node_modules", "services/indexer/node_modules", "apps/web/node_modules", ".env", ".local"):
         if (checkout / relative).exists():
             raise ValueError("fresh checkout contains excluded local state")
-    for directory in ("tests/sandbox", "services/indexer", "apps/web"):
+    for directory in ("tests/sandbox", "services/indexer", "apps/web", "tests/wallet"):
         run("install-" + directory.replace("/", "-"), ["npm", "ci", "--prefix", directory, "--ignore-scripts", "--no-audit", "--no-fund"])
+    run("wallet-assets", ["node", "apps/web/build-wallet.mjs"])
     run("chromium", ["npm", "exec", "--prefix", "apps/web", "--", "playwright", "install", "chromium"])
+    run("origin-guards", ["node", "--test", "tests/e2e/origin.test.mjs"])
     run("core-build", ["python3", "scripts/build-core.py"])
     run("oracle-build", ["python3", "scripts/build-oracle.py"])
     run("reference", ["python3", "-m", "unittest", "discover", "-s", "research/reference-model", "-p", "test_*.py"])
@@ -196,6 +198,9 @@ def rehearse(name):
     run("schemas", ["uv", "run", "--with", "jsonschema==4.23.0", "python", "-m", "unittest", "discover", "-s", "tests/schemas"])
     run("release-unit", ["python3", "-m", "unittest", "discover", "-s", "tests/release"])
     run("review-bundle-unit", ["python3", "-m", "unittest", "discover", "-s", "tests/security"])
+    run("sdk-wallet-units", ["node", "--test", "tests/sdk/client.test.mjs", "tests/wallet/boundary.test.mjs", "tests/wallet/near-connect.test.mjs"])
+    run("sdk-types", ["tsc", "--noEmit", "--strict", "--target", "ES2022", "--module", "NodeNext", "--moduleResolution", "NodeNext", "tests/sdk/types.mts"])
+    run("wallet-types", ["tsc", "--noEmit", "--strict", "--skipLibCheck", "--target", "ES2022", "--module", "ESNext", "--moduleResolution", "Bundler", "--typeRoots", "tests/sandbox/node_modules/@types", "tests/wallet/types.mts"])
     run("finite-models", ["python3", "verification/check_models.py", "--check"])
     run("symbolic", ["uv", "run", "--with-requirements", "verification/requirements.txt", "python", "verification/check_symbolic.py", "--check"])
     run("economics-unit", ["python3", "-m", "unittest", "discover", "-s", "tests/economics"])
@@ -204,7 +209,7 @@ def rehearse(name):
     public = checkout / "target/release-public"
     public.mkdir(parents=True)
     run("walkthrough", ["node", "tests/release/walkthrough.mjs", "target/release-public/walkthrough.json"])
-    for label, script in (("browser", "tests/e2e/browser.mjs"), ("keeper", "tests/sandbox/g6-keeper.mjs"), ("payout", "tests/sandbox/g7.mjs"), ("resume", "tests/demo/resume.mjs")):
+    for label, script in (("browser", "tests/e2e/browser.mjs"), ("keeper", "tests/sandbox/g6-keeper.mjs"), ("payout", "tests/sandbox/g7.mjs"), ("resume", "tests/demo/resume.mjs"), ("wallet", "tests/wallet/browser.mjs"), ("near_connect", "tests/wallet/near-connect-browser.mjs")):
         run(label, ["node", script, "--report", f"target/release-public/{label}.json"])
     reports = {name: read_phase(public, name) for name in PHASE_REPORTS}
     state = acceptance(reports)

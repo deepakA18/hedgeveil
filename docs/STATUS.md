@@ -13,9 +13,9 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G4 settlement — local demo implementation | Committed synthetic archive/replay, authenticated publishers, bonded proposals/challenges, fallback/arbitration/delay, immutable resolution import and bond-credit custody | Independent review, broader timing/load/interleaving coverage, broader browser evidence/fault coverage and public testnet indexing; production historical sources and economic bond sizing remain G10 |
 | G5 market — local implementation | Registered Ed25519 keys, funded exact fills/pair issuance, durable nonce/epoch cancellation, two separate maker processes, atomic direct rolls and receipt/event reconciliation | Independent review, broader capacity/interleavings, testnet maker funding/measurements; relay/wallet flows remain G7 |
 | G6 vault — local basket and experimental guards | Sandbox-only basket/share mechanics plus optional immutable one-shot roll, authenticated synthetic reference, competing maker execution, fee/loss/notional limits and deferred inflows with exits | Independent review, selected recurring policy/current-source trust, broader interleavings, RFQ-and-mint/cash-only conveniences and testnet deployment |
-| G7 application — local SDK, indexer and APP-02 UI | Exact SDK/journal/CLI and PostgreSQL replay/reconciliation; six browser views with real funding, RFQs, basket entry/exit, settlement, payout recovery and maker controls; 35 browser checks | Public wallet/testnet conformance, full demo orchestration/crash drills, remaining SDK/strategy UX and browser fault coverage, operator notifications/load/accessibility checks and independent review |
+| G7 application — SDK wallet boundary and local UI/indexer | Exact SDK/journal/CLI and PostgreSQL replay/reconciliation; six browser views with real funding, RFQs, basket entry/exit, settlement, payout recovery and maker controls; 35 browser checks plus a 14-check wallet-boundary fixture | Connected external-wallet UI and public wallet/testnet conformance, full demo orchestration/crash drills, remaining SDK/strategy UX and browser fault coverage, operator notifications/load/accessibility checks and independent review |
 | G8 adversarial — bounded local SEC-01 | Arithmetic/schema checks; finite withdrawal/oracle/import/reserve models; 32 bounded SMT obligations; multi-seed signed-trade/ledger comparison, event replay, capacity and receipt faults | General cross-module/concurrent schedules and sustained load, broader symbolic/refinement scope, independent SEC-02 review and remediation |
-| G9 hackathon release — local rehearsal verified | 109 fresh-local-clone checks, actual frontend-offline CLI exit, scoped twelve-step map, verified source/Wasm/evidence archive and unsubmitted draft; see [REL-01](../research/reports/rel01-local.md) | Public wallet/testnet lifecycle and records, policy decision, independent review, published-candidate reproduction and walkthrough video |
+| G9 hackathon release — local rehearsal verified | 109 fresh-local-clone checks, actual frontend-offline CLI exit, scoped twelve-step map, verified source/Wasm/evidence archive and unsubmitted draft; see [REL-01](../research/reports/rel01-local.md) | Public wallet/testnet lifecycle and records, policy decision, independent review, fresh full rehearsal for the wallet increment, published-candidate reproduction and walkthrough video |
 | G10 capped pilot | Separate, optional; blocked | Independent historical oracle, reviewed unknown-payout recovery, custody/key audit, limits and incident drills |
 | G11 expansion | Out of initial release | Pilot evidence and specification/review for each new trust boundary |
 
@@ -122,7 +122,7 @@ and [G3 report](../research/reports/G3_COLLATERAL_CORE.md) link source-hashed
 receipt evidence. The core reuses the unchanged payoff library. Normal and
 explicit fault-injection Wasm run in ephemeral
 Sandbox accounts only. A disposable local UI demo now exists; no public product deployment, external
-wallet integration or complete G9 release demo exists. The scope-reconciliation report remains a historical record
+wallet flow or complete G9 release demo exists. The scope-reconciliation report remains a historical record
 of the earlier migration, not the latest implementation status.
 
 ## Next increment
@@ -161,3 +161,37 @@ PostgreSQL socket-path and omitted SQL-source failures; zero process exit alone
 cannot pass a phase without evidence. See [REL-01 results](../research/reports/rel01-local.md)
 and [release usage](RELEASE.md). No public deployment, external submission or
 independent approval occurred; REL-01/G9 remain incomplete.
+
+APP-01 now adds an explicit HTTPS testnet profile, durable wallet handoff, a
+browser-portable Wallet Selector v10 adapter, persistent untrusted hash hints and
+atomic receipt-hash ownership within the retained deployment journal. Twelve
+new boundary unit groups and 14 Chromium/Sandbox checks pass; the existing
+14 SDK unit groups, 19 real SDK fault checks and 35 browser checks also pass.
+See [wallet-boundary evidence](../research/reports/G7_WALLET_BOUNDARY.md) and
+[usage/limits](WALLET.md). A test wallet transport supplied the local signatures;
+no installed external wallet, public testnet execution or deployment acceptance
+is claimed. The desk remains local-only. Future release runs include these
+checks; the prior REL-01 archive remains historical evidence.
+
+### APP-01/02 NEAR Connect increment (9 November 2026)
+
+The [NEAR Connect desk](NEAR_CONNECT.md) adds pinned Meteor/Intear choices,
+explicit account selection, reconnect/disconnect, exact wallet handoff and
+receipt-only recovery in a separate loopback testnet profile. It retains the
+neutral vanilla UI and local FileJournal; the Sandbox signer flow remains.
+Connection works without deployment credentials. Missing deployment disables
+transactions; the launcher marks the currently absent reconciled testnet indexer
+unhealthy, so new risk stays blocked. Mainnet/testnet vault actions remain off.
+
+[Evidence](../research/reports/G7_NEAR_CONNECT.md) includes controlled connector
+and HTTP fixtures, real Sandbox signing/lost-response recovery and the existing
+browser regression suite. Vendor wallet/public-testnet receipts, hosted
+NEP-413 authentication, independent review and a fresh full release rehearsal
+remain pending. G7/G9 are not complete; no deployment or release was published.
+
+APP-02 follow-up: [local navigation regression](../research/reports/G7_WALLET_ORIGIN_FIX.md)
+fixes `LOCAL_ORIGIN_ONLY` on external links to the wallet document. Forty HTTP
+cases and a real Chromium link/picker/reload test pass (42 Node test results
+including the parent). API/write, Host and Origin guards remain in force;
+independent review stays pending. Earlier wallet evidence retains its original
+source hashes and receipts.

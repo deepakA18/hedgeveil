@@ -10,8 +10,10 @@ void client.prepare({ signer_id: 'alice.sandbox', method: 'split', args: { serie
 void client.prepare({ signer_id: 'alice.sandbox', method: 'redeem', args: { ticket_id: '1' } });
 // @ts-expect-error Faults and administrative calls are not client methods.
 void client.prepare({ signer_id: 'alice.sandbox', method: 'fault_withdrawal', args: {} });
-// @ts-expect-error This increment does not support public networks.
+// @ts-expect-error Production stays disabled.
 const invalid: Configuration = { ...config, network: 'mainnet' };
+const testnet: Configuration = {...config, network:'testnet', chain_id:'testnet', rpc_url:'https://rpc.testnet.near.org/'};
+void new Client({config:testnet, journal:'target/typecheck-testnet'}).handoff(intent.operation_id);
 void client.prepare({ signer_id: 'maker.sandbox', method: 'cancel_quote', args: { nonce: '255' } });
 void client.prepare({ signer_id: 'maker.sandbox', method: 'advance_quote_epoch', args: { epoch: '1' } });
 void client.prepare({ signer_id: 'maker.sandbox', method: 'revoke_signing_key', args: { key_id: 'demo-key' } });

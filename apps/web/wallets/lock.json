@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "connector": "0.12.0",
+  "source": "https://github.com/azbang/near-connect/blob/main/repository/manifest.json",
+  "wallets": [
+    {
+      "manifest": {
+        "id": "meteor-wallet",
+        "name": "Meteor Wallet",
+        "icon": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%228%22%20fill%3D%22%23444%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2227%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2223%22%3EM%3C%2Ftext%3E%3C%2Fsvg%3E",
+        "description": "The most simple and secure wallet to manage your crypto, access DeFi, and explore Web3",
+        "website": "https://meteorwallet.app/",
+        "version": "1.1.1-sha256-96210256a89cb382bb7fe95f29d6a2489319da87472fe77018b4cdcbf1672b50",
+        "executor": "/wallet-executors/meteor-wallet-96210256a89cb382bb7fe95f29d6a2489319da87472fe77018b4cdcbf1672b50.js",
+        "type": "sandbox",
+        "features": {
+          "signMessage": true,
+          "signInWithoutAddKey": true,
+          "signInAndSignMessage": true,
+          "signAndSendTransaction": true,
+          "signAndSendTransactions": true,
+          "signInWithFunctionCallKey": true,
+          "signDelegateActions": true,
+          "mainnet": true,
+          "testnet": true
+        },
+        "platform": {
+          "web": "https://wallet.meteorwallet.app",
+          "chrome": "https://chromewebstore.google.com/detail/meteor-wallet/pcndjhkinnkaohffealmlmhaepkpmgkb",
+          "android": "https://play.google.com/store/apps/details?id=app.meteorwallet.v2",
+          "ios": "https://apps.apple.com/us/app/meteor-wallet/id6739558223"
+        },
+        "permissions": {
+          "storage": true,
+          "allowsOpen": [
+            "https://chromewebstore.google.com",
+            "https://wallet.meteorwallet.app",
+            "https://meteorwallet.app",
+            "meteorwallet://"
+          ],
+          "external": [
+            "meteorCom",
+            "meteorComV2"
+          ]
+        }
+      },
+      "source": "https://raw.githubusercontent.com/Meteor-Wallet/meteor_wallet_sdk/data-storage/storage/meteor-near-connect-latest.js",
+      "sha256": "96210256a89cb382bb7fe95f29d6a2489319da87472fe77018b4cdcbf1672b50"
+    },
+    {
+      "manifest": {
+        "id": "intear-wallet",
+        "name": "Intear Wallet",
+        "icon": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%228%22%20fill%3D%22%23444%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2227%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2223%22%3EI%3C%2Ftext%3E%3C%2Fsvg%3E",
+        "description": "A fast and secure wallet for everyday interactions with dapps",
+        "website": "https://intea.rs/",
+        "version": "1.0.0-sha256-6decc283352af197feff4988628899d19e05f4168a4277fe699bd8a0d6178e34",
+        "executor": "/wallet-executors/intear-wallet-6decc283352af197feff4988628899d19e05f4168a4277fe699bd8a0d6178e34.js",
+        "type": "sandbox",
+        "features": {
+          "signMessage": true,
+          "signTransaction": false,
+          "signAndSendTransaction": true,
+          "signAndSendTransactions": true,
+          "signInWithoutAddKey": true,
+          "verifyOwner": false,
+          "testnet": true,
+          "signDelegateActions": true,
+          "signInAndSignMessage": true,
+          "signInWithFunctionCallKey": true
+        },
+        "platform": {
+          "web": "https://wallet.intear.tech"
+        },
+        "permissions": {
+          "storage": true,
+          "location": true,
+          "allowsOpen": [
+            "https://wallet.intear.tech",
+            "intear://",
+            "https://logout-bridge-service.intear.tech"
+          ]
+        }
+      },
+      "source": "https://wallet.intear.tech/near-selector.js",
+      "sha256": "6decc283352af197feff4988628899d19e05f4168a4277fe699bd8a0d6178e34"
+    }
+  ]
+}
