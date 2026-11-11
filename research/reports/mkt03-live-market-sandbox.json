@@ -1,0 +1,1032 @@
+{
+  "scope": "Actual Coinbase market inputs, two project-operated makers, actual compiled-Wasm Sandbox fills; no public testnet or external settlement claim",
+  "checks": [
+    "two separate maker processes use the external pricing profile",
+    "unknown-series request is declined without retiring the maker",
+    "BUY P: externally priced signed quote executes real receipt",
+    "BUY N: externally priced signed quote executes real receipt",
+    "SELL P: externally priced signed quote executes real receipt",
+    "caller-supplied fixture marks never enter public-source quote diagnostics",
+    "archived actual market inputs replay into each recorded quote source",
+    "maker shutdown cancels issued quotes using actual receipts"
+  ],
+  "transactions": [
+    {
+      "label": "create buyer",
+      "hash": "Hz82m4eMs4JRN2vkNK9VNrA6RauwApmoV5LShEozvdKd",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "3oSRMfZBRPN8fXqP4F78vpFjgH8uMLnjBXtopmZBZeGv",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create maker-a",
+      "hash": "CqM9FB5d61N9JhwWwFjo4QoQukwXPvpDHwAu3EqeuPdn",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "EVxGWv77KMu6QEf3KNnMq8qREFFNeJkVAW86isvmcE6t",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create maker-b",
+      "hash": "21ZoWcavZ6cPyTbW63dmbaJhrvjao4SgLDnzKT6MVA9u",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "AnxmsJxr1tZCP8ktBBZw9sXGbJbz6Wyf3yuxvrCPTZAK",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create oracle",
+      "hash": "GBoB2HhNTFJUwsinwwLSxemYJ7tAed1GW8xNRzWyPwM9",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "411wxYPL6hypAGrF8xYxnNT6JewjBPRDCqHcxRXoTrps",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deploy oracle",
+      "hash": "6sNp68Sjsz21mQ6nfKYehjozCuyWBSAiNFX5bDi8XeLK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "88GdNyH1inrN5RkrLGoDjUYpjBK2Jb5hJ7HgdixUW9pG",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "EHdj41RosMbhqr7Uxrwbbyxjpd2tmFYqMcm7vZ19rigd",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create core",
+      "hash": "wjqG1Vvn6m2JiDMna3ZihW3vkvB9z82oMjz1MBgzt9u",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "qBXkMvDqFwLMDEdmUi78wSoSh1aM9ryhmbbWpThiAQF",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deploy core",
+      "hash": "6ZbD43JvyXjbx2YmpxeXGdn9DJBHnUXc1Ux1u3TejLMj",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "F4a3aZX7RWWK8AeL3AMY51dtwVMwX5fV2o3PtDVHmur3",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "9EN6EJobs9tQJ6sGZbNkK7aGSWF7ASqwRkZZ2LX3ZdnP",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "9P8kzMhjPUYUTr3BHM77nv1xsM2qC8sqQAwrLRdaJPJE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "3oZUPMEAWeQHUyKsZLo7d8M7UsfMyM3C5GvPLBfV7dpB",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "DuC8JHU9GwZ3pee1xWL1VetmQzPMrJ7NDmuBRkdimuZw",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "CEBqnzMMgURz6K7jVnV9UW615gnAdkSDCFs4si1rwgve",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Cbj4hTf4ftizyDcAVkTUD8PMtGSo2TJEQwPkLS6ZjBby",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "HSbfd3TFJbdFPPLG3PkLTD86X4Su7aqtSNgmsY6n3FuD",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "De5gEEhoPuXgF9ntJP6YwNhhT9fXoMzpjdGUwwYxXXwF",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BEkJDNVTmJkQgAnKPJbUiJCFKSLZ4wZvdPmsMCTDGFUZ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "EscPiMtd6LbCkYvBHywFfE4sGo4CbpzqVaqRMMqJsxRf",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "822LqkkwY4ArLqHuxnieDPNwXnJkg7894Jt3TxJHD7Vf",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "G6HNm5MPeVjW9Jz7tFsa5GsTFiLqai12sLx7rEFd2dyE",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "ETNHvmGeHvHpMSoWZf7T4sWRPgRNpsW5EqvYk65MSRYB",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "DYoVzU1eYWqZppgJpCueYL7TjRxgKvRhJrJXUdWgRKKM",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "MuBnrp3c7UGp6Yh4DyWGYCmFsYqGqNuRe1nd4DQxaPV",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "EoFjwEQNJufvuqk46ax9En6BiQuu44soZXh9LHLCEpYE",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "C3cHQ3YPb4KMYb8hF2ywWHDp4MRTKDa31yHwVVxbGnX",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "A68U2Vn6bCTqFwC2qkaKMtLMeuqNEGVa2WAoz5GyXHEM",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "82NhJtwYBcveJS9dWnqBFh7bAL2qfFjUrkWwpNs5XE13",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "4CBny6fAyjVPdmWt7EoN2VTA2f9bLVz4MLYfFWYRR5ir",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FQgw5fUUeHwW59kxwniQiuZ12e9FcAQXgQKMBpxFs8pi",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "J9xMdoMSuNrkouM1asAaPs2dS93Tcmhox41R3S7HHnZ1",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create_series",
+      "hash": "AC5mU3qFqVEn2hgMN3auVc1c1ZK3Tx95atkV91fnc2i9",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "DFpHDGxtZZsfWsF6PW8nCyE8JyTgvgDockXsY3pCKGYv",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "ECDPxZkZ8JHLcfTVigcDPR1JAbwhhYPvrM4R7tzk4Uqu",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "J8ebm4RP8phY1VG7DV1r3RWsGjG4XVVRyNTg2xuJXzhm",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7f33XivhFtrSNVDqAUqqgWVtA2nfj4Rmu3DgzyN3u8Ke",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "EABZiWkzB1ya82SkYFQ1Mirx3vqDuxz8jXxV5BCtpVhL",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "B6RDAaBxPNMB27qtya5aKLgMxhYVJicAuxNnWQKZTnNL",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4MaLR25eREeNV8RSskGzGkMX7Rq153azwBKyakbGALZk",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "BWN24QzE2iLH14KW4vz8wJMoJ4X43LWiFWHtCTfmenYx",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "register_signing_key",
+      "hash": "DFwSV8emubZNqyDHfgagMJNCtBpLazQ3F3Ro8FAYmiFM",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "3tKSupL5owM422er8SAKkw7qMAzz6pjmuAD3dBJNPtiV",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "BWoWb7PrjRTDN9D5shUjYAd934EJzbcHnumcfaqcatMS",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "register_signing_key",
+      "hash": "AoojyrzwHafVEiUUgGY5HqPYoDBCE8qYdXFA5tnQPeuq",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4SagcVZPM19mTMJ43mjbqNN5s2gn5NKKvab2mmy2wASK",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "3jYxFGTarKodzusqFqtJ4QUX13c8BEiVigtg8P6Cw8Ev",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "BpK6Qg2DyyDHca3hd1qsJN8rBFiwoByjWirS9B1zS2nd",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5qGfNWKvoZqTyqGFtzu5HRSsL6HJFvqRPqTyfD6LbHWh",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "czFbdeBGvmJmCfqtuZPgaQWD1rZjuYFpScAEMtMPCSH",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "Aaj672wCVGufRTca6fVKJkS9tDh4JUZpcg4Zg7vW1e9H",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "hA6NuRMcjhbdSWP9tEB716P3e17dxJy8YHhjSDoBLL9",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "3sCR6weMip2m2pn9Tf5e5NyNn6LFse6SHTUNrSrUYeCj",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "AVFiY9QSAfRmc4eUJca5tECd8QTorqRwgk2B9gMMU61Y",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HKCdxekdeVT71faGqnBWb8KkQLKH5JAktR2LC68xkjYS",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "5Wwb4MuVvjoPPM2wW1avxm3ijZC4v9vB9mfwWsz6n29h",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "maker cancellation",
+      "hash": "CwFGvP9dCq5dn6dcxFuGSfXwxSwNg4LZeTJRVh7wAwUW",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Dy9JDEmuDXyEBH83fjNMs9RFVnWEF6DHAQgahVjrM34T",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "Gf2Xt3ju7hHbd3eHHERPStQGPFnaGMUFJGH5baKrok2x",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "maker cancellation",
+      "hash": "75J4qR7zLPn2n9AQ4ae8TWYPpWA8TJGEsQ43JYNQMdUC",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CaTJXBMS3x6ZnDzHuuE3pvxU5uha6oRZehEG4jtBcZsZ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "6g2sjLT2ZFryxZ3qxpY62DTdzDjYFA3KWEzyqSuFBREA",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    }
+  ],
+  "quotes": [
+    {
+      "quote": {
+        "kind": "quote",
+        "schema_version": "0.2.0",
+        "domain": {
+          "protocol_version": "1",
+          "network": "sandbox",
+          "contract_id": "core.sandbox"
+        },
+        "maker": "maker-a.sandbox",
+        "taker": "buyer.sandbox",
+        "maker_gives": [
+          {
+            "asset": {
+              "kind": "P",
+              "series_id": "market"
+            },
+            "amount": "100000000000000000000000"
+          }
+        ],
+        "taker_gives": [
+          {
+            "asset": {
+              "kind": "COLLATERAL"
+            },
+            "amount": "97034573448412050000000"
+          }
+        ],
+        "fee": {
+          "asset": "NATIVE_NEAR",
+          "amount": "48517286724206025000",
+          "receiver": "maker-a.sandbox"
+        },
+        "fill_rule": "ALL_OR_NOTHING",
+        "rounding": "EXACT_AMOUNTS",
+        "nonce": "0",
+        "cancellation_epoch": "0",
+        "expiry_ns": "1794283938508736000",
+        "signing_key_id": "live-market",
+        "signature_scheme": "ed25519",
+        "signature": "6252905de15cf6fb95787862893890cb77afba996467b4deb72daf1584406bd482e489053ee9095c5d160980946906a82156e62af1672433a7993c38caab550a"
+      },
+      "reason": null,
+      "diagnostics": {
+        "equity_atomic": "4000000000000000000000000",
+        "notional_atomic": "97034573448412050000000",
+        "reference_timestamp_ns": "1794283917492833183",
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+        "snapshot_hash": "3e4766272f9f3229b9ac31e75c8049ba50e3668212e6c1663612aba6c92c3ebd",
+        "sigma": 0.9755627476107629,
+        "history_end_ns": "1794283200000000000"
+      }
+    },
+    {
+      "quote": {
+        "kind": "quote",
+        "schema_version": "0.2.0",
+        "domain": {
+          "protocol_version": "1",
+          "network": "sandbox",
+          "contract_id": "core.sandbox"
+        },
+        "maker": "maker-b.sandbox",
+        "taker": "buyer.sandbox",
+        "maker_gives": [
+          {
+            "asset": {
+              "kind": "P",
+              "series_id": "market"
+            },
+            "amount": "100000000000000000000000"
+          }
+        ],
+        "taker_gives": [
+          {
+            "asset": {
+              "kind": "COLLATERAL"
+            },
+            "amount": "97227389292323450000000"
+          }
+        ],
+        "fee": {
+          "asset": "NATIVE_NEAR",
+          "amount": "48613694646161725000",
+          "receiver": "maker-b.sandbox"
+        },
+        "fill_rule": "ALL_OR_NOTHING",
+        "rounding": "EXACT_AMOUNTS",
+        "nonce": "0",
+        "cancellation_epoch": "0",
+        "expiry_ns": "1794283938508736000",
+        "signing_key_id": "live-market",
+        "signature_scheme": "ed25519",
+        "signature": "98c275d5ba5ab7d25afbb3f1898448c398338887e63d50168728ed81eb2e464150f777dcc2e5c77ad8255efe006f808978bd6bc130ea60bbd5e422df466a7703"
+      },
+      "reason": null,
+      "diagnostics": {
+        "equity_atomic": "4000000000000000000000000",
+        "notional_atomic": "97227389292323450000000",
+        "reference_timestamp_ns": "1794283917492833183",
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+        "snapshot_hash": "3e4766272f9f3229b9ac31e75c8049ba50e3668212e6c1663612aba6c92c3ebd",
+        "sigma": 0.9755627476107629,
+        "history_end_ns": "1794283200000000000"
+      }
+    },
+    {
+      "quote": {
+        "kind": "quote",
+        "schema_version": "0.2.0",
+        "domain": {
+          "protocol_version": "1",
+          "network": "sandbox",
+          "contract_id": "core.sandbox"
+        },
+        "maker": "maker-a.sandbox",
+        "taker": "buyer.sandbox",
+        "maker_gives": [
+          {
+            "asset": {
+              "kind": "N",
+              "series_id": "market"
+            },
+            "amount": "100000000000000000000000"
+          }
+        ],
+        "taker_gives": [
+          {
+            "asset": {
+              "kind": "COLLATERAL"
+            },
+            "amount": "3615417687241800000000"
+          }
+        ],
+        "fee": {
+          "asset": "NATIVE_NEAR",
+          "amount": "1807708843620900000",
+          "receiver": "maker-a.sandbox"
+        },
+        "fill_rule": "ALL_OR_NOTHING",
+        "rounding": "EXACT_AMOUNTS",
+        "nonce": "1",
+        "cancellation_epoch": "0",
+        "expiry_ns": "1794283939376464000",
+        "signing_key_id": "live-market",
+        "signature_scheme": "ed25519",
+        "signature": "e392d9dd8c18b60c12d22472e98dc2e1f1657fb931e46d5f3e0fffec90c3c72b883c85ba3dba40b0eac313275cafd9409194317ba0275a8a5463e4213692440f"
+      },
+      "reason": null,
+      "diagnostics": {
+        "equity_atomic": "4000675159972336256025000",
+        "notional_atomic": "3615417687241800000000",
+        "reference_timestamp_ns": "1794283917492833183",
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+        "snapshot_hash": "3e4766272f9f3229b9ac31e75c8049ba50e3668212e6c1663612aba6c92c3ebd",
+        "sigma": 0.9755627476107629,
+        "history_end_ns": "1794283200000000000"
+      }
+    },
+    {
+      "quote": {
+        "kind": "quote",
+        "schema_version": "0.2.0",
+        "domain": {
+          "protocol_version": "1",
+          "network": "sandbox",
+          "contract_id": "core.sandbox"
+        },
+        "maker": "maker-b.sandbox",
+        "taker": "buyer.sandbox",
+        "maker_gives": [
+          {
+            "asset": {
+              "kind": "N",
+              "series_id": "market"
+            },
+            "amount": "100000000000000000000000"
+          }
+        ],
+        "taker_gives": [
+          {
+            "asset": {
+              "kind": "COLLATERAL"
+            },
+            "amount": "3622601825716200000000"
+          }
+        ],
+        "fee": {
+          "asset": "NATIVE_NEAR",
+          "amount": "1811300912858100000",
+          "receiver": "maker-b.sandbox"
+        },
+        "fill_rule": "ALL_OR_NOTHING",
+        "rounding": "EXACT_AMOUNTS",
+        "nonce": "1",
+        "cancellation_epoch": "0",
+        "expiry_ns": "1794283939376464000",
+        "signing_key_id": "live-market",
+        "signature_scheme": "ed25519",
+        "signature": "e61cc79a157536ed9a940a667651abf5d130160116e98ae8b2552a5c4ebe2b632b45143feef76e9e4e7be7819bcc9ffc61663756bb79112e8f8055f361bac903"
+      },
+      "reason": null,
+      "diagnostics": {
+        "equity_atomic": "4000000000000000000000000",
+        "notional_atomic": "3622601825716200000000",
+        "reference_timestamp_ns": "1794283917492833183",
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+        "snapshot_hash": "3e4766272f9f3229b9ac31e75c8049ba50e3668212e6c1663612aba6c92c3ebd",
+        "sigma": 0.9755627476107629,
+        "history_end_ns": "1794283200000000000"
+      }
+    },
+    {
+      "quote": {
+        "kind": "quote",
+        "schema_version": "0.2.0",
+        "domain": {
+          "protocol_version": "1",
+          "network": "sandbox",
+          "contract_id": "core.sandbox"
+        },
+        "maker": "maker-a.sandbox",
+        "taker": "buyer.sandbox",
+        "maker_gives": [
+          {
+            "asset": {
+              "kind": "COLLATERAL"
+            },
+            "amount": "95782216509354600000000"
+          }
+        ],
+        "taker_gives": [
+          {
+            "asset": {
+              "kind": "P",
+              "series_id": "market"
+            },
+            "amount": "100000000000000000000000"
+          }
+        ],
+        "fee": {
+          "asset": "NATIVE_NEAR",
+          "amount": "47891108254677300000",
+          "receiver": "maker-a.sandbox"
+        },
+        "fill_rule": "ALL_OR_NOTHING",
+        "rounding": "EXACT_AMOUNTS",
+        "nonce": "2",
+        "cancellation_epoch": "0",
+        "expiry_ns": "1794283940236998000",
+        "signing_key_id": "live-market",
+        "signature_scheme": "ed25519",
+        "signature": "665a0e1afdf3dbe9591155b8487e3756382b4fc8f281db6bd03378d156d2938f367e3e25c7f7a5b5f31857ced9076647c7ff20f98aabc86001f26766fa8dae0b"
+      },
+      "reason": null,
+      "diagnostics": {
+        "equity_atomic": "4000700316131221676925000",
+        "notional_atomic": "95782216509354600000000",
+        "reference_timestamp_ns": "1794283917492833183",
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+        "snapshot_hash": "1657ad0000ce4061dd9a554cfdabdaff11e8704ddae7423ed6872be63607adb1",
+        "sigma": 0.9755627476107629,
+        "history_end_ns": "1794283200000000000"
+      }
+    },
+    {
+      "quote": {
+        "kind": "quote",
+        "schema_version": "0.2.0",
+        "domain": {
+          "protocol_version": "1",
+          "network": "sandbox",
+          "contract_id": "core.sandbox"
+        },
+        "maker": "maker-b.sandbox",
+        "taker": "buyer.sandbox",
+        "maker_gives": [
+          {
+            "asset": {
+              "kind": "COLLATERAL"
+            },
+            "amount": "95589398760971400000000"
+          }
+        ],
+        "taker_gives": [
+          {
+            "asset": {
+              "kind": "P",
+              "series_id": "market"
+            },
+            "amount": "100000000000000000000000"
+          }
+        ],
+        "fee": {
+          "asset": "NATIVE_NEAR",
+          "amount": "47794699380485700000",
+          "receiver": "maker-b.sandbox"
+        },
+        "fill_rule": "ALL_OR_NOTHING",
+        "rounding": "EXACT_AMOUNTS",
+        "nonce": "2",
+        "cancellation_epoch": "0",
+        "expiry_ns": "1794283940236998000",
+        "signing_key_id": "live-market",
+        "signature_scheme": "ed25519",
+        "signature": "c165fcb6e54ce02c20c02938b25d956616d0db161fd7cfd59b75b50f439a387c95fb7c3679940995ad92217e495690cb8132b3ba43d48bd709c2c6c573868c0d"
+      },
+      "reason": null,
+      "diagnostics": {
+        "equity_atomic": "4000000000000000000000000",
+        "notional_atomic": "95589398760971400000000",
+        "reference_timestamp_ns": "1794283917492833183",
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+        "snapshot_hash": "1657ad0000ce4061dd9a554cfdabdaff11e8704ddae7423ed6872be63607adb1",
+        "sigma": 0.9755627476107629,
+        "history_end_ns": "1794283200000000000"
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "raw": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "ticker": "{\"ask\":\"3.5955\",\"bid\":\"3.5934\",\"volume\":\"6090872.341\",\"trade_id\":36375851,\"price\":\"3.5943\",\"size\":\"100\",\"time\":\"2026-11-10T04:11:57.492833183Z\",\"rfq_volume\":\"601.097376\"}",
+        "candles": "[[1794283200,3.5874,3.6188,3.591,3.6109,5965.959],[1794279600,3.5757,3.6095,3.5973,3.5943,97000.292],[1794276000,3.5553,3.6203,3.612,3.5957,346885.561],[1794272400,3.6081,3.6488,3.6324,3.6113,152798.49],[1794268800,3.6093,3.6352,3.6234,3.628,70741.284],[1794265200,3.6094,3.6447,3.6447,3.6277,220322.624],[1794261600,3.6342,3.6683,3.648,3.6442,375587.111],[1794258000,3.5952,3.664,3.6118,3.6483,674811.449],[1794254400,3.6036,3.6464,3.611,3.6134,155647.244],[1794250800,3.5858,3.6577,3.6261,3.612,336210.846],[1794247200,3.5616,3.6309,3.578,3.6264,152807.97],[1794243600,3.5601,3.6278,3.6119,3.5771,187189.549],[1794240000,3.577,3.6838,3.6735,3.6122,462381.587],[1794236400,3.5919,3.681,3.6086,3.6739,721280.59],[1794232800,3.5256,3.63,3.5424,3.605,305133.423],[1794229200,3.5193,3.57,3.5574,3.5416,249060.315],[1794225600,3.5042,3.5873,3.508,3.5594,331037.732],[1794222000,3.4758,3.5675,3.4827,3.508,163491.053],[1794218400,3.4748,3.5337,3.521,3.4843,138627.334],[1794214800,3.5106,3.5742,3.549,3.519,244055.645],[1794211200,3.4552,3.5574,3.474,3.5504,169425.48],[1794207600,3.456,3.531,3.5307,3.4725,247353.787],[1794204000,3.5223,3.5622,3.5532,3.5316,168896.053],[1794200400,3.547,3.6033,3.6,3.5522,112691.732],[1794196800,3.6001,3.633,3.6114,3.6025,79378.225],[1794193200,3.5835,3.6336,3.624,3.6088,201855.09],[1794189600,3.608,3.6552,3.6176,3.626,207626.813],[1794186000,3.58,3.654,3.6256,3.6185,251436.754],[1794182400,3.555,3.6332,3.5836,3.6253,320117.719],[1794178800,3.5424,3.6859,3.5425,3.5835,640136.568],[1794175200,3.4871,3.5642,3.5061,3.5424,870525.743],[1794171600,3.4472,3.634,3.6285,3.5048,727899.14],[1794168000,3.6167,3.6465,3.6419,3.6286,366031.479],[1794164400,3.6408,3.6708,3.6664,3.6419,194608.367],[1794160800,3.6038,3.6701,3.604,3.6664,434385.684],[1794157200,3.5802,3.613,3.6045,3.6052,347554.519],[1794153600,3.5908,3.7124,3.7022,3.6045,458368.738],[1794150000,3.6954,3.7271,3.7191,3.7023,174005.131],[1794146400,3.675,3.7238,3.6832,3.718,165055.25],[1794142800,3.6741,3.7335,3.7106,3.6846,195284.011],[1794139200,3.694,3.722,3.7168,3.7081,189230.487],[1794135600,3.7042,3.7438,3.7083,3.7168,182810.623],[1794132000,3.6892,3.7158,3.7126,3.7083,161516.584],[1794128400,3.6845,3.7144,3.6947,3.7126,230747.416],[1794124800,3.6945,3.7213,3.7065,3.6965,210083.651],[1794121200,3.6972,3.715,3.698,3.7077,184482.852],[1794117600,3.6893,3.7212,3.6969,3.6988,228527.591],[1794114000,3.6657,3.7035,3.6672,3.6969,151652.927],[1794110400,3.6569,3.7065,3.7017,3.6687,251640.397],[1794106800,3.6924,3.7241,3.7062,3.7017,154990.264],[1794103200,3.6771,3.7086,3.6874,3.7062,153078.034],[1794099600,3.6832,3.7144,3.7053,3.687,217302.084],[1794096000,3.6859,3.7336,3.7307,3.7061,258835.278],[1794092400,3.662,3.738,3.6678,3.731,288642.172],[1794088800,3.6456,3.674,3.6563,3.6689,226748.433],[1794085200,3.6178,3.6597,3.6348,3.6554,222248.404],[1794081600,3.6225,3.6573,3.6436,3.6353,200135.17],[1794078000,3.6373,3.6754,3.674,3.6439,165014.773],[1794074400,3.651,3.6824,3.6541,3.6747,298517.372],[1794070800,3.6106,3.6653,3.6409,3.6539,806583.94],[1794067200,3.6305,3.6787,3.6785,3.6395,197237.457],[1794063600,3.6511,3.7001,3.7001,3.6792,421448.269],[1794060000,3.6929,3.7219,3.7122,3.7002,182387.267],[1794056400,3.6813,3.7259,3.6937,3.7122,218133.737],[1794052800,3.6768,3.7079,3.7021,3.6937,185604.957],[1794049200,3.683,3.7138,3.6927,3.7,135152.047],[1794045600,3.6729,3.7113,3.6987,3.6927,183268.954],[1794042000,3.6941,3.7443,3.7427,3.7,140460.326],[1794038400,3.7325,3.7553,3.7391,3.7411,130354.204],[1794034800,3.7332,3.7572,3.7414,3.7368,150371.298],[1794031200,3.7271,3.7483,3.7355,3.7402,186498.189],[1794027600,3.7365,3.7703,3.7595,3.7365,142246.427],[1794024000,3.7303,3.7604,3.7465,3.7577,158604.857],[1794020400,3.7082,3.7612,3.7419,3.7465,171255.455],[1794016800,3.7307,3.774,3.7475,3.7402,215270.121],[1794013200,3.7296,3.7579,3.7313,3.7473,383478.934],[1794009600,3.697,3.7331,3.7082,3.7315,197616.325],[1794006000,3.6878,3.7158,3.6979,3.7086,65688.683],[1794002400,3.6946,3.7591,3.735,3.6973,225389.233],[1793998800,3.6934,3.738,3.699,3.7371,121674.457],[1793995200,3.6864,3.739,3.732,3.699,116887.014],[1793991600,3.697,3.7489,3.744,3.7306,78040.185],[1793988000,3.7098,3.7651,3.7242,3.7464,153569.402],[1793984400,3.7008,3.7911,3.7712,3.7249,290659.46],[1793980800,3.7112,3.7791,3.7532,3.7698,273551.466],[1793977200,3.7207,3.8036,3.7611,3.7548,707235.437],[1793973600,3.6784,3.8232,3.7152,3.761,907995.276],[1793970000,3.6813,3.7279,3.709,3.7136,486555.653],[1793966400,3.7048,3.7927,3.7305,3.7089,285500.198],[1793962800,3.7243,3.7545,3.7411,3.7312,185803.513],[1793959200,3.72,3.751,3.7278,3.7417,100836.802],[1793955600,3.711,3.7522,3.7122,3.7272,160647.266],[1793952000,3.6857,3.7375,3.6939,3.7112,446683.231],[1793948400,3.6311,3.6928,3.6684,3.6908,139767.06],[1793944800,3.663,3.7089,3.6756,3.6689,64408.331],[1793941200,3.6445,3.7014,3.6636,3.6766,84795.754],[1793937600,3.6568,3.6911,3.6813,3.6637,177583.208],[1793934000,3.662,3.7169,3.7107,3.683,118400.364],[1793930400,3.693,3.738,3.7278,3.7133,91750.275],[1793926800,3.6955,3.7674,3.7647,3.7277,172828.537],[1793923200,3.6556,3.7737,3.6569,3.7641,348802.392],[1793919600,3.6181,3.6866,3.67,3.6569,586878.118],[1793916000,3.655,3.7141,3.6896,3.6699,388753.87],[1793912400,3.664,3.7205,3.6918,3.6875,167177.774],[1793908800,3.6712,3.7239,3.7007,3.6992,906884.229],[1793905200,3.6413,3.7088,3.6636,3.7031,1608280.49],[1793901600,3.6337,3.7045,3.6847,3.6642,1182119.201],[1793898000,3.6789,3.7388,3.7348,3.6917,647854.988],[1793894400,3.6844,3.809,3.6948,3.7356,982205.985],[1793890800,3.6298,3.8626,3.8596,3.6965,3096131.512],[1793887200,3.8179,3.9629,3.9486,3.8597,2530709.305],[1793883600,3.9104,3.9615,3.9341,3.9505,166754.06],[1793880000,3.9227,4.0122,4.012,3.9355,412445.327],[1793876400,4.0049,4.031,4.0109,4.013,58753.365],[1793872800,4.008,4.0504,4.0293,4.0126,39628.4],[1793869200,4.0012,4.0429,4.0404,4.0281,48315.351],[1793865600,4.0012,4.0491,4.0166,4.0379,51230.609],[1793862000,4.0005,4.0463,4.0295,4.0174,55700.253],[1793858400,3.9934,4.054,4.0073,4.0277,39847.677],[1793854800,4,4.0428,4.042,4.0053,69026.765],[1793851200,3.9984,4.061,4.0287,4.0424,177140.94],[1793847600,4.0299,4.0736,4.0429,4.0302,154974.483],[1793844000,4.023,4.063,4.0339,4.0437,105958.623],[1793840400,3.9829,4.0637,3.9996,4.0353,171637.635],[1793836800,3.9861,4.0356,4.0052,4.0025,391491.399],[1793833200,4.0018,4.0656,4.0648,4.0018,287288.735],[1793829600,4.0133,4.0866,4.0145,4.0657,301726.981],[1793826000,3.9963,4.0412,4.0191,4.0132,144562.372],[1793822400,3.972,4.0374,3.9822,4.0184,160690.264],[1793818800,3.976,4.0523,4.0271,3.9802,288452.885],[1793815200,4.0043,4.1536,4.1202,4.0256,410830.408],[1793811600,4.0517,4.1393,4.1202,4.1171,378151.941],[1793808000,4.1077,4.1906,4.1395,4.1168,521305.956],[1793804400,4.1202,4.2665,4.1496,4.1385,1345623.611],[1793800800,3.9575,4.1996,4.0004,4.1514,1693366.659],[1793797200,3.9929,4.0263,4.0003,4.0006,200469.744],[1793793600,3.9804,4.0829,4.0804,3.9976,480675.402],[1793790000,4.0752,4.1294,4.0916,4.0795,221570.034],[1793786400,4.0504,4.1166,4.0633,4.0943,644698.036],[1793782800,4.0263,4.0757,4.057,4.0644,350546.597],[1793779200,4.0155,4.0694,4.0184,4.0562,486788.174],[1793775600,3.919,4.0223,3.9389,4.0174,601436.695],[1793772000,3.8805,3.95,3.8805,3.9399,539597.42],[1793768400,3.8094,3.9398,3.8281,3.8799,532386.835],[1793764800,3.7164,3.838,3.7432,3.8282,540719.127],[1793761200,3.6879,3.7505,3.7141,3.7454,632055.421],[1793757600,3.7067,3.7947,3.7686,3.714,515668.117],[1793754000,3.745,3.8327,3.8218,3.769,1168924.809],[1793750400,3.78,3.843,3.8276,3.824,512766.531],[1793746800,3.826,3.8762,3.8508,3.8266,171960.42],[1793743200,3.8273,3.8803,3.8797,3.847,301725.487],[1793739600,3.8205,3.8945,3.8303,3.8769,314688.653],[1793736000,3.8077,3.8465,3.8188,3.8304,240831.803],[1793732400,3.8036,3.8339,3.8163,3.8196,277227.297],[1793728800,3.8096,3.8864,3.8293,3.8185,728051.523],[1793725200,3.8044,3.8482,3.8327,3.8291,518107.902],[1793721600,3.7891,3.8517,3.8517,3.8343,340388.398],[1793718000,3.8146,3.8656,3.8605,3.8514,452602.419],[1793714400,3.8486,3.8999,3.885,3.8603,328543.538],[1793710800,3.8488,3.9336,3.9006,3.8855,299534.473],[1793707200,3.8466,3.9242,3.8669,3.9009,675125.891],[1793703600,3.8226,3.8789,3.8239,3.8647,230896.65],[1793700000,3.816,3.846,3.8379,3.824,100848.035],[1793696400,3.7754,3.8385,3.7794,3.8384,304878.394],[1793692800,3.7354,3.7867,3.7776,3.7792,198390.191],[1793689200,3.7502,3.8055,3.7674,3.7768,200942.336],[1793685600,3.7468,3.7799,3.7687,3.767,364136.441],[1793682000,3.7677,3.8278,3.8261,3.7715,354522.96],[1793678400,3.8024,3.8675,3.8226,3.826,86627.894],[1793674800,3.7852,3.8303,3.7989,3.8211,270582.268],[1793671200,3.79,3.8524,3.8304,3.7989,623092.216],[1793667600,3.8273,3.8795,3.8628,3.8304,261444.52],[1793664000,3.853,3.9006,3.8593,3.8631,284849.602],[1793660400,3.8452,3.8752,3.8608,3.8582,277274.671],[1793656800,3.8571,3.9177,3.9084,3.8656,142065.139],[1793653200,3.8486,3.9088,3.8647,3.9079,374555.493],[1793649600,3.8529,3.9313,3.8854,3.8653,662507.509],[1793646000,3.8375,3.9012,3.8885,3.8861,802954.36],[1793642400,3.8619,3.9457,3.9249,3.8873,735172.652],[1793638800,3.9004,3.9869,3.9757,3.927,778847.855],[1793635200,3.9603,4.0209,4.0059,3.9723,521199.97],[1793631600,3.9877,4.0829,4.0681,4.006,529228.639],[1793628000,4.0286,4.0991,4.0824,4.0675,347661.351],[1793624400,4.05,4.132,4.0992,4.0835,513344.261],[1793620800,4.0794,4.1502,4.1245,4.0978,197381.94],[1793617200,4.0941,4.1397,4.1224,4.1255,125457.183],[1793613600,4.0903,4.1231,4.1205,4.1225,189463.435],[1793610000,4.1153,4.1507,4.1344,4.1206,96729.286],[1793606400,4.0775,4.1387,4.105,4.1347,173474.846],[1793602800,4.0698,4.1399,4.1111,4.105,408874.184],[1793599200,4.0964,4.239,4.239,4.1104,720554.168],[1793595600,4.2384,4.2763,4.2633,4.242,50920.393],[1793592000,4.2505,4.2954,4.2919,4.2625,72755.593],[1793588400,4.2696,4.3304,4.2707,4.2937,209990.658],[1793584800,4.2617,4.3192,4.2958,4.2716,432339.84],[1793581200,4.2481,4.3442,4.2481,4.2989,338741.792],[1793577600,4.2435,4.3112,4.2837,4.2519,69462.331],[1793574000,4.2534,4.2966,4.2534,4.284,108171.223],[1793570400,4.2354,4.2929,4.2912,4.249,244418.982],[1793566800,4.2569,4.307,4.2787,4.2901,75516.811],[1793563200,4.2375,4.2843,4.2562,4.276,178349.713],[1793559600,4.2248,4.2674,4.2545,4.2564,307813.914],[1793556000,4.253,4.301,4.3008,4.2542,121095.54],[1793552400,4.2961,4.3238,4.3166,4.2986,87272.109],[1793548800,4.3034,4.3334,4.3271,4.3176,80102.138],[1793545200,4.3175,4.3704,4.3679,4.3233,129927.367],[1793541600,4.3656,4.4017,4.38,4.3656,324952.465],[1793538000,4.3752,4.4051,4.3848,4.3819,97240.442],[1793534400,4.3414,4.3842,4.372,4.3837,62045.205],[1793530800,4.3704,4.3918,4.3768,4.3754,58187.457],[1793527200,4.3686,4.4216,4.3884,4.3771,161969.533],[1793523600,4.3621,4.3984,4.3921,4.391,29358.12],[1793520000,4.3477,4.3978,4.3602,4.3945,92710.707],[1793516400,4.3494,4.3786,4.3669,4.3625,54275.143],[1793512800,4.3612,4.4017,4.3765,4.3671,83817.551],[1793509200,4.3569,4.3988,4.3795,4.3782,68075.773],[1793505600,4.3706,4.4119,4.401,4.3808,162489.42],[1793502000,4.397,4.4389,4.4162,4.4018,39351.524],[1793498400,4.4149,4.4808,4.464,4.4193,132519.499],[1793494800,4.4193,4.4867,4.4194,4.464,135813.616],[1793491200,4.4075,4.4411,4.4266,4.4207,81782.79],[1793487600,4.407,4.4409,4.4158,4.4245,88809.44],[1793484000,4.4097,4.4664,4.4532,4.4144,26905.322],[1793480400,4.3951,4.4548,4.4106,4.4548,111136.627],[1793476800,4.4,4.4432,4.4298,4.4102,80541.013],[1793473200,4.4141,4.4986,4.4979,4.4276,204316.801],[1793469600,4.4844,4.5563,4.51,4.4976,587973.79],[1793466000,4.4691,4.5378,4.5217,4.5097,577985.972],[1793462400,4.4517,4.5398,4.4647,4.5148,413704.299],[1793458800,4.4129,4.485,4.4244,4.4655,175236.604],[1793455200,4.3918,4.455,4.4022,4.4226,152053.294],[1793451600,4.3814,4.432,4.4288,4.404,159824.3],[1793448000,4.3254,4.4498,4.3293,4.4288,516175.435],[1793444400,4.3061,4.3426,4.3094,4.3302,70947.817],[1793440800,4.3,4.3395,4.3086,4.3082,77236.934],[1793437200,4.3079,4.3458,4.332,4.3079,64057.597],[1793433600,4.3016,4.3368,4.3133,4.3268,63063.505],[1793430000,4.2888,4.3598,4.3391,4.3156,166495.953],[1793426400,4.3081,4.3621,4.3104,4.338,233658.992],[1793422800,4.2718,4.3366,4.2828,4.3093,92389.875],[1793419200,4.2577,4.312,4.2936,4.2855,218324.028],[1793415600,4.2875,4.3291,4.3269,4.2908,90511.293],[1793412000,4.3246,4.3754,4.345,4.3252,116172.454],[1793408400,4.3291,4.3728,4.341,4.3436,192645.989],[1793404800,4.2745,4.3508,4.2849,4.3377,183700.149],[1793401200,4.2771,4.3449,4.2989,4.2864,300712.515],[1793397600,4.2844,4.3262,4.3032,4.2994,88838.236],[1793394000,4.286,4.3406,4.3023,4.2993,131805.706],[1793390400,4.275,4.3544,4.3313,4.3067,180269.258],[1793386800,4.2543,4.3357,4.2666,4.3327,519131.164],[1793383200,4.2237,4.281,4.2556,4.2673,528754.571],[1793379600,4.2144,4.3093,4.2818,4.2575,609333.298],[1793376000,4.2716,4.3522,4.306,4.2814,385384.997],[1793372400,4.2695,4.4236,4.3296,4.308,723810.909],[1793368800,4.2331,4.349,4.2877,4.3294,882984.485],[1793365200,4.21,4.2996,4.284,4.2902,796856.2],[1793361600,4.2611,4.3247,4.3029,4.2842,496988.324],[1793358000,4.2867,4.3728,4.3654,4.3036,277369.268],[1793354400,4.3126,4.3722,4.3678,4.3636,307739.857],[1793350800,4.2839,4.3753,4.3456,4.3693,341533.59],[1793347200,4.2389,4.3816,4.2463,4.3487,797107.369],[1793343600,4.2054,4.3321,4.3258,4.2477,379921.738],[1793340000,4.163,4.3435,4.186,4.3272,325334.159],[1793336400,4.1761,4.2826,4.22,4.1862,179194.588],[1793332800,4.118,4.2374,4.158,4.2184,270872.405],[1793329200,4.0591,4.1656,4.0591,4.1642,473318.072],[1793325600,3.9649,4.1029,3.995,4.059,785877.832],[1793322000,3.9479,4.033,3.9872,3.9922,664195.81],[1793318400,3.9,4.0702,4.0501,3.9901,1477603.963],[1793314800,4.0342,4.1133,4.1018,4.0521,521140.572],[1793311200,4.0707,4.1591,4.1434,4.1048,1309853.138],[1793307600,4.1164,4.273,4.1678,4.1493,1458139.806],[1793304000,4.0929,4.401,4.3964,4.1692,1912227.646],[1793300400,4.3758,4.4278,4.422,4.3955,427452.473],[1793296800,4.3931,4.5063,4.5009,4.4214,229207.748],[1793293200,4.4478,4.5927,4.5927,4.5027,392045.88],[1793289600,4.5679,4.6853,4.6501,4.5946,641208.128],[1793286000,4.5103,4.6615,4.5211,4.6448,1028028.386],[1793282400,4.4161,4.5552,4.4477,4.5182,495434.215],[1793278800,4.4078,4.5084,4.4504,4.4433,662655.317],[1793275200,4.3777,4.4501,4.4144,4.4501,194599.762],[1793271600,4.3998,4.4277,4.411,4.4117,121485.709],[1793268000,4.349,4.432,4.3695,4.4096,171340.617],[1793264400,4.3388,4.3867,4.3462,4.3675,85660.254],[1793260800,4.3075,4.3483,4.3146,4.3465,79521.365],[1793257200,4.2779,4.3406,4.337,4.3154,311195.499],[1793253600,4.2921,4.4982,4.4864,4.335,774678.369],[1793250000,4.4388,4.5084,4.4462,4.4843,99571.845],[1793246400,4.3974,4.4583,4.4144,4.4455,170724.691],[1793242800,4.4016,4.4853,4.4627,4.4175,125105.541],[1793239200,4.4224,4.502,4.48,4.4658,277703.106],[1793235600,4.47,4.6681,4.6634,4.4787,697424.939],[1793232000,4.66,4.7323,4.7286,4.66,146676.446],[1793228400,4.7104,4.7535,4.7255,4.729,131719.661],[1793224800,4.7103,4.7536,4.7418,4.722,170061.19],[1793221200,4.696,4.7621,4.728,4.7384,235799.243],[1793217600,4.6513,4.8064,4.7437,4.7296,436719.177],[1793214000,4.6772,4.746,4.688,4.7439,550280.207],[1793210400,4.5831,4.7086,4.5906,4.6931,445321.693],[1793206800,4.5638,4.6141,4.5864,4.5946,403893.354],[1793203200,4.5556,4.635,4.6255,4.5882,201349.654],[1793199600,4.5956,4.643,4.596,4.6259,172898.553],[1793196000,4.5304,4.605,4.5875,4.5949,287156.973],[1793192400,4.568,4.6438,4.6024,4.5877,194958.487],[1793188800,4.5824,4.6611,4.6561,4.6037,212820.496],[1793185200,4.6405,4.6944,4.6944,4.6567,120578.662],[1793181600,4.6788,4.7296,4.7171,4.6991,96256.647],[1793178000,4.7107,4.7496,4.7298,4.7184,133897.302],[1793174400,4.7213,4.7809,4.728,4.7308,167834.972],[1793170800,4.6704,4.7285,4.6837,4.7251,47353.082],[1793167200,4.6706,4.7152,4.6795,4.6884,21025.903],[1793163600,4.6503,4.6916,4.6592,4.6826,48500.827],[1793160000,4.6496,4.7008,4.6964,4.6603,122939.426],[1793156400,4.6909,4.7426,4.7024,4.6966,102720.189],[1793152800,4.6988,4.7476,4.7225,4.7026,155419.219],[1793149200,4.6269,4.7271,4.6602,4.7271,260420.622],[1793145600,4.649,4.685,4.6728,4.662,139491.565],[1793142000,4.6513,4.7198,4.698,4.6757,126994.85],[1793138400,4.6448,4.7152,4.6706,4.696,260778.199],[1793134800,4.592,4.7945,4.617,4.6691,530077.917],[1793131200,4.607,4.6358,4.632,4.6166,85563.959],[1793127600,4.6096,4.66,4.627,4.6344,212981.971],[1793124000,4.5825,4.6492,4.6066,4.6301,105543.165],[1793120400,4.5833,4.6286,4.6008,4.608,90133.313],[1793116800,4.5558,4.6492,4.5563,4.6047,757702.464],[1793113200,4.5072,4.6054,4.5234,4.5544,501248.747],[1793109600,4.4764,4.5576,4.5054,4.5221,92693.204],[1793106000,4.4961,4.563,4.5594,4.5099,177895.283],[1793102400,4.4573,4.5996,4.4782,4.5618,235729.971],[1793098800,4.4708,4.5162,4.4892,4.4753,153289.82],[1793095200,4.383,4.5072,4.4268,4.4886,160234.265],[1793091600,4.412,4.4633,4.4574,4.4278,115587.126],[1793088000,4.4312,4.4776,4.4569,4.4547,42295.177],[1793084400,4.4044,4.4848,4.4114,4.4558,124244.576],[1793080800,4.3999,4.4414,4.4402,4.4125,44504.377],[1793077200,4.3991,4.4531,4.4133,4.4402,63836.491],[1793073600,4.406,4.431,4.4224,4.4142,51983.145],[1793070000,4.3817,4.4651,4.4523,4.4226,201943.216],[1793066400,4.4253,4.473,4.4646,4.4501,109107.622],[1793062800,4.44,4.5158,4.4575,4.4666,138490.962],[1793059200,4.4578,4.5318,4.5009,4.4597,335562.078],[1793055600,4.4192,4.5067,4.4496,4.503,96754.363],[1793052000,4.4372,4.4784,4.4566,4.4559,71616.663],[1793048400,4.4311,4.4864,4.4494,4.4565,63177.235],[1793044800,4.439,4.4867,4.4739,4.4494,140770.414],[1793041200,4.436,4.5008,4.4549,4.4707,295582.726],[1793037600,4.4471,4.526,4.504,4.4557,351204.101],[1793034000,4.4802,4.5657,4.5095,4.5042,252141.373],[1793030400,4.4723,4.5753,4.572,4.51,293493.568],[1793026800,4.5556,4.6519,4.6497,4.5702,565205.467]]"
+      },
+      "observation": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "spot": "3594450000000",
+        "price_scale": "1000000000000",
+        "sigma": 0.9755627476107629,
+        "timestamp_ns": "1794283917492833183",
+        "history_end_ns": "1794283200000000000",
+        "return_count": 168,
+        "snapshot_hash": "1657ad0000ce4061dd9a554cfdabdaff11e8704ddae7423ed6872be63607adb1",
+        "settlement_eligible": false
+      }
+    },
+    {
+      "raw": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "ticker": "{\"ask\":\"3.5955\",\"bid\":\"3.5935\",\"volume\":\"6091361.633\",\"trade_id\":36375851,\"price\":\"3.5943\",\"size\":\"100\",\"time\":\"2026-11-10T04:11:57.492833183Z\",\"rfq_volume\":\"601.097376\"}",
+        "candles": "[[1794283200,3.5874,3.6188,3.591,3.6109,5965.959],[1794279600,3.5757,3.6095,3.5973,3.5943,97000.292],[1794276000,3.5553,3.6203,3.612,3.5957,346885.561],[1794272400,3.6081,3.6488,3.6324,3.6113,152798.49],[1794268800,3.6093,3.6352,3.6234,3.628,70741.284],[1794265200,3.6094,3.6447,3.6447,3.6277,220322.624],[1794261600,3.6342,3.6683,3.648,3.6442,375587.111],[1794258000,3.5952,3.664,3.6118,3.6483,674811.449],[1794254400,3.6036,3.6464,3.611,3.6134,155647.244],[1794250800,3.5858,3.6577,3.6261,3.612,336210.846],[1794247200,3.5616,3.6309,3.578,3.6264,152807.97],[1794243600,3.5601,3.6278,3.6119,3.5771,187189.549],[1794240000,3.577,3.6838,3.6735,3.6122,462381.587],[1794236400,3.5919,3.681,3.6086,3.6739,721280.59],[1794232800,3.5256,3.63,3.5424,3.605,305133.423],[1794229200,3.5193,3.57,3.5574,3.5416,249060.315],[1794225600,3.5042,3.5873,3.508,3.5594,331037.732],[1794222000,3.4758,3.5675,3.4827,3.508,163491.053],[1794218400,3.4748,3.5337,3.521,3.4843,138627.334],[1794214800,3.5106,3.5742,3.549,3.519,244055.645],[1794211200,3.4552,3.5574,3.474,3.5504,169425.48],[1794207600,3.456,3.531,3.5307,3.4725,247353.787],[1794204000,3.5223,3.5622,3.5532,3.5316,168896.053],[1794200400,3.547,3.6033,3.6,3.5522,112691.732],[1794196800,3.6001,3.633,3.6114,3.6025,79378.225],[1794193200,3.5835,3.6336,3.624,3.6088,201855.09],[1794189600,3.608,3.6552,3.6176,3.626,207626.813],[1794186000,3.58,3.654,3.6256,3.6185,251436.754],[1794182400,3.555,3.6332,3.5836,3.6253,320117.719],[1794178800,3.5424,3.6859,3.5425,3.5835,640136.568],[1794175200,3.4871,3.5642,3.5061,3.5424,870525.743],[1794171600,3.4472,3.634,3.6285,3.5048,727899.14],[1794168000,3.6167,3.6465,3.6419,3.6286,366031.479],[1794164400,3.6408,3.6708,3.6664,3.6419,194608.367],[1794160800,3.6038,3.6701,3.604,3.6664,434385.684],[1794157200,3.5802,3.613,3.6045,3.6052,347554.519],[1794153600,3.5908,3.7124,3.7022,3.6045,458368.738],[1794150000,3.6954,3.7271,3.7191,3.7023,174005.131],[1794146400,3.675,3.7238,3.6832,3.718,165055.25],[1794142800,3.6741,3.7335,3.7106,3.6846,195284.011],[1794139200,3.694,3.722,3.7168,3.7081,189230.487],[1794135600,3.7042,3.7438,3.7083,3.7168,182810.623],[1794132000,3.6892,3.7158,3.7126,3.7083,161516.584],[1794128400,3.6845,3.7144,3.6947,3.7126,230747.416],[1794124800,3.6945,3.7213,3.7065,3.6965,210083.651],[1794121200,3.6972,3.715,3.698,3.7077,184482.852],[1794117600,3.6893,3.7212,3.6969,3.6988,228527.591],[1794114000,3.6657,3.7035,3.6672,3.6969,151652.927],[1794110400,3.6569,3.7065,3.7017,3.6687,251640.397],[1794106800,3.6924,3.7241,3.7062,3.7017,154990.264],[1794103200,3.6771,3.7086,3.6874,3.7062,153078.034],[1794099600,3.6832,3.7144,3.7053,3.687,217302.084],[1794096000,3.6859,3.7336,3.7307,3.7061,258835.278],[1794092400,3.662,3.738,3.6678,3.731,288642.172],[1794088800,3.6456,3.674,3.6563,3.6689,226748.433],[1794085200,3.6178,3.6597,3.6348,3.6554,222248.404],[1794081600,3.6225,3.6573,3.6436,3.6353,200135.17],[1794078000,3.6373,3.6754,3.674,3.6439,165014.773],[1794074400,3.651,3.6824,3.6541,3.6747,298517.372],[1794070800,3.6106,3.6653,3.6409,3.6539,806583.94],[1794067200,3.6305,3.6787,3.6785,3.6395,197237.457],[1794063600,3.6511,3.7001,3.7001,3.6792,421448.269],[1794060000,3.6929,3.7219,3.7122,3.7002,182387.267],[1794056400,3.6813,3.7259,3.6937,3.7122,218133.737],[1794052800,3.6768,3.7079,3.7021,3.6937,185604.957],[1794049200,3.683,3.7138,3.6927,3.7,135152.047],[1794045600,3.6729,3.7113,3.6987,3.6927,183268.954],[1794042000,3.6941,3.7443,3.7427,3.7,140460.326],[1794038400,3.7325,3.7553,3.7391,3.7411,130354.204],[1794034800,3.7332,3.7572,3.7414,3.7368,150371.298],[1794031200,3.7271,3.7483,3.7355,3.7402,186498.189],[1794027600,3.7365,3.7703,3.7595,3.7365,142246.427],[1794024000,3.7303,3.7604,3.7465,3.7577,158604.857],[1794020400,3.7082,3.7612,3.7419,3.7465,171255.455],[1794016800,3.7307,3.774,3.7475,3.7402,215270.121],[1794013200,3.7296,3.7579,3.7313,3.7473,383478.934],[1794009600,3.697,3.7331,3.7082,3.7315,197616.325],[1794006000,3.6878,3.7158,3.6979,3.7086,65688.683],[1794002400,3.6946,3.7591,3.735,3.6973,225389.233],[1793998800,3.6934,3.738,3.699,3.7371,121674.457],[1793995200,3.6864,3.739,3.732,3.699,116887.014],[1793991600,3.697,3.7489,3.744,3.7306,78040.185],[1793988000,3.7098,3.7651,3.7242,3.7464,153569.402],[1793984400,3.7008,3.7911,3.7712,3.7249,290659.46],[1793980800,3.7112,3.7791,3.7532,3.7698,273551.466],[1793977200,3.7207,3.8036,3.7611,3.7548,707235.437],[1793973600,3.6784,3.8232,3.7152,3.761,907995.276],[1793970000,3.6813,3.7279,3.709,3.7136,486555.653],[1793966400,3.7048,3.7927,3.7305,3.7089,285500.198],[1793962800,3.7243,3.7545,3.7411,3.7312,185803.513],[1793959200,3.72,3.751,3.7278,3.7417,100836.802],[1793955600,3.711,3.7522,3.7122,3.7272,160647.266],[1793952000,3.6857,3.7375,3.6939,3.7112,446683.231],[1793948400,3.6311,3.6928,3.6684,3.6908,139767.06],[1793944800,3.663,3.7089,3.6756,3.6689,64408.331],[1793941200,3.6445,3.7014,3.6636,3.6766,84795.754],[1793937600,3.6568,3.6911,3.6813,3.6637,177583.208],[1793934000,3.662,3.7169,3.7107,3.683,118400.364],[1793930400,3.693,3.738,3.7278,3.7133,91750.275],[1793926800,3.6955,3.7674,3.7647,3.7277,172828.537],[1793923200,3.6556,3.7737,3.6569,3.7641,348802.392],[1793919600,3.6181,3.6866,3.67,3.6569,586878.118],[1793916000,3.655,3.7141,3.6896,3.6699,388753.87],[1793912400,3.664,3.7205,3.6918,3.6875,167177.774],[1793908800,3.6712,3.7239,3.7007,3.6992,906884.229],[1793905200,3.6413,3.7088,3.6636,3.7031,1608280.49],[1793901600,3.6337,3.7045,3.6847,3.6642,1182119.201],[1793898000,3.6789,3.7388,3.7348,3.6917,647854.988],[1793894400,3.6844,3.809,3.6948,3.7356,982205.985],[1793890800,3.6298,3.8626,3.8596,3.6965,3096131.512],[1793887200,3.8179,3.9629,3.9486,3.8597,2530709.305],[1793883600,3.9104,3.9615,3.9341,3.9505,166754.06],[1793880000,3.9227,4.0122,4.012,3.9355,412445.327],[1793876400,4.0049,4.031,4.0109,4.013,58753.365],[1793872800,4.008,4.0504,4.0293,4.0126,39628.4],[1793869200,4.0012,4.0429,4.0404,4.0281,48315.351],[1793865600,4.0012,4.0491,4.0166,4.0379,51230.609],[1793862000,4.0005,4.0463,4.0295,4.0174,55700.253],[1793858400,3.9934,4.054,4.0073,4.0277,39847.677],[1793854800,4,4.0428,4.042,4.0053,69026.765],[1793851200,3.9984,4.061,4.0287,4.0424,177140.94],[1793847600,4.0299,4.0736,4.0429,4.0302,154974.483],[1793844000,4.023,4.063,4.0339,4.0437,105958.623],[1793840400,3.9829,4.0637,3.9996,4.0353,171637.635],[1793836800,3.9861,4.0356,4.0052,4.0025,391491.399],[1793833200,4.0018,4.0656,4.0648,4.0018,287288.735],[1793829600,4.0133,4.0866,4.0145,4.0657,301726.981],[1793826000,3.9963,4.0412,4.0191,4.0132,144562.372],[1793822400,3.972,4.0374,3.9822,4.0184,160690.264],[1793818800,3.976,4.0523,4.0271,3.9802,288452.885],[1793815200,4.0043,4.1536,4.1202,4.0256,410830.408],[1793811600,4.0517,4.1393,4.1202,4.1171,378151.941],[1793808000,4.1077,4.1906,4.1395,4.1168,521305.956],[1793804400,4.1202,4.2665,4.1496,4.1385,1345623.611],[1793800800,3.9575,4.1996,4.0004,4.1514,1693366.659],[1793797200,3.9929,4.0263,4.0003,4.0006,200469.744],[1793793600,3.9804,4.0829,4.0804,3.9976,480675.402],[1793790000,4.0752,4.1294,4.0916,4.0795,221570.034],[1793786400,4.0504,4.1166,4.0633,4.0943,644698.036],[1793782800,4.0263,4.0757,4.057,4.0644,350546.597],[1793779200,4.0155,4.0694,4.0184,4.0562,486788.174],[1793775600,3.919,4.0223,3.9389,4.0174,601436.695],[1793772000,3.8805,3.95,3.8805,3.9399,539597.42],[1793768400,3.8094,3.9398,3.8281,3.8799,532386.835],[1793764800,3.7164,3.838,3.7432,3.8282,540719.127],[1793761200,3.6879,3.7505,3.7141,3.7454,632055.421],[1793757600,3.7067,3.7947,3.7686,3.714,515668.117],[1793754000,3.745,3.8327,3.8218,3.769,1168924.809],[1793750400,3.78,3.843,3.8276,3.824,512766.531],[1793746800,3.826,3.8762,3.8508,3.8266,171960.42],[1793743200,3.8273,3.8803,3.8797,3.847,301725.487],[1793739600,3.8205,3.8945,3.8303,3.8769,314688.653],[1793736000,3.8077,3.8465,3.8188,3.8304,240831.803],[1793732400,3.8036,3.8339,3.8163,3.8196,277227.297],[1793728800,3.8096,3.8864,3.8293,3.8185,728051.523],[1793725200,3.8044,3.8482,3.8327,3.8291,518107.902],[1793721600,3.7891,3.8517,3.8517,3.8343,340388.398],[1793718000,3.8146,3.8656,3.8605,3.8514,452602.419],[1793714400,3.8486,3.8999,3.885,3.8603,328543.538],[1793710800,3.8488,3.9336,3.9006,3.8855,299534.473],[1793707200,3.8466,3.9242,3.8669,3.9009,675125.891],[1793703600,3.8226,3.8789,3.8239,3.8647,230896.65],[1793700000,3.816,3.846,3.8379,3.824,100848.035],[1793696400,3.7754,3.8385,3.7794,3.8384,304878.394],[1793692800,3.7354,3.7867,3.7776,3.7792,198390.191],[1793689200,3.7502,3.8055,3.7674,3.7768,200942.336],[1793685600,3.7468,3.7799,3.7687,3.767,364136.441],[1793682000,3.7677,3.8278,3.8261,3.7715,354522.96],[1793678400,3.8024,3.8675,3.8226,3.826,86627.894],[1793674800,3.7852,3.8303,3.7989,3.8211,270582.268],[1793671200,3.79,3.8524,3.8304,3.7989,623092.216],[1793667600,3.8273,3.8795,3.8628,3.8304,261444.52],[1793664000,3.853,3.9006,3.8593,3.8631,284849.602],[1793660400,3.8452,3.8752,3.8608,3.8582,277274.671],[1793656800,3.8571,3.9177,3.9084,3.8656,142065.139],[1793653200,3.8486,3.9088,3.8647,3.9079,374555.493],[1793649600,3.8529,3.9313,3.8854,3.8653,662507.509],[1793646000,3.8375,3.9012,3.8885,3.8861,802954.36],[1793642400,3.8619,3.9457,3.9249,3.8873,735172.652],[1793638800,3.9004,3.9869,3.9757,3.927,778847.855],[1793635200,3.9603,4.0209,4.0059,3.9723,521199.97],[1793631600,3.9877,4.0829,4.0681,4.006,529228.639],[1793628000,4.0286,4.0991,4.0824,4.0675,347661.351],[1793624400,4.05,4.132,4.0992,4.0835,513344.261],[1793620800,4.0794,4.1502,4.1245,4.0978,197381.94],[1793617200,4.0941,4.1397,4.1224,4.1255,125457.183],[1793613600,4.0903,4.1231,4.1205,4.1225,189463.435],[1793610000,4.1153,4.1507,4.1344,4.1206,96729.286],[1793606400,4.0775,4.1387,4.105,4.1347,173474.846],[1793602800,4.0698,4.1399,4.1111,4.105,408874.184],[1793599200,4.0964,4.239,4.239,4.1104,720554.168],[1793595600,4.2384,4.2763,4.2633,4.242,50920.393],[1793592000,4.2505,4.2954,4.2919,4.2625,72755.593],[1793588400,4.2696,4.3304,4.2707,4.2937,209990.658],[1793584800,4.2617,4.3192,4.2958,4.2716,432339.84],[1793581200,4.2481,4.3442,4.2481,4.2989,338741.792],[1793577600,4.2435,4.3112,4.2837,4.2519,69462.331],[1793574000,4.2534,4.2966,4.2534,4.284,108171.223],[1793570400,4.2354,4.2929,4.2912,4.249,244418.982],[1793566800,4.2569,4.307,4.2787,4.2901,75516.811],[1793563200,4.2375,4.2843,4.2562,4.276,178349.713],[1793559600,4.2248,4.2674,4.2545,4.2564,307813.914],[1793556000,4.253,4.301,4.3008,4.2542,121095.54],[1793552400,4.2961,4.3238,4.3166,4.2986,87272.109],[1793548800,4.3034,4.3334,4.3271,4.3176,80102.138],[1793545200,4.3175,4.3704,4.3679,4.3233,129927.367],[1793541600,4.3656,4.4017,4.38,4.3656,324952.465],[1793538000,4.3752,4.4051,4.3848,4.3819,97240.442],[1793534400,4.3414,4.3842,4.372,4.3837,62045.205],[1793530800,4.3704,4.3918,4.3768,4.3754,58187.457],[1793527200,4.3686,4.4216,4.3884,4.3771,161969.533],[1793523600,4.3621,4.3984,4.3921,4.391,29358.12],[1793520000,4.3477,4.3978,4.3602,4.3945,92710.707],[1793516400,4.3494,4.3786,4.3669,4.3625,54275.143],[1793512800,4.3612,4.4017,4.3765,4.3671,83817.551],[1793509200,4.3569,4.3988,4.3795,4.3782,68075.773],[1793505600,4.3706,4.4119,4.401,4.3808,162489.42],[1793502000,4.397,4.4389,4.4162,4.4018,39351.524],[1793498400,4.4149,4.4808,4.464,4.4193,132519.499],[1793494800,4.4193,4.4867,4.4194,4.464,135813.616],[1793491200,4.4075,4.4411,4.4266,4.4207,81782.79],[1793487600,4.407,4.4409,4.4158,4.4245,88809.44],[1793484000,4.4097,4.4664,4.4532,4.4144,26905.322],[1793480400,4.3951,4.4548,4.4106,4.4548,111136.627],[1793476800,4.4,4.4432,4.4298,4.4102,80541.013],[1793473200,4.4141,4.4986,4.4979,4.4276,204316.801],[1793469600,4.4844,4.5563,4.51,4.4976,587973.79],[1793466000,4.4691,4.5378,4.5217,4.5097,577985.972],[1793462400,4.4517,4.5398,4.4647,4.5148,413704.299],[1793458800,4.4129,4.485,4.4244,4.4655,175236.604],[1793455200,4.3918,4.455,4.4022,4.4226,152053.294],[1793451600,4.3814,4.432,4.4288,4.404,159824.3],[1793448000,4.3254,4.4498,4.3293,4.4288,516175.435],[1793444400,4.3061,4.3426,4.3094,4.3302,70947.817],[1793440800,4.3,4.3395,4.3086,4.3082,77236.934],[1793437200,4.3079,4.3458,4.332,4.3079,64057.597],[1793433600,4.3016,4.3368,4.3133,4.3268,63063.505],[1793430000,4.2888,4.3598,4.3391,4.3156,166495.953],[1793426400,4.3081,4.3621,4.3104,4.338,233658.992],[1793422800,4.2718,4.3366,4.2828,4.3093,92389.875],[1793419200,4.2577,4.312,4.2936,4.2855,218324.028],[1793415600,4.2875,4.3291,4.3269,4.2908,90511.293],[1793412000,4.3246,4.3754,4.345,4.3252,116172.454],[1793408400,4.3291,4.3728,4.341,4.3436,192645.989],[1793404800,4.2745,4.3508,4.2849,4.3377,183700.149],[1793401200,4.2771,4.3449,4.2989,4.2864,300712.515],[1793397600,4.2844,4.3262,4.3032,4.2994,88838.236],[1793394000,4.286,4.3406,4.3023,4.2993,131805.706],[1793390400,4.275,4.3544,4.3313,4.3067,180269.258],[1793386800,4.2543,4.3357,4.2666,4.3327,519131.164],[1793383200,4.2237,4.281,4.2556,4.2673,528754.571],[1793379600,4.2144,4.3093,4.2818,4.2575,609333.298],[1793376000,4.2716,4.3522,4.306,4.2814,385384.997],[1793372400,4.2695,4.4236,4.3296,4.308,723810.909],[1793368800,4.2331,4.349,4.2877,4.3294,882984.485],[1793365200,4.21,4.2996,4.284,4.2902,796856.2],[1793361600,4.2611,4.3247,4.3029,4.2842,496988.324],[1793358000,4.2867,4.3728,4.3654,4.3036,277369.268],[1793354400,4.3126,4.3722,4.3678,4.3636,307739.857],[1793350800,4.2839,4.3753,4.3456,4.3693,341533.59],[1793347200,4.2389,4.3816,4.2463,4.3487,797107.369],[1793343600,4.2054,4.3321,4.3258,4.2477,379921.738],[1793340000,4.163,4.3435,4.186,4.3272,325334.159],[1793336400,4.1761,4.2826,4.22,4.1862,179194.588],[1793332800,4.118,4.2374,4.158,4.2184,270872.405],[1793329200,4.0591,4.1656,4.0591,4.1642,473318.072],[1793325600,3.9649,4.1029,3.995,4.059,785877.832],[1793322000,3.9479,4.033,3.9872,3.9922,664195.81],[1793318400,3.9,4.0702,4.0501,3.9901,1477603.963],[1793314800,4.0342,4.1133,4.1018,4.0521,521140.572],[1793311200,4.0707,4.1591,4.1434,4.1048,1309853.138],[1793307600,4.1164,4.273,4.1678,4.1493,1458139.806],[1793304000,4.0929,4.401,4.3964,4.1692,1912227.646],[1793300400,4.3758,4.4278,4.422,4.3955,427452.473],[1793296800,4.3931,4.5063,4.5009,4.4214,229207.748],[1793293200,4.4478,4.5927,4.5927,4.5027,392045.88],[1793289600,4.5679,4.6853,4.6501,4.5946,641208.128],[1793286000,4.5103,4.6615,4.5211,4.6448,1028028.386],[1793282400,4.4161,4.5552,4.4477,4.5182,495434.215],[1793278800,4.4078,4.5084,4.4504,4.4433,662655.317],[1793275200,4.3777,4.4501,4.4144,4.4501,194599.762],[1793271600,4.3998,4.4277,4.411,4.4117,121485.709],[1793268000,4.349,4.432,4.3695,4.4096,171340.617],[1793264400,4.3388,4.3867,4.3462,4.3675,85660.254],[1793260800,4.3075,4.3483,4.3146,4.3465,79521.365],[1793257200,4.2779,4.3406,4.337,4.3154,311195.499],[1793253600,4.2921,4.4982,4.4864,4.335,774678.369],[1793250000,4.4388,4.5084,4.4462,4.4843,99571.845],[1793246400,4.3974,4.4583,4.4144,4.4455,170724.691],[1793242800,4.4016,4.4853,4.4627,4.4175,125105.541],[1793239200,4.4224,4.502,4.48,4.4658,277703.106],[1793235600,4.47,4.6681,4.6634,4.4787,697424.939],[1793232000,4.66,4.7323,4.7286,4.66,146676.446],[1793228400,4.7104,4.7535,4.7255,4.729,131719.661],[1793224800,4.7103,4.7536,4.7418,4.722,170061.19],[1793221200,4.696,4.7621,4.728,4.7384,235799.243],[1793217600,4.6513,4.8064,4.7437,4.7296,436719.177],[1793214000,4.6772,4.746,4.688,4.7439,550280.207],[1793210400,4.5831,4.7086,4.5906,4.6931,445321.693],[1793206800,4.5638,4.6141,4.5864,4.5946,403893.354],[1793203200,4.5556,4.635,4.6255,4.5882,201349.654],[1793199600,4.5956,4.643,4.596,4.6259,172898.553],[1793196000,4.5304,4.605,4.5875,4.5949,287156.973],[1793192400,4.568,4.6438,4.6024,4.5877,194958.487],[1793188800,4.5824,4.6611,4.6561,4.6037,212820.496],[1793185200,4.6405,4.6944,4.6944,4.6567,120578.662],[1793181600,4.6788,4.7296,4.7171,4.6991,96256.647],[1793178000,4.7107,4.7496,4.7298,4.7184,133897.302],[1793174400,4.7213,4.7809,4.728,4.7308,167834.972],[1793170800,4.6704,4.7285,4.6837,4.7251,47353.082],[1793167200,4.6706,4.7152,4.6795,4.6884,21025.903],[1793163600,4.6503,4.6916,4.6592,4.6826,48500.827],[1793160000,4.6496,4.7008,4.6964,4.6603,122939.426],[1793156400,4.6909,4.7426,4.7024,4.6966,102720.189],[1793152800,4.6988,4.7476,4.7225,4.7026,155419.219],[1793149200,4.6269,4.7271,4.6602,4.7271,260420.622],[1793145600,4.649,4.685,4.6728,4.662,139491.565],[1793142000,4.6513,4.7198,4.698,4.6757,126994.85],[1793138400,4.6448,4.7152,4.6706,4.696,260778.199],[1793134800,4.592,4.7945,4.617,4.6691,530077.917],[1793131200,4.607,4.6358,4.632,4.6166,85563.959],[1793127600,4.6096,4.66,4.627,4.6344,212981.971],[1793124000,4.5825,4.6492,4.6066,4.6301,105543.165],[1793120400,4.5833,4.6286,4.6008,4.608,90133.313],[1793116800,4.5558,4.6492,4.5563,4.6047,757702.464],[1793113200,4.5072,4.6054,4.5234,4.5544,501248.747],[1793109600,4.4764,4.5576,4.5054,4.5221,92693.204],[1793106000,4.4961,4.563,4.5594,4.5099,177895.283],[1793102400,4.4573,4.5996,4.4782,4.5618,235729.971],[1793098800,4.4708,4.5162,4.4892,4.4753,153289.82],[1793095200,4.383,4.5072,4.4268,4.4886,160234.265],[1793091600,4.412,4.4633,4.4574,4.4278,115587.126],[1793088000,4.4312,4.4776,4.4569,4.4547,42295.177],[1793084400,4.4044,4.4848,4.4114,4.4558,124244.576],[1793080800,4.3999,4.4414,4.4402,4.4125,44504.377],[1793077200,4.3991,4.4531,4.4133,4.4402,63836.491],[1793073600,4.406,4.431,4.4224,4.4142,51983.145],[1793070000,4.3817,4.4651,4.4523,4.4226,201943.216],[1793066400,4.4253,4.473,4.4646,4.4501,109107.622],[1793062800,4.44,4.5158,4.4575,4.4666,138490.962],[1793059200,4.4578,4.5318,4.5009,4.4597,335562.078],[1793055600,4.4192,4.5067,4.4496,4.503,96754.363],[1793052000,4.4372,4.4784,4.4566,4.4559,71616.663],[1793048400,4.4311,4.4864,4.4494,4.4565,63177.235],[1793044800,4.439,4.4867,4.4739,4.4494,140770.414],[1793041200,4.436,4.5008,4.4549,4.4707,295582.726],[1793037600,4.4471,4.526,4.504,4.4557,351204.101],[1793034000,4.4802,4.5657,4.5095,4.5042,252141.373],[1793030400,4.4723,4.5753,4.572,4.51,293493.568],[1793026800,4.5556,4.6519,4.6497,4.5702,565205.467]]"
+      },
+      "observation": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "spot": "3594500000000",
+        "price_scale": "1000000000000",
+        "sigma": 0.9755627476107629,
+        "timestamp_ns": "1794283917492833183",
+        "history_end_ns": "1794283200000000000",
+        "return_count": 168,
+        "snapshot_hash": "3e4766272f9f3229b9ac31e75c8049ba50e3668212e6c1663612aba6c92c3ebd",
+        "settlement_eligible": false
+      }
+    },
+    {
+      "raw": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "ticker": "{\"ask\":\"3.5955\",\"bid\":\"3.5934\",\"volume\":\"6090872.341\",\"trade_id\":36375851,\"price\":\"3.5943\",\"size\":\"100\",\"time\":\"2026-11-10T04:11:57.492833183Z\",\"rfq_volume\":\"601.097376\"}",
+        "candles": "[[1794283200,3.5874,3.6188,3.591,3.6109,5965.959],[1794279600,3.5757,3.6095,3.5973,3.5943,97000.292],[1794276000,3.5553,3.6203,3.612,3.5957,346885.561],[1794272400,3.6081,3.6488,3.6324,3.6113,152798.49],[1794268800,3.6093,3.6352,3.6234,3.628,70741.284],[1794265200,3.6094,3.6447,3.6447,3.6277,220322.624],[1794261600,3.6342,3.6683,3.648,3.6442,375587.111],[1794258000,3.5952,3.664,3.6118,3.6483,674811.449],[1794254400,3.6036,3.6464,3.611,3.6134,155647.244],[1794250800,3.5858,3.6577,3.6261,3.612,336210.846],[1794247200,3.5616,3.6309,3.578,3.6264,152807.97],[1794243600,3.5601,3.6278,3.6119,3.5771,187189.549],[1794240000,3.577,3.6838,3.6735,3.6122,462381.587],[1794236400,3.5919,3.681,3.6086,3.6739,721280.59],[1794232800,3.5256,3.63,3.5424,3.605,305133.423],[1794229200,3.5193,3.57,3.5574,3.5416,249060.315],[1794225600,3.5042,3.5873,3.508,3.5594,331037.732],[1794222000,3.4758,3.5675,3.4827,3.508,163491.053],[1794218400,3.4748,3.5337,3.521,3.4843,138627.334],[1794214800,3.5106,3.5742,3.549,3.519,244055.645],[1794211200,3.4552,3.5574,3.474,3.5504,169425.48],[1794207600,3.456,3.531,3.5307,3.4725,247353.787],[1794204000,3.5223,3.5622,3.5532,3.5316,168896.053],[1794200400,3.547,3.6033,3.6,3.5522,112691.732],[1794196800,3.6001,3.633,3.6114,3.6025,79378.225],[1794193200,3.5835,3.6336,3.624,3.6088,201855.09],[1794189600,3.608,3.6552,3.6176,3.626,207626.813],[1794186000,3.58,3.654,3.6256,3.6185,251436.754],[1794182400,3.555,3.6332,3.5836,3.6253,320117.719],[1794178800,3.5424,3.6859,3.5425,3.5835,640136.568],[1794175200,3.4871,3.5642,3.5061,3.5424,870525.743],[1794171600,3.4472,3.634,3.6285,3.5048,727899.14],[1794168000,3.6167,3.6465,3.6419,3.6286,366031.479],[1794164400,3.6408,3.6708,3.6664,3.6419,194608.367],[1794160800,3.6038,3.6701,3.604,3.6664,434385.684],[1794157200,3.5802,3.613,3.6045,3.6052,347554.519],[1794153600,3.5908,3.7124,3.7022,3.6045,458368.738],[1794150000,3.6954,3.7271,3.7191,3.7023,174005.131],[1794146400,3.675,3.7238,3.6832,3.718,165055.25],[1794142800,3.6741,3.7335,3.7106,3.6846,195284.011],[1794139200,3.694,3.722,3.7168,3.7081,189230.487],[1794135600,3.7042,3.7438,3.7083,3.7168,182810.623],[1794132000,3.6892,3.7158,3.7126,3.7083,161516.584],[1794128400,3.6845,3.7144,3.6947,3.7126,230747.416],[1794124800,3.6945,3.7213,3.7065,3.6965,210083.651],[1794121200,3.6972,3.715,3.698,3.7077,184482.852],[1794117600,3.6893,3.7212,3.6969,3.6988,228527.591],[1794114000,3.6657,3.7035,3.6672,3.6969,151652.927],[1794110400,3.6569,3.7065,3.7017,3.6687,251640.397],[1794106800,3.6924,3.7241,3.7062,3.7017,154990.264],[1794103200,3.6771,3.7086,3.6874,3.7062,153078.034],[1794099600,3.6832,3.7144,3.7053,3.687,217302.084],[1794096000,3.6859,3.7336,3.7307,3.7061,258835.278],[1794092400,3.662,3.738,3.6678,3.731,288642.172],[1794088800,3.6456,3.674,3.6563,3.6689,226748.433],[1794085200,3.6178,3.6597,3.6348,3.6554,222248.404],[1794081600,3.6225,3.6573,3.6436,3.6353,200135.17],[1794078000,3.6373,3.6754,3.674,3.6439,165014.773],[1794074400,3.651,3.6824,3.6541,3.6747,298517.372],[1794070800,3.6106,3.6653,3.6409,3.6539,806583.94],[1794067200,3.6305,3.6787,3.6785,3.6395,197237.457],[1794063600,3.6511,3.7001,3.7001,3.6792,421448.269],[1794060000,3.6929,3.7219,3.7122,3.7002,182387.267],[1794056400,3.6813,3.7259,3.6937,3.7122,218133.737],[1794052800,3.6768,3.7079,3.7021,3.6937,185604.957],[1794049200,3.683,3.7138,3.6927,3.7,135152.047],[1794045600,3.6729,3.7113,3.6987,3.6927,183268.954],[1794042000,3.6941,3.7443,3.7427,3.7,140460.326],[1794038400,3.7325,3.7553,3.7391,3.7411,130354.204],[1794034800,3.7332,3.7572,3.7414,3.7368,150371.298],[1794031200,3.7271,3.7483,3.7355,3.7402,186498.189],[1794027600,3.7365,3.7703,3.7595,3.7365,142246.427],[1794024000,3.7303,3.7604,3.7465,3.7577,158604.857],[1794020400,3.7082,3.7612,3.7419,3.7465,171255.455],[1794016800,3.7307,3.774,3.7475,3.7402,215270.121],[1794013200,3.7296,3.7579,3.7313,3.7473,383478.934],[1794009600,3.697,3.7331,3.7082,3.7315,197616.325],[1794006000,3.6878,3.7158,3.6979,3.7086,65688.683],[1794002400,3.6946,3.7591,3.735,3.6973,225389.233],[1793998800,3.6934,3.738,3.699,3.7371,121674.457],[1793995200,3.6864,3.739,3.732,3.699,116887.014],[1793991600,3.697,3.7489,3.744,3.7306,78040.185],[1793988000,3.7098,3.7651,3.7242,3.7464,153569.402],[1793984400,3.7008,3.7911,3.7712,3.7249,290659.46],[1793980800,3.7112,3.7791,3.7532,3.7698,273551.466],[1793977200,3.7207,3.8036,3.7611,3.7548,707235.437],[1793973600,3.6784,3.8232,3.7152,3.761,907995.276],[1793970000,3.6813,3.7279,3.709,3.7136,486555.653],[1793966400,3.7048,3.7927,3.7305,3.7089,285500.198],[1793962800,3.7243,3.7545,3.7411,3.7312,185803.513],[1793959200,3.72,3.751,3.7278,3.7417,100836.802],[1793955600,3.711,3.7522,3.7122,3.7272,160647.266],[1793952000,3.6857,3.7375,3.6939,3.7112,446683.231],[1793948400,3.6311,3.6928,3.6684,3.6908,139767.06],[1793944800,3.663,3.7089,3.6756,3.6689,64408.331],[1793941200,3.6445,3.7014,3.6636,3.6766,84795.754],[1793937600,3.6568,3.6911,3.6813,3.6637,177583.208],[1793934000,3.662,3.7169,3.7107,3.683,118400.364],[1793930400,3.693,3.738,3.7278,3.7133,91750.275],[1793926800,3.6955,3.7674,3.7647,3.7277,172828.537],[1793923200,3.6556,3.7737,3.6569,3.7641,348802.392],[1793919600,3.6181,3.6866,3.67,3.6569,586878.118],[1793916000,3.655,3.7141,3.6896,3.6699,388753.87],[1793912400,3.664,3.7205,3.6918,3.6875,167177.774],[1793908800,3.6712,3.7239,3.7007,3.6992,906884.229],[1793905200,3.6413,3.7088,3.6636,3.7031,1608280.49],[1793901600,3.6337,3.7045,3.6847,3.6642,1182119.201],[1793898000,3.6789,3.7388,3.7348,3.6917,647854.988],[1793894400,3.6844,3.809,3.6948,3.7356,982205.985],[1793890800,3.6298,3.8626,3.8596,3.6965,3096131.512],[1793887200,3.8179,3.9629,3.9486,3.8597,2530709.305],[1793883600,3.9104,3.9615,3.9341,3.9505,166754.06],[1793880000,3.9227,4.0122,4.012,3.9355,412445.327],[1793876400,4.0049,4.031,4.0109,4.013,58753.365],[1793872800,4.008,4.0504,4.0293,4.0126,39628.4],[1793869200,4.0012,4.0429,4.0404,4.0281,48315.351],[1793865600,4.0012,4.0491,4.0166,4.0379,51230.609],[1793862000,4.0005,4.0463,4.0295,4.0174,55700.253],[1793858400,3.9934,4.054,4.0073,4.0277,39847.677],[1793854800,4,4.0428,4.042,4.0053,69026.765],[1793851200,3.9984,4.061,4.0287,4.0424,177140.94],[1793847600,4.0299,4.0736,4.0429,4.0302,154974.483],[1793844000,4.023,4.063,4.0339,4.0437,105958.623],[1793840400,3.9829,4.0637,3.9996,4.0353,171637.635],[1793836800,3.9861,4.0356,4.0052,4.0025,391491.399],[1793833200,4.0018,4.0656,4.0648,4.0018,287288.735],[1793829600,4.0133,4.0866,4.0145,4.0657,301726.981],[1793826000,3.9963,4.0412,4.0191,4.0132,144562.372],[1793822400,3.972,4.0374,3.9822,4.0184,160690.264],[1793818800,3.976,4.0523,4.0271,3.9802,288452.885],[1793815200,4.0043,4.1536,4.1202,4.0256,410830.408],[1793811600,4.0517,4.1393,4.1202,4.1171,378151.941],[1793808000,4.1077,4.1906,4.1395,4.1168,521305.956],[1793804400,4.1202,4.2665,4.1496,4.1385,1345623.611],[1793800800,3.9575,4.1996,4.0004,4.1514,1693366.659],[1793797200,3.9929,4.0263,4.0003,4.0006,200469.744],[1793793600,3.9804,4.0829,4.0804,3.9976,480675.402],[1793790000,4.0752,4.1294,4.0916,4.0795,221570.034],[1793786400,4.0504,4.1166,4.0633,4.0943,644698.036],[1793782800,4.0263,4.0757,4.057,4.0644,350546.597],[1793779200,4.0155,4.0694,4.0184,4.0562,486788.174],[1793775600,3.919,4.0223,3.9389,4.0174,601436.695],[1793772000,3.8805,3.95,3.8805,3.9399,539597.42],[1793768400,3.8094,3.9398,3.8281,3.8799,532386.835],[1793764800,3.7164,3.838,3.7432,3.8282,540719.127],[1793761200,3.6879,3.7505,3.7141,3.7454,632055.421],[1793757600,3.7067,3.7947,3.7686,3.714,515668.117],[1793754000,3.745,3.8327,3.8218,3.769,1168924.809],[1793750400,3.78,3.843,3.8276,3.824,512766.531],[1793746800,3.826,3.8762,3.8508,3.8266,171960.42],[1793743200,3.8273,3.8803,3.8797,3.847,301725.487],[1793739600,3.8205,3.8945,3.8303,3.8769,314688.653],[1793736000,3.8077,3.8465,3.8188,3.8304,240831.803],[1793732400,3.8036,3.8339,3.8163,3.8196,277227.297],[1793728800,3.8096,3.8864,3.8293,3.8185,728051.523],[1793725200,3.8044,3.8482,3.8327,3.8291,518107.902],[1793721600,3.7891,3.8517,3.8517,3.8343,340388.398],[1793718000,3.8146,3.8656,3.8605,3.8514,452602.419],[1793714400,3.8486,3.8999,3.885,3.8603,328543.538],[1793710800,3.8488,3.9336,3.9006,3.8855,299534.473],[1793707200,3.8466,3.9242,3.8669,3.9009,675125.891],[1793703600,3.8226,3.8789,3.8239,3.8647,230896.65],[1793700000,3.816,3.846,3.8379,3.824,100848.035],[1793696400,3.7754,3.8385,3.7794,3.8384,304878.394],[1793692800,3.7354,3.7867,3.7776,3.7792,198390.191],[1793689200,3.7502,3.8055,3.7674,3.7768,200942.336],[1793685600,3.7468,3.7799,3.7687,3.767,364136.441],[1793682000,3.7677,3.8278,3.8261,3.7715,354522.96],[1793678400,3.8024,3.8675,3.8226,3.826,86627.894],[1793674800,3.7852,3.8303,3.7989,3.8211,270582.268],[1793671200,3.79,3.8524,3.8304,3.7989,623092.216],[1793667600,3.8273,3.8795,3.8628,3.8304,261444.52],[1793664000,3.853,3.9006,3.8593,3.8631,284849.602],[1793660400,3.8452,3.8752,3.8608,3.8582,277274.671],[1793656800,3.8571,3.9177,3.9084,3.8656,142065.139],[1793653200,3.8486,3.9088,3.8647,3.9079,374555.493],[1793649600,3.8529,3.9313,3.8854,3.8653,662507.509],[1793646000,3.8375,3.9012,3.8885,3.8861,802954.36],[1793642400,3.8619,3.9457,3.9249,3.8873,735172.652],[1793638800,3.9004,3.9869,3.9757,3.927,778847.855],[1793635200,3.9603,4.0209,4.0059,3.9723,521199.97],[1793631600,3.9877,4.0829,4.0681,4.006,529228.639],[1793628000,4.0286,4.0991,4.0824,4.0675,347661.351],[1793624400,4.05,4.132,4.0992,4.0835,513344.261],[1793620800,4.0794,4.1502,4.1245,4.0978,197381.94],[1793617200,4.0941,4.1397,4.1224,4.1255,125457.183],[1793613600,4.0903,4.1231,4.1205,4.1225,189463.435],[1793610000,4.1153,4.1507,4.1344,4.1206,96729.286],[1793606400,4.0775,4.1387,4.105,4.1347,173474.846],[1793602800,4.0698,4.1399,4.1111,4.105,408874.184],[1793599200,4.0964,4.239,4.239,4.1104,720554.168],[1793595600,4.2384,4.2763,4.2633,4.242,50920.393],[1793592000,4.2505,4.2954,4.2919,4.2625,72755.593],[1793588400,4.2696,4.3304,4.2707,4.2937,209990.658],[1793584800,4.2617,4.3192,4.2958,4.2716,432339.84],[1793581200,4.2481,4.3442,4.2481,4.2989,338741.792],[1793577600,4.2435,4.3112,4.2837,4.2519,69462.331],[1793574000,4.2534,4.2966,4.2534,4.284,108171.223],[1793570400,4.2354,4.2929,4.2912,4.249,244418.982],[1793566800,4.2569,4.307,4.2787,4.2901,75516.811],[1793563200,4.2375,4.2843,4.2562,4.276,178349.713],[1793559600,4.2248,4.2674,4.2545,4.2564,307813.914],[1793556000,4.253,4.301,4.3008,4.2542,121095.54],[1793552400,4.2961,4.3238,4.3166,4.2986,87272.109],[1793548800,4.3034,4.3334,4.3271,4.3176,80102.138],[1793545200,4.3175,4.3704,4.3679,4.3233,129927.367],[1793541600,4.3656,4.4017,4.38,4.3656,324952.465],[1793538000,4.3752,4.4051,4.3848,4.3819,97240.442],[1793534400,4.3414,4.3842,4.372,4.3837,62045.205],[1793530800,4.3704,4.3918,4.3768,4.3754,58187.457],[1793527200,4.3686,4.4216,4.3884,4.3771,161969.533],[1793523600,4.3621,4.3984,4.3921,4.391,29358.12],[1793520000,4.3477,4.3978,4.3602,4.3945,92710.707],[1793516400,4.3494,4.3786,4.3669,4.3625,54275.143],[1793512800,4.3612,4.4017,4.3765,4.3671,83817.551],[1793509200,4.3569,4.3988,4.3795,4.3782,68075.773],[1793505600,4.3706,4.4119,4.401,4.3808,162489.42],[1793502000,4.397,4.4389,4.4162,4.4018,39351.524],[1793498400,4.4149,4.4808,4.464,4.4193,132519.499],[1793494800,4.4193,4.4867,4.4194,4.464,135813.616],[1793491200,4.4075,4.4411,4.4266,4.4207,81782.79],[1793487600,4.407,4.4409,4.4158,4.4245,88809.44],[1793484000,4.4097,4.4664,4.4532,4.4144,26905.322],[1793480400,4.3951,4.4548,4.4106,4.4548,111136.627],[1793476800,4.4,4.4432,4.4298,4.4102,80541.013],[1793473200,4.4141,4.4986,4.4979,4.4276,204316.801],[1793469600,4.4844,4.5563,4.51,4.4976,587973.79],[1793466000,4.4691,4.5378,4.5217,4.5097,577985.972],[1793462400,4.4517,4.5398,4.4647,4.5148,413704.299],[1793458800,4.4129,4.485,4.4244,4.4655,175236.604],[1793455200,4.3918,4.455,4.4022,4.4226,152053.294],[1793451600,4.3814,4.432,4.4288,4.404,159824.3],[1793448000,4.3254,4.4498,4.3293,4.4288,516175.435],[1793444400,4.3061,4.3426,4.3094,4.3302,70947.817],[1793440800,4.3,4.3395,4.3086,4.3082,77236.934],[1793437200,4.3079,4.3458,4.332,4.3079,64057.597],[1793433600,4.3016,4.3368,4.3133,4.3268,63063.505],[1793430000,4.2888,4.3598,4.3391,4.3156,166495.953],[1793426400,4.3081,4.3621,4.3104,4.338,233658.992],[1793422800,4.2718,4.3366,4.2828,4.3093,92389.875],[1793419200,4.2577,4.312,4.2936,4.2855,218324.028],[1793415600,4.2875,4.3291,4.3269,4.2908,90511.293],[1793412000,4.3246,4.3754,4.345,4.3252,116172.454],[1793408400,4.3291,4.3728,4.341,4.3436,192645.989],[1793404800,4.2745,4.3508,4.2849,4.3377,183700.149],[1793401200,4.2771,4.3449,4.2989,4.2864,300712.515],[1793397600,4.2844,4.3262,4.3032,4.2994,88838.236],[1793394000,4.286,4.3406,4.3023,4.2993,131805.706],[1793390400,4.275,4.3544,4.3313,4.3067,180269.258],[1793386800,4.2543,4.3357,4.2666,4.3327,519131.164],[1793383200,4.2237,4.281,4.2556,4.2673,528754.571],[1793379600,4.2144,4.3093,4.2818,4.2575,609333.298],[1793376000,4.2716,4.3522,4.306,4.2814,385384.997],[1793372400,4.2695,4.4236,4.3296,4.308,723810.909],[1793368800,4.2331,4.349,4.2877,4.3294,882984.485],[1793365200,4.21,4.2996,4.284,4.2902,796856.2],[1793361600,4.2611,4.3247,4.3029,4.2842,496988.324],[1793358000,4.2867,4.3728,4.3654,4.3036,277369.268],[1793354400,4.3126,4.3722,4.3678,4.3636,307739.857],[1793350800,4.2839,4.3753,4.3456,4.3693,341533.59],[1793347200,4.2389,4.3816,4.2463,4.3487,797107.369],[1793343600,4.2054,4.3321,4.3258,4.2477,379921.738],[1793340000,4.163,4.3435,4.186,4.3272,325334.159],[1793336400,4.1761,4.2826,4.22,4.1862,179194.588],[1793332800,4.118,4.2374,4.158,4.2184,270872.405],[1793329200,4.0591,4.1656,4.0591,4.1642,473318.072],[1793325600,3.9649,4.1029,3.995,4.059,785877.832],[1793322000,3.9479,4.033,3.9872,3.9922,664195.81],[1793318400,3.9,4.0702,4.0501,3.9901,1477603.963],[1793314800,4.0342,4.1133,4.1018,4.0521,521140.572],[1793311200,4.0707,4.1591,4.1434,4.1048,1309853.138],[1793307600,4.1164,4.273,4.1678,4.1493,1458139.806],[1793304000,4.0929,4.401,4.3964,4.1692,1912227.646],[1793300400,4.3758,4.4278,4.422,4.3955,427452.473],[1793296800,4.3931,4.5063,4.5009,4.4214,229207.748],[1793293200,4.4478,4.5927,4.5927,4.5027,392045.88],[1793289600,4.5679,4.6853,4.6501,4.5946,641208.128],[1793286000,4.5103,4.6615,4.5211,4.6448,1028028.386],[1793282400,4.4161,4.5552,4.4477,4.5182,495434.215],[1793278800,4.4078,4.5084,4.4504,4.4433,662655.317],[1793275200,4.3777,4.4501,4.4144,4.4501,194599.762],[1793271600,4.3998,4.4277,4.411,4.4117,121485.709],[1793268000,4.349,4.432,4.3695,4.4096,171340.617],[1793264400,4.3388,4.3867,4.3462,4.3675,85660.254],[1793260800,4.3075,4.3483,4.3146,4.3465,79521.365],[1793257200,4.2779,4.3406,4.337,4.3154,311195.499],[1793253600,4.2921,4.4982,4.4864,4.335,774678.369],[1793250000,4.4388,4.5084,4.4462,4.4843,99571.845],[1793246400,4.3974,4.4583,4.4144,4.4455,170724.691],[1793242800,4.4016,4.4853,4.4627,4.4175,125105.541],[1793239200,4.4224,4.502,4.48,4.4658,277703.106],[1793235600,4.47,4.6681,4.6634,4.4787,697424.939],[1793232000,4.66,4.7323,4.7286,4.66,146676.446],[1793228400,4.7104,4.7535,4.7255,4.729,131719.661],[1793224800,4.7103,4.7536,4.7418,4.722,170061.19],[1793221200,4.696,4.7621,4.728,4.7384,235799.243],[1793217600,4.6513,4.8064,4.7437,4.7296,436719.177],[1793214000,4.6772,4.746,4.688,4.7439,550280.207],[1793210400,4.5831,4.7086,4.5906,4.6931,445321.693],[1793206800,4.5638,4.6141,4.5864,4.5946,403893.354],[1793203200,4.5556,4.635,4.6255,4.5882,201349.654],[1793199600,4.5956,4.643,4.596,4.6259,172898.553],[1793196000,4.5304,4.605,4.5875,4.5949,287156.973],[1793192400,4.568,4.6438,4.6024,4.5877,194958.487],[1793188800,4.5824,4.6611,4.6561,4.6037,212820.496],[1793185200,4.6405,4.6944,4.6944,4.6567,120578.662],[1793181600,4.6788,4.7296,4.7171,4.6991,96256.647],[1793178000,4.7107,4.7496,4.7298,4.7184,133897.302],[1793174400,4.7213,4.7809,4.728,4.7308,167834.972],[1793170800,4.6704,4.7285,4.6837,4.7251,47353.082],[1793167200,4.6706,4.7152,4.6795,4.6884,21025.903],[1793163600,4.6503,4.6916,4.6592,4.6826,48500.827],[1793160000,4.6496,4.7008,4.6964,4.6603,122939.426],[1793156400,4.6909,4.7426,4.7024,4.6966,102720.189],[1793152800,4.6988,4.7476,4.7225,4.7026,155419.219],[1793149200,4.6269,4.7271,4.6602,4.7271,260420.622],[1793145600,4.649,4.685,4.6728,4.662,139491.565],[1793142000,4.6513,4.7198,4.698,4.6757,126994.85],[1793138400,4.6448,4.7152,4.6706,4.696,260778.199],[1793134800,4.592,4.7945,4.617,4.6691,530077.917],[1793131200,4.607,4.6358,4.632,4.6166,85563.959],[1793127600,4.6096,4.66,4.627,4.6344,212981.971],[1793124000,4.5825,4.6492,4.6066,4.6301,105543.165],[1793120400,4.5833,4.6286,4.6008,4.608,90133.313],[1793116800,4.5558,4.6492,4.5563,4.6047,757702.464],[1793113200,4.5072,4.6054,4.5234,4.5544,501248.747],[1793109600,4.4764,4.5576,4.5054,4.5221,92693.204],[1793106000,4.4961,4.563,4.5594,4.5099,177895.283],[1793102400,4.4573,4.5996,4.4782,4.5618,235729.971],[1793098800,4.4708,4.5162,4.4892,4.4753,153289.82],[1793095200,4.383,4.5072,4.4268,4.4886,160234.265],[1793091600,4.412,4.4633,4.4574,4.4278,115587.126],[1793088000,4.4312,4.4776,4.4569,4.4547,42295.177],[1793084400,4.4044,4.4848,4.4114,4.4558,124244.576],[1793080800,4.3999,4.4414,4.4402,4.4125,44504.377],[1793077200,4.3991,4.4531,4.4133,4.4402,63836.491],[1793073600,4.406,4.431,4.4224,4.4142,51983.145],[1793070000,4.3817,4.4651,4.4523,4.4226,201943.216],[1793066400,4.4253,4.473,4.4646,4.4501,109107.622],[1793062800,4.44,4.5158,4.4575,4.4666,138490.962],[1793059200,4.4578,4.5318,4.5009,4.4597,335562.078],[1793055600,4.4192,4.5067,4.4496,4.503,96754.363],[1793052000,4.4372,4.4784,4.4566,4.4559,71616.663],[1793048400,4.4311,4.4864,4.4494,4.4565,63177.235],[1793044800,4.439,4.4867,4.4739,4.4494,140770.414],[1793041200,4.436,4.5008,4.4549,4.4707,295582.726],[1793037600,4.4471,4.526,4.504,4.4557,351204.101],[1793034000,4.4802,4.5657,4.5095,4.5042,252141.373],[1793030400,4.4723,4.5753,4.572,4.51,293493.568],[1793026800,4.5556,4.6519,4.6497,4.5702,565205.467]]"
+      },
+      "observation": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "spot": "3594450000000",
+        "price_scale": "1000000000000",
+        "sigma": 0.9755627476107629,
+        "timestamp_ns": "1794283917492833183",
+        "history_end_ns": "1794283200000000000",
+        "return_count": 168,
+        "snapshot_hash": "1657ad0000ce4061dd9a554cfdabdaff11e8704ddae7423ed6872be63607adb1",
+        "settlement_eligible": false
+      }
+    },
+    {
+      "raw": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "ticker": "{\"ask\":\"3.5955\",\"bid\":\"3.5935\",\"volume\":\"6091361.633\",\"trade_id\":36375851,\"price\":\"3.5943\",\"size\":\"100\",\"time\":\"2026-11-10T04:11:57.492833183Z\",\"rfq_volume\":\"601.097376\"}",
+        "candles": "[[1794283200,3.5874,3.6188,3.591,3.6109,5965.959],[1794279600,3.5757,3.6095,3.5973,3.5943,97000.292],[1794276000,3.5553,3.6203,3.612,3.5957,346885.561],[1794272400,3.6081,3.6488,3.6324,3.6113,152798.49],[1794268800,3.6093,3.6352,3.6234,3.628,70741.284],[1794265200,3.6094,3.6447,3.6447,3.6277,220322.624],[1794261600,3.6342,3.6683,3.648,3.6442,375587.111],[1794258000,3.5952,3.664,3.6118,3.6483,674811.449],[1794254400,3.6036,3.6464,3.611,3.6134,155647.244],[1794250800,3.5858,3.6577,3.6261,3.612,336210.846],[1794247200,3.5616,3.6309,3.578,3.6264,152807.97],[1794243600,3.5601,3.6278,3.6119,3.5771,187189.549],[1794240000,3.577,3.6838,3.6735,3.6122,462381.587],[1794236400,3.5919,3.681,3.6086,3.6739,721280.59],[1794232800,3.5256,3.63,3.5424,3.605,305133.423],[1794229200,3.5193,3.57,3.5574,3.5416,249060.315],[1794225600,3.5042,3.5873,3.508,3.5594,331037.732],[1794222000,3.4758,3.5675,3.4827,3.508,163491.053],[1794218400,3.4748,3.5337,3.521,3.4843,138627.334],[1794214800,3.5106,3.5742,3.549,3.519,244055.645],[1794211200,3.4552,3.5574,3.474,3.5504,169425.48],[1794207600,3.456,3.531,3.5307,3.4725,247353.787],[1794204000,3.5223,3.5622,3.5532,3.5316,168896.053],[1794200400,3.547,3.6033,3.6,3.5522,112691.732],[1794196800,3.6001,3.633,3.6114,3.6025,79378.225],[1794193200,3.5835,3.6336,3.624,3.6088,201855.09],[1794189600,3.608,3.6552,3.6176,3.626,207626.813],[1794186000,3.58,3.654,3.6256,3.6185,251436.754],[1794182400,3.555,3.6332,3.5836,3.6253,320117.719],[1794178800,3.5424,3.6859,3.5425,3.5835,640136.568],[1794175200,3.4871,3.5642,3.5061,3.5424,870525.743],[1794171600,3.4472,3.634,3.6285,3.5048,727899.14],[1794168000,3.6167,3.6465,3.6419,3.6286,366031.479],[1794164400,3.6408,3.6708,3.6664,3.6419,194608.367],[1794160800,3.6038,3.6701,3.604,3.6664,434385.684],[1794157200,3.5802,3.613,3.6045,3.6052,347554.519],[1794153600,3.5908,3.7124,3.7022,3.6045,458368.738],[1794150000,3.6954,3.7271,3.7191,3.7023,174005.131],[1794146400,3.675,3.7238,3.6832,3.718,165055.25],[1794142800,3.6741,3.7335,3.7106,3.6846,195284.011],[1794139200,3.694,3.722,3.7168,3.7081,189230.487],[1794135600,3.7042,3.7438,3.7083,3.7168,182810.623],[1794132000,3.6892,3.7158,3.7126,3.7083,161516.584],[1794128400,3.6845,3.7144,3.6947,3.7126,230747.416],[1794124800,3.6945,3.7213,3.7065,3.6965,210083.651],[1794121200,3.6972,3.715,3.698,3.7077,184482.852],[1794117600,3.6893,3.7212,3.6969,3.6988,228527.591],[1794114000,3.6657,3.7035,3.6672,3.6969,151652.927],[1794110400,3.6569,3.7065,3.7017,3.6687,251640.397],[1794106800,3.6924,3.7241,3.7062,3.7017,154990.264],[1794103200,3.6771,3.7086,3.6874,3.7062,153078.034],[1794099600,3.6832,3.7144,3.7053,3.687,217302.084],[1794096000,3.6859,3.7336,3.7307,3.7061,258835.278],[1794092400,3.662,3.738,3.6678,3.731,288642.172],[1794088800,3.6456,3.674,3.6563,3.6689,226748.433],[1794085200,3.6178,3.6597,3.6348,3.6554,222248.404],[1794081600,3.6225,3.6573,3.6436,3.6353,200135.17],[1794078000,3.6373,3.6754,3.674,3.6439,165014.773],[1794074400,3.651,3.6824,3.6541,3.6747,298517.372],[1794070800,3.6106,3.6653,3.6409,3.6539,806583.94],[1794067200,3.6305,3.6787,3.6785,3.6395,197237.457],[1794063600,3.6511,3.7001,3.7001,3.6792,421448.269],[1794060000,3.6929,3.7219,3.7122,3.7002,182387.267],[1794056400,3.6813,3.7259,3.6937,3.7122,218133.737],[1794052800,3.6768,3.7079,3.7021,3.6937,185604.957],[1794049200,3.683,3.7138,3.6927,3.7,135152.047],[1794045600,3.6729,3.7113,3.6987,3.6927,183268.954],[1794042000,3.6941,3.7443,3.7427,3.7,140460.326],[1794038400,3.7325,3.7553,3.7391,3.7411,130354.204],[1794034800,3.7332,3.7572,3.7414,3.7368,150371.298],[1794031200,3.7271,3.7483,3.7355,3.7402,186498.189],[1794027600,3.7365,3.7703,3.7595,3.7365,142246.427],[1794024000,3.7303,3.7604,3.7465,3.7577,158604.857],[1794020400,3.7082,3.7612,3.7419,3.7465,171255.455],[1794016800,3.7307,3.774,3.7475,3.7402,215270.121],[1794013200,3.7296,3.7579,3.7313,3.7473,383478.934],[1794009600,3.697,3.7331,3.7082,3.7315,197616.325],[1794006000,3.6878,3.7158,3.6979,3.7086,65688.683],[1794002400,3.6946,3.7591,3.735,3.6973,225389.233],[1793998800,3.6934,3.738,3.699,3.7371,121674.457],[1793995200,3.6864,3.739,3.732,3.699,116887.014],[1793991600,3.697,3.7489,3.744,3.7306,78040.185],[1793988000,3.7098,3.7651,3.7242,3.7464,153569.402],[1793984400,3.7008,3.7911,3.7712,3.7249,290659.46],[1793980800,3.7112,3.7791,3.7532,3.7698,273551.466],[1793977200,3.7207,3.8036,3.7611,3.7548,707235.437],[1793973600,3.6784,3.8232,3.7152,3.761,907995.276],[1793970000,3.6813,3.7279,3.709,3.7136,486555.653],[1793966400,3.7048,3.7927,3.7305,3.7089,285500.198],[1793962800,3.7243,3.7545,3.7411,3.7312,185803.513],[1793959200,3.72,3.751,3.7278,3.7417,100836.802],[1793955600,3.711,3.7522,3.7122,3.7272,160647.266],[1793952000,3.6857,3.7375,3.6939,3.7112,446683.231],[1793948400,3.6311,3.6928,3.6684,3.6908,139767.06],[1793944800,3.663,3.7089,3.6756,3.6689,64408.331],[1793941200,3.6445,3.7014,3.6636,3.6766,84795.754],[1793937600,3.6568,3.6911,3.6813,3.6637,177583.208],[1793934000,3.662,3.7169,3.7107,3.683,118400.364],[1793930400,3.693,3.738,3.7278,3.7133,91750.275],[1793926800,3.6955,3.7674,3.7647,3.7277,172828.537],[1793923200,3.6556,3.7737,3.6569,3.7641,348802.392],[1793919600,3.6181,3.6866,3.67,3.6569,586878.118],[1793916000,3.655,3.7141,3.6896,3.6699,388753.87],[1793912400,3.664,3.7205,3.6918,3.6875,167177.774],[1793908800,3.6712,3.7239,3.7007,3.6992,906884.229],[1793905200,3.6413,3.7088,3.6636,3.7031,1608280.49],[1793901600,3.6337,3.7045,3.6847,3.6642,1182119.201],[1793898000,3.6789,3.7388,3.7348,3.6917,647854.988],[1793894400,3.6844,3.809,3.6948,3.7356,982205.985],[1793890800,3.6298,3.8626,3.8596,3.6965,3096131.512],[1793887200,3.8179,3.9629,3.9486,3.8597,2530709.305],[1793883600,3.9104,3.9615,3.9341,3.9505,166754.06],[1793880000,3.9227,4.0122,4.012,3.9355,412445.327],[1793876400,4.0049,4.031,4.0109,4.013,58753.365],[1793872800,4.008,4.0504,4.0293,4.0126,39628.4],[1793869200,4.0012,4.0429,4.0404,4.0281,48315.351],[1793865600,4.0012,4.0491,4.0166,4.0379,51230.609],[1793862000,4.0005,4.0463,4.0295,4.0174,55700.253],[1793858400,3.9934,4.054,4.0073,4.0277,39847.677],[1793854800,4,4.0428,4.042,4.0053,69026.765],[1793851200,3.9984,4.061,4.0287,4.0424,177140.94],[1793847600,4.0299,4.0736,4.0429,4.0302,154974.483],[1793844000,4.023,4.063,4.0339,4.0437,105958.623],[1793840400,3.9829,4.0637,3.9996,4.0353,171637.635],[1793836800,3.9861,4.0356,4.0052,4.0025,391491.399],[1793833200,4.0018,4.0656,4.0648,4.0018,287288.735],[1793829600,4.0133,4.0866,4.0145,4.0657,301726.981],[1793826000,3.9963,4.0412,4.0191,4.0132,144562.372],[1793822400,3.972,4.0374,3.9822,4.0184,160690.264],[1793818800,3.976,4.0523,4.0271,3.9802,288452.885],[1793815200,4.0043,4.1536,4.1202,4.0256,410830.408],[1793811600,4.0517,4.1393,4.1202,4.1171,378151.941],[1793808000,4.1077,4.1906,4.1395,4.1168,521305.956],[1793804400,4.1202,4.2665,4.1496,4.1385,1345623.611],[1793800800,3.9575,4.1996,4.0004,4.1514,1693366.659],[1793797200,3.9929,4.0263,4.0003,4.0006,200469.744],[1793793600,3.9804,4.0829,4.0804,3.9976,480675.402],[1793790000,4.0752,4.1294,4.0916,4.0795,221570.034],[1793786400,4.0504,4.1166,4.0633,4.0943,644698.036],[1793782800,4.0263,4.0757,4.057,4.0644,350546.597],[1793779200,4.0155,4.0694,4.0184,4.0562,486788.174],[1793775600,3.919,4.0223,3.9389,4.0174,601436.695],[1793772000,3.8805,3.95,3.8805,3.9399,539597.42],[1793768400,3.8094,3.9398,3.8281,3.8799,532386.835],[1793764800,3.7164,3.838,3.7432,3.8282,540719.127],[1793761200,3.6879,3.7505,3.7141,3.7454,632055.421],[1793757600,3.7067,3.7947,3.7686,3.714,515668.117],[1793754000,3.745,3.8327,3.8218,3.769,1168924.809],[1793750400,3.78,3.843,3.8276,3.824,512766.531],[1793746800,3.826,3.8762,3.8508,3.8266,171960.42],[1793743200,3.8273,3.8803,3.8797,3.847,301725.487],[1793739600,3.8205,3.8945,3.8303,3.8769,314688.653],[1793736000,3.8077,3.8465,3.8188,3.8304,240831.803],[1793732400,3.8036,3.8339,3.8163,3.8196,277227.297],[1793728800,3.8096,3.8864,3.8293,3.8185,728051.523],[1793725200,3.8044,3.8482,3.8327,3.8291,518107.902],[1793721600,3.7891,3.8517,3.8517,3.8343,340388.398],[1793718000,3.8146,3.8656,3.8605,3.8514,452602.419],[1793714400,3.8486,3.8999,3.885,3.8603,328543.538],[1793710800,3.8488,3.9336,3.9006,3.8855,299534.473],[1793707200,3.8466,3.9242,3.8669,3.9009,675125.891],[1793703600,3.8226,3.8789,3.8239,3.8647,230896.65],[1793700000,3.816,3.846,3.8379,3.824,100848.035],[1793696400,3.7754,3.8385,3.7794,3.8384,304878.394],[1793692800,3.7354,3.7867,3.7776,3.7792,198390.191],[1793689200,3.7502,3.8055,3.7674,3.7768,200942.336],[1793685600,3.7468,3.7799,3.7687,3.767,364136.441],[1793682000,3.7677,3.8278,3.8261,3.7715,354522.96],[1793678400,3.8024,3.8675,3.8226,3.826,86627.894],[1793674800,3.7852,3.8303,3.7989,3.8211,270582.268],[1793671200,3.79,3.8524,3.8304,3.7989,623092.216],[1793667600,3.8273,3.8795,3.8628,3.8304,261444.52],[1793664000,3.853,3.9006,3.8593,3.8631,284849.602],[1793660400,3.8452,3.8752,3.8608,3.8582,277274.671],[1793656800,3.8571,3.9177,3.9084,3.8656,142065.139],[1793653200,3.8486,3.9088,3.8647,3.9079,374555.493],[1793649600,3.8529,3.9313,3.8854,3.8653,662507.509],[1793646000,3.8375,3.9012,3.8885,3.8861,802954.36],[1793642400,3.8619,3.9457,3.9249,3.8873,735172.652],[1793638800,3.9004,3.9869,3.9757,3.927,778847.855],[1793635200,3.9603,4.0209,4.0059,3.9723,521199.97],[1793631600,3.9877,4.0829,4.0681,4.006,529228.639],[1793628000,4.0286,4.0991,4.0824,4.0675,347661.351],[1793624400,4.05,4.132,4.0992,4.0835,513344.261],[1793620800,4.0794,4.1502,4.1245,4.0978,197381.94],[1793617200,4.0941,4.1397,4.1224,4.1255,125457.183],[1793613600,4.0903,4.1231,4.1205,4.1225,189463.435],[1793610000,4.1153,4.1507,4.1344,4.1206,96729.286],[1793606400,4.0775,4.1387,4.105,4.1347,173474.846],[1793602800,4.0698,4.1399,4.1111,4.105,408874.184],[1793599200,4.0964,4.239,4.239,4.1104,720554.168],[1793595600,4.2384,4.2763,4.2633,4.242,50920.393],[1793592000,4.2505,4.2954,4.2919,4.2625,72755.593],[1793588400,4.2696,4.3304,4.2707,4.2937,209990.658],[1793584800,4.2617,4.3192,4.2958,4.2716,432339.84],[1793581200,4.2481,4.3442,4.2481,4.2989,338741.792],[1793577600,4.2435,4.3112,4.2837,4.2519,69462.331],[1793574000,4.2534,4.2966,4.2534,4.284,108171.223],[1793570400,4.2354,4.2929,4.2912,4.249,244418.982],[1793566800,4.2569,4.307,4.2787,4.2901,75516.811],[1793563200,4.2375,4.2843,4.2562,4.276,178349.713],[1793559600,4.2248,4.2674,4.2545,4.2564,307813.914],[1793556000,4.253,4.301,4.3008,4.2542,121095.54],[1793552400,4.2961,4.3238,4.3166,4.2986,87272.109],[1793548800,4.3034,4.3334,4.3271,4.3176,80102.138],[1793545200,4.3175,4.3704,4.3679,4.3233,129927.367],[1793541600,4.3656,4.4017,4.38,4.3656,324952.465],[1793538000,4.3752,4.4051,4.3848,4.3819,97240.442],[1793534400,4.3414,4.3842,4.372,4.3837,62045.205],[1793530800,4.3704,4.3918,4.3768,4.3754,58187.457],[1793527200,4.3686,4.4216,4.3884,4.3771,161969.533],[1793523600,4.3621,4.3984,4.3921,4.391,29358.12],[1793520000,4.3477,4.3978,4.3602,4.3945,92710.707],[1793516400,4.3494,4.3786,4.3669,4.3625,54275.143],[1793512800,4.3612,4.4017,4.3765,4.3671,83817.551],[1793509200,4.3569,4.3988,4.3795,4.3782,68075.773],[1793505600,4.3706,4.4119,4.401,4.3808,162489.42],[1793502000,4.397,4.4389,4.4162,4.4018,39351.524],[1793498400,4.4149,4.4808,4.464,4.4193,132519.499],[1793494800,4.4193,4.4867,4.4194,4.464,135813.616],[1793491200,4.4075,4.4411,4.4266,4.4207,81782.79],[1793487600,4.407,4.4409,4.4158,4.4245,88809.44],[1793484000,4.4097,4.4664,4.4532,4.4144,26905.322],[1793480400,4.3951,4.4548,4.4106,4.4548,111136.627],[1793476800,4.4,4.4432,4.4298,4.4102,80541.013],[1793473200,4.4141,4.4986,4.4979,4.4276,204316.801],[1793469600,4.4844,4.5563,4.51,4.4976,587973.79],[1793466000,4.4691,4.5378,4.5217,4.5097,577985.972],[1793462400,4.4517,4.5398,4.4647,4.5148,413704.299],[1793458800,4.4129,4.485,4.4244,4.4655,175236.604],[1793455200,4.3918,4.455,4.4022,4.4226,152053.294],[1793451600,4.3814,4.432,4.4288,4.404,159824.3],[1793448000,4.3254,4.4498,4.3293,4.4288,516175.435],[1793444400,4.3061,4.3426,4.3094,4.3302,70947.817],[1793440800,4.3,4.3395,4.3086,4.3082,77236.934],[1793437200,4.3079,4.3458,4.332,4.3079,64057.597],[1793433600,4.3016,4.3368,4.3133,4.3268,63063.505],[1793430000,4.2888,4.3598,4.3391,4.3156,166495.953],[1793426400,4.3081,4.3621,4.3104,4.338,233658.992],[1793422800,4.2718,4.3366,4.2828,4.3093,92389.875],[1793419200,4.2577,4.312,4.2936,4.2855,218324.028],[1793415600,4.2875,4.3291,4.3269,4.2908,90511.293],[1793412000,4.3246,4.3754,4.345,4.3252,116172.454],[1793408400,4.3291,4.3728,4.341,4.3436,192645.989],[1793404800,4.2745,4.3508,4.2849,4.3377,183700.149],[1793401200,4.2771,4.3449,4.2989,4.2864,300712.515],[1793397600,4.2844,4.3262,4.3032,4.2994,88838.236],[1793394000,4.286,4.3406,4.3023,4.2993,131805.706],[1793390400,4.275,4.3544,4.3313,4.3067,180269.258],[1793386800,4.2543,4.3357,4.2666,4.3327,519131.164],[1793383200,4.2237,4.281,4.2556,4.2673,528754.571],[1793379600,4.2144,4.3093,4.2818,4.2575,609333.298],[1793376000,4.2716,4.3522,4.306,4.2814,385384.997],[1793372400,4.2695,4.4236,4.3296,4.308,723810.909],[1793368800,4.2331,4.349,4.2877,4.3294,882984.485],[1793365200,4.21,4.2996,4.284,4.2902,796856.2],[1793361600,4.2611,4.3247,4.3029,4.2842,496988.324],[1793358000,4.2867,4.3728,4.3654,4.3036,277369.268],[1793354400,4.3126,4.3722,4.3678,4.3636,307739.857],[1793350800,4.2839,4.3753,4.3456,4.3693,341533.59],[1793347200,4.2389,4.3816,4.2463,4.3487,797107.369],[1793343600,4.2054,4.3321,4.3258,4.2477,379921.738],[1793340000,4.163,4.3435,4.186,4.3272,325334.159],[1793336400,4.1761,4.2826,4.22,4.1862,179194.588],[1793332800,4.118,4.2374,4.158,4.2184,270872.405],[1793329200,4.0591,4.1656,4.0591,4.1642,473318.072],[1793325600,3.9649,4.1029,3.995,4.059,785877.832],[1793322000,3.9479,4.033,3.9872,3.9922,664195.81],[1793318400,3.9,4.0702,4.0501,3.9901,1477603.963],[1793314800,4.0342,4.1133,4.1018,4.0521,521140.572],[1793311200,4.0707,4.1591,4.1434,4.1048,1309853.138],[1793307600,4.1164,4.273,4.1678,4.1493,1458139.806],[1793304000,4.0929,4.401,4.3964,4.1692,1912227.646],[1793300400,4.3758,4.4278,4.422,4.3955,427452.473],[1793296800,4.3931,4.5063,4.5009,4.4214,229207.748],[1793293200,4.4478,4.5927,4.5927,4.5027,392045.88],[1793289600,4.5679,4.6853,4.6501,4.5946,641208.128],[1793286000,4.5103,4.6615,4.5211,4.6448,1028028.386],[1793282400,4.4161,4.5552,4.4477,4.5182,495434.215],[1793278800,4.4078,4.5084,4.4504,4.4433,662655.317],[1793275200,4.3777,4.4501,4.4144,4.4501,194599.762],[1793271600,4.3998,4.4277,4.411,4.4117,121485.709],[1793268000,4.349,4.432,4.3695,4.4096,171340.617],[1793264400,4.3388,4.3867,4.3462,4.3675,85660.254],[1793260800,4.3075,4.3483,4.3146,4.3465,79521.365],[1793257200,4.2779,4.3406,4.337,4.3154,311195.499],[1793253600,4.2921,4.4982,4.4864,4.335,774678.369],[1793250000,4.4388,4.5084,4.4462,4.4843,99571.845],[1793246400,4.3974,4.4583,4.4144,4.4455,170724.691],[1793242800,4.4016,4.4853,4.4627,4.4175,125105.541],[1793239200,4.4224,4.502,4.48,4.4658,277703.106],[1793235600,4.47,4.6681,4.6634,4.4787,697424.939],[1793232000,4.66,4.7323,4.7286,4.66,146676.446],[1793228400,4.7104,4.7535,4.7255,4.729,131719.661],[1793224800,4.7103,4.7536,4.7418,4.722,170061.19],[1793221200,4.696,4.7621,4.728,4.7384,235799.243],[1793217600,4.6513,4.8064,4.7437,4.7296,436719.177],[1793214000,4.6772,4.746,4.688,4.7439,550280.207],[1793210400,4.5831,4.7086,4.5906,4.6931,445321.693],[1793206800,4.5638,4.6141,4.5864,4.5946,403893.354],[1793203200,4.5556,4.635,4.6255,4.5882,201349.654],[1793199600,4.5956,4.643,4.596,4.6259,172898.553],[1793196000,4.5304,4.605,4.5875,4.5949,287156.973],[1793192400,4.568,4.6438,4.6024,4.5877,194958.487],[1793188800,4.5824,4.6611,4.6561,4.6037,212820.496],[1793185200,4.6405,4.6944,4.6944,4.6567,120578.662],[1793181600,4.6788,4.7296,4.7171,4.6991,96256.647],[1793178000,4.7107,4.7496,4.7298,4.7184,133897.302],[1793174400,4.7213,4.7809,4.728,4.7308,167834.972],[1793170800,4.6704,4.7285,4.6837,4.7251,47353.082],[1793167200,4.6706,4.7152,4.6795,4.6884,21025.903],[1793163600,4.6503,4.6916,4.6592,4.6826,48500.827],[1793160000,4.6496,4.7008,4.6964,4.6603,122939.426],[1793156400,4.6909,4.7426,4.7024,4.6966,102720.189],[1793152800,4.6988,4.7476,4.7225,4.7026,155419.219],[1793149200,4.6269,4.7271,4.6602,4.7271,260420.622],[1793145600,4.649,4.685,4.6728,4.662,139491.565],[1793142000,4.6513,4.7198,4.698,4.6757,126994.85],[1793138400,4.6448,4.7152,4.6706,4.696,260778.199],[1793134800,4.592,4.7945,4.617,4.6691,530077.917],[1793131200,4.607,4.6358,4.632,4.6166,85563.959],[1793127600,4.6096,4.66,4.627,4.6344,212981.971],[1793124000,4.5825,4.6492,4.6066,4.6301,105543.165],[1793120400,4.5833,4.6286,4.6008,4.608,90133.313],[1793116800,4.5558,4.6492,4.5563,4.6047,757702.464],[1793113200,4.5072,4.6054,4.5234,4.5544,501248.747],[1793109600,4.4764,4.5576,4.5054,4.5221,92693.204],[1793106000,4.4961,4.563,4.5594,4.5099,177895.283],[1793102400,4.4573,4.5996,4.4782,4.5618,235729.971],[1793098800,4.4708,4.5162,4.4892,4.4753,153289.82],[1793095200,4.383,4.5072,4.4268,4.4886,160234.265],[1793091600,4.412,4.4633,4.4574,4.4278,115587.126],[1793088000,4.4312,4.4776,4.4569,4.4547,42295.177],[1793084400,4.4044,4.4848,4.4114,4.4558,124244.576],[1793080800,4.3999,4.4414,4.4402,4.4125,44504.377],[1793077200,4.3991,4.4531,4.4133,4.4402,63836.491],[1793073600,4.406,4.431,4.4224,4.4142,51983.145],[1793070000,4.3817,4.4651,4.4523,4.4226,201943.216],[1793066400,4.4253,4.473,4.4646,4.4501,109107.622],[1793062800,4.44,4.5158,4.4575,4.4666,138490.962],[1793059200,4.4578,4.5318,4.5009,4.4597,335562.078],[1793055600,4.4192,4.5067,4.4496,4.503,96754.363],[1793052000,4.4372,4.4784,4.4566,4.4559,71616.663],[1793048400,4.4311,4.4864,4.4494,4.4565,63177.235],[1793044800,4.439,4.4867,4.4739,4.4494,140770.414],[1793041200,4.436,4.5008,4.4549,4.4707,295582.726],[1793037600,4.4471,4.526,4.504,4.4557,351204.101],[1793034000,4.4802,4.5657,4.5095,4.5042,252141.373],[1793030400,4.4723,4.5753,4.572,4.51,293493.568],[1793026800,4.5556,4.6519,4.6497,4.5702,565205.467]]"
+      },
+      "observation": {
+        "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+        "product": "NEAR-USD",
+        "spot": "3594500000000",
+        "price_scale": "1000000000000",
+        "sigma": 0.9755627476107629,
+        "timestamp_ns": "1794283917492833183",
+        "history_end_ns": "1794283200000000000",
+        "return_count": 168,
+        "snapshot_hash": "3e4766272f9f3229b9ac31e75c8049ba50e3668212e6c1663612aba6c92c3ebd",
+        "settlement_eligible": false
+      }
+    }
+  ],
+  "sources": {
+    "artifact/oracle-fixture.wasm": "b05ba6697ef54085a9832f39fd710842f34e0b385bfb257ace3f7584ed2c70df",
+    "artifact/clearinghouse.wasm": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+    "services/market-data/coinbase.mjs": "e80f4a5ef8079305be40beb253c18fffbe72dc6148c3029e35e660cfee6362e3",
+    "services/maker/valuation.mjs": "1b35a702f0ba2e7efc9e477517f46a85a5c62ead6ac0e8512981624f47cfbab3",
+    "services/maker/worker.mjs": "80c7f0e44af85cce4cda6079744f235904e3dd50876b8bdb0345bd04fbdd8e33",
+    "tests/sandbox/mkt03.mjs": "5a7fddd8673d4ec3ab22a943320999b1b0bbe5a38ba84556e25637f9d778e287"
+  },
+  "passed": true,
+  "series": {
+    "series_id": "market",
+    "version": "1",
+    "collateral_kind": "NATIVE_NEAR",
+    "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "payoff_kind": "CAPPED_USD_COMPLEMENT",
+    "strike": "3500000000000",
+    "price_scale": "1000000000000",
+    "maturity_ns": "1794370319295093000",
+    "mint_cutoff_ns": "1794370199295093000",
+    "observation_window": {
+      "start_ns": "1794370199295093000",
+      "end_ns": "1794370319295093000"
+    },
+    "oracle_account_id": "oracle.sandbox",
+    "oracle_version": "fixture-v1",
+    "oracle_config_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+    "finalization_policy_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+    "max_supply": "100000000000000000000000000"
+  },
+  "custody": {
+    "native_balance": "62283037027905913800000007",
+    "free_collateral": "8000000000000000000000000",
+    "vault_collateral": "0",
+    "vault_storage_fund": "0",
+    "roll_storage_fund": "0",
+    "series_reserves": "4000000000000000000000000",
+    "refundable_storage": "163840000000000000000000",
+    "fees": "1000000000000000000007",
+    "series_storage_fund": "40960000000000000000000",
+    "market_storage_fund": "81920000000000000000000",
+    "operating_allocation": "20000000000000000000000000",
+    "pending_in_flight": "0",
+    "unknown_in_flight": "0",
+    "tracked_user_collateral": "12000000000000000000000000",
+    "retained_categories": "32287720000000000000000007",
+    "retained_categories_covered": true,
+    "unallocated_or_in_flight_return": "29995317027905913800000000",
+    "storage_bytes": "617150",
+    "storage_byte_cost": "10000000000000000000",
+    "next_ticket_id": "0",
+    "operation_sequence": "16"
+  },
+  "buyer": {
+    "free": "3995034009269878245775000",
+    "storage_paid": "40960000000000000000000",
+    "positions": [
+      {
+        "p": "0",
+        "n": "100000000000000000000000"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      }
+    ],
+    "retained_tickets": 0,
+    "closing": false
+  }
+}

@@ -1,0 +1,393 @@
+{
+  "scope": "Actual Coinbase market inputs, two project-operated makers, actual compiled-Wasm Sandbox fills; no public testnet or external settlement claim",
+  "checks": [],
+  "transactions": [
+    {
+      "label": "create buyer",
+      "hash": "4zRMPtcsLRxGWWkZL8Ck5A9TRWhkWNMhMhD1Bjog52me",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "21g1MqKCTB3XxSDLVpCEB4hMnEHDQtsQHrt8QvuTEjQo",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create maker-a",
+      "hash": "Gx2bDzda6gnys9nRVShV2MRNaCvn9wLqzNHT5U5zk1Jc",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9LsHB5z4Vnm2EApQWbreZLgZ3WFs5fYG2P3m1B8ys3yK",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create maker-b",
+      "hash": "C6mjJEP6yE5bViB3DQTww3nmu7ScE9oW3FyheCXZmFjC",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "B5DXGLsthkobb27ELriiqQBFp7KjLVeAP75dCNGWF6mW",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create oracle",
+      "hash": "Bp5YPRL9mSZcwt4dLYYMpXEuxcQoBrXuYpvN7vfWe6zQ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6JXZHS13fYa56ZtrtMNFbYSCtLdyTwicTuMnSTJd17Dz",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deploy oracle",
+      "hash": "EU97o7AoipXskb7EZotjqiGG3PGPjX8EAiZkfbhJsnZR",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4bPdih6LpwsJNvQEiyGsrr8QM1UE3Zax7c2MQqjEcQpf",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "5SomUQcFHthhRebAX4qRaAXyz1GKAYzKUoM5sEG4JfrF",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create core",
+      "hash": "A2sLhMkxmbt1pgNHcUgw3GdFJ3rdirpzLew7T1d6T7EE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9eZb6DoV7UCnpq6zGmZNq4a1NoMyyqsRto3jWrapfpjH",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deploy core",
+      "hash": "CWV1MTU6wY1wn7xcxKxXn4AYEVKAsmeLQNTaMZc6zJtF",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "F3HUYPYN6XSH7xeMyAuRykbem6brSEexTAyCMdAgdU67",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "CUH9kNKBfDudpkNakALHH5Lz4dcWfMNZX5Nzay6ZWqEJ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "A6F8KL3tR6KrLRxSUv8CHxpUg48BMhxx3wze9ompZKJK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "DCaj12pkQBY74yX6QVsvWmSPQmttjCpkB3WE3b7EuFFH",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "3sjQhkLhHW9abxxqMCFnJQS88becbY6drYySJjEXpTPZ",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "GTXKMEpUVW38mLXkbSTifNhY86jJ1nak6sYY9nkaSx5G",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "57bLfoHJn14h1yPipcdTR2t1DCa1e8wcEsNnbwhzjZVX",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "DB3UPJ5svVENxp4K5UoSNbhvkAAoaYw5xZRd8Vo75Pyf",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "2BvTH8DGzDET8q5Dv8J5ErRr82i7p69N2xzjkAR3HxfM",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "EzFnYdmrkkqtsZuWVghjucH8GmXYLiGheoGmkmA1jjN7",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "3wz4VnRDtxuLAhdKkt9Guqf7oHzGjjN4NLtkLSwKJCRq",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "9D2Y2pCUyqdDi6Jpjsv6ELUjrsyPfpX1xwEgMy4HBhNy",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Exq7NbdDGaDUG7a66fMxmHzowzCbrqBVaiSJT5NcqzKh",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "BJG9kMVk3TbC1ALHNsnFQ5HRp9xsFW5CA2GRzBRcHMvz",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "B6affTchE2AwhrR3VJmGLEKMh85iY8Gi5rCwfqg1ecE7",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8ePayYSk98PxNUq2WcTBrK3Mi6vGFMLTVBvtLia6JJgR",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "7nn8nmjYe7utuo8vRbwb7ZwBGQCEAcYAG2hBHDyD46Hk",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "9YdAVFTfdTc4B6nThRFg7V4LtvHzFxiVFJYGZG8KzobC",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FPtS8B1nsQb8HkDn6jMXikD87GtGEjXDnFLPWDw6TJjP",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "6bZFKfhgUchXqovjge2Sc91CigcDegJjG4nY73A7xkmW",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "7kaqRrC9QZgqsn2wyRQrtac7JvBjXdfgaXrYeZxD2iU8",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7mojD3eoE9UBuY7tGCvRXtQneAcfoVAp3MR7iwao3tGF",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "8eqxpeBgBVnRF3ZYxUByke6YSZPomDWsnLxsb8tdoGuL",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "create_series",
+      "hash": "B62dX8jkDumHqT456gk8Gc6zrt9NcPtKMJ8Nb7kkfS4q",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "C2qPFcF1Bbwbo9gYzGK1rQ24zj6BuNc94JNhp1hjpqcB",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "DQgExh2y27TfgdpETrUQQa6kLG3viQvYYXZDoyGTMHeo",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "2Q1DgGqCDfMyd4senEVXX8fnjYnmqMZoPaNjASiWpD3e",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "93kQK12nFm4VVEFy5nHSmuKGiThmG7SLgJzzGDMLKrsm",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "9JjpkxsL7gv5y5hG72EtmJU6vK48MCuy7raUUm7Bwb3F",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "Efcy57kP3vC67aNgS3nXW4muWLBzKGy4tPn4UjGm8jhK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "54y1AEGyPhyqZDLiaPwxcZZ28bjkvUW6Laf5pJdNJdTD",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        },
+        {
+          "id": "Anx8eVFsNHgGCDi3j6SJkW7TYiwxaVTzAvdHGf5C6KrF",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          }
+        }
+      ]
+    }
+  ],
+  "quotes": [],
+  "snapshots": [],
+  "sources": {
+    "artifact/oracle-fixture.wasm": "b05ba6697ef54085a9832f39fd710842f34e0b385bfb257ace3f7584ed2c70df",
+    "artifact/clearinghouse.wasm": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+    "services/market-data/coinbase.mjs": "e80f4a5ef8079305be40beb253c18fffbe72dc6148c3029e35e660cfee6362e3",
+    "services/maker/valuation.mjs": "1b35a702f0ba2e7efc9e477517f46a85a5c62ead6ac0e8512981624f47cfbab3",
+    "services/maker/worker.mjs": "9f8204ec707d172da60a25c82ace4500059f5ba3123d40fb478e5e673567938b",
+    "tests/sandbox/mkt03.mjs": "c3d25be4446f0994efbc72aa0dcd0c41276208397a79e2646650a3b38fe5dec5"
+  },
+  "passed": false,
+  "series": {
+    "series_id": "market",
+    "version": "1",
+    "collateral_kind": "NATIVE_NEAR",
+    "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "payoff_kind": "CAPPED_USD_COMPLEMENT",
+    "strike": "3500000000000",
+    "price_scale": "1000000000000",
+    "maturity_ns": "1794381892819458000",
+    "mint_cutoff_ns": "1794381772819458000",
+    "observation_window": {
+      "start_ns": "1794381772819458000",
+      "end_ns": "1794381892819458000"
+    },
+    "oracle_account_id": "oracle.sandbox",
+    "oracle_version": "fixture-v1",
+    "oracle_config_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+    "finalization_policy_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+    "max_supply": "100000000000000000000000000"
+  }
+}

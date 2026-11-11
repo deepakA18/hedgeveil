@@ -1,0 +1,1573 @@
+{
+  "scope": "Compiled testnet-domain contracts and durable admin transactions on local Sandbox; explicit network-status transport fixture; no public-testnet acceptance",
+  "passed": true,
+  "checks": [
+    "durable create-account action matching accepts actual finalized receipts",
+    "restarting an admin step recovers without another send",
+    "one exact deposit credit survives admin replay",
+    "testnet-domain core and oracle reconcile with actual receipts",
+    "indexed API exposes the actual configured network",
+    "testnet-domain replay preserves exact user collateral",
+    "setup replay did not add an operation to the retained send list",
+    "full setup deploys both contracts and funded inventories with vault disabled",
+    "maker funding separates two NEAR free collateral from two backed pairs",
+    "actual publisher proposal dispute arbitration and core import complete",
+    "resolved price equals committed fallback observation"
+  ],
+  "transactions": [
+    {
+      "intent": {
+        "label": "create-publisher-5.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "publisher-5.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:GLyTngmMPwTJB2QVVH4XNSWS1Wq7KjJ13DY9ZGBKa9W1"
+          }
+        ],
+        "operation_id": "091779f21ef2a9f2f51dbc6b06388700f61c2a32908145798c7e8289d1e7d66e"
+      },
+      "result": {
+        "operation_id": "091779f21ef2a9f2f51dbc6b06388700f61c2a32908145798c7e8289d1e7d66e",
+        "hash": "Dm8ExgrxhpyjxSUXx4Qcy11A2YE7fhy8NK2gA9hiaRQt",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-publisher-1.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "publisher-1.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:GkSxwUyFBUgtGcog4mo4nVkawRqhgj2iuRE5YJQ9Xeog"
+          }
+        ],
+        "operation_id": "095facf14ad588ff5fc372508fd790e0f7ccb11842704584165a40ddbd8560d7"
+      },
+      "result": {
+        "operation_id": "095facf14ad588ff5fc372508fd790e0f7ccb11842704584165a40ddbd8560d7",
+        "hash": "H3Yv5tQroQGbRUumgcjtxhfSrEkjbuR3NeGD3ihQBQsF",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "deploy-oracle",
+        "signer_id": "oracle.sandbox",
+        "receiver_id": "oracle.sandbox",
+        "actions": [
+          {
+            "type": "DeployContract",
+            "code_sha256": "2ccced7a6ba697f38a142e627c96acf3bbe0eb3e128c5a4375141810843f8e75"
+          },
+          {
+            "type": "FunctionCall",
+            "method": "new",
+            "args": {
+              "network": "testnet",
+              "registrar": "sandbox",
+              "treasury": "sandbox",
+              "storage_byte_cost": "10000000000000000000"
+            },
+            "deposit": "0",
+            "gas": "250000000000000"
+          }
+        ],
+        "operation_id": "09edd5dc804e806645e0e293e48eaeef10644d546730e19dfecc9c4b3eb17930"
+      },
+      "result": {
+        "operation_id": "09edd5dc804e806645e0e293e48eaeef10644d546730e19dfecc9c4b3eb17930",
+        "hash": "Fo25ekHSm5g9EgrZ25bHh7zB98rRwbt6HA3J2ZK7qqg8",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "resolve-alpha",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "request_resolution",
+            "args": {
+              "series_id": "alpha"
+            },
+            "gas": "250000000000000",
+            "deposit": "0"
+          }
+        ],
+        "operation_id": "0d4b14eaac06c7ad8bc8baecda13084a3420c7327e21d5dbc7220fe2ffdbbd31"
+      },
+      "result": {
+        "operation_id": "0d4b14eaac06c7ad8bc8baecda13084a3420c7327e21d5dbc7220fe2ffdbbd31",
+        "hash": "7og1G5FXE5PtCHwKbfhTzrMxXsM7PwBhNrvcR4jMUptU",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-core.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "30000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:92x6vS61DjxvCKR9vrowcpjDwL7SxoRdTM7NL3w1fX6R"
+          }
+        ],
+        "operation_id": "11fddd2f58b2d721b86a4897caae03a9a06fc550f779eb7dbdbf7e8e67979ed7"
+      },
+      "result": {
+        "operation_id": "11fddd2f58b2d721b86a4897caae03a9a06fc550f779eb7dbdbf7e8e67979ed7",
+        "hash": "GaCd7qfmz67vjAQVB8QGzrkiaFwNeTfBTdPLdKDtt8Wq",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "deploy-oracle",
+        "signer_id": "oracle.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "DeployContract",
+            "code_sha256": "2ccced7a6ba697f38a142e627c96acf3bbe0eb3e128c5a4375141810843f8e75"
+          },
+          {
+            "type": "FunctionCall",
+            "method": "new",
+            "args": {
+              "network": "testnet",
+              "registrar": "demo.sandbox",
+              "treasury": "demo.sandbox",
+              "storage_byte_cost": "10000000000000000000"
+            },
+            "gas": "250000000000000",
+            "deposit": "0"
+          }
+        ],
+        "operation_id": "17b771adeb8dda6c4235eaa284c8dfe987d766171aec31362a7a8e4b863f456c"
+      },
+      "result": {
+        "operation_id": "17b771adeb8dda6c4235eaa284c8dfe987d766171aec31362a7a8e4b863f456c",
+        "hash": "CrdqkYseDXnx2yZ1JXaAwdRCwiokRTeM6mXVnCELM869",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "rfq-key-maker-b.demo.sandbox",
+        "signer_id": "maker-b.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "register_signing_key",
+            "args": {
+              "key_id": "demo-key",
+              "public_key": "4c0c57b7332c9eaf638a015619d5a00ec4bf1561a06cee7f7cc5623a72d4af08"
+            },
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000001"
+          }
+        ],
+        "operation_id": "1a62e42fe23014a8f1243ad98c359de6946e71c7c556cf6d59b5c03879cc9670"
+      },
+      "result": {
+        "operation_id": "1a62e42fe23014a8f1243ad98c359de6946e71c7c556cf6d59b5c03879cc9670",
+        "hash": "Ft92pxTW51gBr6vyAMaqgk6FSSMXMRg3unTSjtdSq7YF",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-user.sandbox",
+        "signer_id": "sandbox",
+        "receiver_id": "user.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "40000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:2dU1mkty1UKdtwQRKjX1VCaovMfBVB1UuaxiDpEkFhkq"
+          }
+        ],
+        "operation_id": "1e88718929820274491e44ddaf2c3c600b5dc866eec82bb1ac31351052a00ed9"
+      },
+      "result": {
+        "operation_id": "1e88718929820274491e44ddaf2c3c600b5dc866eec82bb1ac31351052a00ed9",
+        "hash": "96RnT6bToV29jxB1UV2tPw5RLXFTgKvyhanbtsgn8cFX",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "publish-alpha-1",
+        "signer_id": "publisher-1.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "publish",
+            "args": {
+              "evidence": {
+                "series_id": "alpha",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "source_id": "primary-b",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "samples": [
+                  {
+                    "timestamp_ns": "1794226434206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226444206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226454206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226464206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226474206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226484206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226494206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226504206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226514206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226524206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226534206644000",
+                    "price": "4020000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226544206644000",
+                    "price": "4020000000000"
+                  }
+                ]
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "22194fbe1ff5237afa2d429fcaf4207dc4e803eb2b9c668f71d62a3fb47f5fcc"
+      },
+      "result": {
+        "operation_id": "22194fbe1ff5237afa2d429fcaf4207dc4e803eb2b9c668f71d62a3fb47f5fcc",
+        "hash": "8JheLgmAJGTK1LuwgaAwbSSmBugekC6vyAgSQJSsDZ7m",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "collateral-maker-b.demo.sandbox",
+        "signer_id": "maker-b.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "deposit_collateral",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "4000000000000000000000000"
+          }
+        ],
+        "operation_id": "2a2effff8638fbff95e5e4d18b98027d602881a6a672d976c5d9544949d573a3"
+      },
+      "result": {
+        "operation_id": "2a2effff8638fbff95e5e4d18b98027d602881a6a672d976c5d9544949d573a3",
+        "hash": "3XMxmFxXU3yUHxtBsaihX9YUZ9Z9jR6dJBXqsqWc2cBf",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "publish-alpha-2",
+        "signer_id": "publisher-2.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "publish",
+            "args": {
+              "evidence": {
+                "series_id": "alpha",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "source_id": "primary-c",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "samples": [
+                  {
+                    "timestamp_ns": "1794226434206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226444206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226454206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226464206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226474206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226484206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226494206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226504206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226514206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226524206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226534206644000",
+                    "price": "3980000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226544206644000",
+                    "price": "3980000000000"
+                  }
+                ]
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "30065d6c4e57afa207a5127c0f358acfc7245697de7f185703b579d27af0dfbe"
+      },
+      "result": {
+        "operation_id": "30065d6c4e57afa207a5127c0f358acfc7245697de7f185703b579d27af0dfbe",
+        "hash": "Fy2L4mDnFyGpXVcfP4AFNXqwY74py4E8PAYBhkoVmYAq",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "register-maker-b.demo.sandbox",
+        "signer_id": "maker-b.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "storage_deposit",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000000"
+          }
+        ],
+        "operation_id": "312a3767f333b2905fc652a554e8076e652b3be581305516b03c8a31d01f407e"
+      },
+      "result": {
+        "operation_id": "312a3767f333b2905fc652a554e8076e652b3be581305516b03c8a31d01f407e",
+        "hash": "DMWbvUmTZXQ2kDpq6U3fVVUfxvgaEQn2oQtBrMRkyn9c",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-publisher-0.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "publisher-0.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:31sjz6AfEHFpGVNDmgUq7gqoXuCBCkktcbuJnpvAnrKP"
+          }
+        ],
+        "operation_id": "3a1051830d90c4ca330faa13f27c57328bccae7972ea29ecf81abb39748215ed"
+      },
+      "result": {
+        "operation_id": "3a1051830d90c4ca330faa13f27c57328bccae7972ea29ecf81abb39748215ed",
+        "hash": "3XzVnezqh4ZPszmeph5ut396Pzepn3KkpknCB7NDSw7F",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "collateral-maker-a.demo.sandbox",
+        "signer_id": "maker-a.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "deposit_collateral",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "4000000000000000000000000"
+          }
+        ],
+        "operation_id": "3a44176646186111f445de7fc948d3696bb874277efd7422f01ba18102535754"
+      },
+      "result": {
+        "operation_id": "3a44176646186111f445de7fc948d3696bb874277efd7422f01ba18102535754",
+        "hash": "3wvF2185NuWRo7ux8AD2avDizyzes5BEtuJ76imdwkAX",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "oracle-register-demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "register_account",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000000"
+          }
+        ],
+        "operation_id": "3acb8220a8fb563ba9dfb0d7a60845b5627e163d0a2c11fc7bf1e66b512da3cd"
+      },
+      "result": {
+        "operation_id": "3acb8220a8fb563ba9dfb0d7a60845b5627e163d0a2c11fc7bf1e66b512da3cd",
+        "hash": "2TZT1AXbb2SUSjoqUpA4Lbo8WAzn56sbFPaqvppLkUpg",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "oracle-series-alpha",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "register_series",
+            "args": {
+              "config": {
+                "series_id": "alpha",
+                "version": "1",
+                "collateral_kind": "NATIVE_NEAR",
+                "index_definition_hash": "ac58e1c80dcd97f81bf60eb3757b5aaace8617bfb2cb3635eff9953c59c731f8",
+                "payoff_kind": "CAPPED_USD_COMPLEMENT",
+                "strike": "2000000000000",
+                "price_scale": "1000000000000",
+                "maturity_ns": "1794226554206644000",
+                "mint_cutoff_ns": "1794226434206644000",
+                "observation_window": {
+                  "start_ns": "1794226434206644000",
+                  "end_ns": "1794226554206644000"
+                },
+                "oracle_account_id": "oracle.demo.sandbox",
+                "oracle_version": "demo-v1",
+                "oracle_config_hash": "dfb9b81e8ef02f94fc08c3c1a5a786f852af5a0baf19fb61123f5ac2175f3b35",
+                "finalization_policy_hash": "60f6bf26d6f6b4ca9d8910bd32672abbc9dc12aba45aba66bbd9031fd52df268",
+                "max_supply": "100000000000000000000000000"
+              },
+              "observation": {
+                "label": "DEMO ORACLE — SYNTHETIC PRICES",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "window": {
+                  "start_ns": "1794226434206644000",
+                  "end_ns": "1794226554206644000"
+                },
+                "sample_step_ns": "10000000000",
+                "min_price": "10000000000",
+                "max_price": "1000000000000000",
+                "primary": [
+                  {
+                    "source_id": "primary-a",
+                    "publisher": "publisher-0.demo.sandbox",
+                    "evidence_hash": "0103660ceaca148a5438a6ddb4c865ca8acdf2a4268a291389a11c2da6400092"
+                  },
+                  {
+                    "source_id": "primary-b",
+                    "publisher": "publisher-1.demo.sandbox",
+                    "evidence_hash": "f8ddcecb3582880a5a1a193741fe75fa4e77228a8b3c75a1246f12ef548ecfca"
+                  },
+                  {
+                    "source_id": "primary-c",
+                    "publisher": "publisher-2.demo.sandbox",
+                    "evidence_hash": "e066276a347af4abc871f5530d681ebef5b80e60802a4b4b05d2d4e62763ea39"
+                  }
+                ],
+                "fallback": [
+                  {
+                    "source_id": "fallback-a",
+                    "publisher": "publisher-3.demo.sandbox",
+                    "evidence_hash": "89d7607acbd9d4dfcf30a7e9bb6baf5c564799259361df3726a948830f538651"
+                  },
+                  {
+                    "source_id": "fallback-b",
+                    "publisher": "publisher-4.demo.sandbox",
+                    "evidence_hash": "6ca8b88b973276d1ff06601307c3383e839209dba30909556fc91bc5e06c83d4"
+                  },
+                  {
+                    "source_id": "fallback-c",
+                    "publisher": "publisher-5.demo.sandbox",
+                    "evidence_hash": "00c9585be87396bd235b0592d179434159daaba45c0005e5d5b3370de38f7920"
+                  }
+                ]
+              },
+              "policy": {
+                "primary_ns": "600000000000",
+                "fallback_ns": "600000000000",
+                "arbitration_ns": "600000000000",
+                "challenge_ns": "120000000000",
+                "proposal_bond": "100000000000000000000000",
+                "challenge_bond": "100000000000000000000000",
+                "arbitrator": "judge.demo.sandbox"
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "327680000000000000000000"
+          }
+        ],
+        "operation_id": "526298492062bacfd920b0503bffcba89b92ebcc002bbd3139c8212c26131ea5"
+      },
+      "result": {
+        "operation_id": "526298492062bacfd920b0503bffcba89b92ebcc002bbd3139c8212c26131ea5",
+        "hash": "BZwG67zMtJzySSkJRVqQerrDX4vbqqjx9XvC7JEupFhG",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-publisher-4.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "publisher-4.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:GQABLuPPHMChbxZXGc82SJzYByE3sP6FWFBLAcg7P8Kx"
+          }
+        ],
+        "operation_id": "5c668512052d5419f3ab394017dbc3eced7c6410d5835751859eea256b74dd7b"
+      },
+      "result": {
+        "operation_id": "5c668512052d5419f3ab394017dbc3eced7c6410d5835751859eea256b74dd7b",
+        "hash": "Et5C78VPrDp48Yya9xTCy3oSbfQ68GXowt6nWRXCC9fw",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "register-maker-a.demo.sandbox",
+        "signer_id": "maker-a.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "storage_deposit",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000000"
+          }
+        ],
+        "operation_id": "5e61f38018cee8dee420e54df09d14bad5a40d8c5d7bdcd9b7d965555901fb7b"
+      },
+      "result": {
+        "operation_id": "5e61f38018cee8dee420e54df09d14bad5a40d8c5d7bdcd9b7d965555901fb7b",
+        "hash": "6acx64trierKVEafC1FDVVaCqTtasNDqiubwPgzejPnD",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "deploy-core",
+        "signer_id": "core.sandbox",
+        "receiver_id": "core.sandbox",
+        "actions": [
+          {
+            "type": "DeployContract",
+            "code_sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007"
+          },
+          {
+            "type": "FunctionCall",
+            "method": "new",
+            "args": {
+              "network": "testnet",
+              "guardian": "sandbox",
+              "oracle": "oracle.sandbox",
+              "oracle_version": "demo-v1",
+              "storage_byte_cost": "10000000000000000000"
+            },
+            "deposit": "0",
+            "gas": "250000000000000"
+          }
+        ],
+        "operation_id": "6efa977bb89f21d81484f1471d842abe8000895121879d40d1129560ee791950"
+      },
+      "result": {
+        "operation_id": "6efa977bb89f21d81484f1471d842abe8000895121879d40d1129560ee791950",
+        "hash": "5aHWDZhdNka5MpRuMGsaXmqXzQzyzEYsTPcHApyB3n2T",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "publish-alpha-4",
+        "signer_id": "publisher-4.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "publish",
+            "args": {
+              "evidence": {
+                "series_id": "alpha",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "source_id": "fallback-b",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "samples": [
+                  {
+                    "timestamp_ns": "1794226434206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226444206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226454206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226464206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226474206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226484206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226494206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226504206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226514206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226524206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226534206644000",
+                    "price": "2420000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226544206644000",
+                    "price": "2420000000000"
+                  }
+                ]
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "729688598fd3cd6be8e6c6bbeb4448feddf4e76338828c5419e894df40e623b7"
+      },
+      "result": {
+        "operation_id": "729688598fd3cd6be8e6c6bbeb4448feddf4e76338828c5419e894df40e623b7",
+        "hash": "HsKdLRBoktN4bCFoZ4ow1JNn3kBhhufwf3p9Zkz5Ccea",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-maker-a.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "maker-a.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "6000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:ANf1x3RHNxXKjKWfeWw7VTE6RxuFyc5R6EnkzMc6eTxE"
+          }
+        ],
+        "operation_id": "769ebe6283015e3eecdc8bf408a4897e3d0316aa3fba72b2f5adb86106e2c579"
+      },
+      "result": {
+        "operation_id": "769ebe6283015e3eecdc8bf408a4897e3d0316aa3fba72b2f5adb86106e2c579",
+        "hash": "B2zorUV6gybq6J3tM1f5mDoaeeXJrZTUgwcr2BsNxyfH",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "publish-alpha-5",
+        "signer_id": "publisher-5.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "publish",
+            "args": {
+              "evidence": {
+                "series_id": "alpha",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "source_id": "fallback-c",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "samples": [
+                  {
+                    "timestamp_ns": "1794226434206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226444206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226454206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226464206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226474206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226484206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226494206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226504206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226514206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226524206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226534206644000",
+                    "price": "2380000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226544206644000",
+                    "price": "2380000000000"
+                  }
+                ]
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "7c9d787070248da30edb236cd982a86316107168e1e56209795ea047b64f6252"
+      },
+      "result": {
+        "operation_id": "7c9d787070248da30edb236cd982a86316107168e1e56209795ea047b64f6252",
+        "hash": "AyEuGnA8wyP9THuRQtJFqMABNawW6nNiDKqUzbuFmtYN",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-publisher-3.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "publisher-3.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:GRxFETfX7T2gp9GNmfummhEPu4znMd6fxm1fn42ghfDJ"
+          }
+        ],
+        "operation_id": "801f915e47ebc39f6dd9df8b52080c9e2621455d0d21e32871551905ce4694b3"
+      },
+      "result": {
+        "operation_id": "801f915e47ebc39f6dd9df8b52080c9e2621455d0d21e32871551905ce4694b3",
+        "hash": "4JcEh2VhaSP3WZvukbwbgcmEvsJG4xEYFRBddAANZYuD",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-maker-b.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "maker-b.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "6000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:2JnrGht9xnnt8ByUqwHSnmmYue6txnUHyarD1FtYbFXm"
+          }
+        ],
+        "operation_id": "80559427e453bbaf6b5e29f05f01bb8a317ff14451e92d5e95d694d3f20156f5"
+      },
+      "result": {
+        "operation_id": "80559427e453bbaf6b5e29f05f01bb8a317ff14451e92d5e95d694d3f20156f5",
+        "hash": "D66wiKKNFGSmrW4r8psqJ2ktJByGgz1LMzsRhKCrkBmb",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "inventory-alpha-maker-b.demo.sandbox",
+        "signer_id": "maker-b.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "split",
+            "args": {
+              "series_id": "alpha",
+              "amount": "2000000000000000000000000"
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "82fb78948087bee479566964e13f6e18f8779150a95c52b06e810a8ba741df77"
+      },
+      "result": {
+        "operation_id": "82fb78948087bee479566964e13f6e18f8779150a95c52b06e810a8ba741df77",
+        "hash": "HPeNuGiqXiJ8xTL8KqSmmDg32apTs38BZ5i4xY1XM1t7",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "storage",
+        "signer_id": "user.sandbox",
+        "receiver_id": "core.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "storage_deposit",
+            "args": {},
+            "deposit": "40960000000000000000000",
+            "gas": "250000000000000"
+          }
+        ],
+        "operation_id": "850af860f5bc87bc28d7d3a9acf57ba9dace3b34723af28c26a29bddc7b6b292"
+      },
+      "result": {
+        "operation_id": "850af860f5bc87bc28d7d3a9acf57ba9dace3b34723af28c26a29bddc7b6b292",
+        "hash": "8WPwmEKVtkkSK5H2u7338wAnkXzuKP9Sj6oU3UpqbH4F",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "inventory-alpha-maker-a.demo.sandbox",
+        "signer_id": "maker-a.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "split",
+            "args": {
+              "series_id": "alpha",
+              "amount": "2000000000000000000000000"
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "9a89ecd6d0d284263517f8bbb4a498f58aa8a5db2eda53ae44d5a9b677d02e15"
+      },
+      "result": {
+        "operation_id": "9a89ecd6d0d284263517f8bbb4a498f58aa8a5db2eda53ae44d5a9b677d02e15",
+        "hash": "6gdbS6V8UW8XZcJZ2TJkqP5jo66CKWporJVdnE1Pdgf2",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-oracle.sandbox",
+        "signer_id": "sandbox",
+        "receiver_id": "oracle.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "40000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:CaAPEjVHfXAtRVKEmWAmQRn4TsB8XQgPyvBCEJrtVABf"
+          }
+        ],
+        "operation_id": "9aa4ae20651c6c4c9f0197690a1d1bb0c2790c7ed2510d1dfec02875f1e2dba6"
+      },
+      "result": {
+        "operation_id": "9aa4ae20651c6c4c9f0197690a1d1bb0c2790c7ed2510d1dfec02875f1e2dba6",
+        "hash": "9655o8tnZxNrjqZy1Avf953ybLtKcVdXiCwdMsUi6LxH",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-oracle.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "30000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:5szh8EG7UUj7i1ajVE2f3VDz7j6bv9Wvv82B9hHUBU7u"
+          }
+        ],
+        "operation_id": "9d3a49749cc5658c4806b08e7917fca8af8603c61558da96bb4137fda6c3c798"
+      },
+      "result": {
+        "operation_id": "9d3a49749cc5658c4806b08e7917fca8af8603c61558da96bb4137fda6c3c798",
+        "hash": "H7y6vH6sEgxM9JvnZzEn5zT9Xgb9MYbu48tUT6ehDWdZ",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "rfq-key-maker-a.demo.sandbox",
+        "signer_id": "maker-a.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "register_signing_key",
+            "args": {
+              "key_id": "demo-key",
+              "public_key": "409d59022dda4e0f741f6a5a14378e35deeef1607c8607f8dbde75f5a07458c6"
+            },
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000001"
+          }
+        ],
+        "operation_id": "9e8a4c459e56cd10da4b0169439c6c98132fca69175aa955df696757094dc700"
+      },
+      "result": {
+        "operation_id": "9e8a4c459e56cd10da4b0169439c6c98132fca69175aa955df696757094dc700",
+        "hash": "25x7EiwwY1GSrAFpGA6YBjK8Hwx1hRzqojewPzfbMtVp",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "core-series-alpha",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "create_series",
+            "args": {
+              "config": {
+                "series_id": "alpha",
+                "version": "1",
+                "collateral_kind": "NATIVE_NEAR",
+                "index_definition_hash": "ac58e1c80dcd97f81bf60eb3757b5aaace8617bfb2cb3635eff9953c59c731f8",
+                "payoff_kind": "CAPPED_USD_COMPLEMENT",
+                "strike": "2000000000000",
+                "price_scale": "1000000000000",
+                "maturity_ns": "1794226554206644000",
+                "mint_cutoff_ns": "1794226434206644000",
+                "observation_window": {
+                  "start_ns": "1794226434206644000",
+                  "end_ns": "1794226554206644000"
+                },
+                "oracle_account_id": "oracle.demo.sandbox",
+                "oracle_version": "demo-v1",
+                "oracle_config_hash": "dfb9b81e8ef02f94fc08c3c1a5a786f852af5a0baf19fb61123f5ac2175f3b35",
+                "finalization_policy_hash": "60f6bf26d6f6b4ca9d8910bd32672abbc9dc12aba45aba66bbd9031fd52df268",
+                "max_supply": "100000000000000000000000000"
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "41960000000000000000000"
+          }
+        ],
+        "operation_id": "a9b561d5424cf4c74d1481fc6b29b801dd513fd79d63fee61dcc6a8ab0dc7528"
+      },
+      "result": {
+        "operation_id": "a9b561d5424cf4c74d1481fc6b29b801dd513fd79d63fee61dcc6a8ab0dc7528",
+        "hash": "HoQ6M7k8Mabowfx4H7rtQovxH323PjuHVzFrDcZtDaY",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "publish-alpha-3",
+        "signer_id": "publisher-3.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "publish",
+            "args": {
+              "evidence": {
+                "series_id": "alpha",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "source_id": "fallback-a",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "samples": [
+                  {
+                    "timestamp_ns": "1794226434206644000",
+                    "price": "2300000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226444206644000",
+                    "price": "2400000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226454206644000",
+                    "price": "2500000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226464206644000",
+                    "price": "2400000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226474206644000",
+                    "price": "2300000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226484206644000",
+                    "price": "2400000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226494206644000",
+                    "price": "2500000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226504206644000",
+                    "price": "2400000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226514206644000",
+                    "price": "2300000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226524206644000",
+                    "price": "2400000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226534206644000",
+                    "price": "2500000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226544206644000",
+                    "price": "2400000000000"
+                  }
+                ]
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "ad6b66335497e93b13e80452c3ffefd692e113563ab856dd5de19c4ab4997bf5"
+      },
+      "result": {
+        "operation_id": "ad6b66335497e93b13e80452c3ffefd692e113563ab856dd5de19c4ab4997bf5",
+        "hash": "2FsrXBepskq8qxyzpE5Su7imhBW8qRgrV8AeW9U5gXXR",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "challenge-alpha",
+        "signer_id": "maker-a.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "challenge",
+            "args": {
+              "series_id": "alpha",
+              "price": "2400000000000",
+              "evidence_hash": "fb664bbee09ddc19d5b59376633ceb96ae2996ef7669583affa9341e54d0083b"
+            },
+            "gas": "250000000000000",
+            "deposit": "100000000000000000000000"
+          }
+        ],
+        "operation_id": "affd3bf9f887048c45fc4391dac5abd48e4671ce9c5981d3d464148a5aeebfc6"
+      },
+      "result": {
+        "operation_id": "affd3bf9f887048c45fc4391dac5abd48e4671ce9c5981d3d464148a5aeebfc6",
+        "hash": "qRpeHR8cd5PMLvwtLkjckF88WQK5XykDFRCJGDd3X4X",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "deposit",
+        "signer_id": "user.sandbox",
+        "receiver_id": "core.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "deposit_collateral",
+            "args": {},
+            "deposit": "1000000000000000000000001",
+            "gas": "250000000000000"
+          }
+        ],
+        "operation_id": "b5a28a38b57f89a7bcd7f9e51ee637333e9afca8f001fb78753f297126b0a382"
+      },
+      "result": {
+        "operation_id": "b5a28a38b57f89a7bcd7f9e51ee637333e9afca8f001fb78753f297126b0a382",
+        "hash": "2GbHKbbQniZRcjmpSezn8oSar8YCNDfNeFhzPMajnJ9n",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-core.sandbox",
+        "signer_id": "sandbox",
+        "receiver_id": "core.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "40000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:5qe4MAuGYXV3esnXHZvwi7hcLLgjHwdwx3mFYHZ1wbi9"
+          }
+        ],
+        "operation_id": "b70bc920d4e3db99dc2e90868295ff08484552a23943877eec54ab318ba70901"
+      },
+      "result": {
+        "operation_id": "b70bc920d4e3db99dc2e90868295ff08484552a23943877eec54ab318ba70901",
+        "hash": "EtcdpvXm9hinmJRLAF1RMLzoTd5eZoTwG4Crm6itA1Kt",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "oracle-register-maker-a.demo.sandbox",
+        "signer_id": "maker-a.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "register_account",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000000"
+          }
+        ],
+        "operation_id": "bbdf9506dcd537e0a424eac40625421c7772f6896fe5b3f32decc75a4cc398e7"
+      },
+      "result": {
+        "operation_id": "bbdf9506dcd537e0a424eac40625421c7772f6896fe5b3f32decc75a4cc398e7",
+        "hash": "74Gqd2neYdX7GaJE6hFVfdqeegm6XL6aw31GNEM1pT3o",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "fund-demo-root",
+        "signer_id": "sandbox",
+        "receiver_id": "demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "80000000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:5fVVwsTtgrCyETWbHFCuFBKWzd5N8FXPrpdtVCDHLQii"
+          }
+        ],
+        "operation_id": "bd5088f64aa646fae39698c2a8ae9ca932f2027aeb0f4649e8af1b58e7799683"
+      },
+      "result": {
+        "operation_id": "bd5088f64aa646fae39698c2a8ae9ca932f2027aeb0f4649e8af1b58e7799683",
+        "hash": "EMVo36qR71XKqeCAh3VAQ7Ehs1f2CgE1LP1QriHvhX2H",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "adjudicate-alpha",
+        "signer_id": "judge.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "adjudicate",
+            "args": {
+              "series_id": "alpha",
+              "route": "FALLBACK"
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "c6f79718ffd5d4456e6c11a62d41ce3b50ec67ffedcf8fa03408742b4db798bd"
+      },
+      "result": {
+        "operation_id": "c6f79718ffd5d4456e6c11a62d41ce3b50ec67ffedcf8fa03408742b4db798bd",
+        "hash": "9xPJRPpM5PLeR6wHg2PfFKKjbDzLjximiRrgK7Yws2yZ",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "propose-alpha",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "propose",
+            "args": {
+              "series_id": "alpha",
+              "route": "PRIMARY",
+              "price": "4000000000000",
+              "evidence_hash": "bce653d353c273c3357ad1380fd9a158fa2916c330847a1fc2d48aa3dd0b5efc"
+            },
+            "gas": "250000000000000",
+            "deposit": "100000000000000000000000"
+          }
+        ],
+        "operation_id": "ccb9bea91ff52bbb625b50ddc00f64ce20b4c596bcdcdef86b6f57a72534d0b0"
+      },
+      "result": {
+        "operation_id": "ccb9bea91ff52bbb625b50ddc00f64ce20b4c596bcdcdef86b6f57a72534d0b0",
+        "hash": "CTnFwFr6RVM5hqaSfTSNc8zwDpovRkk31G739Wf8aXWm",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-publisher-2.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "publisher-2.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:9ged6HaMUPPkaNhswYwQfUdc38RFmDrDCCfyatHiJsAK"
+          }
+        ],
+        "operation_id": "d3e3910141e80a93084a5bacf48db23203e80cd05bea96a536ab922f0282a31a"
+      },
+      "result": {
+        "operation_id": "d3e3910141e80a93084a5bacf48db23203e80cd05bea96a536ab922f0282a31a",
+        "hash": "8tDLAL4rzVDp1CJpcpLe71RbcMD4THHfHm3c3o5zQJVd",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "register-demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "storage_deposit",
+            "args": {},
+            "gas": "250000000000000",
+            "deposit": "40960000000000000000000"
+          }
+        ],
+        "operation_id": "da8c93fff014ed2796cf6c7212bc26dd363f8ce7400c15b20b1ceb87ba21982e"
+      },
+      "result": {
+        "operation_id": "da8c93fff014ed2796cf6c7212bc26dd363f8ce7400c15b20b1ceb87ba21982e",
+        "hash": "dyHcCQ4nXnWMNZEunVbg6xMoeGG2koizsyDhMsMXEYA",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "publish-alpha-0",
+        "signer_id": "publisher-0.demo.sandbox",
+        "receiver_id": "oracle.demo.sandbox",
+        "actions": [
+          {
+            "type": "FunctionCall",
+            "method": "publish",
+            "args": {
+              "evidence": {
+                "series_id": "alpha",
+                "dataset_hash": "ef74b2d9a63d07f89bc93572097d6c9450f93ca770c1e6915e91c557e6172c55",
+                "source_id": "primary-a",
+                "asset": "NEAR",
+                "quote": "USD",
+                "price_scale": "1000000000000",
+                "samples": [
+                  {
+                    "timestamp_ns": "1794226434206644000",
+                    "price": "3900000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226444206644000",
+                    "price": "4000000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226454206644000",
+                    "price": "4100000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226464206644000",
+                    "price": "4000000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226474206644000",
+                    "price": "3900000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226484206644000",
+                    "price": "4000000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226494206644000",
+                    "price": "4100000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226504206644000",
+                    "price": "4000000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226514206644000",
+                    "price": "3900000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226524206644000",
+                    "price": "4000000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226534206644000",
+                    "price": "4100000000000"
+                  },
+                  {
+                    "timestamp_ns": "1794226544206644000",
+                    "price": "4000000000000"
+                  }
+                ]
+              }
+            },
+            "gas": "250000000000000",
+            "deposit": "1"
+          }
+        ],
+        "operation_id": "e3570544dcf36dea4fff04cc6a30b67478cd289ddc910fdc0d8aaadc06863027"
+      },
+      "result": {
+        "operation_id": "e3570544dcf36dea4fff04cc6a30b67478cd289ddc910fdc0d8aaadc06863027",
+        "hash": "FGkWL1pgS5NqC23jXjWFSFU2huR3X8WingbbZYMiTjV",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "deploy-core",
+        "signer_id": "core.demo.sandbox",
+        "receiver_id": "core.demo.sandbox",
+        "actions": [
+          {
+            "type": "DeployContract",
+            "code_sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007"
+          },
+          {
+            "type": "FunctionCall",
+            "method": "new",
+            "args": {
+              "network": "testnet",
+              "guardian": "demo.sandbox",
+              "oracle": "oracle.demo.sandbox",
+              "oracle_version": "demo-v1",
+              "storage_byte_cost": "10000000000000000000"
+            },
+            "gas": "250000000000000",
+            "deposit": "0"
+          }
+        ],
+        "operation_id": "e474fb4f0a052c41703b6a1e74045cee58bfb56031cc029394bf29216e85966e"
+      },
+      "result": {
+        "operation_id": "e474fb4f0a052c41703b6a1e74045cee58bfb56031cc029394bf29216e85966e",
+        "hash": "H6ixJ3q3Pvn51CuyMJHtSjtt1Ebftq53nJ47WcrYoSoX",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "intent": {
+        "label": "create-judge.demo.sandbox",
+        "signer_id": "demo.sandbox",
+        "receiver_id": "judge.demo.sandbox",
+        "actions": [
+          {
+            "type": "CreateAccount"
+          },
+          {
+            "type": "Transfer",
+            "deposit": "500000000000000000000000"
+          },
+          {
+            "type": "AddKey",
+            "public_key": "ed25519:7GhM7hVZ5X75SytFXT5z6Xmvnz72zWxmCahtM6vg5Qt6"
+          }
+        ],
+        "operation_id": "fa09a5a165b68f921e950c6f653b92749e160bb26110f670c9b33978f6237f54"
+      },
+      "result": {
+        "operation_id": "fa09a5a165b68f921e950c6f653b92749e160bb26110f670c9b33978f6237f54",
+        "hash": "AWpkVJiJeaqoBeVfs6B9wHzygB2i3tDEzUwVCjda1Hg7",
+        "state": "SUCCEEDED"
+      }
+    }
+  ],
+  "sources": {
+    "services/testnet/transactions.mjs": "e69a12fe355da38a5449bb448c246af452776127d2a93e5597a1a966474e9585",
+    "services/testnet/deploy.mjs": "31ecdeb6030d44033d03fde4f57d6d0ff4508366cff95f666ce77d040c78538a",
+    "services/indexer/rpc.mjs": "4ca8a5b10404fba4ec7e5a587a76fa227f0027947b26682b20b7fb7aa885169e",
+    "services/indexer/model.mjs": "90fe23b3139030a1ac14b821dba0b12ad853be79bcbcee4bce768324212c6bf9",
+    "services/indexer/indexer.mjs": "a66eb579598dd923ad221b206dc75d6eab4849d53af2456f05153a3c64bdef4d",
+    "services/indexer/store.mjs": "cf5c63f34410ec197497bf961feba097d57df9019640b755870fc659f6104f9a",
+    "tests/sandbox/testnet-integration.mjs": "6383cc846a59b0331dd7772eb2a7d03cf82c90f12912b0ac46cdaaa946054936"
+  }
+}

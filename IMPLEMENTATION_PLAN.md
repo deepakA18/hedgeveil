@@ -1,16 +1,95 @@
 # NEAR options-based index assets: Open Innovation implementation plan
 
-**Current version: Open Innovation revision, 7 November 2026.** This is the authoritative implementation plan and supersedes the earlier track versions. Scope is end-to-end and dependency-based, without a seven-day constraint.
+**Current version: Open Innovation revision, updated 11 November 2026.** This is the authoritative implementation plan and supersedes the earlier track versions. Scope is end-to-end and dependency-based, without a seven-day constraint.
+
+**New-series settlement direction (11 November, user accepted):** replace the
+three-slot profile for future series with immutable expiry/source/selection
+terms, authenticated retained expiry evidence, deterministic resolution and
+matching maker valuation. The user subsequently selected Deribit's inverse-call
+payoff / 30-minute pre-expiry TWAP as the reference design, adapted to NEAR/USD
+and native NEAR settlement. A fixed Coinbase trade-history candidate and isolated
+resolver are now implemented; new-series activation remains gated. Existing
+series retain `native-sampled-v1` terms.
+[Venue comparison and acceptance work](research/reports/EXPIRY_SETTLEMENT_COMPARISON.md)
+show that conventional expiry settlement can itself use a pre-expiry TWAP.
+SPEC records the executable candidate and its bounded verification policy.
+[ORC-04 implementation and real evidence](research/reports/ORC04_HISTORICAL_WORKER.md)
+now include two real Outlayer historical executions with independent exact
+replay, a pinned worker, separate callback resolver and compiled-Wasm lifecycle
+tests. Aligned maker valuation, new-profile indexing/collector/UI integration,
+live availability limits and public deployment/lifecycle acceptance remain open.
+The old terminal-price maker refuses unresolved new-profile series. Independent
+review remains pending; implementation is not release approval.
+
+**Managed indexing direction (11 November):** evaluate SubQuery on OnFinality to
+reduce indexer/database operations. [Acceptance requirements](docs/HOSTED_INDEXER.md)
+cover native testnet availability, real receipt coverage, same-block parity and
+sustained freshness. The user has created `hedgeveil-testnet` on OnFinality.
+A native-NEAR SubQuery evidence package now builds and replays the actual 73
+transactions / 66 events; it is published to IPFS for deployment. Hosted runner
+acceptance is blocked by runner 6.0.2's hard-coded mainnet genesis lookup on
+testnet ([startup evidence](research/reports/INF02_HOSTED_STARTUP_FAILURE.md)).
+Performance and application cutover remain pending. The retained
+local runtime stays active until the hosted replacement passes.
+
+**FASTNEAR discovery direction (11 November, user directed):** consume the hosted
+NEAR Data finalized full-block feed alongside the retained reconciler. Durable
+cursor/hint storage, receipt-linked discovery, restart/cooldown handling and
+explicit discovery health are implemented. This reduces RPC discovery work but
+does not outsource the application database/API. Free-feed throttling is observed;
+the additive mode preserves journal discovery and every existing receipt,
+sequence, custody and freshness check. Sole-source cutover remains gated on
+continuous coverage and measured throughput. See [feed operations](services/indexer/README.md#fastnear-full-block-discovery).
+
+**Latest public acceptance (11 November):** eta's three real external reports
+finalized and were imported; project accounts redeemed both legs and completed a
+native withdrawal. Actual receipt replay reconciles 71 transactions / 63 events.
+Owner-wallet P redemption and withdrawal subsequently passed (73 transactions /
+66 events reconciled). Owner N purchase on a later series and sustained indexer
+freshness remain incomplete. [Evidence and remaining steps](docs/ACCEPTANCE_RUN_2026-11-11.md).
 
 **Selected track:** Open Innovation (`open`). **Product:** a NEAR-native protocol for fully collateralized complementary options claims, a funded market, and a transparent rules-based USD-tracking vault. Native NEAR is the collateral; USD is the first reference unit. Positions, trades, vault holdings, settlement evidence, and accounting are public.
 
-**Required release:** working contracts on NEAR testnet, wallet and web UI, funded demo makers, deterministic strategy execution, an explicitly labelled demo oracle, risk simulations, recovery tools, and a reproducible public repository. Development and the core demonstration must run without paid API credentials or mainnet funds. Use local services and faucet-funded testnet accounts; free hosted services are conveniences, not correctness dependencies.
+**Required release:** working contracts on NEAR testnet, wallet and web UI, funded demo makers, the complete options lifecycle, external market observations feeding a versioned settlement resolver, risk simulations, recovery tools, and a reproducible public repository. Local development and deterministic tests must run without paid API credentials or mainnet funds. Public release requires a verified external data integration; unavailability blocks release rather than permitting synthetic substitution. Use local services and faucet-funded testnet accounts; free hosted services are conveniences, not correctness dependencies.
 
 **Removed from implementation scope:** confidential notes and balances, ZK circuits/provers, encrypted RFQs, shielded-note recovery infrastructure, private AI, NEAR AI Cloud, TEE attestation, and AI-specific retention or verification workflows. NEAR Intents, Chain Signatures, and cross-chain execution are also excluded from this release. Ordinary wallet security, secure transport, secret management, and software security remain required.
 
 The [official Open Innovation brief](https://github.com/nearai/near-hackathon-prompt-examples/blob/main/tracks/13-open.md) invites experimental approaches to money and ownership. Its inheritance-account prompt is an example, not this product's specification. The published brief does not impose that example's Chain Signatures architecture on all submissions. The contribution here is an implementation and economic evaluation of options-backed index exposure on NEAR, with explicit attribution to the original research.
 
-**Status (9 November 2026):** this remains the authoritative target, not a completion claim. Local G1–G6 contract/economic experiments and G7 SDK, indexer and APP-02 browser work now have recorded evidence in [STATUS](docs/STATUS.md), including [35 local browser checks](research/reports/G7_APP.md) and [DEM-01 retained local restart evidence](research/reports/G7_DEMO_RESUME.md). [SEC-01 bounded local verification](research/reports/G8_SECURITY.md) now adds finite interleaving models, bounded symbolic accounting checks and seeded signed-trade/ledger/fault coverage; G8 still requires broader acceptance and independent review. [SEC-02 review preparation](docs/SECURITY_REVIEW.md) now pins a committed local candidate and its source/Wasm/evidence bundle; independent findings and sign-off remain pending. [REL-01 local release rehearsal](research/reports/rel01-local.md) now adds 109 fresh-local-clone runtime checks and a verified source/Wasm/evidence archive. [APP-01 wallet-boundary evidence](research/reports/G7_WALLET_BOUNDARY.md) now adds the testnet SDK profile, durable wallet handoff and 14 real Chromium/Sandbox boundary checks; [NEAR Connect UI](docs/NEAR_CONNECT.md) now adds a separate local testnet wallet desk with pinned Meteor/Intear executors, account selection and durable handoff/recovery. A [navigation follow-up](research/reports/G7_WALLET_ORIGIN_FIX.md) fixes external links being rejected by the local-origin guard. Actual vendor-wallet signing, reconciled testnet indexing and public-testnet execution remain pending. Policy selection, independent review, a fresh release rehearsal for the updated candidate, published-candidate reproduction and video remain pending; G7/G9 are not complete. Production deployment is a separate, optional workstream with paid operations and independent review requirements; it is not a hackathon completion gate. Local arithmetic or Sandbox checks do not establish production safety.
+**Release scope decision (9 November 2026, user approved):** G9 is options-first.
+The public testnet release covers storage, deposit, pair creation, transfer,
+funded RFQ trading, merge, externally sourced sampled settlement and tested pause/delay handling, both-leg redemption,
+withdrawal and restart/recovery. The tracking vault remains disabled on testnet;
+its existing Sandbox mechanics and failed economic selection results remain
+research evidence. Policy selection, basket subscription and keeper rolls are
+prerequisites for a later vault release, not this options release. This changes
+release scope, not payoff, custody or withdrawal semantics. Independent review
+and actual public-wallet receipts remain required.
+
+**Real-data release decision (9 November 2026, user directed):** No synthetic
+settlement observations, fixed fixture maker marks or fabricated market activity
+in the public product/demo. Deterministic fixtures and synthetic stress scenarios
+remain test/research tools only, explicitly separated from release evidence.
+External observation authenticity, coverage under the accepted settlement profile, adapter acceptance
+and market-derived maker pricing are now G7/G9 prerequisites, not deferred solely
+to production. Missing data causes no quote or delayed settlement, never a fixture
+fallback. Faucet-funded testnet collateral is still test currency. The old public
+setup is held until these replacements and the revised budget are accepted. See
+[the implementation gap inventory](docs/REAL_DATA_READINESS.md).
+
+**Settlement decision (10 November 2026, user approved):** Public testnet uses
+`native-sampled-v1`: the floor average of three fresh external on-chain reports
+sampled in fixed slots, a 60-second review delay, and a guardian with pause-only
+authority. Report timestamps mean source ingestion time, not venue trade time.
+Missing samples delay settlement indefinitely; no synthetic or administrator-price
+fallback is permitted. This decision supersedes historical-venue replay and
+bonded-dispute requirements **for this testnet profile only**. It changes neither
+existing series nor production requirements. Fresh-source/code verification,
+operational collection, actual public receipts and independent review remain
+outstanding. Approval of the design does not establish source acceptance or
+remove the deployment hold. See [SPEC](docs/SPEC.md#orc-03-native-sampled-resolver-testnet-design-accepted).
+
+**Status (9 November 2026):** this remains the authoritative target, not a completion claim. Local G1–G6 contract/economic experiments and G7 SDK, indexer and APP-02 browser work now have recorded evidence in [STATUS](docs/STATUS.md), including [35 local browser checks](research/reports/G7_APP.md) and [DEM-01 retained local restart evidence](research/reports/G7_DEMO_RESUME.md). [SEC-01 bounded local verification](research/reports/G8_SECURITY.md) now adds finite interleaving models, bounded symbolic accounting checks and seeded signed-trade/ledger/fault coverage; G8 still requires broader acceptance and independent review. [SEC-02 review preparation](docs/SECURITY_REVIEW.md) now pins a committed local candidate and its source/Wasm/evidence bundle; independent findings and sign-off remain pending. [REL-01 local release rehearsal](research/reports/rel01-local.md) now adds 109 fresh-local-clone runtime checks and a verified source/Wasm/evidence archive. [APP-01 wallet-boundary evidence](research/reports/G7_WALLET_BOUNDARY.md) now adds the testnet SDK profile, durable wallet handoff and 14 real Chromium/Sandbox boundary checks; [NEAR Connect UI](docs/NEAR_CONNECT.md) now adds a separate local testnet wallet desk with pinned Meteor/Intear executors, account selection and durable handoff/recovery. A [navigation follow-up](research/reports/G7_WALLET_ORIGIN_FIX.md) fixes external links being rejected by the local-origin guard. Actual vendor-wallet signing, reconciled testnet indexing and public-testnet execution remain pending. Vault policy selection remains future work. Independent review, a fresh release rehearsal for the updated candidate, published-candidate reproduction and video remain pending; G7/G9 are not complete. Production deployment is a separate, optional workstream with paid operations and independent review requirements; it is not a hackathon completion gate. Local arithmetic or Sandbox checks do not establish production safety.
 
 No implementation plan can guarantee zero bugs or zero losses. This plan specifies the loss mechanisms, separates solvency from tracking performance, and requires evidence before moving between stages.
 
@@ -36,9 +115,9 @@ My engineering decisions following that review:
 
 - Open Innovation (`open`) is the sole planned submission track. A working public repository and public X demonstration identifying the hackathon are required. The listed deadline is **14 November 2026, 23:59 UTC / 15 November 2026, 05:29 IST**. Keep delivery gates independent of that calendar; do not remove safety checks to meet it. [Hackathon requirements](https://nearhackathon.com/)
 - NEAR's faucet supplies testnet tokens for development. It may be unavailable or depleted, so fund demo accounts in advance and retain a fully reproducible local Sandbox mode. Test tokens are not claims on real NEAR or USD. [NEAR faucet](https://docs.near.org/getting-started/faucet)
-- Oracle authenticity, historical availability, cost, and economic independence remain production dependencies. The testnet acceptance path uses committed synthetic data and disclosed test signers, not a paid feed.
+- Authenticated external observations across all three fixed slots are required for public testnet acceptance. Cost, source dependence and authority must be disclosed; production economic security remains a separate gate.
 - Pyth Core's documentation reports that NEAR support ended on 26 August 2026. Recheck integration status before a production decision; do not copy an obsolete address. [Pyth NEAR status](https://docs.pyth.network/price-feeds/core/use-real-time-data/pull-integration/near)
-- A production source such as OutLayer is a candidate only. A producer signature does not establish price correctness, historical coverage, or free access. No external oracle vendor is required for the hackathon release. [NEAR oracle directory](https://docs.near.org/primitives/oracles), [OutLayer documentation](https://price-oracle.outlayer.ai/docs/)
+- A production source such as OutLayer is a candidate only. A producer signature does not establish price correctness, historical coverage, or free access. An accepted external data source is required for release; Outlayer is not yet accepted for settlement. [NEAR oracle directory](https://docs.near.org/primitives/oracles), [OutLayer documentation](https://price-oracle.outlayer.ai/docs/)
 
 **2. Product boundary and definition of completion**
 
@@ -57,7 +136,7 @@ The first complete release includes:
 - One transparent USD-tracking strategy vault, transferable shares, and in-kind exits.
 - Portfolio, quote, transaction-recovery, liquidity, and risk interfaces.
 - Reproducible economics experiments, adversarial contract tests, and monitoring.
-- A local scenario runner and complete faucet-funded testnet lifecycle with clearly labelled synthetic oracle data. All user-facing balances and trade history are public on-chain.
+- A deterministic local test runner and complete faucet-funded testnet lifecycle with authenticated external market observations. All user-facing balances and trade history are public on-chain.
 
 Do not promise a $1 redemption, principal protection, continuous liquidity, guaranteed yield, or uninterrupted index replication. A vault share is ownership of a changing portfolio. Initial UI normalization to $1 does not create a peg.
 
@@ -246,6 +325,122 @@ Privileged methods and user money movement need correct predecessor checks and t
 
 **8. Settlement oracle: a complete product dependency**
 
+**9 November 2026 — ORC-03 feasibility:** Outlayer has a read-only NEAR/USD
+probe, with retained public RPC evidence and exact integer normalization. Both
+observed native deployments returned no cached NEAR price. The reviewed upstream
+callback path uses ingestion time; it does not establish our historical expiry
+window. This is not an accepted settlement integration. Keep the synthetic
+resolver for deterministic local tests; hold public setup and its old 81-test-NEAR
+budget pending an accepted source/adapter and revised costs. Production and the
+vault remain disabled. See [evidence and remaining gates](research/reports/OUTLAYER_FEASIBILITY.md).
+
+
+**Public deployment increment (10 November 2026):** the user approved the
+transfer-only layout and funding. All 18 setup operations have complete successful
+finalized receipts. Both contracts and funded maker inventories are deployed.
+Public wallet trading/settlement acceptance remains open: the runtime indexer is
+currently catching up and blocks risk. The first actual source refresh succeeded
+but RPC delays caused a missed slot; `alpha` remains delayed. Both makers merged
+their intact P/N pairs back to free collateral using confirmed normal merge
+transactions. This does not establish successful settlement. See
+[actual deployment evidence](research/reports/ORC03_PUBLIC_DEPLOYMENT.md).
+
+**Free RPC increment (10 November 2026):** FASTNEAR is the current native
+primary, with NEAR archival as indexer read fallback after six successful
+compatibility reads each. The indexer now paces public reads and respects 429
+cooldowns; full receipt/state verification is unchanged. Public reconciliation
+and lifecycle acceptance remain pending; selecting a provider is not acceptance.
+See [provider evidence](research/reports/testnet-rpc-provider-check.json) and
+[runbook](docs/TESTNET_SETUP.md). Independent infrastructure/security review pending.
+
+**Indexer catch-up increment (10 November 2026):** the native local demo now
+has a tested journal-discovery profile and Neardata header prefetch. It retains
+complete finalized ancestry, actual FINAL receipt trees and all state checks;
+journals are hash hints only. Missing external operations fail reconciliation.
+Public catch-up acceptance is still pending. See [source decision and tests](research/reports/INDEXER_SOURCE_DECISION.md)
+and [current release gates](docs/REAL_DATA_READINESS.md). Independent review pending.
+
+**Public indexer acceptance increment (10 November 2026):** the native runtime
+now has a fresh RECONCILED checkpoint: 20 actual transactions, 68 outcomes and 15
+canonical events; core and external resolver state match receipt replay. The
+selected bounded `canonical-journal` profile verifies canonical receipt blocks
+and same-block snapshots, with its RPC-trust/journal-coverage limits documented
+in SPEC. Earlier full-ancestry profiles are preserved. See [actual checkpoint](research/reports/native-public-indexer-reconciliation.json).
+A real process restart retained all receipt/event counts, balances and resolver
+commitment and resumed fresh reconciliation; see [restart evidence](research/reports/native-public-indexer-restart-check.json).
+This does not complete wallet trading/settlement/withdrawal acceptance or
+independent review; see [remaining gates](docs/REAL_DATA_READINESS.md).
+
+**Wallet funding and beta increment (10 November 2026):** actual owner storage
+registration (0.04096 test NEAR) and collateral deposit (0.1) are verified against
+complete FINAL receipts and reconciled state. Beta has four confirmed setup
+operations and actual Coinbase-derived strike 3.6278 USD; its immutable sampling
+window is 07:22:34.923–07:31:34.923 UTC. See [funding evidence](research/reports/native-public-wallet-funding.json)
+and [beta setup](research/reports/native-public-beta-setup.json). Intear is the
+free active primary after FASTNEAR rate limits; no attempted write was resent.
+Public maker cancellations are durably journaled and discovered by the indexer;
+90-second testnet quotes allow wallet review while retaining maturity bounds.
+Actual user fills and successful settlement/redemption/withdrawal remain pending.
+Independent review remains pending; production and vault remain disabled.
+
+**Beta failure follow-up (10 November 2026):** beta missed its first actual
+sample and remains delayed. User quotes returned generic maker-unavailable;
+no owner trade was submitted, and 0.1 test NEAR remains free. Both makers merged
+intact pairs normally; an initially unknown merge was recovered without resend.
+The quote/preview gateway now blocks missed samples explicitly. Concurrent
+collector reads retain the same freshness bounds and pass compiled-Wasm local
+sampling/finalization/redemption/withdrawal tests; the public read-only pass took
+3.9 seconds. Successful public sampling and wallet lifecycle remain open. See
+[status and evidence](docs/STATUS.md) and [readiness](docs/REAL_DATA_READINESS.md).
+
+**Authenticated callback handoff (10 November 2026):** gamma also missed its
+first sample and its intact maker pairs were normally recovered. An actual
+bounded refresh then authenticated callback-block code/state in 354 ms, with
+report age 1.049 seconds. The collector immediately samples after that verified
+handoff, preserving every on-chain rule and the 15-second preflight. Delta is
+now deployed with window 08:02:46.796–08:11:46.796 UTC; successful sampling and
+owner lifecycle remain pending. A real maker P-claim transfer round trip passed.
+See [handoff evidence](research/reports/native-public-refresh-handoff.json),
+[delta setup](research/reports/native-public-delta-setup.json) and
+[transfer receipts](research/reports/native-public-claim-transfer.json).
+
+**Source-cache correction (10 November 2026):** delta accepted one actual sample,
+then the source reused its 300-second stored report with a new response-wrapper
+timestamp. The verifier correctly rejected that mismatch. Three fresh reports
+cannot reliably fit the previous 180-second slots. The collector now waits on
+stored report cache expiry; new series use three 360-second slots (18 minutes),
+with unchanged freshness and payout rules. Existing terms remain immutable.
+Twenty focused tests and seven compiled setup/reconciliation checks pass. Delta
+maker pairs were normally recovered; owner collateral remains 0.1 test NEAR.
+See [actual cache evidence](research/reports/native-public-source-cache.json)
+and [current status](docs/STATUS.md). Successful public lifecycle remains pending.
+
+**Public source increment (10 November 2026):** an actual owner-wallet request
+now has complete finalized receipts and matching source state at its callback
+block. The native 48-test-NEAR setup has passed compiled-Wasm restart/inventory/
+indexer checks. Meteor blocked its key-adding wallet request; the `native` plan
+is held with the original attempted journal preserved. A separate transfer-only
+plan uses five locally controlled implicit service accounts, retains the same
+48-NEAR budget, and passes nine compiled-Wasm setup/restart/indexer checks. Its
+changed account layout and ordinary transfer still require owner review/signature;
+public funding and deployment are not complete. See
+[refresh/setup evidence](research/reports/ORC03_PUBLIC_REFRESH.md). Historical
+feasibility findings below retain their original scope.
+
+**ORC-03 intake increment (9 November 2026):** offline signed-response verification
+and immutable archival replay are implemented. The provider documentation example
+fails verification; live interoperability and settlement remain unaccepted. This
+step uses no paid API. See [evidence](research/reports/ORC03_SIGNED_INTAKE.md).
+
+**Implementation increment (10 November 2026):** market-derived maker pricing now
+has actual external-data Sandbox fill evidence. A separate native sampled resolver
+candidate passes 24 compiled-Wasm source-fault, import, redemption, withdrawal
+and PostgreSQL reconciliation/restart checks. Indexed state discloses authority
+accounts and detects missing samples. A separate non-executable 48-test-NEAR
+budget draft is held for source and policy acceptance. Its ingestion-time reference and guardian veto are explicit candidate
+semantics, not approved historical-venue settlement or bonded arbitration. The user accepted its sampled-price/pause-only design on 10 November; public
+source acceptance remains pending. See [implementation evidence](research/reports/REAL_DATA_IMPLEMENTATION.md).
+
 Use two separate price pipelines:
 
 1. **Settlement pipeline:** binding historical observation at M; slow, evidence-backed, challengeable.
@@ -383,13 +578,13 @@ Example research gates, to freeze before judging results: normal-regime annual f
 
 **12. Testnet delivery, cost boundary, and demo data**
 
-The release must run without external paid API keys. A fresh developer uses a local database, local maker/keeper processes, the bundled scenario dataset, Sandbox, and a NEAR testnet account funded through the faucet. Wallets authorize real testnet transactions; do not simulate success in the UI.
+The release must run without external paid API keys. A fresh developer uses a local database, local maker/keeper processes and Sandbox fixtures for tests. Public testnet requires accepted external data and a NEAR account funded through the faucet. Wallets authorize real testnet transactions; do not simulate success in the UI.
 
 | Dependency | Required development/demo path | Later production obligation |
 |---|---|---|
 | Contract execution and storage | Local Sandbox; faucet-funded native testnet NEAR | Real gas and storage funding |
 | Maker inventory and oracle bonds | Faucet-funded separate demo accounts | Capital at risk and monitored bonds |
-| Price observations | Versioned synthetic fixtures with published seeds and hashes | Licensed/reproducible historical sources and independent resolution |
+| Price observations | Fixtures only in local tests; authenticated external reports across all committed slots for public testnet | Reviewed source independence, licensing, retention and economic security |
 | RPC and event indexing | Local node/Sandbox; public testnet RPC with retry and rate limits | Capacity, archival availability, and provider redundancy |
 | Web app and services | Local processes/containers | Hosting and operational ownership |
 | Public demonstration | Recorded testnet run plus runnable repository; optional free hosting | Hosting availability if a live service is promised |
@@ -400,18 +595,18 @@ This is a design for no mandatory service spend during development, assuming acc
 Provide three explicit modes:
 
 1. **Sandbox:** fully deterministic contracts, receipts, clock advancement, oracle faults, and adversarial scenarios. No external account required.
-2. **Testnet demo:** deployed contracts and real wallet/maker transactions, with a conspicuous `DEMO ORACLE — SYNTHETIC PRICES` label. Use short, precommitted maturity and challenge intervals. Testnet block time advances normally; do not expose arbitrary clock changes in the clearinghouse.
-3. **Optional live-data observation:** read public market data under its access terms for comparison. An unavailable endpoint does not block the first two modes. A reference display feed cannot silently become the settlement oracle.
+2. **Public testnet:** deployed contracts, real wallet/maker transactions and authenticated external price observations. Disclose test currency, source and settlement authority. Fix maturity and challenge intervals before trading. Testnet block time advances normally; no arbitrary clock changes or synthetic price fallback.
+3. **Read-only source diagnostics:** inspect external data before acceptance. An unavailable source does not block local tests, but blocks dependent public quotes/settlement. A reference display feed cannot silently become the settlement oracle.
 
-The demo oracle uses the same proposal/challenge/finalization interface as the planned production resolver, but disclosed test keys control reports and arbitration. Store the scenario ID, source hash, observation window, and signer configuration in each series. Test both uncontested and disputed outcomes. A synthetic dataset tests state transitions and payoff math; it does not establish independent price discovery or economic oracle security.
+The retained local fixture oracle exercises proposal/challenge/finalization, with test keys controlling reports and arbitration. It is not the accepted public resolver; the external-data version needs its own specification and evidence. Store the scenario ID, source hash, observation window, and signer configuration in each series. Test both uncontested and disputed outcomes. A synthetic dataset tests state transitions and payoff math; it does not establish independent price discovery or economic oracle security.
 
 The native user workflow is resumable:
 
 ```text
 Faucet -> user's testnet wallet -> storage registration
 -> deposit to clearinghouse -> split or buy claims
--> optional basket-based vault subscription -> roll or hold
--> in-kind exit / claim redemption -> free collateral -> withdrawal
+-> transfer / funded RFQ trade / merge or hold
+-> externally sourced settlement -> claim redemption -> free collateral -> withdrawal
 ```
 
 Pair creation, funded trades, basket minting, and in-kind redemption are atomic internal transitions. Wallet registration, deposit, purchase, and final external withdrawal are separate actions unless an explicitly tested combined method supports them. After interruption, reconstruct confirmed receipt outcomes and show the actual remaining assets. Never rerun a money-moving action merely because the browser lost its response.
@@ -499,7 +694,7 @@ Roles below are responsibilities; one person may own several. Economic and secur
 | G10: capped pilot | Production oracle, payout recovery, custody/key review, monitoring, independent audit | All production gates | Security/operations | Explicit risk acceptance, limits, and incident drills completed |
 | G11: expansion | More series, index definitions, liquidity venues, collateral or chain extensions | Pilot evidence | Protocol/product | Separate specification and review per new trust boundary |
 
-G2 and infrastructure prototyping may proceed alongside G3, but the vault policy cannot be finalized before economic results. An unavailable independent historical oracle blocks production settlement, not the labelled synthetic-data testnet release. G9 is the complete hackathon deliverable; G10 and G11 are future deployment/expansion gates. A finished UI does not waive any gate.
+G2 and infrastructure prototyping may proceed alongside G3, but the vault policy cannot be finalized before economic results. Unavailable authenticated observations under the accepted sampled-price profile block public testnet release; production retains its historical-source requirements; local fixture tests remain runnable. G9 is the complete hackathon deliverable; G10 and G11 are future deployment/expansion gates. A finished UI does not waive any gate.
 
 **17. Repository and task decomposition**
 
@@ -548,6 +743,7 @@ Convert the stages into these implementation epics:
 | CORE-04 | Withdrawal tickets and verified recovery |
 | ORC-01 | Historical observation definition and archival collector |
 | ORC-02 | Proposal/challenge/finalization state machine |
+| ORC-03 | Native sampled-price testnet design accepted; bounded collector implemented; public source/deployment acceptance pending |
 | MKT-01 | Quote authorization, funded execution, cancellation |
 | MKT-02 | Maker inventory service and direct series rolls |
 | VLT-01 | Proportional share issuance and in-kind redemption |
@@ -555,7 +751,7 @@ Convert the stages into these implementation epics:
 | APP-01 | Typed SDK, wallet, and transaction lifecycle |
 | APP-02 | User and maker interfaces with risk displays |
 | INF-01 | Replayable indexer, API, metrics, and alerts |
-| DEM-01 | No-paid-key local setup, faucet-funded testnet scenarios, synthetic-oracle labels, cost report |
+| DEM-01 | No-paid-key local tests, externally sourced public testnet lifecycle, source/authority disclosures and cost report |
 | SEC-01 | Differential/property/Sandbox/fault suites |
 | SEC-02 | Independent review, proof scope, and remediation |
 | REL-01 | Reproducible testnet demo and submission bundle |
@@ -597,7 +793,7 @@ snapshot, including an actual frontend-offline CLI exit, plus the frozen stress
 rerun and a verified source/Wasm/evidence archive. [Usage](docs/RELEASE.md) and the
 [unsubmitted draft](docs/SUBMISSION.md) retain the scope limits. This does not
 complete the public narrative below: public wallet/testnet receipts and authority
-records, policy selection, independent review, published-candidate reproduction
+records, independent review, published-candidate reproduction
 and video remain pending. Separate keeper/fault/restart fixtures and offline
 crash simulations are not one continuous public-wallet demonstration.
 
@@ -606,11 +802,11 @@ Use one reproducible narrative:
 1. Connect a fresh testnet wallet and fund its storage/gas.
 2. Deposit test NEAR; mint a P/N pair and show reserved collateral.
 3. Transfer/sell N to a second account; demonstrate an executable quote.
-4. Acquire a P basket and mint tracking-vault shares.
-5. Execute a bounded roll into another standardized series.
-6. Inject a price crash in a clearly labeled scenario: show tracking loss and continued collateral accounting.
-7. Inject no liquidity: the roll is deferred, and the user exits in kind.
-8. Submit a historical observation, challenge it, finalize, and redeem both sides.
+4. Compare two funded makers and execute an all-or-nothing RFQ.
+5. Merge a matching P/N pair and reconcile released collateral.
+6. Show the published synthetic crash experiment and distinguish it from live testnet transactions.
+7. Demonstrate an unavailable quote and unchanged ownership; keep the vault disabled.
+8. Collect three fresh authenticated external reports under the accepted sampled profile, wait the review delay, finalize, import and redeem both sides. The guardian may pause; it cannot supply an arbitrary settlement price.
 9. Show a failed withdrawal and a quarantined unknown outcome in deterministic test fixtures.
 10. Withdraw redeemed test NEAR to the wallet and reconcile custody, reserves, fees, storage, and pending tickets.
 11. Restart the UI/indexer and use the recovery CLI; demonstrate that the contracts and valid exits do not require the hosted frontend.
@@ -628,12 +824,12 @@ The release is complete when another developer can clone it, reproduce the demo,
 
 1. Write and independently review `SPEC.md`, with units and the payoff table above.
 2. Build the rational model and fixed-point differential vectors.
-3. Prove token-interface compatibility, the demo oracle lifecycle, and safe withdrawal quarantine/recovery behavior. Record independent historical settlement as a separate production gate.
+3. Prove token-interface compatibility, the demo oracle lifecycle, and safe withdrawal quarantine/recovery behavior. Require authenticated sampled-price settlement for public testnet; retain independent economic-security review as a production gate.
 4. Deploy the minimal split/merge/redeem core in Sandbox.
 5. Add two funded RFQ makers and measure actual roll execution.
 6. Select a tracking policy using net, held-out scenario results.
 7. Implement proportional shares and in-kind exits before convenience deposits or UI polish.
-8. Package the local services and synthetic dataset, deploy to testnet, and verify the complete demo without paid API credentials.
+8. Package local fixture tests separately; accept external observations and market-derived maker pricing before public testnet deployment and lifecycle verification. No paid fallback is enabled automatically.
 9. Complete the release checks below before describing the project as finished.
 
 These actions resolve the highest-cost uncertainties before the full application depends on them.
@@ -642,12 +838,87 @@ These actions resolve the highest-cost uncertainties before the full application
 **Release acceptance checklist**
 
 - A fresh clone can build contracts, start services, and execute the Sandbox scenario without paid API credentials.
-- The testnet UI completes deposit, pair creation, funded trading, basket mint, bounded roll, in-kind exit, settlement, redemption, and withdrawal using actual receipts.
+- The testnet UI completes storage registration, deposit, pair creation, transfer, funded trading, merge, settlement, both-leg redemption, and withdrawal using actual receipts; vault actions remain disabled.
 - Transparent accounting reconciles before and after every lifecycle operation; no user collateral funds operating storage or service expenses implicitly.
 - A failed withdrawal restores funds once only; an unknown outcome remains quarantined and visibly unresolved. Production stays blocked until reviewed recovery is available.
 - Double redemption, forged quotes, consumed nonces, stale quotes, unauthorized callbacks, wrong-series results, rounding attacks, and cancellation races are rejected in executable tests.
 - No-bid, disputed-price, source-loss, settlement-delay, and maker-withdrawal scenarios have explicit outcomes and published risk results.
-- Demo oracle control, synthetic prices, testnet assets, admin keys, and maker subsidies are visible in the UI and README.
+- Public prices have authenticated external provenance and fixed observation rules; fixture data cannot enter public settlement or quoting. Testnet assets, source limitations, admin authority and maker subsidies are visible in the UI and README.
 - Repository layout, documentation, milestone names, submission metadata, and runtime configuration all target Open Innovation and the public-ledger architecture.
 - Source attribution, reproducible scenario seeds, dependency locks, deployment hashes, and exact test commands accompany the demo.
 - Any unimplemented production dependency is named as such; a working testnet demonstration is not described as production-ready or loss-free.
+
+## Unresolved setup isolation — 11 November 2026
+
+Epsilon registration remains SUBMISSION_UNKNOWN under its original hash
+`56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q`. Its window has elapsed.
+No core registration, maker inventory or successful epsilon lifecycle is claimed.
+The intent and hash remain retained; no resend, refund or replacement of its terms.
+
+INF-01 now distinguishes an explicit matching UNKNOWN_TRANSACTION response from
+every identity-verified provider from outages/mismatches. Such discovery hints
+remain unresolved and are retried; they produce no events or success records.
+Exact same-block sequence, custody and resolver-state reconciliation still gates
+risk. Missing executed transactions must still fail reconciliation. The health
+response lists unresolved hints. This change needs focused and compiled acceptance.
+
+The bounded next independent series is zeta, with fresh immutable terms and
+three 360-second slots. Epsilon remains isolated; this is not its resubmission.
+Existing funded maker inventory is reused only through normal contract operations.
+Dependencies: INF-01, ORC-03, MKT-03, APP-02, REL-01. Invariant: unresolved attempts
+never fabricate balance changes; failed reconciliation blocks risk. Evidence and
+public lifecycle results will be recorded as observed. Independent review pending.
+
+Validation: 24 focused transport/discovery/setup-bound tests passed. The compiled
+Sandbox regression then passed 19 checks, including exact full-scan agreement,
+unknown-hint retention, restart, and rejection of an omitted real financial
+operation. Evidence: `research/reports/indexer-unknown-hint-none-sandbox.json`.
+The first regression exposed that waiting for FINAL on an absent hash can time
+out instead of returning UNKNOWN_TRANSACTION; discovery now requests NONE and
+still requires returned receipt trees to be FINAL. The first failed report remains
+retained separately. Current public source code matches its pin; owner free
+collateral is 0.1 test NEAR and each maker has 4 test NEAR free before zeta setup.
+No owner trade, settlement or withdrawal completion is inferred.
+
+The retained broadcast classes for epsilon and zeta are `NotEnoughBalanceError`,
+not evidence of execution. Both remain unresolved under their original hashes.
+Current administrator balance was 0.3401062703031869 test NEAR. A bounded actual
+transfer of 2 test NEAR from resolver operating surplus to the administrator
+confirmed as `HaiPagpGeBtZo1Nsm4GxevjKD3CRovuU73EnUKUv2ChB`; the resolver retains
+over 6 NEAR and core/user/maker collateral was untouched. Evidence:
+`research/reports/native-operating-rebalance.json`. No additional owner funding
+was requested. Setup now requires at least 0.5 test NEAR administrator operating
+balance before fresh series materialization. Eta is the next bounded independent
+series; zeta and epsilon are not resent or reset. The service runtime was restarted
+with the tested unknown-hint isolation and cache-aware collector. Actual public
+reconciliation and eta acceptance are still to be recorded.
+
+## Live eta and maker clock alignment — 11 November 2026
+
+Eta's four setup operations now have complete confirmed receipts in
+`research/reports/native-public-eta-setup.json`. Window: 03:13:04.230–03:31:04.230
+UTC, then 60 seconds review. The public indexer recovered with unresolved epsilon
+and zeta hints retained; `native-public-unknown-isolation.json` independently
+replays 49 actual transactions / 193 outcomes / 39 events at that checkpoint.
+
+The first eta quote probe returned MARKET_DATA_UNAVAILABLE. Direct reproduction
+identified MODEL_SOURCE: a fresh exchange tick can precede its inclusion in
+finalized chain time. The maker now retains that observed tick and makes bounded
+finalized-head reads until chain time catches up; otherwise no quote. Consumption
+clock validation also accepts ticks arriving during transport without widening
+the 60-second age limit or allowing future completion-time data. 18 pricing/expiry
+checks pass. Actual public fill and sampled settlement remain pending. Dependencies:
+MKT-03, APP-02, INF-01, ORC-03. Independent markets/security review remains pending.
+
+The market-clock fix passed eight actual-market compiled Sandbox checks, including
+P/N purchases, P sale and durable cancellation; evidence:
+`research/reports/mkt03-clock-alignment-sandbox.json`. Both public eta makers now
+returned actual funded signed offers with Coinbase snapshot provenance, recorded
+in `research/reports/native-public-eta-clock-quote.json`. No owner fill is inferred
+from a quote. Owner purchase signatures were requested through the live desk.
+Root rational/vector tests, locked workspace tests, format/Clippy and 14 schema
+checks pass. The HTTP quote-gate regression passes with loopback permissions;
+its first sandboxed invocation hit a Node native assertion, not a passing test.
+Active series now sort before historical delayed series in the UI.
+
+The current live run and remaining acceptance gates are maintained in [11 November acceptance](docs/ACCEPTANCE_RUN_2026-11-11.md). Hosting is deferred by user direction until backend/end-to-end acceptance finishes.

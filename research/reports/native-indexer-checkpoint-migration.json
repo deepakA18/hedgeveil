@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-11-10T05:01:53.877Z",
+  "source_schema": "hv_testnet_native_journal",
+  "destination_schema": "hv_testnet_native_canonical",
+  "checkpoint": "3U5kCKntfAs69ymsAw5PbyQkoe4ssm3sfuZhZt1vAq37",
+  "transactions": 20,
+  "events": 15,
+  "risk_allowed": false
+}

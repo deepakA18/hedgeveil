@@ -1,0 +1,22 @@
+{
+  "name": "hedgeveil-testnet-indexer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NEAR testnet receipt evidence archive; migration acceptance pending",
+  "scripts": {
+    "codegen": "subql codegen",
+    "build": "subql build",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.cjs",
+    "publish:ipfs": "node scripts/publish.cjs"
+  },
+  "dependencies": {
+    "@subql/common-near": "4.3.4",
+    "@subql/types-near": "5.0.1"
+  },
+  "devDependencies": {
+    "@subql/cli": "6.6.3",
+    "@types/node": "22.15.30",
+    "typescript": "5.8.3"
+  }
+}

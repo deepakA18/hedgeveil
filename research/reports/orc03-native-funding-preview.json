@@ -1,0 +1,14 @@
+{
+  "scope": "Actual local review page; no funding submitted",
+  "url": "http://127.0.0.1:8793",
+  "root": "hv-native.0xdeepak18.testnet",
+  "amount": "48000000000000000000000000",
+  "checks": [
+    "HTTP review exact 48 NEAR create/transfer/key request",
+    "Meteor connect option rendered",
+    "Approval disabled until wallet connection",
+    "Resolver 8 and maker 4.5 allocations disclosed",
+    "Old 80 NEAR/synthetic setup absent"
+  ],
+  "attempted": false
+}

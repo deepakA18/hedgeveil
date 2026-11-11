@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "observed_at": "2026-11-09T12:44:14.846Z",
+  "source_url": "https://price-oracle.outlayer.ai/docs/",
+  "scope": "Published example only; no live API request or accepted price",
+  "sample": "tests/oracle/fixtures/outlayer-published-example.json",
+  "sample_sha256": "f64dafcb40803faf3f5b348004dc79435fece0d6ce8bce2aa763d33ac3df1a25",
+  "payload_sha256": "f4b1b00ed6417934a6b954ab67e76cc4701e29f164c8e93389d9690f6a3d6a5f",
+  "public_key": "ed25519:FU6EnB4UaAiDCAxvQPkRUu5QQExgzvKQAX891wMEX3rU",
+  "node_version": "v24.8.0",
+  "node_signature_valid": false,
+  "tweetnacl_version": "1.0.3",
+  "tweetnacl_signature_valid": false,
+  "settlement_eligible": false,
+  "sources": {
+    "services/outlayer/signed.mjs": "1ed9ee70187f3c1667d483b466e36357f058b0d308a8f2223ce66c09fd7af49b",
+    "services/outlayer/archive.mjs": "bbd645e5633edde66b16bca92de14deb44f4c4240f283158fde781591e145296",
+    "services/outlayer/signed-cli.mjs": "5921fff5491af3eea24315f9fc3cb05d19eb92f497dba325c1af7eac06b917e0",
+    "tests/oracle/signed.test.mjs": "c449b8e43cbd3262f4cce78b65c2c697cbed637f82176a3fd6b07d968360190d",
+    "services/testnet/runtime.mjs": "78e9b1bed80970c3a9a6cbfc3f4755dd4318e20ae3144b744c3de3953d94a554"
+  }
+}

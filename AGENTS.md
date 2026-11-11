@@ -11,8 +11,10 @@ status and acceptance evidence as work lands. Planned is not implemented/reviewe
 - `archive/privacy-track/` is historical evidence, excluded from active builds.
   Do not use its commands, dependencies, credentials or gates for current work.
   Preserve archived evidence and its checksum manifest.
-- Core development/demo must work locally without paid API keys. Testnet uses
-  disclosed synthetic data and real receipts. Never mock transaction success.
+- Core development and deterministic tests must work locally without paid API keys.
+  Public testnet/release requires authenticated external market data and real
+  receipts; synthetic prices and fixed fixture maker marks are test-only. Missing
+  live data blocks the affected action; never substitute fixtures or mock success.
 - Separate storage/operating funds from collateral. UNKNOWN payouts remain
   quarantined; timeouts never authorize refund or resend.
 - Use an internal ledger until complete token interfaces and callback semantics

@@ -9,6 +9,12 @@ and accounting are public. Development and the core demo require no paid API key
 or mainnet funds. The economic construction is attributed to the research linked
 in the plan; this project implements and evaluates it on NEAR.
 
+**Release requirement (9 November 2026):** the public options protocol must use
+external market data. The fixture collector, resolver and fixed maker marks are
+not accepted public integrations. Deployment remains held; see the
+[real-data readiness inventory](docs/REAL_DATA_READINESS.md). Synthetic scenarios
+remain explicitly local tests/research, not market or public-release evidence.
+
 ## Current implementation
 
 The Python rational reference, checked Rust payoff library, 565 differential
@@ -56,6 +62,11 @@ Open `http://127.0.0.1:8790`. Connection needs no API keys; without a verified
 contract configuration transactions remain disabled. New funding also awaits a
 reconciled testnet indexer. [Wallet desk setup and limits](docs/NEAR_CONNECT.md)
 cover configuration, executor integrity and durable receipt recovery.
+
+The options-first testnet setup now has a [dedicated-account runbook](docs/TESTNET_SETUP.md)
+and confirmed public funding/deployment evidence. Actual vendor-wallet trading,
+settlement and withdrawal acceptance remain pending; the vault stays disabled.
+See [current real-data acceptance gates](docs/REAL_DATA_READINESS.md).
 
 ## Run the implemented checks
 
@@ -347,3 +358,65 @@ was retained, archived, replaced and verified. [AGENTS.md](AGENTS.md) carries th
 scope and evidence requirements into future coding sessions.
 Collateral accounting does not guarantee a USD peg, principal protection,
 liquidity or uninterrupted tracking.
+
+## External oracle feasibility (ORC-03)
+
+The [Outlayer feasibility report](research/reports/OUTLAYER_FEASIBILITY.md)
+records read-only public evidence and settlement limitations. No signer or paid
+API key is needed. This probe does not enable settlement or transactions.
+
+```sh
+node --test tests/oracle/outlayer.test.mjs
+node services/outlayer/probe.mjs --network both --report target/outlayer-discovery.json
+node services/outlayer/probe.mjs --network both --pins deploy/testnet/outlayer-observation-pins.json --report target/outlayer-pinned.json
+```
+
+Pins record observed identities on 9 November 2026, not a security endorsement.
+An upgrade fails the pinned check; review the change before accepting new pins.
+The former public setup budget is on hold; local synthetic tests remain usable.
+
+The [signed-response intake](services/outlayer/README.md) verifies and archives
+previously obtained responses without an API key or network request. It remains
+separate from settlement and maker valuation; valid provider interoperability is
+pending. Run `node --test tests/oracle/signed.test.mjs` for its adversarial suite.
+
+## Real market pricing and resolver candidate
+
+New expiry-TWAP work is separate from the sampled profile below. See
+[the historical worker README](services/expiry-worker/README.md) and
+[ORC-04 real execution / Sandbox evidence](research/reports/ORC04_HISTORICAL_WORKER.md).
+The worker has two verified real Outlayer historical executions. The separate
+resolver and schema are implemented; aligned maker pricing, new-profile indexer
+integration and public lifecycle acceptance remain pending. Existing series keep
+their terms, and the terminal-price maker refuses unresolved TWAP series.
+
+[Current implementation evidence](research/reports/REAL_DATA_IMPLEMENTATION.md)
+separates actual external-data maker fills from synthetic resolver fault tests.
+Public deployment/source acceptance remains pending.
+
+```sh
+node --test tests/market-data/pricing.test.mjs tests/indexer/external.test.mjs
+node tests/sandbox/mkt03.mjs
+python3 scripts/build-external-oracle.py
+node tests/sandbox/external-settlement.mjs
+node --test tests/oracle/sampler.test.mjs
+node tests/sandbox/sampler.mjs
+# Optional bounded test-token request; wallet approval required, no paid API:
+node services/outlayer/request-testnet.mjs
+```
+
+The first public wallet refresh is now verified; see
+[receipt/source evidence and the tested native setup](research/reports/ORC03_PUBLIC_REFRESH.md).
+The concrete native plan uses 48 test NEAR: core 30, resolver 8, two makers 4.5
+each and admin 1. Meteor blocked the original key-adding wallet request; that
+workspace is held. Its separate transfer-only replacement uses implicit service
+accounts and asks the owner wallet only for a normal transfer. See the
+[funding runbook](docs/TESTNET_SETUP.md#current-native-funding-request--transfer-only-replacement).
+The older draft allocation and synthetic setup are superseded.
+
+```sh
+node --test tests/oracle/refresh-proof.test.mjs tests/demo/native-funding.test.mjs
+node tests/sandbox/transfer-setup.mjs
+# Existing prepared workspace; no automatic funding or wallet signing:
+node services/testnet/cli.mjs bootstrap --name native-transfer --port 8793
+```

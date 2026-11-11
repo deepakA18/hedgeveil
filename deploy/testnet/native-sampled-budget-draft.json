@@ -1,0 +1,92 @@
+{
+  "kind": "hedgeveil-native-sampled-budget-draft",
+  "version": 1,
+  "created_date": "2026-11-10",
+  "network": "testnet",
+  "owner": "0xdeepak18.testnet",
+  "root_id": "hv-open.0xdeepak18.testnet",
+  "deployment_authorized": false,
+  "deployment_hold": "SUPERSEDED_BY_NATIVE_PLAN",
+  "oracle_version": "native-sampled-v1",
+  "source_account": "price-oracle.testnet",
+  "source_reporter": null,
+  "allocations": [
+    {
+      "role": "core",
+      "id": "core.hv-open.0xdeepak18.testnet",
+      "near": "30",
+      "yocto": "30000000000000000000000000",
+      "purpose": "20 NEAR operating allocation plus code/storage and headroom; no user collateral"
+    },
+    {
+      "role": "external_resolver",
+      "id": "oracle.hv-open.0xdeepak18.testnet",
+      "near": "5",
+      "yocto": "5000000000000000000000000",
+      "purpose": "Code/storage and separate operating reserve; no bonds or user collateral"
+    },
+    {
+      "role": "maker",
+      "id": "maker-a.hv-open.0xdeepak18.testnet",
+      "near": "6",
+      "yocto": "6000000000000000000000000",
+      "purpose": "4 NEAR collateral/inventory plus separate storage and gas"
+    },
+    {
+      "role": "maker",
+      "id": "maker-b.hv-open.0xdeepak18.testnet",
+      "near": "6",
+      "yocto": "6000000000000000000000000",
+      "purpose": "4 NEAR collateral/inventory plus separate storage and gas"
+    },
+    {
+      "role": "administrator",
+      "id": "hv-open.0xdeepak18.testnet",
+      "near": "1",
+      "yocto": "1000000000000000000000000",
+      "purpose": "Retained setup gas and bounded external refresh budget; no collateral"
+    }
+  ],
+  "total_funding_yocto": "48000000000000000000000000",
+  "minimum_owner_balance_yocto": "49000000000000000000000000",
+  "owner_reserve_yocto": "1000000000000000000000000",
+  "source_refresh_cap": {
+    "calls": 3,
+    "attached_deposit_per_call_yocto": "20000000000000000000000",
+    "total_attached_yocto": "60000000000000000000000",
+    "included_in_administrator_allocation": true,
+    "automatic_retries_authorized": false
+  },
+  "artifacts": {
+    "target/core-artifacts/clearinghouse.wasm": {
+      "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+      "bytes": 614630
+    },
+    "target/external-oracle-artifacts/external_settlement.wasm": {
+      "sha256": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+      "bytes": 260717
+    }
+  },
+  "remaining_gates": [
+    "Actual pinned-source refresh, selected reporter and three-slot collection evidence",
+    "Final source code, actual storage and current gas/balance preflight",
+    "Updated deploy/refresh orchestration and public wallet lifecycle acceptance",
+    "Independent review remains pending; production and vault remain disabled"
+  ],
+  "notes": [
+    "Draft only; not an executable setup plan. No private or public keys generated.",
+    "Retains existing dedicated names; every account must be absent or verified against a retained setup journal before any create/fund action.",
+    "Source refresh limit is a proposed deposit bound, not evidence of source availability or an estimated gas charge.",
+    "The old 80-NEAR synthetic plan remains held and is not overwritten.",
+    "The first 5-NEAR resolver estimate failed initialization in Sandbox. The tested native plan allocates 8 to the resolver and 4.5 to each maker, retaining the same 48 total."
+  ],
+  "settlement_policy_acceptance": {
+    "profile": "native-sampled-v1",
+    "scope": "testnet",
+    "date": "2026-11-10",
+    "authority": "user",
+    "historical_venue_time": false,
+    "bonded_disputes": false
+  },
+  "superseded_by": "deploy/testnet/native-plan.json"
+}

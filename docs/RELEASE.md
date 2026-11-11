@@ -1,8 +1,9 @@
 # REL-01 local release rehearsal
 
-This workflow prepares a local Sandbox submission candidate. Public testnet,
-browser-wallet integration, an approved recurring policy, independent review and
-a walkthrough video are still required before G9 is complete. No release
+This workflow prepares a local Sandbox submission candidate. The current release
+is options-first; the vault stays disabled and strategy selection is deferred.
+Actual public wallet lifecycle acceptance, independent review and a walkthrough
+video remain required before G9 is complete. See [current readiness](REAL_DATA_READINESS.md). No release
 approval, deployment or external submission is performed by this command.
 
 The [9 November retained run](../research/reports/rel01-local.md) passed 109 runtime

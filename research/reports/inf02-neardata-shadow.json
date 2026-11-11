@@ -1,0 +1,64 @@
+{
+  "observed_at": "2026-11-11T14:20:30.093Z",
+  "scope": "Actual hosted-feed shadow scan with durable PostgreSQL cursor; does not itself enable application cutover",
+  "before": {
+    "id": 1,
+    "baseline_height": "277226729",
+    "baseline_hash": "zRqAUfdoni2uKRKQukmZZGTqaJeQwqTENYweJC3TpTP",
+    "height": "277226729",
+    "block_height": "277226729",
+    "block_hash": "zRqAUfdoni2uKRKQukmZZGTqaJeQwqTENYweJC3TpTP",
+    "observed_height": "277226729",
+    "state": "STARTING",
+    "checked_at": null
+  },
+  "after": {
+    "id": 1,
+    "baseline_height": "277226729",
+    "baseline_hash": "zRqAUfdoni2uKRKQukmZZGTqaJeQwqTENYweJC3TpTP",
+    "height": "277226746",
+    "block_height": "277226746",
+    "block_hash": "EuhBLuz514wPg23YNUNk3qikRobqZZiitbxWzdygoe8B",
+    "observed_height": "277226766",
+    "state": "FEED_RATE_LIMITED",
+    "checked_at": "2026-11-11T14:18:40.165Z"
+  },
+  "elapsed_ms": 120132,
+  "health": {
+    "state": "DISCOVERY_UNAVAILABLE_OR_LAGGING",
+    "height": "277226942",
+    "block_hash": "58nZ2c3ZWPvGWxgGBWLCqne8ZpRMCahc73hqxyyfXtAs",
+    "lag_blocks": "26",
+    "reconciled": true,
+    "risk_allowed": false,
+    "rpc_failures": 3680,
+    "rpc_failovers": 990,
+    "unresolved_transactions": [
+      {
+        "hash": "56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q",
+        "state": "SUBMISSION_UNKNOWN",
+        "signer_id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b"
+      },
+      {
+        "hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT",
+        "state": "SUBMISSION_UNKNOWN",
+        "signer_id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b"
+      }
+    ],
+    "stale": false,
+    "age_ms": 21832,
+    "cursor_hash": "58nZ2c3ZWPvGWxgGBWLCqne8ZpRMCahc73hqxyyfXtAs",
+    "generation": "840",
+    "discovery": {
+      "source": "neardata-testnet",
+      "baseline_height": "277226729",
+      "height": "277226746",
+      "scanned_height": "277226746",
+      "observed_height": "277226766",
+      "lag_blocks": 196,
+      "state": "FEED_RATE_LIMITED",
+      "fresh": false
+    }
+  },
+  "cutover_accepted": false
+}

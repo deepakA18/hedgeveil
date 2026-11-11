@@ -1,0 +1,36 @@
+{
+  "observed_at": "2026-11-11T03:05:32.264Z",
+  "scope": "Real funded quote only; no owner transaction signed or submitted",
+  "request": {
+    "mode": "BUY",
+    "asset": {
+      "kind": "P",
+      "series_id": "eta"
+    },
+    "amount": "50000000000000000000000",
+    "taker": "0xdeepak18.testnet"
+  },
+  "status": 200,
+  "response": {
+    "items": [
+      {
+        "quote": null,
+        "reason": "MARKET_DATA_UNAVAILABLE",
+        "cancellation": {
+          "operation_id": "5cf6033e67ef17203885e9a55a987ca86677085e89994ac93f2e43137d03e06b",
+          "hash": "2hpPSE8q6MHMhK5msfCVBYD9y1c772qjp2FFyMUwyyM7",
+          "state": "SUCCEEDED"
+        }
+      },
+      {
+        "quote": null,
+        "reason": "MARKET_DATA_UNAVAILABLE",
+        "cancellation": {
+          "operation_id": "6b372eba5c284e91fe88e0228fa206bd57cf9793a300bf91903d2b7a6d76b7da",
+          "hash": "5ZuEuMW5GkThtEsVEBUYQYEQTPXYfujt3i9ZkHFVyenV",
+          "state": "SUCCEEDED"
+        }
+      }
+    ]
+  }
+}

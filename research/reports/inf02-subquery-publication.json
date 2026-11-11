@@ -1,0 +1,29 @@
+{
+  "scope": "Published SubQuery testnet evidence archive, not hosted deployment or cutover approval",
+  "cid": "QmSSgpj7debN9YQpumbgU7NJKGSFnyTBpvP9iekvKNVrMq",
+  "network": "testnet",
+  "project": "hedgeveil-testnet",
+  "sources": {
+    "project.yaml": "0bdde3a52ff4765779a5ab7e001bde51756988688f8f5fca11a4a2b79405a8fa",
+    "schema.graphql": "77ae6f940ca98444c49d58318f9b1f3468a7d57e27c02732677e3e3313e7c934",
+    "dist/index.js": "78588901e9fe3d8a1bdaf9556c73cbf06dc76cb1eafd68705c6d341b3d931f8e",
+    "package-lock.json": "13f600ab8aed985dc9fbf186827ac9aa1180a6136a00ae91f257fb24a19c7d09"
+  },
+  "pin_warning": false,
+  "hosted_deployment_verified": false,
+  "cutover_allowed": false,
+  "public_fetch_verified": true,
+  "manifest_sha256": "9489140a59a0f901203b872901bafac7abf3a0d7d77f0f1c2935e76e91730b05",
+  "assets": [
+    {
+      "file": "schema.graphql",
+      "cid": "QmYcsNPc37dskQNinxkVYRzZPMoECg6mre9SFphudQJThh",
+      "sha256": "77ae6f940ca98444c49d58318f9b1f3468a7d57e27c02732677e3e3313e7c934"
+    },
+    {
+      "file": "dist/index.js",
+      "cid": "QmXYDj1HdQsCnu8BxaMHaZZrnYLM48YehoPJemm96DR5U8",
+      "sha256": "78588901e9fe3d8a1bdaf9556c73cbf06dc76cb1eafd68705c6d341b3d931f8e"
+    }
+  ]
+}

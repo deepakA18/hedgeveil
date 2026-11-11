@@ -1,0 +1,181 @@
+{
+  "observed_at": "2026-11-10T07:39:48.506Z",
+  "scope": "Normal intact-pair merges of delayed beta; not settlement or timeout refund",
+  "operations": [
+    {
+      "operation_id": "0833747f79e546337313803414452bb18a401e4357d6b0fc21b182e3671c1ca4",
+      "hash": "7UiekrUVSNjgZscTj9JgRwQg61AzEFFVQDnDDkeRhCGn",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "19a4879ff1db1ecb98b6905d42f478d5f429f92d9fe044270b3f1c00cd83b723",
+      "hash": "BPh8iK7PB7oQut8oP3TeE939g3VpULfXSNyuSbLq919b",
+      "state": "SUCCEEDED"
+    }
+  ],
+  "after": [
+    {
+      "account": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "balance": {
+        "free": "4000000000000000000000000",
+        "storage_paid": "40960000000000000000000",
+        "positions": [
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          }
+        ],
+        "retained_tickets": 0,
+        "closing": false
+      }
+    },
+    {
+      "account": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "balance": {
+        "free": "4000000000000000000000000",
+        "storage_paid": "40960000000000000000000",
+        "positions": [
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          },
+          {
+            "p": "0",
+            "n": "0"
+          }
+        ],
+        "retained_tickets": 0,
+        "closing": false
+      }
+    }
+  ],
+  "user": {
+    "free": "100000000000000000000000",
+    "storage_paid": "40960000000000000000000",
+    "positions": [
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      }
+    ],
+    "retained_tickets": 0,
+    "closing": false
+  },
+  "series": {
+    "config": {
+      "series_id": "beta",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3627800000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794295894923792694",
+      "mint_cutoff_ns": "1794295354923792694",
+      "observation_window": {
+        "start_ns": "1794295354923792694",
+        "end_ns": "1794295894923792694"
+      },
+      "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "slot": 1,
+    "outstanding_p": "0",
+    "outstanding_n": "0",
+    "reserve": "0",
+    "total_split": "4000000000000000000000000",
+    "total_merged": "4000000000000000000000000",
+    "total_paid": "0",
+    "dust_released": "0",
+    "final_price": null,
+    "p_coefficient": "0",
+    "n_coefficient": "0",
+    "closed": false,
+    "request": null,
+    "requested_at": "0"
+  },
+  "independent_review": "pending"
+}

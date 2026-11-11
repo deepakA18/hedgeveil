@@ -1,0 +1,37 @@
+{
+  "scope": "Archived real testnet receipt/action binding and independent exact-history replay; not new-series lifecycle acceptance",
+  "passed": true,
+  "execution_report": "research/reports/expiry-worker-execution-86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43-1794401460.json",
+  "execution_report_sha256": "c7a8cfa6e04c9907a611add373cb9ed3ccbf7a5a05fbb46b79d8c0ddd7e08c19",
+  "transaction_hash": "6sBS5ipAGteLFmUJqrHfmHy5QSZ94XmVWS87FY2f8DiB",
+  "return_receipt_id": "2J8cXJXiNAANJiYS3ShBNN3rPVAkf8vh9sfBLHgtmJK1",
+  "worker_sha256": "86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43",
+  "output_bytes": 398072,
+  "output_sha256": "af43fecd5851291573157c4891019b502cb570fcded9bc9320350eaf454ed575",
+  "calculation": {
+    "policy": "COINBASE_NEAR_USD_TRADE_TWAP_V1",
+    "product": "NEAR-USD",
+    "start_us": "1794399660000000",
+    "end_us": "1794401460000000",
+    "price_scale": "1000000000000",
+    "price": "3742373527824",
+    "weighted_sum": "6736272350083300000000",
+    "predecessor_id": "36449566",
+    "successor_id": "36452006",
+    "evidence_sha256": "b9a108c811ffc45f40d24ab1393a4d2ec1c4ab99178ca6d49bf0c22c843b7650"
+  },
+  "reference": {
+    "price": "3742373527824",
+    "exact_price": "67362723500833/18",
+    "reference_only": true
+  },
+  "sources": {
+    "services/expiry-worker/Cargo.lock": "46aa09d78ac3b64e085dd74fad393d7b79ca6acd6dca1c0002fd82b8c6234b51",
+    "services/expiry-worker/src/lib.rs": "eab800419cbfb1323b225ddc6caffcb43655d562da924d8f1ce92e5c6456cdc0",
+    "services/expiry-worker/src/main.rs": "b419f7b52d7d4a2eef616692ce230aae92381fe7a3a339424338f0848d3ca694",
+    "services/expiry-worker/reference.py": "242b690b8c4e916521d681a87dba0dd610cda55dbb1fa8271a6fe26e68c3f4f5",
+    "scripts/verify-expiry-execution.mjs": "859b070d96751e4672046bf1a35ce8dd7cec3a9099b50e93853414371c4a4726"
+  },
+  "settlement_eligible": false,
+  "trust": "Outlayer operator/contract and Coinbase HTTPS; not an independent TEE-attestation verification"
+}

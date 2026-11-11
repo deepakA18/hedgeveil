@@ -1,0 +1,37 @@
+{
+  "scope": "Archived real testnet receipt/action binding and independent exact-history replay; not new-series lifecycle acceptance",
+  "passed": true,
+  "execution_report": "research/reports/expiry-worker-execution-4383d4b11f703faf73f3a19acdb094bc5536ff345d66d084507daf0e3310ff01-1794393600.json",
+  "execution_report_sha256": "829ce73eab44bc9278e580c26fb0fa1acdc909f170ca13e13e04a4b0dca409e7",
+  "transaction_hash": "4sAvFTRRAMkupPbNvDY7p8dVTbb4D2C9jQMzrnVycZnv",
+  "return_receipt_id": "6qHjadbMf5cRWD3QqbagnK3jqA5awaXwTFaBWLA6PCMq",
+  "worker_sha256": "4383d4b11f703faf73f3a19acdb094bc5536ff345d66d084507daf0e3310ff01",
+  "output_bytes": 265486,
+  "output_sha256": "e7e46389d2b893ce7997f65de0c4bd9929a0acd779cb52d1ebdffbfea44ab498",
+  "calculation": {
+    "policy": "COINBASE_NEAR_USD_TRADE_TWAP_V1",
+    "product": "NEAR-USD",
+    "start_us": "1794391800000000",
+    "end_us": "1794393600000000",
+    "price_scale": "1000000000000",
+    "price": "3628930096707",
+    "weighted_sum": "6532074174074100000000",
+    "predecessor_id": "36438715",
+    "successor_id": "36439932",
+    "evidence_sha256": "5d6fb020ffea7d3955179ba0f64073773ffbc4bbed1a0430db1a6e7edbb328de"
+  },
+  "reference": {
+    "price": "3628930096707",
+    "exact_price": "21773580580247/6",
+    "reference_only": true
+  },
+  "sources": {
+    "services/expiry-worker/Cargo.lock": "46aa09d78ac3b64e085dd74fad393d7b79ca6acd6dca1c0002fd82b8c6234b51",
+    "services/expiry-worker/src/lib.rs": "eab800419cbfb1323b225ddc6caffcb43655d562da924d8f1ce92e5c6456cdc0",
+    "services/expiry-worker/src/main.rs": "df356069defbd35003ae644ccbf3a91accf69b6b8b4abd1bfe62e6c0fb5d9660",
+    "services/expiry-worker/reference.py": "242b690b8c4e916521d681a87dba0dd610cda55dbb1fa8271a6fe26e68c3f4f5",
+    "scripts/verify-expiry-execution.mjs": "f938fdbf5ccd345c1a7eca01d9061a619d3eeb32b7b042991dc0a977e7ad860c"
+  },
+  "settlement_eligible": false,
+  "trust": "Outlayer operator/contract and Coinbase HTTPS; not an independent TEE-attestation verification"
+}

@@ -43,7 +43,7 @@ test('failover verifies chain identity before each read and never allows a signi
     }});
     await rpc.request('block',{finality:'final'});assert.equal(queries,1);assert.equal(rpc.failovers,1);
     await assert.rejects(rpc.request('send_tx',{}),/READ_ONLY_RPC/);
-    assert.throws(()=>configuration({...cfg,network:'testnet'}),/LOCAL_SANDBOX_ONLY/);
+    assert.throws(()=>configuration({...cfg,network:'testnet'}),/CHAIN_CONFIGURATION/);
     assert.throws(()=>configuration({...cfg,schema:'hv_x;drop table meta'}),/SCHEMA_NAME/);
 });
 test('quarantine, delayed oracle and unobserved executable quotes are visible alerts',()=>{

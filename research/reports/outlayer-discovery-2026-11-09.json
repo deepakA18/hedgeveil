@@ -1,0 +1,1867 @@
+{
+  "version": 1,
+  "scope": "Read-only Outlayer NEAR/USD feasibility; no paid calls or contract integration",
+  "source_commit": "888ae663803209e5689892d671657331852428f8",
+  "networks": {
+    "testnet": {
+      "network": "testnet",
+      "rpc_url": "https://rpc.testnet.near.org/",
+      "contract_id": "price-oracle.testnet",
+      "observed_at": "2026-11-09T12:11:59.732Z",
+      "scope": "READ_ONLY; no transactions; no settlement authorization",
+      "responses": {
+        "status": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "chain_id": "testnet",
+              "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+              "latest_protocol_version": 88,
+              "node_key": null,
+              "node_public_key": "ed25519:vknQwA6gp5wvADawPZEX1TC1bgBvo1VAZhFLebThbsi",
+              "protocol_version": 88,
+              "rpc_addr": "0.0.0.0:3030",
+              "sync_info": {
+                "earliest_block_hash": "8cXmLXLcSUKLoa8oHQ5b2riB6FY9iZ2GF4GTPZoHGLkU",
+                "earliest_block_height": 276738055,
+                "earliest_block_time": "2026-11-08T06:17:55.542915847Z",
+                "epoch_id": "CcDSZPsbf9G7wSTsrxdGntvCa7wnW1KcqndSErmDuXX1",
+                "epoch_start_height": 276910855,
+                "latest_block_hash": "D9KmqwuKSFVemdg1GSC5cqD2E35teeQovigC4ZapNnre",
+                "latest_block_height": 276918490,
+                "latest_block_time": "2026-11-09T12:12:02.040226327Z",
+                "latest_state_root": "3fJLMbUK3LfiEi9t92CdzgxGqMfC7PmSCt1XChiJz9PN",
+                "syncing": false
+              },
+              "uptime_sec": 325430,
+              "validator_account_id": null,
+              "validator_public_key": null,
+              "validators": [
+                {
+                  "account_id": "node0"
+                },
+                {
+                  "account_id": "node1"
+                },
+                {
+                  "account_id": "kiln.pool.f863973.m0"
+                },
+                {
+                  "account_id": "node2"
+                },
+                {
+                  "account_id": "node3"
+                },
+                {
+                  "account_id": "aurora.pool.f863973.m0"
+                },
+                {
+                  "account_id": "01node.pool.f863973.m0"
+                },
+                {
+                  "account_id": "stakely_v2.pool.f863973.m0"
+                },
+                {
+                  "account_id": "legends.pool.f863973.m0"
+                },
+                {
+                  "account_id": "ni.pool.f863973.m0"
+                },
+                {
+                  "account_id": "ts.pool.f863973.m0"
+                },
+                {
+                  "account_id": "lunanova2.pool.f863973.m0"
+                },
+                {
+                  "account_id": "validator4.testnet"
+                },
+                {
+                  "account_id": "validator5.testnet"
+                },
+                {
+                  "account_id": "validator6.testnet"
+                },
+                {
+                  "account_id": "validator7.testnet"
+                },
+                {
+                  "account_id": "validator8.testnet"
+                },
+                {
+                  "account_id": "validator9.testnet"
+                },
+                {
+                  "account_id": "validator10.testnet"
+                },
+                {
+                  "account_id": "validator11.testnet"
+                }
+              ],
+              "version": {
+                "build": "2.14.0-rc.5",
+                "commit": "b7b4737cab46f17a6daa2ed694d7aebbd204363a",
+                "rustc_version": "1.95.0",
+                "version": "2.14.0-rc.5"
+              }
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "account": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "amount": "10206788444583444400000031",
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV",
+              "locked": "0",
+              "storage_paid_at": 0,
+              "storage_usage": 343273
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_price_data": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "logs": [],
+              "result": [
+                123,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                57,
+                52,
+                50,
+                50,
+                54,
+                51,
+                50,
+                52,
+                53,
+                51,
+                51,
+                53,
+                49,
+                52,
+                54,
+                55,
+                56,
+                34,
+                44,
+                34,
+                114,
+                101,
+                99,
+                101,
+                110,
+                99,
+                121,
+                95,
+                100,
+                117,
+                114,
+                97,
+                116,
+                105,
+                111,
+                110,
+                95,
+                115,
+                101,
+                99,
+                34,
+                58,
+                51,
+                48,
+                48,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                115,
+                34,
+                58,
+                91,
+                123,
+                34,
+                97,
+                115,
+                115,
+                101,
+                116,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                119,
+                114,
+                97,
+                112,
+                46,
+                110,
+                101,
+                97,
+                114,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                110,
+                117,
+                108,
+                108,
+                125,
+                93,
+                125
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_asset": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "logs": [],
+              "result": [
+                123,
+                34,
+                114,
+                101,
+                112,
+                111,
+                114,
+                116,
+                115,
+                34,
+                58,
+                91,
+                123,
+                34,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                45,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                46,
+                116,
+                101,
+                115,
+                116,
+                110,
+                101,
+                116,
+                34,
+                44,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                57,
+                52,
+                48,
+                48,
+                49,
+                50,
+                53,
+                57,
+                51,
+                50,
+                57,
+                56,
+                57,
+                51,
+                48,
+                52,
+                54,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                123,
+                34,
+                109,
+                117,
+                108,
+                116,
+                105,
+                112,
+                108,
+                105,
+                101,
+                114,
+                34,
+                58,
+                34,
+                51,
+                55,
+                49,
+                53,
+                52,
+                51,
+                51,
+                51,
+                51,
+                34,
+                44,
+                34,
+                100,
+                101,
+                99,
+                105,
+                109,
+                97,
+                108,
+                115,
+                34,
+                58,
+                56,
+                125,
+                125,
+                93,
+                44,
+                34,
+                101,
+                109,
+                97,
+                115,
+                34,
+                58,
+                91,
+                93,
+                125
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_price": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "error": "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+              "logs": []
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_owner_id": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "logs": [],
+              "result": [
+                34,
+                122,
+                97,
+                118,
+                111,
+                100,
+                105,
+                108,
+                50,
+                46,
+                116,
+                101,
+                115,
+                116,
+                110,
+                101,
+                116,
+                34
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_oracles": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "logs": [],
+              "result": [
+                91,
+                93
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_subsidize_outlayer_calls": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "logs": [],
+              "result": [
+                102,
+                97,
+                108,
+                115,
+                101
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_council_members": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "error": "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+              "logs": []
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_council_threshold": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+              "block_height": 276918494,
+              "error": "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+              "logs": []
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        }
+      },
+      "views": {
+        "get_price_data": {
+          "value": {
+            "timestamp": "1794226324533514678",
+            "recency_duration_sec": 300,
+            "prices": [
+              {
+                "asset_id": "wrap.near",
+                "price": null
+              }
+            ]
+          }
+        },
+        "get_asset": {
+          "value": {
+            "reports": [
+              {
+                "oracle_id": "price-oracle.testnet",
+                "timestamp": "1794001259329893046",
+                "price": {
+                  "multiplier": "371543333",
+                  "decimals": 8
+                }
+              }
+            ],
+            "emas": []
+          }
+        },
+        "get_price": {
+          "error": "ORACLE_VIEW_ERROR"
+        },
+        "get_owner_id": {
+          "value": "zavodil2.testnet"
+        },
+        "get_oracles": {
+          "value": []
+        },
+        "get_subsidize_outlayer_calls": {
+          "value": false
+        },
+        "get_council_members": {
+          "error": "ORACLE_VIEW_ERROR"
+        },
+        "get_council_threshold": {
+          "error": "ORACLE_VIEW_ERROR"
+        }
+      },
+      "block": {
+        "hash": "5zZYzzRmMFKihRr1QgiizRvkwpc89gNcVLP1FTbFy8JV",
+        "height": 276918494,
+        "timestamp_ns": "1794226324533514678"
+      },
+      "identity": {
+        "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+        "code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV",
+        "pin_status": "DISCOVERY_ONLY"
+      },
+      "assessment": {
+        "asset_id": "wrap.near",
+        "price_scale": "1000000000000",
+        "settlement_eligible": false,
+        "settlement_blocker": "HISTORICAL_OBSERVATION_PROOF_REQUIRED",
+        "state": "PRICE_UNAVAILABLE",
+        "price": null
+      }
+    },
+    "mainnet": {
+      "network": "mainnet",
+      "rpc_url": "https://rpc.mainnet.near.org/",
+      "contract_id": "price-oracle.near",
+      "observed_at": "2026-11-09T12:12:37.605Z",
+      "scope": "READ_ONLY; no transactions; no settlement authorization",
+      "responses": {
+        "status": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "chain_id": "mainnet",
+              "genesis_hash": "EPnLgE7iEq9s7yTkos96M3cWymH5avBAPm3qx3NXqR8H",
+              "latest_protocol_version": 88,
+              "node_key": null,
+              "node_public_key": "ed25519:HZfT8ypFWQLb3YT4eyDLGim8mmFyUzxHkbCogmwWX2mE",
+              "protocol_version": 88,
+              "rpc_addr": "0.0.0.0:3030",
+              "sync_info": {
+                "earliest_block_hash": "2w2K9nbvtYdCfjGdS5iuCrWppRYMZcthM9i3ZKTdqTiq",
+                "earliest_block_height": 223660337,
+                "earliest_block_time": "2026-11-08T19:30:32.198523624Z",
+                "epoch_id": "28NQ2dnE8oR6EinyUPqLF5Q2GkiunQCRKmL9aGmHCcGz",
+                "epoch_start_height": 223746737,
+                "latest_block_hash": "5qAU6dTC9RTgNcBW1XRYsmBw34N9hcsteVdRrwfiPa8T",
+                "latest_block_height": 223765539,
+                "latest_block_time": "2026-11-09T12:12:40.394423156Z",
+                "latest_state_root": "7yvBF5ZySYDA8GX3c9gtrWvUj7Q4LaAZmbbUDMFZ56G6",
+                "syncing": false
+              },
+              "uptime_sec": 427999,
+              "validator_account_id": null,
+              "validator_public_key": null,
+              "validators": [
+                {
+                  "account_id": "astro-stakers.poolv1.near"
+                },
+                {
+                  "account_id": "figment.poolv1.near"
+                },
+                {
+                  "account_id": "ledgerbyfigment.poolv1.near"
+                },
+                {
+                  "account_id": "staked.poolv1.near"
+                },
+                {
+                  "account_id": "binancenode1.poolv1.near"
+                },
+                {
+                  "account_id": "sumerian.poolv1.near"
+                },
+                {
+                  "account_id": "zavodil.poolv1.near"
+                },
+                {
+                  "account_id": "liver.pool.near"
+                },
+                {
+                  "account_id": "cnear-1.poolv1.near"
+                },
+                {
+                  "account_id": "cnear-3.poolv1.near"
+                },
+                {
+                  "account_id": "cnear-2.poolv1.near"
+                },
+                {
+                  "account_id": "bitwise_2.poolv1.near"
+                },
+                {
+                  "account_id": "bitwise_1.poolv1.near"
+                },
+                {
+                  "account_id": "svrn-ai.poolv1.near"
+                },
+                {
+                  "account_id": "svrn.pool.near"
+                },
+                {
+                  "account_id": "kiln-1.poolv1.near"
+                },
+                {
+                  "account_id": "epic.poolv1.near"
+                },
+                {
+                  "account_id": "svrn-luganodes.pool.near"
+                },
+                {
+                  "account_id": "nearvana.poolv1.near"
+                },
+                {
+                  "account_id": "metapool01.pool.near"
+                },
+                {
+                  "account_id": "stake1.poolv1.near"
+                },
+                {
+                  "account_id": "svrn_bitwise.poolv1.near"
+                },
+                {
+                  "account_id": "p2p-org.poolv1.near"
+                },
+                {
+                  "account_id": "dragonfly.poolv1.near"
+                },
+                {
+                  "account_id": "allnodes.poolv1.near"
+                },
+                {
+                  "account_id": "macrodatarefinement.poolv1.near"
+                },
+                {
+                  "account_id": "bisontrails.poolv1.near"
+                },
+                {
+                  "account_id": "aca87218e28c41f5a693dee3dff12238.poolv1.near"
+                },
+                {
+                  "account_id": "silentnodes.pool.near"
+                },
+                {
+                  "account_id": "svrn-twinstake.poolv1.near"
+                },
+                {
+                  "account_id": "d1.poolv1.near"
+                },
+                {
+                  "account_id": "legends.poolv1.near"
+                },
+                {
+                  "account_id": "lst-pool.near"
+                },
+                {
+                  "account_id": "stakin.poolv1.near"
+                },
+                {
+                  "account_id": "northernlights.poolv1.near"
+                },
+                {
+                  "account_id": "republic.poolv1.near"
+                },
+                {
+                  "account_id": "okx-earn.poolv1.near"
+                },
+                {
+                  "account_id": "rekt.poolv1.near"
+                },
+                {
+                  "account_id": "ni.poolv1.near"
+                },
+                {
+                  "account_id": "everstake.poolv1.near"
+                },
+                {
+                  "account_id": "gtnode-0.poolv1.near"
+                },
+                {
+                  "account_id": "nearfans.poolv1.near"
+                },
+                {
+                  "account_id": "nearone.pool.near"
+                },
+                {
+                  "account_id": "x.poolv1.near"
+                },
+                {
+                  "account_id": "here.poolv1.near"
+                },
+                {
+                  "account_id": "twinstake.poolv1.near"
+                },
+                {
+                  "account_id": "bitcoinsuisse.poolv1.near"
+                },
+                {
+                  "account_id": "lux.poolv1.near"
+                },
+                {
+                  "account_id": "anonymous.poolv1.near"
+                },
+                {
+                  "account_id": "erm.poolv1.near"
+                },
+                {
+                  "account_id": "dsrvlabs.poolv1.near"
+                },
+                {
+                  "account_id": "blockdaemon.poolv1.near"
+                },
+                {
+                  "account_id": "moonlet.poolv1.near"
+                },
+                {
+                  "account_id": "cryptium.poolv1.near"
+                },
+                {
+                  "account_id": "npro.poolv1.near"
+                },
+                {
+                  "account_id": "buildlinks.poolv1.near"
+                },
+                {
+                  "account_id": "baziliknear.poolv1.near"
+                },
+                {
+                  "account_id": "sofarsonear.poolv1.near"
+                },
+                {
+                  "account_id": "chorusone.poolv1.near"
+                },
+                {
+                  "account_id": "stakesabai.poolv1.near"
+                },
+                {
+                  "account_id": "meteor.poolv1.near"
+                },
+                {
+                  "account_id": "falcon.pool.near"
+                },
+                {
+                  "account_id": "autostake.poolv1.near"
+                },
+                {
+                  "account_id": "openshards.poolv1.near"
+                },
+                {
+                  "account_id": "lunanova.poolv1.near"
+                },
+                {
+                  "account_id": "trust-nodes.poolv1.near"
+                },
+                {
+                  "account_id": "kiln.poolv1.near"
+                },
+                {
+                  "account_id": "qbit.poolv1.near"
+                },
+                {
+                  "account_id": "nearai.pool.near"
+                },
+                {
+                  "account_id": "eno-blockdaemon0.pool.near"
+                },
+                {
+                  "account_id": "hb436_pool.poolv1.near"
+                },
+                {
+                  "account_id": "masternode24.poolv1.near"
+                },
+                {
+                  "account_id": "stardust.poolv1.near"
+                },
+                {
+                  "account_id": "luganodes.pool.near"
+                },
+                {
+                  "account_id": "brea.poolv1.near"
+                },
+                {
+                  "account_id": "avado.poolv1.near"
+                },
+                {
+                  "account_id": "01node.poolv1.near"
+                },
+                {
+                  "account_id": "bisontrails2.poolv1.near"
+                },
+                {
+                  "account_id": "stakely_io.poolv1.near"
+                },
+                {
+                  "account_id": "dexagon.poolv1.near"
+                },
+                {
+                  "account_id": "staking4all.poolv1.near"
+                },
+                {
+                  "account_id": "lavenderfive.poolv1.near"
+                },
+                {
+                  "account_id": "atomic-nodes.poolv1.near"
+                },
+                {
+                  "account_id": "polkachu.poolv1.near"
+                },
+                {
+                  "account_id": "smart-stake.poolv1.near"
+                },
+                {
+                  "account_id": "northstakenear.poolv1.near"
+                },
+                {
+                  "account_id": "namdokmai.poolv1.near"
+                },
+                {
+                  "account_id": "hapi.poolv1.near"
+                },
+                {
+                  "account_id": "nodeasy.poolv1.near"
+                },
+                {
+                  "account_id": "near-prime.poolv1.near"
+                },
+                {
+                  "account_id": "optimusvalidatornetwork.poolv1.near"
+                },
+                {
+                  "account_id": "near-prime-public.poolv1.near"
+                },
+                {
+                  "account_id": "rhea-validator.poolv1.near"
+                },
+                {
+                  "account_id": "p2pstaking.poolv1.near"
+                },
+                {
+                  "account_id": "hashquark.poolv1.near"
+                },
+                {
+                  "account_id": "fresh.poolv1.near"
+                },
+                {
+                  "account_id": "pangdao.poolv1.near"
+                },
+                {
+                  "account_id": "wackazong.poolv1.near"
+                },
+                {
+                  "account_id": "getblockio.poolv1.near"
+                },
+                {
+                  "account_id": "pathrocknetwork.poolv1.near"
+                }
+              ],
+              "version": {
+                "build": "2.14.0",
+                "commit": "bc4e9e8cfb03d9e82f027883055624e18576993e",
+                "rustc_version": "1.95.0",
+                "version": "2.14.0"
+              }
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "account": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "amount": "6195798514331801100000017",
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "code_hash": "AAfLssB91E2XgQEEvKo6mHW61RB4PoTzk6Ha7Xypd8Tw",
+              "locked": "0",
+              "storage_paid_at": 0,
+              "storage_usage": 535608
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_price_data": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                123,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                57,
+                52,
+                50,
+                50,
+                54,
+                51,
+                54,
+                50,
+                54,
+                49,
+                53,
+                57,
+                51,
+                51,
+                56,
+                49,
+                54,
+                34,
+                44,
+                34,
+                114,
+                101,
+                99,
+                101,
+                110,
+                99,
+                121,
+                95,
+                100,
+                117,
+                114,
+                97,
+                116,
+                105,
+                111,
+                110,
+                95,
+                115,
+                101,
+                99,
+                34,
+                58,
+                54,
+                48,
+                48,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                115,
+                34,
+                58,
+                91,
+                123,
+                34,
+                97,
+                115,
+                115,
+                101,
+                116,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                119,
+                114,
+                97,
+                112,
+                46,
+                110,
+                101,
+                97,
+                114,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                110,
+                117,
+                108,
+                108,
+                125,
+                93,
+                125
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_asset": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                123,
+                34,
+                114,
+                101,
+                112,
+                111,
+                114,
+                116,
+                115,
+                34,
+                58,
+                91,
+                123,
+                34,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                45,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                46,
+                110,
+                101,
+                97,
+                114,
+                34,
+                44,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                55,
+                50,
+                51,
+                55,
+                54,
+                57,
+                49,
+                50,
+                51,
+                49,
+                49,
+                48,
+                49,
+                52,
+                53,
+                49,
+                53,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                123,
+                34,
+                109,
+                117,
+                108,
+                116,
+                105,
+                112,
+                108,
+                105,
+                101,
+                114,
+                34,
+                58,
+                34,
+                49,
+                49,
+                53,
+                54,
+                49,
+                57,
+                57,
+                57,
+                57,
+                34,
+                44,
+                34,
+                100,
+                101,
+                99,
+                105,
+                109,
+                97,
+                108,
+                115,
+                34,
+                58,
+                56,
+                125,
+                125,
+                44,
+                123,
+                34,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                49,
+                101,
+                52,
+                101,
+                97,
+                101,
+                55,
+                57,
+                49,
+                51,
+                54,
+                48,
+                48,
+                100,
+                48,
+                49,
+                53,
+                100,
+                57,
+                49,
+                51,
+                52,
+                101,
+                101,
+                101,
+                53,
+                101,
+                100,
+                54,
+                51,
+                50,
+                53,
+                56,
+                52,
+                53,
+                100,
+                55,
+                56,
+                98,
+                99,
+                100,
+                102,
+                53,
+                98,
+                97,
+                56,
+                48,
+                52,
+                53,
+                100,
+                50,
+                51,
+                48,
+                53,
+                49,
+                99,
+                50,
+                99,
+                99,
+                49,
+                54,
+                99,
+                99,
+                98,
+                34,
+                44,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                56,
+                50,
+                53,
+                56,
+                56,
+                55,
+                53,
+                54,
+                55,
+                57,
+                56,
+                49,
+                54,
+                53,
+                56,
+                56,
+                56,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                123,
+                34,
+                109,
+                117,
+                108,
+                116,
+                105,
+                112,
+                108,
+                105,
+                101,
+                114,
+                34,
+                58,
+                34,
+                49,
+                56,
+                53,
+                49,
+                53,
+                56,
+                51,
+                51,
+                51,
+                34,
+                44,
+                34,
+                100,
+                101,
+                99,
+                105,
+                109,
+                97,
+                108,
+                115,
+                34,
+                58,
+                56,
+                125,
+                125,
+                93,
+                44,
+                34,
+                101,
+                109,
+                97,
+                115,
+                34,
+                58,
+                91,
+                93,
+                44,
+                34,
+                112,
+                117,
+                115,
+                104,
+                95,
+                115,
+                105,
+                103,
+                110,
+                101,
+                114,
+                95,
+                97,
+                99,
+                99,
+                111,
+                117,
+                110,
+                116,
+                115,
+                34,
+                58,
+                91,
+                34,
+                49,
+                101,
+                52,
+                101,
+                97,
+                101,
+                55,
+                57,
+                49,
+                51,
+                54,
+                48,
+                48,
+                100,
+                48,
+                49,
+                53,
+                100,
+                57,
+                49,
+                51,
+                52,
+                101,
+                101,
+                101,
+                53,
+                101,
+                100,
+                54,
+                51,
+                50,
+                53,
+                56,
+                52,
+                53,
+                100,
+                55,
+                56,
+                98,
+                99,
+                100,
+                102,
+                53,
+                98,
+                97,
+                56,
+                48,
+                52,
+                53,
+                100,
+                50,
+                51,
+                48,
+                53,
+                49,
+                99,
+                50,
+                99,
+                99,
+                49,
+                54,
+                99,
+                99,
+                98,
+                34,
+                93,
+                125
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_price": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                110,
+                117,
+                108,
+                108
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_owner_id": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                34,
+                111,
+                119,
+                110,
+                101,
+                114,
+                46,
+                112,
+                114,
+                105,
+                99,
+                101,
+                45,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                46,
+                110,
+                101,
+                97,
+                114,
+                34
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_oracles": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                91,
+                91,
+                34,
+                49,
+                101,
+                52,
+                101,
+                97,
+                101,
+                55,
+                57,
+                49,
+                51,
+                54,
+                48,
+                48,
+                100,
+                48,
+                49,
+                53,
+                100,
+                57,
+                49,
+                51,
+                52,
+                101,
+                101,
+                101,
+                53,
+                101,
+                100,
+                54,
+                51,
+                50,
+                53,
+                56,
+                52,
+                53,
+                100,
+                55,
+                56,
+                98,
+                99,
+                100,
+                102,
+                53,
+                98,
+                97,
+                56,
+                48,
+                52,
+                53,
+                100,
+                50,
+                51,
+                48,
+                53,
+                49,
+                99,
+                50,
+                99,
+                99,
+                49,
+                54,
+                99,
+                99,
+                98,
+                34,
+                44,
+                123,
+                34,
+                108,
+                97,
+                115,
+                116,
+                95,
+                114,
+                101,
+                112,
+                111,
+                114,
+                116,
+                34,
+                58,
+                34,
+                49,
+                55,
+                56,
+                50,
+                53,
+                56,
+                56,
+                55,
+                53,
+                54,
+                55,
+                57,
+                56,
+                49,
+                54,
+                53,
+                56,
+                56,
+                56,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                95,
+                114,
+                101,
+                112,
+                111,
+                114,
+                116,
+                115,
+                34,
+                58,
+                50,
+                48,
+                52,
+                44,
+                34,
+                108,
+                97,
+                115,
+                116,
+                95,
+                110,
+                101,
+                97,
+                114,
+                95,
+                99,
+                108,
+                97,
+                105,
+                109,
+                34,
+                58,
+                34,
+                48,
+                34,
+                125,
+                93,
+                93
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_subsidize_outlayer_calls": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                102,
+                97,
+                108,
+                115,
+                101
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_council_members": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                91,
+                34,
+                111,
+                119,
+                110,
+                101,
+                114,
+                46,
+                112,
+                114,
+                105,
+                99,
+                101,
+                45,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                46,
+                110,
+                101,
+                97,
+                114,
+                34,
+                93
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_council_threshold": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+              "block_height": 223765543,
+              "logs": [],
+              "result": [
+                49
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        }
+      },
+      "views": {
+        "get_price_data": {
+          "value": {
+            "timestamp": "1794226362615933816",
+            "recency_duration_sec": 600,
+            "prices": [
+              {
+                "asset_id": "wrap.near",
+                "price": null
+              }
+            ]
+          }
+        },
+        "get_asset": {
+          "value": {
+            "reports": [
+              {
+                "oracle_id": "price-oracle.near",
+                "timestamp": "1772376912311014515",
+                "price": {
+                  "multiplier": "115619999",
+                  "decimals": 8
+                }
+              },
+              {
+                "oracle_id": "1e4eae7913600d015d9134eee5ed6325845d78bcdf5ba8045d23051c2cc16ccb",
+                "timestamp": "1782588756798165888",
+                "price": {
+                  "multiplier": "185158333",
+                  "decimals": 8
+                }
+              }
+            ],
+            "emas": [],
+            "push_signer_accounts": [
+              "1e4eae7913600d015d9134eee5ed6325845d78bcdf5ba8045d23051c2cc16ccb"
+            ]
+          }
+        },
+        "get_price": {
+          "value": null
+        },
+        "get_owner_id": {
+          "value": "owner.price-oracle.near"
+        },
+        "get_oracles": {
+          "value": [
+            [
+              "1e4eae7913600d015d9134eee5ed6325845d78bcdf5ba8045d23051c2cc16ccb",
+              {
+                "last_report": "1782588756798165888",
+                "price_reports": 204,
+                "last_near_claim": "0"
+              }
+            ]
+          ]
+        },
+        "get_subsidize_outlayer_calls": {
+          "value": false
+        },
+        "get_council_members": {
+          "value": [
+            "owner.price-oracle.near"
+          ]
+        },
+        "get_council_threshold": {
+          "value": 1
+        }
+      },
+      "block": {
+        "hash": "9QMewS4KQpq2evuvPqeFCbKWBydpZSxPRibqVUYtVP97",
+        "height": 223765543,
+        "timestamp_ns": "1794226362615933816"
+      },
+      "identity": {
+        "genesis_hash": "EPnLgE7iEq9s7yTkos96M3cWymH5avBAPm3qx3NXqR8H",
+        "code_hash": "AAfLssB91E2XgQEEvKo6mHW61RB4PoTzk6Ha7Xypd8Tw",
+        "pin_status": "DISCOVERY_ONLY"
+      },
+      "assessment": {
+        "asset_id": "wrap.near",
+        "price_scale": "1000000000000",
+        "settlement_eligible": false,
+        "settlement_blocker": "HISTORICAL_OBSERVATION_PROOF_REQUIRED",
+        "state": "PRICE_UNAVAILABLE",
+        "price": null
+      }
+    }
+  },
+  "sources": {
+    "services/outlayer/reader.mjs": "c07acf8e7de5646b4d5eeab16d7028ebc5141afb0579e047d01de8d1271e9873",
+    "services/outlayer/probe.mjs": "d8ac1a9b781e420e42de98c715a32d16fdff706e29de59c2a51637c94643f9f6"
+  }
+}

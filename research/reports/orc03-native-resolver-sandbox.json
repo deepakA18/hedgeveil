@@ -1,0 +1,2825 @@
+{
+  "scope": "Candidate native sampled resolver compiled-Wasm Sandbox tests with explicit synthetic source fault fixture; no external-source/testnet acceptance",
+  "checks": [
+    "registrar, immutable source/policy, exact fee and duplicate registration enforced",
+    "pre-window requests, forged callback and unprivileged pause rejected; pending import stays unfinalized",
+    "null source cannot create a sample and clears retry state",
+    "malformed source cannot create a sample and clears retry state",
+    "duplicate source cannot create a sample and clears retry state",
+    "failure source cannot create a sample and clears retry state",
+    "stale input rejected",
+    "future input rejected",
+    "zero input rejected",
+    "bounds input rejected",
+    "slot 0 accepts one exact-unit authenticated callback and is immutable",
+    "slot 1 accepts one exact-unit authenticated callback and is immutable",
+    "slot 2 accepts one exact-unit authenticated callback and is immutable",
+    "review delay enforced and unfinalized callback cannot import a price",
+    "permissionless finalization is exact mean and idempotent",
+    "missing observations remain delayed with no invented backfill",
+    "actual core private callback imports matching external resolver version",
+    "both complementary redemptions return exactly the backed collateral",
+    "withdrawal completes with actual native receipts",
+    "PostgreSQL indexer replays actual core and resolver receipts against same-block snapshots",
+    "missing samples are visible as unresolved/incomplete oracle alerts",
+    "indexed state commits to and discloses both authority accounts",
+    "state tampering, missing events and wrong oracle domain fail reconciliation",
+    "indexer restart preserves resolver sequence without duplicate events"
+  ],
+  "transactions": [
+    {
+      "label": "create buyer",
+      "hash": "ACtvtf8bkg4dXJ7fh9aXz7r3vVX2SJo4d2ge1f15bdjs",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "8349895375000",
+      "receipts": [
+        {
+          "id": "GDs18mxx6YCmwhwhXmHtPdZoBb6oH5XL8t8g3hiezuLk",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "create source",
+      "hash": "FwwqFpkBJ4JoDGM4Xz7qHZ1FyFoGpHYbWSJGqxWyFA6K",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "8349895375000",
+      "receipts": [
+        {
+          "id": "B2jAjHPNYpnVtb99tq1Pw64jmnbC4M9tVtjfzkZQMviy",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "deploy source",
+      "hash": "9JeAGVPUW9e4znECmw3eeqdBS61kKUs2EeNm4tjkeMDG",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "10620587033312",
+      "receipts": [
+        {
+          "id": "9V9e1pntYGiHH9NtZRACkKBDaDzbcv6zxj9FuvDcq7a3",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "C8T3ozr3mfCLPDmfnXXbKbEFDKsDeMWSfBxbvmYn4Xj",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "create resolver",
+      "hash": "8qwSH2qAypHkpJtZoMHLuA2UPKKFm3x2oMR2MNYkHceZ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "8349895375000",
+      "receipts": [
+        {
+          "id": "GeFgyGZRzNyBxLDNdNq9iUfjTwv9aRjiS2ctoRsdZ2wp",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "deploy resolver",
+      "hash": "D4zHPp9Xe9bdrhqV4oGu14V3JTted6i9onCSXd9Hiq33",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "21134619142077",
+      "receipts": [
+        {
+          "id": "5nGMXFaEPa4vFZoieQC5mCQSPy182orK7CLTUbhzvXm",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"INITIALIZED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"1\",\"state_hash\":\"bbe8804b4ea0fa9c46add0c90c6d26d7142005cf5e8a488d87b3fe1fb226dccd\"}]}"
+          ]
+        },
+        {
+          "id": "H2iEJM5pkzvorpKJXQAY2rB3mCgygdB4b2JosNdDuNsz",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "create core",
+      "hash": "2XehdujWeAqGY5jH256pEB9egKPERiz15a2HXvr93dKe",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "8349895375000",
+      "receipts": [
+        {
+          "id": "Fhkd6dUJpn5NmyTED7KKwqTFhxYhGU9zFpbb6RhkU6H4",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "deploy core",
+      "hash": "8EmB86emdJRny7pZCeY6evuYW5YqwPeN4raXQTm1repB",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "47053786879456",
+      "receipts": [
+        {
+          "id": "4zH1L2MQnRFBxAZ5wWjnh7F7CiaX6jk7sYYQuMXbE48L",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"131ed5fbdf170a646122454979a41bf57fe313db9d94c8deb60f904ff6c51f2c\",\"actor\":\"core.sandbox\",\"event\":\"INITIALIZED\",\"deltas\":[{\"account_id\":\"core.sandbox\",\"bucket\":\"OPERATING\",\"ledger_id\":\"bootstrap\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"20000000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"1335755f6f12e117ad15c96e3205e9c53674102712c3ed67033f2d9822226c16\"]}]}"
+          ]
+        },
+        {
+          "id": "6f1TgTCBssA2MbK9R9oKSnuaDsuEnsBUGsFdFZEnHGz2",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "register_series",
+      "hash": "9AEM27Lkygu2EQj2Grf9wT1FcDDwxwyMMzdxNvf6Nrth",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "2147661619445",
+      "receipts": [
+        {
+          "id": "5dHSyrHe8uQAg399Hh8vULk3nVsqc3Gn9AqA79JA3XSF",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "5D7VsCEHEPd3NTABQvpLY1zdenA49JqGjzc8uJ8wjVFo",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "CL2Lygz9wgtFBxRd8EuJqNz9nmebUfPocH2bDujsw5k6",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "register_series",
+      "hash": "6WF9HnUqi2xdsNniHYd3X7LrPq58EGo5ppoLj7PtN2Tb",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "2254083943535",
+      "receipts": [
+        {
+          "id": "DHuiqW8kDBrT6KyZtGAnkqiLGfzbJ2pAXrVWicqwvu2M",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "3VgyFWDEiXqGxcyLxSekCEy3jffNh5mCQ7F8gowNFPRC",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "AuCNt54j5834Pr8X7NUJH3ETDPBk3aSvEmwDwePeSzha",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "register_series",
+      "hash": "GVkctGw4d7wcmZi4kCr4JAG1VD6Bu7kct1kXYXpy7KhV",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "2150715918749",
+      "receipts": [
+        {
+          "id": "RqWqFMZVMTYNmvDvyGmTkbkQNsBtCnKCoU33WURuLoJ",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "AkLadPiExfJ47KizVeXY2cp71PYYKv45sBZdPfn35wXw",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "3JrwAte4zyRv4CszKBP5QaVhJmnQwyoU5pr1eyQF7LCs",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "register_series",
+      "hash": "AnKKyaBpCvhGjr85SvWbijpYthcz5jhDGLjzXKSeut6p",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "2865580337066",
+      "receipts": [
+        {
+          "id": "51Rye6W9xvgaDKDTSTdVAL7tVwUsX16Jsx54RjvaHJoU",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"2\",\"state_hash\":\"91f4b562c1f6aa6bae4743627f0924ef06abbcd8515affa9d1d800ae92e94461\"}]}"
+          ]
+        },
+        {
+          "id": "6gR4eeRyBaoPSiNoGpSpqvQcdD8zYE6VmVex7PfPXGUr",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "register_series",
+      "hash": "7UFQJTVafzqMBw35SW2xQAasz5vSgmKob141ZDDQ8RfV",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "2186743898869",
+      "receipts": [
+        {
+          "id": "CQDhbhYrbNEaZ9s71QnVBFsm2eo2Spdd2JTrFYQtAie8",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "8KuPCT5U2LamJX4RJZrxjRpkauQ8dFGYVSyPUpHrTPAE",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "9fKVFr5jh8DbWUaJKvheAmLBz6HjzcwCALTHBJTrgGHb",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "register_series",
+      "hash": "4EUQsRT8kK2tn6QyV9Tv7gwkcC12LWRi47fpU2omZKEu",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3240431994427",
+      "receipts": [
+        {
+          "id": "Ewt2qjx2hHKSvP1QsoM37PvUce341Uf3RSXssopZ5W4h",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"3\",\"state_hash\":\"762d74e68bd181bbe28c228ba825148d5ac238ff27aa97d4404ff88d5caa127b\"}]}"
+          ]
+        },
+        {
+          "id": "8JZ6qk2jdK6LxHXrsNB21m9RrMcVmJtmzTDjVpWjJ8Jj",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "4yoEqD9hEarD3RdzfS1Qk1M5subvRsjcBmurnZ3G6oQ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "2875776145858",
+      "receipts": [
+        {
+          "id": "GtgVKhY62uU1evRKpAAYBQJMuUdGkBL4DCvrXKw4CA6R",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"d46db9fe2f3b350d935f0dabc3390db07cd4b75859e580a3565dc6bfba201329\",\"actor\":\"sandbox\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"sandbox\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"500f39dd0a4616b6fbad7135a440d32fabc96a7263094c153036bd9a3cf25e73\"]}]}"
+          ]
+        },
+        {
+          "id": "FyBoNFwA85n5NW9eiiThMRX5U5f1m4u8zPfrtCp93Lgv",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "2uKpJ4G9BQUU6ENWaQb6kZxEsCtQVsunDbytayBT5ows",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "2965641911511",
+      "receipts": [
+        {
+          "id": "AZ9kzMtWDcxxcLFWKovSiN283MJt53pC1JfxyD7Nu1XN",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"32343727fb8905bac6a94c0f7c5519a1bfac0edce2fb44808d8737fada6cd32f\",\"actor\":\"buyer.sandbox\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"aa5939448bea36139caf59f6d6deef1a3bce9584b9bfa0f6aa3d4a129c768636\"]}]}"
+          ]
+        },
+        {
+          "id": "8nmwr2HwYLmjKZzA2CPzycqEryqhVP627MgrqF4WXxPJ",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "4zLN8PRupT3Kn3cyGMwPm6hNjuwUMVw1DYZhfdHsAtyC",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3005382193754",
+      "receipts": [
+        {
+          "id": "97uBik2ZS7iJU1x7To57ULnEmAY8LmwEwKM1dtRvkZAW",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"7958dbd8fec43949c84c23f1277e83f2f5989774fd4015cd9df6b9d466cc996f\",\"actor\":\"buyer.sandbox\",\"event\":\"DEPOSIT\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"5ce48d156a5dd11e3fb426c4186fd0d51ac535ebbee25c29866b8a05dfd73b9e\"]}]}"
+          ]
+        },
+        {
+          "id": "2ka65q3XFaT1nrLNcd64rHkg4up7wZsJeBXYpnhunwNy",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "create_series",
+      "hash": "CnSCnk6Maxkz6JR9dADtCkhmq3r6hW5Z3nmgFaqxbe3v",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3394429394786",
+      "receipts": [
+        {
+          "id": "Ef4GMj73bPwFztWkay28srjc8AM1xsFRRQRLppaaNTPr",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"b271ffa6448e0011141efb03fb282cbe8b6ca10c1bba1d9838e7c9a0971c38d5\",\"actor\":\"sandbox\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"core.sandbox\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"08769b5d5bd56707af17dcd72af20967abd4594a3983397163822d3d7d9da9d2\"]}]}"
+          ]
+        },
+        {
+          "id": "8cFDWSsCR6dmz9uTGnAjKUYneCiijKNn3YYuuQYaaY5o",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "C8JtyDGPwrjW7WwqGZWkybLfRJvqrmbkK3neZTGVvGMC",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "4138665742495",
+      "receipts": [
+        {
+          "id": "6mLCZY5jiZCUX36NgQNKPJRNF4Qss4ub17oYm6HZHxdV",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"2d34641433df16ca2e616a1023b6c7be019627def585356dc7e6c48d4f11c57e\",\"actor\":\"buyer.sandbox\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"N\",\"series_id\":\"external\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"P\",\"series_id\":\"external\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"N\",\"series_id\":\"external\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"P\",\"series_id\":\"external\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"b419749fe28641d2074b143114df4e713e0b24b8662fa709a8419fe29458e5df\"]}]}"
+          ]
+        },
+        {
+          "id": "HfFjXReuLSLzQ1AgHy4yHfWgXHQAVAesd61Mzr3cmAdo",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "F6prJpaUcvszvYz57EzbtaEif2k4kkTZhN2cq6R3Qj7Y",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1858269481250",
+      "receipts": [
+        {
+          "id": "6xE2u7zHqqUTUCWnLoYsPWwuN5tHtKuPMXa9PqHbfQ2W",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "BJJVvn4xEG3onBjQvRppiVzQAWckvquz8c5egQmWwC6U",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "on_sample",
+      "hash": "6ecFKoBpx7AvRYrkd1QBRU5DYKJp2iuVuHZyoVd4mof",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1731744616794",
+      "receipts": [
+        {
+          "id": "BLjGynjmq85xocyLPuCZwWqiNU1LUwJoUiWeu9nXTc2m",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "98hmaqqxtnCybDit26zb1hPyvBLLo6BmgR2TeBKNBLuB",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set_pause",
+      "hash": "3AUhwcmcUgBRDjX4xU2vnC1sEdfT7gkSgrh1tafsBWHB",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1862375389151",
+      "receipts": [
+        {
+          "id": "GA9MxDHB5U4BrHmEvAn7pF471GThk7qa4TNwcpCBLdeo",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "eQpLqMKDetW1aZzzCY98iJ2Q2jLkgyZn2Zi5mwF5r6i",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "request_resolution",
+      "hash": "G1xUj1BC1NV6kRHAprzfiPNhaWGfiiTJK49qhQ2wa2Xk",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "2302018922773",
+      "receipts": [
+        {
+          "id": "K5AvFCQNnp9PCLkQENof5ahGiSHXKj9RShYRYQkmdQb",
+          "executor": "core.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "AaS41pk75g8w2Eosv2TvquoXsevyvJDi6Jisb5j8MufG",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "CWF7aR4y1PJAbE49Z5dr3xp27X6SE6rLokaKnzXMfL5B",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745038455613",
+      "receipts": [
+        {
+          "id": "5HSvXKRdEWuixyRZn3cPCHTCRTvjqXrbkRioyE5aXfdF",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "8FJSL5JU3G8c23R9N2fp1mR17Jj3DQsuVosGAY699poP",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "Cg4qT6bnQWJQWr5wbA4tgJ4GPSqGY4VnJm815JXnRHNQ",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7744001866988",
+      "receipts": [
+        {
+          "id": "35CzyQi875hXno7H5BaNEQZUb8goNoEJxRXDgX2hvuAN",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "594k21Ft37FgRtzF36j6Ch8WjiXBCAaoHFsDR72pWsDw"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"4\",\"state_hash\":\"edee6d8daf973ae673430ed1ad9eeef931afcfd353c4ee3cd304a4ce33642065\"}]}"
+          ]
+        },
+        {
+          "id": "GSwVGedHPSgPcZKUiqhgPW4QW4KmwoXQLDoeJEBiYbFA",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "bnVsbA=="
+          },
+          "logs": []
+        },
+        {
+          "id": "B29hPzhFoBY5pJm8Nn5Ajj1WH7pB27L2EikuTvyDfGyn",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "594k21Ft37FgRtzF36j6Ch8WjiXBCAaoHFsDR72pWsDw",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"5\",\"state_hash\":\"5cc14b61fd819fcb497a751105358ee112f108df0faa547ec40bc7d6236203b2\"}]}"
+          ]
+        },
+        {
+          "id": "5ktH9wdLfYb1T9kgcJLuPz9TxWUonEp8M7Lk435YQsCx",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "GBWujpm4uBUDrsqFtNn5hQDc2ZbdGDnxDzNHmaQUsdrX",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "GFQAFVv7sY2tEcW2AoChot9NepcLW4VaAP4YMr4rCftu",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745614442802",
+      "receipts": [
+        {
+          "id": "3XN2teHkQg5w9fKKKpyFd3yaAa89R7iP7AoJ1wig5dJa",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "EC5LYSjpeJgvXB6d6N8ziPeh8SDpg58SpgSuRADTpxhz",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "9eYQw1MyYcj6hCYpK5wEYAwZiiDzUCapTox2ZVJmaWHM",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7749774832616",
+      "receipts": [
+        {
+          "id": "7wCv5WXFeTX1viaoDU5CPGMBepoPmzGXzhQ4no5Pwczo",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "ERWBsaaajao8n3PXYxWNVezHMYoTHVvgiZc77iS6Q7L7"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"6\",\"state_hash\":\"3a0d5e962f940a0eb5504e6aa21d3b3a86687978e068eff12ff25e6b45b204ce\"}]}"
+          ]
+        },
+        {
+          "id": "Eor5kTQ4rK8TaNQrCRcBUcRstsqa9TE5zT1HAkdLAmWS",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJ3cm9uZyI6dHJ1ZX0="
+          },
+          "logs": []
+        },
+        {
+          "id": "2L4XMGJbJb8M7hp6JEAdqSbCHzE7MnAZUiyeWM4zVZ1v",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "ERWBsaaajao8n3PXYxWNVezHMYoTHVvgiZc77iS6Q7L7",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"7\",\"state_hash\":\"8b83849a72329c247f25b7b39e25df81cc76c17cf9940f11ab40d0eb23061a7d\"}]}"
+          ]
+        },
+        {
+          "id": "J6BusiVT2K21KLJtPVwjq8KhZu5BNQ2Zod68JqiTtW8W",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "H18otUMSBCG7xmoMYfWR8gNHJJZYfN9uCnQsw8gqn8ud",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "GKJ3ahA1AGBqjcgYrGJMeeBTkdHSoRimZnsMEbK6SCwL",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745844515839",
+      "receipts": [
+        {
+          "id": "HpVcShd5cfSpqqrrErxSidUx2apPLReMZwfSPLarJFhk",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "4nLpxn2hM9ZxTLSHjGMc8BimnaEPjMJdDnGrsWvJeVdJ",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "G78FKmNSeouYU1Z1WhZ1QCNcPVEMa6HLd8gPS8XeomAs",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7876094013544",
+      "receipts": [
+        {
+          "id": "4GX7T8fYDDSYSWVUDmV5SrM6ieZPMMqpiBKzZozhrvvu",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "FTB56XqLS7HEhKzQsres3YA3Dorx4PTJY52R3mhbXoVu"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"8\",\"state_hash\":\"e63abf671f5232da5da793e3657d5445b56d6478d7a15446db1138d89d74e171\"}]}"
+          ]
+        },
+        {
+          "id": "A9D7rjGCY6TAENdkucQZwVN4NhxUcLaZNDKtHySraSaJ",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk1MTcyNDI5MjkwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiMzAwMDAwMDAwIiwiZGVjaW1hbHMiOjh9fSx7Im9yYWNsZV9pZCI6InNvdXJjZS5zYW5kYm94IiwidGltZXN0YW1wIjoiMTc5NDI0OTUxNzI0MjkyOTAwMCIsInByaWNlIjp7Im11bHRpcGxpZXIiOiIzMDAwMDAwMDAiLCJkZWNpbWFscyI6OH19XSwiZW1hcyI6W119"
+          },
+          "logs": []
+        },
+        {
+          "id": "ZGntdvp9vx94WKALMaFRp4DUREijBVD1quaGzSAZMNp",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "FTB56XqLS7HEhKzQsres3YA3Dorx4PTJY52R3mhbXoVu",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"9\",\"state_hash\":\"2892a1689491bc56c15928ee7d264ee28811d91efb1b8f3a4a39d8ad0db15702\"}]}"
+          ]
+        },
+        {
+          "id": "F9a61zGpsudvxwkjxQqStfvGoQzLNwNL4pG4aMBLQRBm",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "Dk3neTD7bq7qky52YfQmMYDXgdQ3T8aMvAfpAX3UgxEX",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "V7oCdhVxepcAzeih479vGaN6y6n6HhmhakMwTib6eGj",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745478512737",
+      "receipts": [
+        {
+          "id": "2LSH5ahpiL52mbsA5auYVGZpYRCLrheHDGJCgRERdRv1",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "5YU3VoSQCZtfbNvi3jHs6U9szrnzWkVQhsYZfoQaDvYR",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "4g3P4kZDZ12LBgmgRBB5eHr4ueSebcMyUzdYWrQ5JRYN",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7729979989350",
+      "receipts": [
+        {
+          "id": "14EVDAd6NnufRavMpNk7pP7JX3HnGBHnzHDxeh9A2hkb",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "8UD27dXQGZWbU5QggHurcnMGHJNBUfTEhUh1ony1gSr1"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"10\",\"state_hash\":\"afaa9b24383c2f24bbf84cccddb32bfc9f688cb5aa2dd70784939a5b16a6a93f\"}]}"
+          ]
+        },
+        {
+          "id": "CD6PGMXF5AW7gWNNbBTQXpbQ2n5QAXrkNSVFddYyJSK8",
+          "executor": "source.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "4MhFeMcLHqoyFPnyauaryAoLNfg4Rq4ydfvew3sa7dCD",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "8UD27dXQGZWbU5QggHurcnMGHJNBUfTEhUh1ony1gSr1",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"11\",\"state_hash\":\"fc00d5068c16346f0f5146ac4ea8252411b512de7daa5a72990f9ec72a054867\"}]}"
+          ]
+        },
+        {
+          "id": "DJBnPxRrvijnPnHfnxdMvZNPkDLjhCZW81TeQp57MuAJ",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "4suqJD5hXJrPentNoKsNqdMmKZMy4j7DJaPtDF4n9bv8",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "7B2vfPxXWWtBePb2pXVhN2N14uW2EvkNzywCMtfTevLU",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1748338142919",
+      "receipts": [
+        {
+          "id": "2qjFmx6eZZfqWxrNbkm8TeX3CySaSYCBqzyyCJ9CwmuC",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "4RsmFQM9oXTXVhFxMaKVGBxT8WGLyLmZSjZa2MMmf6cB",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "CiRwJqMrTmrerWRwMb9e3b6NCXijHB5nf4AWZT6hG5hy",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7825371939958",
+      "receipts": [
+        {
+          "id": "8bzP8tzXr1MW8CtwmPrGUjXN6EntMa7oQXa6NTorVWE6",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "AftFpgticm1sXz4Lszkpo2MEDCpvmBBqjGdU5jpWCw1H"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"12\",\"state_hash\":\"170a6d8011a7231ea12e1bfa184fd84efca7420fbd7031c578091340b873e0e4\"}]}"
+          ]
+        },
+        {
+          "id": "BEkJnZYqWNuezRxmfnn95sU1Wuvo7rh3CELutE3icvq5",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk1MDQxNjc0NTk5OTkiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiMzAwMDAwMDAwIiwiZGVjaW1hbHMiOjh9fV0sImVtYXMiOltdfQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "3pqUtcM53YcFtRWYnfq5zCA5ZYVEZab5EV1pqmLenGai",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "AftFpgticm1sXz4Lszkpo2MEDCpvmBBqjGdU5jpWCw1H",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"13\",\"state_hash\":\"cfc4129d7d66a355df7e4e53601e9364b09c206211b41bd0b681af8e4eac03e8\"}]}"
+          ]
+        },
+        {
+          "id": "DoZbYgqq4daeEwCfxxn9pskUkpXZCJSJFL443iULw5UM",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "DwQTSXwmbbfaHCvveSmVhcwhFiWYKMSxPm77fZHjMC9j",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "4xvbXuGomdjCmv9Cf24LyBYjBzWYP43Er3qBrK7eTmtx",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1750604508977",
+      "receipts": [
+        {
+          "id": "9QZpNK4cA5TX1fChYJFCrv7PnWt4c832Wv9968a5ThsR",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "AaVQHHkFxHsLPn7L2B16mWu3V6tHR1ceZP3pYbr68AHg",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "2P14PHjWUg5m2ot22go9VbnAzzPeBstVqpzrrUX5PwNN",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7825245235534",
+      "receipts": [
+        {
+          "id": "6WGQwbWdTZk3uW69zqVQiG9Ct6Ao4WCXf5oyXyRNGYPQ",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "8Cs8oK3DkfcZwD71bGeFxz5viwBNXXinkCi9f4r1HS16"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"14\",\"state_hash\":\"5440165847fb2852a779a44c85d649a982adb6b9c928a574068b8e2bd137f50a\"}]}"
+          ]
+        },
+        {
+          "id": "6zmGmZrjjC7i5nPm7vzxEMhDLyk1E4DwuuYNcMaN5TvA",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk4NjQxNjc0NjAwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiMzAwMDAwMDAwIiwiZGVjaW1hbHMiOjh9fV0sImVtYXMiOltdfQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "6EvHPoiPuzCm683LdA3e9Kx876zkSuGMvQkA3qLoWMXM",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "8Cs8oK3DkfcZwD71bGeFxz5viwBNXXinkCi9f4r1HS16",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"15\",\"state_hash\":\"3f1ba7e18b172f23be97c0f390d87c6190dd3f5f7a42a543c61df95b5ceb8085\"}]}"
+          ]
+        },
+        {
+          "id": "GMqdJJQfhn7zwzrAx5n93nboD2PBgx6JUSQSGfznNtud",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "4aDAjhfF3CyeogcHnwmGhwC21TTHfbYELYai6B2NYdZS",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "Df6fNz5mDqNbEXtfJXLHKq3r3dGUp9DNAW6GxEAibGCE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1746913993694",
+      "receipts": [
+        {
+          "id": "ApDXHCXbHgTSSWTDuVhSwhoWJgjskCW8ij4ALvWMEeTY",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "D8ebwHKvhAkgL8Weis5GFFLN78r7AVgSP4fsPpd6dsR7",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "Fb7fqYNJmAwXiyWQwjU1paSnoX51ed9tuSPD2ikbaL7e",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7821394246963",
+      "receipts": [
+        {
+          "id": "HnMtatZXNSUatezT3vSGXwksupMKm5zb3TdrF9MQjYpR",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "EUcxesxcpcJxbF7AN9yfVjyCW1JSuvyhSqQxTdFeBqcN"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"16\",\"state_hash\":\"16f9d4bced7711e047d3a0f02f9e221bdcb70abd27f1e6fb76ff17d54d404551\"}]}"
+          ]
+        },
+        {
+          "id": "CrW4AwwXS3TWCHjNrxhJAdWWa24wnqFsnKgh8gxA4L3H",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk1MjQxOTQ3ODUwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiMCIsImRlY2ltYWxzIjo4fX1dLCJlbWFzIjpbXX0="
+          },
+          "logs": []
+        },
+        {
+          "id": "4KC4WeTbgruaofxbd3QpEovmqnLDLnSGUh3c1y8qLuk6",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "EUcxesxcpcJxbF7AN9yfVjyCW1JSuvyhSqQxTdFeBqcN",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"17\",\"state_hash\":\"627631800ca9dc6e17c3428752f7c2552ca6908d9c7125678085529151de0337\"}]}"
+          ]
+        },
+        {
+          "id": "M89HQrSNCJB4KFrRKs5FSzEtd4UgeqTNFe3j6w4fvFG",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "BaaranNN68Y4t4txNU15CeXcrtHPNPpgKuvGAa48Y1xJ",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "4S3Fm8Xm7k8nvjTkZpkmmoPWHxjy5za8RgL9K6EpFYNc",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745239480503",
+      "receipts": [
+        {
+          "id": "DnzBCgxGg9vj8ZfRanht2n6oS4mzKKZBvB6qg6USPais",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "C9s3SWmqGD8UNLrC6CyUL2RbUVS8DbC4t7svmSUbVfd8",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "PgPVK1sLW3Q3Wo9KTnKiT3pzkgSKoKsJnZ6wHXbFaST",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "7826834776099",
+      "receipts": [
+        {
+          "id": "FXD3C4dW3iGVJBRv5X1jJgQr5PjHRkMdoaqpkFqcAHcf",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "Bz6qr4LujrvwFErEfkNvbfXebydri41UdgVkpznbQSXV"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"18\",\"state_hash\":\"77164390bfb6041eed02b33c95afbd7774f61155b0ebd965234562fbe07b70c1\"}]}"
+          ]
+        },
+        {
+          "id": "HtsrxuCsXY6QeNj1BfRrNQRFdh1wjjeTYRsNN5BuzSNK",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk1MjU5MzYxMzMwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiMTAwMDAwMDAwMDAwMCIsImRlY2ltYWxzIjo4fX1dLCJlbWFzIjpbXX0="
+          },
+          "logs": []
+        },
+        {
+          "id": "9X2Dza8EXRvwaWWfkaWY87pf3VzSngYvR9zMEDZxYvgn",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "Bz6qr4LujrvwFErEfkNvbfXebydri41UdgVkpznbQSXV",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REJECTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"19\",\"state_hash\":\"997e13472aa1d203cfe976f90b5a0ec1e18a7e6b068e77ddf305d4293135ccb9\"}]}"
+          ]
+        },
+        {
+          "id": "HtnhvwGniWXarQwDP6DmMpgd4pfVt61CKVWh9R2XVpfv",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "2CNU1Wg9DZWn79khh82u8NVSu711fRYNAYbi79S3FJke",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "28Lw39K5xjftw6UVqaffanHWCSpSMV3mUjqv3WRWUmt7",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745625047511",
+      "receipts": [
+        {
+          "id": "CSYwcDrYBRnTFGzbkKLbsaMX9STUNXU5QbcLfFC6GdxA",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "4ivX2YaTkAxLfHNLVGLXJa9UKvQRHCTGtL62VY4cwYpx",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "3vy99gsb4bUe6hrgTXzgwUby7f1dNr1AurWhrvSNgotk",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "gas_burnt": "7962805786386",
+      "receipts": [
+        {
+          "id": "3LeNatxp9uoiSdfS4bn2SEFkzgmC6NF9xxQQqTXAJ43j",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "GQ7MwzvWqSNRW9XDXSat5E3YByQr8fYbLWBgHVaozv17"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"20\",\"state_hash\":\"e258138af79b1a04f0c5486283a63c473a6ca5b272ffc2b60abec8132e760af0\"}]}"
+          ]
+        },
+        {
+          "id": "F6nVJDkdpxUVJCf4M27SX6kpFFCMzWc9rjq2Y2m5Fb91",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk1Mjc2NTAwODgwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiMzAwMDAwMDAwIiwiZGVjaW1hbHMiOjh9fV0sImVtYXMiOltdfQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "9JaJYWDVLq2s6RzJntjrDxufv6qRzjMzy4nCRYcSDUPG",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "GQ7MwzvWqSNRW9XDXSat5E3YByQr8fYbLWBgHVaozv17",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_ACCEPTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"21\",\"state_hash\":\"661503c2acb35cc9a9fa5102c6913010104a8c71a3c738168b621aa43cbbcb63\"}]}"
+          ]
+        },
+        {
+          "id": "DhTEW3nJtBtkZxpFw6AvtCgMWnHeguonA1yKNw86zgm2",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "FkakrKr5nhrrRnKzCMo5VTczxeH4bNCWQjMQseVZEDj2",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "4opiyqUQsarhkMDH6FRMgfVWmKJsyUWQuwQsUusEdNXi",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1862202278210",
+      "receipts": [
+        {
+          "id": "Cq6VJ3UXFRrtJgpK9ujy9K5nPyiC8scqQGVeiruZ7ajr",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "5NhQzbrsXXeuHpx6vWJRxAs1gxxD2CuPyCh4JLKY5x3U",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "wsCWqpqagvVmb7MV5ftBYTHaaXXV8Cc27GiCpjw38as",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745376485011",
+      "receipts": [
+        {
+          "id": "4JoaLjpA1TJrw9oCNbVqtDaRKsW7ABKiim1GguShG9kG",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "1fTS4hTkpX3F68AjtCDXpVgvyRFCdL5Ttrv1cackjFZ",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "AgJaKq8jm6fSJnFRZ1WNqCGFhH2pXEtdgawDdVN3NVpQ",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "gas_burnt": "8111619099941",
+      "receipts": [
+        {
+          "id": "FPDjNSqtXRASGiLySRaB6GXp6wdZgkufkE7gaUx9ZE8g",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "G1eue8vxPre94Y1o1dEyqznKyjLNLGkWRJLWheNcrGqQ"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"22\",\"state_hash\":\"1a512961b632dcaf816df333ad66d8d5a431468925d80fc959e1207193bbbd03\"}]}"
+          ]
+        },
+        {
+          "id": "6cAZynLJhNgjLFRqA8Cg3KR8tE7QLyZW6DdLFWKQxcWk",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk2MzQxMTM2MDkwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiNDAwMDAwMDAwIiwiZGVjaW1hbHMiOjh9fV0sImVtYXMiOltdfQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "wQmGRj35aKfevTN2GEB6Ef3GbkJH9NKxNHnzE65oJZp",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "G1eue8vxPre94Y1o1dEyqznKyjLNLGkWRJLWheNcrGqQ",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_ACCEPTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"23\",\"state_hash\":\"863f08c4e4c6ac733c1b4cd65651343137c279ac23c2a115eb8696e0f6e1a9c7\"}]}"
+          ]
+        },
+        {
+          "id": "3kto64uqmeTWecGJ6ucBBhXDWp1TmWcNiW1ygnoa7MCA",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "3bBZpUXyupfxdZpWr1WT4JV5nb1RzQ8cpwuKgvoLJaJR",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "GD5S8yFrV34X7FGpsseGYi8KbPqLvtVdRbZqTPYEgCGL",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1866153998558",
+      "receipts": [
+        {
+          "id": "8ZJ1cqRwPqsR44P3Q1qkoei2fUDX72FqknRR4QzY3AKM",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "AoYB2ALWpxGv8ujVEAgSrQM21phxZPNuFSjuuUDhQ8qT",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set",
+      "hash": "HRNgxydGhow5kDbS1pKvNChuPFJem99wJDZgoEuc8FDE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "1745376485011",
+      "receipts": [
+        {
+          "id": "6ECqdDchSDyv76DCC5BonvQAaUBvQq1yoJR6Kp7xMiNw",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "HPThUN25cYc6GPWeQAe3z7MPCeeVn4kY7953ygJN176L",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "95rpbuaHr6W5TZ7geg2x7B96MoeyjTagwKM5tZGyCnbK",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "gas_burnt": "8265440952317",
+      "receipts": [
+        {
+          "id": "Dtgp2trRJKnFmMuLJ2dSeLEJFRyr18io86HtTDcb8wAp",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessReceiptId": "HPL9TwYmSKnXovMjaog5U2YQMDuqr2P7mV5Q31SF2PXd"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_REQUESTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"24\",\"state_hash\":\"d1602d8bb56004ff4d723009d9289d568ecfd67eb61a97952528e6d427e29e0d\"}]}"
+          ]
+        },
+        {
+          "id": "Htee6HygfEa99sPhPbB2arSeADK4gtEHxRvPeWhGYYhc",
+          "executor": "source.sandbox",
+          "status": {
+            "SuccessValue": "eyJyZXBvcnRzIjpbeyJvcmFjbGVfaWQiOiJzb3VyY2Uuc2FuZGJveCIsInRpbWVzdGFtcCI6IjE3OTQyNDk3NTM4ODI1OTMwMDAiLCJwcmljZSI6eyJtdWx0aXBsaWVyIjoiNTAwMDAwMDAwIiwiZGVjaW1hbHMiOjh9fV0sImVtYXMiOltdfQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "8eW81qoD7EcQVuCNZhTqtNi7StRptvW6a9Xy15u7hkEf",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "HPL9TwYmSKnXovMjaog5U2YQMDuqr2P7mV5Q31SF2PXd",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"SAMPLE_ACCEPTED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"25\",\"state_hash\":\"813eeef5f4aeacac1acdd295447b0ce6fa94579fee5ae9efc473b1c2b903aa0c\"}]}"
+          ]
+        },
+        {
+          "id": "24Dd9rTDdFfe4iotExLqQN2uAeEfH8D5iXgJ63e7XXZw",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "GX1DUEBHMnXKkPbjfJdz3cjSLwoahr1vxsdq6LDFjZJy",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "sample",
+      "hash": "FoiTsatPBGo11ZNgEsAYV2a2yqKjZE7v1HRRkqGFuJHL",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1870036607402",
+      "receipts": [
+        {
+          "id": "HBMtjCFjRPYF6htXf38nNwnKp1ngv2CPtqZrk9ovivZv",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "GaeUh18vQNayzaGSHf6xoQDeCP76DQWnZyM2T56M5Hph",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "finalize",
+      "hash": "mmtaMrS121CdbFcLnT7y44RRzrrgSycpF2iDLG9RNGW",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1870101068192",
+      "receipts": [
+        {
+          "id": "Gxy4tezepGQwJz1WVGnFkwV21cnRRDt2YPLWE93jbezq",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "2QnaRR1U6M1FGLQ3vrMpiBjWBUqNXFKWYDvFEBofSKz4",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "request_resolution",
+      "hash": "3ybBBHEnCoxpTRVnqToiVCg3GHcGVhVUrjGmFM3n64E2",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "8639438832075",
+      "receipts": [
+        {
+          "id": "5A997o9Cr3vbzsUxxNZnTqzd86hFhcuX55dUgbwsEDo9",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "75n7ByBJH2VhodpymuoE1aSKp1CegqQJwar1KqHpx1Xv"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"d801ce3e13f5d8381e2b78b94813908670630cef622637bdc858339a37a3718d\",\"actor\":\"buyer.sandbox\",\"event\":\"RESOLUTION_REQUESTED\",\"deltas\":[],\"fee_amount\":\"0\",\"state_references\":[\"ceeb545bafad4f7079a678a5b1201381297e42e253de5b1446c87b87b481efb2\"]}]}"
+          ]
+        },
+        {
+          "id": "FYMk8fDTqL412QKbhXHR2kDpbicbzT83zuKCXJJQJroC",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "eyJjb25maWciOnsic2VyaWVzX2lkIjoiZXh0ZXJuYWwiLCJ2ZXJzaW9uIjoiMSIsImNvbGxhdGVyYWxfa2luZCI6Ik5BVElWRV9ORUFSIiwiaW5kZXhfZGVmaW5pdGlvbl9oYXNoIjoiMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSIsInBheW9mZl9raW5kIjoiQ0FQUEVEX1VTRF9DT01QTEVNRU5UIiwic3RyaWtlIjoiMjAwMDAwMDAwMDAwMCIsInByaWNlX3NjYWxlIjoiMTAwMDAwMDAwMDAwMCIsIm1hdHVyaXR5X25zIjoiMTc5NDI0OTg2NDE2NzQ2MDAwMCIsIm1pbnRfY3V0b2ZmX25zIjoiMTc5NDI0OTUwNDE2NzQ2MDAwMCIsIm9ic2VydmF0aW9uX3dpbmRvdyI6eyJzdGFydF9ucyI6IjE3OTQyNDk1MDQxNjc0NjAwMDAiLCJlbmRfbnMiOiIxNzk0MjQ5ODY0MTY3NDYwMDAwIn0sIm9yYWNsZV9hY2NvdW50X2lkIjoicmVzb2x2ZXIuc2FuZGJveCIsIm9yYWNsZV92ZXJzaW9uIjoibmF0aXZlLXNhbXBsZWQtdjEiLCJvcmFjbGVfY29uZmlnX2hhc2giOiI2OTMzMWFhNDg3MmNjZGY2YjRiMTYwMzlhMDg0ODk2N2I2ZGVhYjVmZmRmY2Y3M2I4NzgxMTQ2MTBhMDkyNDc1IiwiZmluYWxpemF0aW9uX3BvbGljeV9oYXNoIjoiMDFiYmI3MzQxNjkyODk4MDlmZTM1ZjYwMDMwMzAzOWI2YjVjYzY0NzQ3ZGE4OWJhYmYwODkxNDQ2OTE3ZDI0NSIsIm1heF9zdXBwbHkiOiIxMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAifSwic3RhdGUiOiJSRVNPTFVUSU9OX0RFTEFZRUQiLCJwcmljZSI6bnVsbH0="
+          },
+          "logs": []
+        },
+        {
+          "id": "C7QqPSqRQ2TeWRXVfy86dqNxMdQt524xYn5GfDwiFZFC",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "75n7ByBJH2VhodpymuoE1aSKp1CegqQJwar1KqHpx1Xv",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"527716641cf20fa1fe661f724f5c63a7789d255b2ef7dab700797701ad010450\",\"actor\":\"core.sandbox\",\"event\":\"RESOLUTION_REJECTED\",\"deltas\":[],\"fee_amount\":\"0\",\"state_references\":[\"bd05903cde5f003fa0d70ea5125e5101b861bf0948e5523a9c99fdc775bd7897\"]}]}"
+          ]
+        },
+        {
+          "id": "CTGXz17eaTsHZCwAF6h93pKgVV8KzdecfZPKpK93Ar2M",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "Gj8JEpEa2KzjEkzmRxNXhpZJq5c1xPyigbaN7ftUntCi",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set_pause",
+      "hash": "7fp3G5Dvje8az2VVaU2RVFixS6mp4Tfsijaw6X7cECcL",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3180856334414",
+      "receipts": [
+        {
+          "id": "D8z519XXy8567TRYG2xbYrePFwTZxVfxAV8hQm6cnpYg",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"PAUSE_CHANGED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"26\",\"state_hash\":\"19031df4d53dbb409b0c8e0d4dfc3399d31f13ee28c01a23c7e077a74d83af75\"}]}"
+          ]
+        },
+        {
+          "id": "GYvFP7hTZndeHu3No8YepRjEZ8HLJYLbjhsVWH1eaD1U",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "finalize",
+      "hash": "GE4c2g2o4JxNsA68eQQuU6AD9TN24rW3NYTCXdC7Fexz",
+      "status": {
+        "Failure": {
+          "ActionError": {
+            "index": 0,
+            "kind": {
+              "FunctionCallError": {
+                "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+              }
+            }
+          }
+        }
+      },
+      "gas_burnt": "1869784466453",
+      "receipts": [
+        {
+          "id": "CLcnzEUN36KvyrSt6cdy6BYjAF4JAAodEQbwMexdTmUy",
+          "executor": "resolver.sandbox",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 0,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": []
+        },
+        {
+          "id": "62HyCNVNGgKs3pPwBLMB2jrWknPAFVFRAKp9tEpJYwAD",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "set_pause",
+      "hash": "HJWFRCHY9a7txQ83JMxCGRJYmEwtJj7DxPS5RqiVpGHp",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3180965023805",
+      "receipts": [
+        {
+          "id": "62aPhnwjVC1fWq6zW5pvNbdPFbnRTuM1HHbbqPk1QqAr",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"PAUSE_CHANGED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"27\",\"state_hash\":\"4618de5cc0bc7805f34c48ead053954f01c0f904cd9f3f2561acc782f039f823\"}]}"
+          ]
+        },
+        {
+          "id": "85Xyb73DhPzYWLJAScS6YYjn1Xxu82tvJFnW5eyD6C4G",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "finalize",
+      "hash": "EPuwQPcQv5RMKkd6RAUdRXLmPGhadCBmA9tPcPWD9sfu",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "gas_burnt": "3190856533598",
+      "receipts": [
+        {
+          "id": "8MZKUGc1GpjnFoazgXH5aUfqQ7SUaZFk8NxcyXbJWUJV",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_external_oracle\",\"version\":\"1.0.0\",\"event\":\"FINALIZED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"resolver.sandbox\",\"sequence\":\"28\",\"state_hash\":\"a73eae6cd64248967ad97f64f352c201f0b7f6d1467289912e908e878ab4e71b\"}]}"
+          ]
+        },
+        {
+          "id": "G9Zr5fyqbcm8KxQQjWczjVDMFoukzaU9GbdHSsmqUuM7",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "finalize",
+      "hash": "C6njMAgAozc9wT5iB16jMfabVLbjTGsxepYYMUtm5LNn",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "gas_burnt": "2079932709421",
+      "receipts": [
+        {
+          "id": "3GZzqwAPQXNJBHv6FYF5YFT8JdFvdhhyPyh2yCHvEYWE",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "3eMbhpuoNbMJagqNURfLUtHXBGUohjYBwnfHLth56bFh",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "finalize",
+      "hash": "8RibiAcpXzGcFjxBBxYBtinp75fFR8qydK7UfAapTXB1",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "gas_burnt": "2078102342710",
+      "receipts": [
+        {
+          "id": "EbbrVdkFTRjBMevkoh3xXeLoLmfb39TSV2H7z79ZeR7E",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "ZmFsc2U="
+          },
+          "logs": []
+        },
+        {
+          "id": "Dbvp8jHtkVuq4iUer8LFDQzjpUrRKabHhtnSyvPPmPVd",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "request_resolution",
+      "hash": "3UGSZbL9wDbVSM9DXXiY43SmwWyVjb2wqT8MCxgn3K3U",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "gas_burnt": "8660307972639",
+      "receipts": [
+        {
+          "id": "GUDiNTj4fA27mAn7DifWMBUAsff1zTRbUgp2nKs9Rmue",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "6mJN6NxtYdaruYDqx89kQXx4yq5pcJw3eAXYH8E4WCQR"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"70266aee47966ce4041985956417684c935381e997ac3ce109a3787f98eeb920\",\"actor\":\"buyer.sandbox\",\"event\":\"RESOLUTION_REQUESTED\",\"deltas\":[],\"fee_amount\":\"0\",\"state_references\":[\"e17c4c389d2de1e63b5898c6b053390b33d1d58d0610c3c2f6ae43bdae85492d\"]}]}"
+          ]
+        },
+        {
+          "id": "J22T6CDcrUiREd4tS94xm3eKa9ARM89KK1cJgTRt4vuP",
+          "executor": "resolver.sandbox",
+          "status": {
+            "SuccessValue": "eyJjb25maWciOnsic2VyaWVzX2lkIjoiZXh0ZXJuYWwiLCJ2ZXJzaW9uIjoiMSIsImNvbGxhdGVyYWxfa2luZCI6Ik5BVElWRV9ORUFSIiwiaW5kZXhfZGVmaW5pdGlvbl9oYXNoIjoiMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSIsInBheW9mZl9raW5kIjoiQ0FQUEVEX1VTRF9DT01QTEVNRU5UIiwic3RyaWtlIjoiMjAwMDAwMDAwMDAwMCIsInByaWNlX3NjYWxlIjoiMTAwMDAwMDAwMDAwMCIsIm1hdHVyaXR5X25zIjoiMTc5NDI0OTg2NDE2NzQ2MDAwMCIsIm1pbnRfY3V0b2ZmX25zIjoiMTc5NDI0OTUwNDE2NzQ2MDAwMCIsIm9ic2VydmF0aW9uX3dpbmRvdyI6eyJzdGFydF9ucyI6IjE3OTQyNDk1MDQxNjc0NjAwMDAiLCJlbmRfbnMiOiIxNzk0MjQ5ODY0MTY3NDYwMDAwIn0sIm9yYWNsZV9hY2NvdW50X2lkIjoicmVzb2x2ZXIuc2FuZGJveCIsIm9yYWNsZV92ZXJzaW9uIjoibmF0aXZlLXNhbXBsZWQtdjEiLCJvcmFjbGVfY29uZmlnX2hhc2giOiI2OTMzMWFhNDg3MmNjZGY2YjRiMTYwMzlhMDg0ODk2N2I2ZGVhYjVmZmRmY2Y3M2I4NzgxMTQ2MTBhMDkyNDc1IiwiZmluYWxpemF0aW9uX3BvbGljeV9oYXNoIjoiMDFiYmI3MzQxNjkyODk4MDlmZTM1ZjYwMDMwMzAzOWI2YjVjYzY0NzQ3ZGE4OWJhYmYwODkxNDQ2OTE3ZDI0NSIsIm1heF9zdXBwbHkiOiIxMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAifSwic3RhdGUiOiJGSU5BTElaRUQiLCJwcmljZSI6IjQwMDAwMDAwMDAwMDAifQ=="
+          },
+          "logs": []
+        },
+        {
+          "id": "Fxgxxist9KZkXkQoZ5ozTM9qrVBF7Gd53oT6eLY3XdwA",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "6mJN6NxtYdaruYDqx89kQXx4yq5pcJw3eAXYH8E4WCQR",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"6a5b2b8de35bf2a610f6dd0028f424995b959b32fc2342a463f45ccbe558f32c\",\"actor\":\"core.sandbox\",\"event\":\"FINALIZED\",\"deltas\":[],\"fee_amount\":\"0\",\"state_references\":[\"9f88dab1117b83e3cdb15e60699272a41a60ebf2eb40d06af5729af8667bf4c7\"]}]}"
+          ]
+        },
+        {
+          "id": "8sodoqBT6k3m8uWNi9wzJzUG5n3brv6bb7tJY1SifvBa",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "BfH4nSQeHV8deTsffoPG7fq1QAsqKYTFHjKmR6mTwKtL",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "EqLyrbJuAGHBB5MER3GgA6V6vPDKFWVe1Smcfo7wE5E",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3894774361815",
+      "receipts": [
+        {
+          "id": "FWDm3GRXJNmV7rd9Q5QUk6fPz1FdVWP76fEvmMiuSS4f",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"9ddcda20147276bd4282048afe4bf12c7b4df798dc559667d1f262424a3526a6\",\"actor\":\"buyer.sandbox\",\"event\":\"REDEEMED\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000000\"},{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"P\",\"series_id\":\"external\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"1000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"P\",\"series_id\":\"external\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"4a67b54783aa475a0e2f79e0b456849dc4ba54340504fb08696e4d2ddc8b386d\"]}]}"
+          ]
+        },
+        {
+          "id": "2masEVFNErLV3WcKvH4jeMdyGRGXMwVY1BQkW2Lg35dF",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "GGYAB8vVhRLyUtkjxNRRZf5Evo6jiDu8jgFQgkSDo7WD",
+      "status": {
+        "SuccessValue": ""
+      },
+      "gas_burnt": "3834881838795",
+      "receipts": [
+        {
+          "id": "EMRVfxPS6m1cxzECgEUktuR6RBh2BXrbVyrGQP4uxU94",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"47a52390ea941775bcd3191afa08561302ce1e2a8a0f35cba5ffb0ed3f60fdee\",\"actor\":\"buyer.sandbox\",\"event\":\"REDEEMED\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000000\"},{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"N\",\"series_id\":\"external\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"1000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"external\",\"asset\":{\"kind\":\"N\",\"series_id\":\"external\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"15475de75939400252b8dfdf21959575e2a9a0a863f045da611dbe39db0c808a\"]}]}"
+          ]
+        },
+        {
+          "id": "F9KEBcGPbwc61u59gGmvDrXBXA2rHqt8EVfWt8PZyKRi",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "2Fx9caJvQYdsWKtV4BiFi1n95YE8WtiWULq7tzmrvTPf",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "gas_burnt": "7562495542498",
+      "receipts": [
+        {
+          "id": "27cxmfjAXR9Xe8TzkxqJv8XkwCHUh8jpEXGpMa3EXy5b",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "CLyNuYahSkjAMQWvfd5RtdZAWipZiJbcYW5bVZcVFX54"
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"8233a1fab4fa0be936e995f92c5cf052274e297e3e0bc4c35c82255d5cc72cd8\",\"actor\":\"buyer.sandbox\",\"event\":\"WITHDRAWAL_REQUESTED\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"buyer.sandbox\",\"bucket\":\"WITHDRAWAL\",\"ledger_id\":\"w-0\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"2000000000000000000000000\"},{\"account_id\":\"core.sandbox\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"}],\"fee_amount\":\"1\",\"state_references\":[\"7356431949023b3bdad04e7e0e6a7a10e64258c45f7f19a0ed88db52a799a536\"]}]}"
+          ]
+        },
+        {
+          "id": "5fvyVEPX26F8aHgJNnkN6xYTRbJ2NMU6n4DM1jt1se81",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "AYuNJBeBa2xm2QtjuWKZJZH3hqmJZpGvhg91MxDvnZmf",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "CLyNuYahSkjAMQWvfd5RtdZAWipZiJbcYW5bVZcVFX54",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"36822bca0be128b0dac9649a93729860d4003e936549f04310970d799943bb92\",\"actor\":\"core.sandbox\",\"event\":\"WITHDRAWAL_SUCCEEDED\",\"deltas\":[{\"account_id\":\"buyer.sandbox\",\"bucket\":\"WITHDRAWAL\",\"ledger_id\":\"w-0\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"2000000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"756e3697ad917a32a969eb30f8b854a8e0f275cc6919fbea55cc7cbcd75dfcaa\"]}]}"
+          ]
+        },
+        {
+          "id": "5axLEBFNChFTcX6vvk5AmGveFKhGZgoQ6ZgHACRRP8zN",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "Bayp594tKpV67nwSA2r2HBPkrC5yCmYckf87kXhMmHJK",
+          "executor": "buyer.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "target/external-oracle-artifacts/external_source_fixture.wasm": "345f7b7801cdb47c5958001356709ede7c1bc47cb162153144dcb01d212e1b24",
+    "target/external-oracle-artifacts/external_settlement.wasm": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+    "target/core-artifacts/clearinghouse.wasm": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+    "contracts/external-settlement/src/lib.rs": "2389e916cfe03d289efdbd06b57d83fd0c4decaf799c2e259cbc477c9f6427b6",
+    "contracts/test-fixtures/external-source/src/lib.rs": "4c8d98f480b1fc39f71da867c795bf931ecacb0db2d973263a1f5c57e11b5c5e",
+    "contracts/Cargo.lock": "fbc7f5724e62af0a5b8154a71d518cb2a456ffe6b6fde3d6964c909dbb5385fe",
+    "tests/sandbox/external-settlement.mjs": "4257ecbd2c55c87f7e9fee68e26e6d877232f9dbe19b238ef8b33042acb66bfa",
+    "services/indexer/model.mjs": "707727cfcdb931ad0c72fce2ec144cc1054d50afa409ee88700571c33e18da7f",
+    "services/indexer/rpc.mjs": "50ae9b14478664a6f6f1cc6e7744d61660b67cbf563a6dc356c4172110ebb2c2",
+    "services/indexer/store.mjs": "8490c3077b665aa5adeda55b9070990b22f83e082567c7f2a14423077d503e0d",
+    "services/indexer/indexer.mjs": "a66eb579598dd923ad221b206dc75d6eab4849d53af2456f05153a3c64bdef4d",
+    "packages/shared-schemas/external-oracle.schema.json": "8b7726e212d27eadb6a50cc94b572b198703af2ba792ab48fdfb18212a90d607"
+  },
+  "passed": true,
+  "series": {
+    "series_id": "external",
+    "version": "1",
+    "collateral_kind": "NATIVE_NEAR",
+    "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "payoff_kind": "CAPPED_USD_COMPLEMENT",
+    "strike": "2000000000000",
+    "price_scale": "1000000000000",
+    "maturity_ns": "1794249864167460000",
+    "mint_cutoff_ns": "1794249504167460000",
+    "observation_window": {
+      "start_ns": "1794249504167460000",
+      "end_ns": "1794249864167460000"
+    },
+    "oracle_account_id": "resolver.sandbox",
+    "oracle_version": "native-sampled-v1",
+    "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+    "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+    "max_supply": "100000000000000000000000000"
+  },
+  "source_spec": {
+    "account": "source.sandbox",
+    "reporter": "source.sandbox",
+    "asset": "wrap.near",
+    "min_price": "10000000000",
+    "max_price": "1000000000000000"
+  },
+  "tickets": [
+    {
+      "id": "0",
+      "owner": "buyer.sandbox",
+      "receiver": "buyer.sandbox",
+      "amount": "2000000000000000000000000",
+      "state": "SUCCEEDED",
+      "kind": "COLLATERAL",
+      "created_ns": "1794249932843631000",
+      "version": 1,
+      "balance_restored": false
+    }
+  ],
+  "indexer": {
+    "initial": {
+      "health": {
+        "state": "RECONCILED",
+        "risk_allowed": true,
+        "reconciled": true,
+        "lag_blocks": "2",
+        "block_hash": "8JtdNLwYH7j4CsRK3tCmHjjdUGX971Uw8waRpyomk4zT",
+        "height": "1892",
+        "rpc_failures": 0,
+        "rpc_failovers": 0
+      },
+      "reconciliations": [
+        {
+          "contract": "core.sandbox",
+          "kind": "core",
+          "sequence": "14",
+          "balance_count": 5,
+          "matched": true
+        },
+        {
+          "contract": "resolver.sandbox",
+          "kind": "external_oracle",
+          "sequence": "28",
+          "matched": true,
+          "state_hash": "a73eae6cd64248967ad97f64f352c201f0b7f6d1467289912e908e878ab4e71b"
+        }
+      ],
+      "event_count": 42,
+      "alerts": [
+        {
+          "code": "ORACLE_RESOLUTION_DELAYED",
+          "contract": "resolver.sandbox",
+          "entity": "missing",
+          "severity": "warning"
+        },
+        {
+          "code": "ORACLE_NOT_FINAL",
+          "contract": "resolver.sandbox",
+          "entity": "missing",
+          "severity": "warning"
+        },
+        {
+          "code": "ORACLE_OBSERVATIONS_INCOMPLETE",
+          "contract": "resolver.sandbox",
+          "entity": "missing",
+          "severity": "warning"
+        },
+        {
+          "code": "FAILED_CONTRACT_RECEIPTS",
+          "contract": "all",
+          "entity": "13",
+          "severity": "warning"
+        }
+      ]
+    },
+    "restarted": {
+      "health": {
+        "state": "RECONCILED",
+        "risk_allowed": true,
+        "reconciled": true,
+        "lag_blocks": "0",
+        "block_hash": "8EAJoynswZvWpv9Y9PfkGdq1UN4hVSkh62Sw4Q2wsyki",
+        "height": "1895",
+        "rpc_failures": 0,
+        "rpc_failovers": 0
+      },
+      "reconciliations": [
+        {
+          "contract": "core.sandbox",
+          "kind": "core",
+          "sequence": "14",
+          "balance_count": 5,
+          "matched": true
+        },
+        {
+          "contract": "resolver.sandbox",
+          "kind": "external_oracle",
+          "sequence": "28",
+          "matched": true,
+          "state_hash": "a73eae6cd64248967ad97f64f352c201f0b7f6d1467289912e908e878ab4e71b"
+        }
+      ],
+      "event_count": 42,
+      "alerts": [
+        {
+          "code": "ORACLE_RESOLUTION_DELAYED",
+          "contract": "resolver.sandbox",
+          "entity": "missing",
+          "severity": "warning"
+        },
+        {
+          "code": "ORACLE_NOT_FINAL",
+          "contract": "resolver.sandbox",
+          "entity": "missing",
+          "severity": "warning"
+        },
+        {
+          "code": "ORACLE_OBSERVATIONS_INCOMPLETE",
+          "contract": "resolver.sandbox",
+          "entity": "missing",
+          "severity": "warning"
+        },
+        {
+          "code": "FAILED_CONTRACT_RECEIPTS",
+          "contract": "all",
+          "entity": "13",
+          "severity": "warning"
+        }
+      ]
+    },
+    "snapshot": {
+      "kind": "external_oracle",
+      "cases": [
+        {
+          "price": "4000000000000",
+          "state": "FINALIZED",
+          "config": {
+            "strike": "2000000000000",
+            "version": "1",
+            "series_id": "external",
+            "max_supply": "100000000000000000000000000",
+            "maturity_ns": "1794249864167460000",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "price_scale": "1000000000000",
+            "mint_cutoff_ns": "1794249504167460000",
+            "oracle_version": "native-sampled-v1",
+            "collateral_kind": "NATIVE_NEAR",
+            "oracle_account_id": "resolver.sandbox",
+            "observation_window": {
+              "end_ns": "1794249864167460000",
+              "start_ns": "1794249504167460000"
+            },
+            "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+            "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245"
+          },
+          "source": {
+            "asset": "wrap.near",
+            "account": "source.sandbox",
+            "reporter": "source.sandbox",
+            "max_price": "1000000000000000",
+            "min_price": "10000000000"
+          },
+          "pending": null,
+          "samples": [
+            {
+              "price": "3000000000000",
+              "report_ns": "1794249527650088000",
+              "request_ns": "1794249529530454000",
+              "accepted_ns": "1794249529781300000",
+              "response_hash": "47ae0d5362ddaabcaf5582d8f7d378d56c49ecf7de11adc6f563510be88544d3"
+            },
+            {
+              "price": "4000000000000",
+              "report_ns": "1794249634113609000",
+              "request_ns": "1794249635990119000",
+              "accepted_ns": "1794249636236022000",
+              "response_hash": "ebfcb6c14686d0a1d326f01e7d977e297e1e1c41bdfb092f29cb75c6fc8bfaff"
+            },
+            {
+              "price": "5000000000000",
+              "report_ns": "1794249753882593000",
+              "request_ns": "1794249755746225000",
+              "accepted_ns": "1794249756010141000",
+              "response_hash": "8ddfadc346326c52bb1ade1a138746fa1ccfd8286f26e5bdd09054206c9892bb"
+            }
+          ]
+        },
+        {
+          "price": null,
+          "state": "RESOLUTION_DELAYED",
+          "config": {
+            "strike": "2000000000000",
+            "version": "1",
+            "series_id": "missing",
+            "max_supply": "100000000000000000000000000",
+            "maturity_ns": "1794249864167460000",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "price_scale": "1000000000000",
+            "mint_cutoff_ns": "1794249504167460000",
+            "oracle_version": "native-sampled-v1",
+            "collateral_kind": "NATIVE_NEAR",
+            "oracle_account_id": "resolver.sandbox",
+            "observation_window": {
+              "end_ns": "1794249864167460000",
+              "start_ns": "1794249504167460000"
+            },
+            "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+            "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245"
+          },
+          "source": {
+            "asset": "wrap.near",
+            "account": "source.sandbox",
+            "reporter": "source.sandbox",
+            "max_price": "1000000000000000",
+            "min_price": "10000000000"
+          },
+          "pending": null,
+          "samples": [
+            null,
+            null,
+            null
+          ]
+        }
+      ],
+      "state": {
+        "cases": {
+          "missing": {
+            "price": null,
+            "config": {
+              "strike": "2000000000000",
+              "version": "1",
+              "series_id": "missing",
+              "max_supply": "100000000000000000000000000",
+              "maturity_ns": "1794249864167460000",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "price_scale": "1000000000000",
+              "mint_cutoff_ns": "1794249504167460000",
+              "oracle_version": "native-sampled-v1",
+              "collateral_kind": "NATIVE_NEAR",
+              "oracle_account_id": "resolver.sandbox",
+              "observation_window": {
+                "end_ns": "1794249864167460000",
+                "start_ns": "1794249504167460000"
+              },
+              "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+              "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245"
+            },
+            "source": {
+              "asset": "wrap.near",
+              "account": "source.sandbox",
+              "reporter": "source.sandbox",
+              "max_price": "1000000000000000",
+              "min_price": "10000000000"
+            },
+            "pending": null,
+            "samples": [
+              null,
+              null,
+              null
+            ]
+          },
+          "external": {
+            "price": "4000000000000",
+            "config": {
+              "strike": "2000000000000",
+              "version": "1",
+              "series_id": "external",
+              "max_supply": "100000000000000000000000000",
+              "maturity_ns": "1794249864167460000",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "price_scale": "1000000000000",
+              "mint_cutoff_ns": "1794249504167460000",
+              "oracle_version": "native-sampled-v1",
+              "collateral_kind": "NATIVE_NEAR",
+              "oracle_account_id": "resolver.sandbox",
+              "observation_window": {
+                "end_ns": "1794249864167460000",
+                "start_ns": "1794249504167460000"
+              },
+              "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+              "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245"
+            },
+            "source": {
+              "asset": "wrap.near",
+              "account": "source.sandbox",
+              "reporter": "source.sandbox",
+              "max_price": "1000000000000000",
+              "min_price": "10000000000"
+            },
+            "pending": null,
+            "samples": [
+              {
+                "price": "3000000000000",
+                "report_ns": "1794249527650088000",
+                "request_ns": "1794249529530454000",
+                "accepted_ns": "1794249529781300000",
+                "response_hash": "47ae0d5362ddaabcaf5582d8f7d378d56c49ecf7de11adc6f563510be88544d3"
+              },
+              {
+                "price": "4000000000000",
+                "report_ns": "1794249634113609000",
+                "request_ns": "1794249635990119000",
+                "accepted_ns": "1794249636236022000",
+                "response_hash": "ebfcb6c14686d0a1d326f01e7d977e297e1e1c41bdfb092f29cb75c6fc8bfaff"
+              },
+              {
+                "price": "5000000000000",
+                "report_ns": "1794249753882593000",
+                "request_ns": "1794249755746225000",
+                "accepted_ns": "1794249756010141000",
+                "response_hash": "8ddfadc346326c52bb1ade1a138746fa1ccfd8286f26e5bdd09054206c9892bb"
+              }
+            ]
+          }
+        },
+        "paused": false,
+        "network": "sandbox",
+        "version": "native-sampled-v1",
+        "guardian": "sandbox",
+        "sequence": "28",
+        "registrar": "sandbox",
+        "contract_id": "resolver.sandbox",
+        "request_sequence": "11"
+      },
+      "native": {
+        "amount": "30197908856342042300000000",
+        "locked": "0",
+        "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT",
+        "block_hash": "8JtdNLwYH7j4CsRK3tCmHjjdUGX971Uw8waRpyomk4zT",
+        "block_height": 1892,
+        "storage_usage": 262304,
+        "storage_paid_at": 0
+      },
+      "tickets": [],
+      "accounts": {},
+      "contract": "resolver.sandbox",
+      "identity": {
+        "network": "sandbox",
+        "sequence": "28",
+        "contract_id": "resolver.sandbox"
+      },
+      "block_hash": "8JtdNLwYH7j4CsRK3tCmHjjdUGX971Uw8waRpyomk4zT"
+    }
+  },
+  "resolution": {
+    "config": {
+      "series_id": "external",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "2000000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794249864167460000",
+      "mint_cutoff_ns": "1794249504167460000",
+      "observation_window": {
+        "start_ns": "1794249504167460000",
+        "end_ns": "1794249864167460000"
+      },
+      "oracle_account_id": "resolver.sandbox",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "state": "FINALIZED",
+    "price": "4000000000000"
+  },
+  "case": {
+    "config": {
+      "series_id": "external",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "2000000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794249864167460000",
+      "mint_cutoff_ns": "1794249504167460000",
+      "observation_window": {
+        "start_ns": "1794249504167460000",
+        "end_ns": "1794249864167460000"
+      },
+      "oracle_account_id": "resolver.sandbox",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "source": {
+      "account": "source.sandbox",
+      "reporter": "source.sandbox",
+      "asset": "wrap.near",
+      "min_price": "10000000000",
+      "max_price": "1000000000000000"
+    },
+    "samples": [
+      {
+        "report_ns": "1794249527650088000",
+        "request_ns": "1794249529530454000",
+        "accepted_ns": "1794249529781300000",
+        "price": "3000000000000",
+        "response_hash": "47ae0d5362ddaabcaf5582d8f7d378d56c49ecf7de11adc6f563510be88544d3"
+      },
+      {
+        "report_ns": "1794249634113609000",
+        "request_ns": "1794249635990119000",
+        "accepted_ns": "1794249636236022000",
+        "price": "4000000000000",
+        "response_hash": "ebfcb6c14686d0a1d326f01e7d977e297e1e1c41bdfb092f29cb75c6fc8bfaff"
+      },
+      {
+        "report_ns": "1794249753882593000",
+        "request_ns": "1794249755746225000",
+        "accepted_ns": "1794249756010141000",
+        "price": "5000000000000",
+        "response_hash": "8ddfadc346326c52bb1ade1a138746fa1ccfd8286f26e5bdd09054206c9892bb"
+      }
+    ],
+    "pending": null,
+    "price": "4000000000000"
+  },
+  "custody": {
+    "native_balance": "30119196939568304400000004",
+    "free_collateral": "0",
+    "vault_collateral": "0",
+    "vault_storage_fund": "0",
+    "roll_storage_fund": "0",
+    "series_reserves": "0",
+    "refundable_storage": "81920000000000000000000",
+    "fees": "1000000000000000000004",
+    "series_storage_fund": "40960000000000000000000",
+    "market_storage_fund": "0",
+    "operating_allocation": "20000000000000000000000000",
+    "pending_in_flight": "0",
+    "unknown_in_flight": "0",
+    "tracked_user_collateral": "0",
+    "retained_categories": "20123880000000000000000004",
+    "retained_categories_covered": true,
+    "unallocated_or_in_flight_return": "9995316939568304400000000",
+    "storage_bytes": "616290",
+    "storage_byte_cost": "10000000000000000000",
+    "next_ticket_id": "1",
+    "operation_sequence": "14"
+  }
+}

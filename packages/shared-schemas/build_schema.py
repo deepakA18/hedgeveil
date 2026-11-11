@@ -152,3 +152,7 @@ if __name__ == '__main__':
         DESTINATION.write_text(content)
     from build_oracle_schema import write as write_oracle
     write_oracle(args.check)
+    from build_external_schema import write as write_external
+    write_external(args.check)
+    from build_expiry_schema import write as write_expiry
+    write_expiry(args.check)

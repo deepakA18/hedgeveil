@@ -2,7 +2,7 @@ import pg from 'pg';
 import {readFile} from 'node:fs/promises';
 import {canonical, fail} from '../../packages/sdk/intent.mjs';
 import {binding,configuration} from './rpc.mjs';
-import {digest,replayCore,replayOracle,reconcileCore,reconcileOracle,alerts} from './model.mjs';
+import {digest,replayCore,replayOracle,replayExternal,reconcileCore,reconcileOracle,reconcileExternal,alerts} from './model.mjs';
 
 export class Store {
     constructor(config) {
@@ -37,11 +37,44 @@ export class Store {
         return this.transaction(async db=>{
             const {rows:[meta]}=await db.query('SELECT * FROM meta WHERE id=1');
             const {rows:makers}=await db.query("SELECT DISTINCT contract,payload->>'actor' AS maker FROM events WHERE name='SIGNING_KEY_REGISTERED'");
-            return {meta,makers};
+            const {rows:transactions}=await db.query('SELECT hash FROM transactions');
+            return {meta,makers,transactions};
         },{readOnly:true});
     }
-    async markFailure(code) {
-        await this.transaction(db=>db.query('UPDATE meta SET health=$1 WHERE id=1',[{state:code,risk_allowed:false,failed_at:new Date().toISOString()}]));
+    async block(hash){return this.transaction(async db=>(await db.query('SELECT body FROM blocks WHERE hash=$1',[hash])).rows[0]?.body,{readOnly:true});}
+    async initFeed(){
+        await this.transaction(db=>db.query(`INSERT INTO feed_cursor(id,baseline_height,baseline_hash,height,block_height,block_hash,observed_height,state)
+            SELECT 1,cursor_height,cursor_hash,cursor_height,cursor_height,cursor_hash,cursor_height,'STARTING' FROM meta WHERE id=1 ON CONFLICT DO NOTHING`));
+    }
+    async feedState(){return this.transaction(async db=>(await db.query('SELECT * FROM feed_cursor WHERE id=1')).rows[0],{readOnly:true});}
+    async feedCandidates(){return this.transaction(async db=>{
+        const {rows}=await db.query('SELECT f.hash,f.signer_id FROM feed_candidates f LEFT JOIN transactions t ON t.hash=f.hash WHERE t.hash IS NULL ORDER BY f.discovered_height,f.hash LIMIT 10001');
+        if(rows.length>10000)fail('DISCOVERY_LIMIT');return rows;
+    },{readOnly:true});}
+    async advanceFeed(height,block,observed){
+        await this.transaction(async db=>{
+            const {rows:[c]}=await db.query('SELECT * FROM feed_cursor WHERE id=1 FOR UPDATE');
+            if(BigInt(height)!==BigInt(c.height)+1n)fail('FEED_CURSOR_CHANGED');
+            if(block&&(block.height!==height||block.prev_hash!==c.block_hash))fail('FEED_PARENT_MISMATCH');
+            for(const hint of block?.hints??[]){
+                await db.query('INSERT INTO feed_candidates VALUES($1,$2,$3) ON CONFLICT DO NOTHING',[hint.hash,hint.signer_id,String(height)]);
+                const {rows:[old]}=await db.query('SELECT signer_id FROM feed_candidates WHERE hash=$1',[hint.hash]);
+                if(old.signer_id!==hint.signer_id)fail('FEED_SIGNER_CONFLICT');
+            }
+            await db.query("UPDATE feed_cursor SET height=$1,block_height=$2,block_hash=$3,observed_height=$4,state='SCANNING',checked_at=now() WHERE id=1",[String(height),block?String(height):c.block_height,block?.hash??c.block_hash,String(observed)]);
+        });
+    }
+    async feedObserved(height){await this.transaction(db=>db.query("UPDATE feed_cursor SET observed_height=$1,state='SCANNING',checked_at=now() WHERE id=1",[String(height)]));}
+    async feedFailure(code,retryAt=0){await this.transaction(db=>db.query('UPDATE feed_cursor SET state=$1,retry_at_ms=GREATEST(retry_at_ms,$2) WHERE id=1',[code,String(retryAt)]));}
+    async markFailure(code,progress) {
+        await this.transaction(db=>db.query('UPDATE meta SET health=$1 WHERE id=1',[{state:code,risk_allowed:false,failed_at:new Date().toISOString(),...(progress?{failure_progress:progress}:{})}]));
+    }
+    async cached(key){return this.transaction(async db=>(await db.query('SELECT body FROM rpc_cache WHERE key=$1',[key])).rows[0]?.body,{readOnly:true});}
+    async cache(key,body){
+        await this.transaction(async db=>{
+            await db.query('INSERT INTO rpc_cache(key,body) VALUES($1,$2) ON CONFLICT DO NOTHING',[key,body]);
+            await db.query('DELETE FROM rpc_cache WHERE key IN (SELECT key FROM rpc_cache ORDER BY created_at DESC OFFSET 50000)');
+        });
     }
     async apply(batch,{beforeCommit}={}) {
         return this.transaction(async db=>{
@@ -49,8 +82,11 @@ export class Store {
             if(meta.cursor_hash!==batch.expected_cursor)fail('CURSOR_CHANGED');
             // Each accepted header must extend the old cursor; no height-based gap skipping.
             let parent=meta.cursor_hash,height=BigInt(meta.cursor_height);
+            const sparse=this.config.transaction_filter==='canonical-journal';
+            if(sparse&&BigInt(batch.head.header.height)<height)fail('RPC_BEHIND_CURSOR');
             for(const b of batch.blocks) {
-                if(b.header.prev_hash!==parent||BigInt(b.header.height)<=height)fail('BLOCK_GAP');
+                if(!sparse&&(b.header.prev_hash!==parent||BigInt(b.header.height)<=height))fail('BLOCK_GAP');
+                if(sparse&&BigInt(b.header.height)>BigInt(batch.head.header.height))fail('BLOCK_GAP');
                 parent=b.header.hash;height=BigInt(b.header.height);
                 await db.query('INSERT INTO blocks(hash,height,prev_hash,timestamp_ns,body) VALUES($1,$2,$3,$4,$5) ON CONFLICT DO NOTHING',[parent,String(height),b.header.prev_hash,b.header.timestamp_nanosec,b]);
                 const {rows:[old]}=await db.query('SELECT body FROM blocks WHERE hash=$1',[parent]);
@@ -80,8 +116,8 @@ export class Store {
             const results=[];
             for(const s of batch.snapshots) {
                 const es=events.filter(e=>e.contract===s.contract);
-                const replay=s.kind==='core'?replayCore(s.contract,es):replayOracle(es);
-                const result=s.kind==='core'?reconcileCore(replay,s):reconcileOracle(replay,s);
+                const replay=s.kind==='core'?replayCore(s.contract,es,this.config.network):s.kind==='external_oracle'?replayExternal(es):replayOracle(es);
+                const result=s.kind==='core'?reconcileCore(replay,s):s.kind==='external_oracle'?reconcileExternal(replay,s):reconcileOracle(replay,s);
                 results.push(result);
                 if(s.block_hash!==parent)fail('VIEW_BLOCK_MISMATCH');
                 if(s.kind==='core')for(const [key,amount] of replay.balances) {
@@ -101,7 +137,7 @@ export class Store {
             if(lagging)notices.push({code:'INDEXER_LAG',contract:'all',entity:String(lag),severity:'critical'});
             await db.query('DELETE FROM alerts');
             for(const a of notices)await db.query('INSERT INTO alerts VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING',[a.code,a.contract,a.entity,a.severity]);
-            const health={state:lagging?'LAGGING':'RECONCILED',risk_allowed:!lagging,reconciled:true,lag_blocks:String(lag),block_hash:parent,height:String(height),rpc_failures:batch.rpc_failures,rpc_failovers:batch.rpc_failovers};
+            const health={state:lagging?'LAGGING':'RECONCILED',risk_allowed:!lagging,reconciled:true,lag_blocks:String(lag),block_hash:parent,height:String(height),rpc_failures:batch.rpc_failures,rpc_failovers:batch.rpc_failovers,unresolved_transactions:batch.unresolved_transactions??[]};
             await db.query('UPDATE meta SET cursor_hash=$1,cursor_height=$2,generation=generation+1,checked_at=$4,health=$3 WHERE id=1',[parent,String(height),health,batch.started_at??new Date().toISOString()]);
             if(beforeCommit)await beforeCommit(db);
             return {health,reconciliations:results,event_count:events.length,alerts:notices};
@@ -114,7 +150,14 @@ export class Store {
             const age=m.checked_at?Math.max(0,Date.now()-m.checked_at.getTime()):null;
             const stale=age===null||age>this.config.stale_after_ms;
             const health={...m.health,risk_allowed:!stale&&m.health.risk_allowed===true,stale,age_ms:age,cursor_hash:m.cursor_hash,height:m.cursor_height,generation:m.generation};
-            const common={network:'sandbox',chain_id:this.config.chain_id,checkpoint:m.cursor_hash,health};
+            if(this.config.discovery_source){
+                const {rows:[f]}=await db.query('SELECT * FROM feed_cursor WHERE id=1');
+                const lag=f?Math.max(0,Number(m.cursor_height)-Number(f.block_height),Number(f.observed_height)-Number(f.block_height)):null;
+                const fresh=f?.checked_at&&Date.now()-f.checked_at.getTime()<=this.config.stale_after_ms;
+                health.discovery={source:this.config.discovery_source,required:this.config.discovery_required!==false,baseline_height:f?.baseline_height??null,height:f?.block_height??null,scanned_height:f?.height??null,observed_height:f?.observed_height??null,lag_blocks:lag,state:f?.state??'STARTING',fresh:Boolean(fresh),retry_at_ms:f?.retry_at_ms??null};
+                if(this.config.discovery_required!==false&&(!fresh||f.state!=='SCANNING'||lag>this.config.max_lag_blocks)){health.risk_allowed=false;health.state='DISCOVERY_UNAVAILABLE_OR_LAGGING';}
+            }
+            const common={network:this.config.network,chain_id:this.config.chain_id,binding:binding(this.config),checkpoint:m.cursor_hash,health};
             if(resource==='health')return common;
             const queries={
                 balances:'SELECT contract,owner,bucket,ledger_id,asset,amount::text FROM balances ORDER BY contract,owner,bucket,ledger_id,asset LIMIT $1 OFFSET $2',

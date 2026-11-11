@@ -1,0 +1,245 @@
+{
+  "scope": "Actual transfer-only funding, implicit service accounts, native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment",
+  "checks": [
+    "wallet request contains exactly one transfer and no key permission",
+    "single transfer creates implicit account with the locally generated key",
+    "48 NEAR setup funds and deploys both native contracts without synthetic publishers",
+    "setup restart recovers existing receipts and preserves immutable terms",
+    "630b3adbd9431f0369da9db9b9792f6392c5dbab31b3ebf7c612945c7daab932 has separately backed P/N inventory and free collateral",
+    "5e3ed6cf1a9fdf3375b5072d2a1dd82995b6dd5029306ef9121a9398ef453d71 has separately backed P/N inventory and free collateral",
+    "vault remains disabled",
+    "fresh series preserves old immutable terms and recombines only intact pairs",
+    "restart preserves the active fresh series without reminting or reverting terms",
+    "native deployment indexer reconciles actual setup receipts",
+    "journal hashes discover real complete receipts and reproduce full-scan balances",
+    "journal discovery restarts without duplicate events or receipt replay",
+    "missing real journal transaction cannot enable risk",
+    "migration replays actual source checkpoint and keeps risk disabled until fresh sync",
+    "canonical receipt checkpoints reproduce full-scan balances using actual final blocks",
+    "canonical checkpoints retain exact event counts across restart",
+    "canonical checkpoints reject an omitted real financial operation",
+    "administrator retains refresh/gas budget after setup"
+  ],
+  "sources": {
+    "services/testnet/native.mjs": "543ee7b0584844d3d17975c6cc262b6e93e47cd75511027edc66403aa329d5b9",
+    "services/testnet/transactions.mjs": "e69a12fe355da38a5449bb448c246af452776127d2a93e5597a1a966474e9585",
+    "services/testnet/funding.mjs": "c8b817ab238ff53569ecb735e6fa4f615cdf9eb370d422438d89ec3922dd5584",
+    "services/indexer/ancestry.mjs": "190f77add6e1889102d1afcde49b25888e5ead763f3e40a8632153e7e5353173",
+    "services/indexer/discovery.mjs": "fbd5dd423169bfabfd1c47810b4e77fb4673fb76aca6353705239a8c5d0c9b95",
+    "services/indexer/migrate-discovery.mjs": "be08d04cf9a049af3debe4ce05615b658ce65833b71aaf43b5b879750d41ebc6",
+    "services/indexer/neardata.mjs": "49e2d53ab6456e22d4d94fb6b6ce21864edb5ecf1ca700ce140885da6739c74d",
+    "services/indexer/store.mjs": "47778f75dcf74cb5570d013f5eaded54dd3409ff77d3dd4c2a67a7ec4a632398",
+    "services/indexer/indexer.mjs": "6c7baeb8049356400127003caa14e5c76124d79cac73ad4c36d630787a786fa0",
+    "services/indexer/rpc.mjs": "2dfb117bdb1b07c8943f89973dc5d433ff40d35c94709737f21805c6062497d2",
+    "tests/sandbox/transfer-setup.mjs": "fb4f4122196dbf76fe730edccfaa7b4e769b1ae962f941b7be8bcdaff2b5fede"
+  },
+  "passed": true,
+  "canonical_reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "0",
+      "block_hash": "6EcmbZhcdJNb3ipjYMVBz1fUggbkfzTYoXToGaECo7Af",
+      "height": "174",
+      "rpc_failures": 0,
+      "rpc_failovers": 0
+    },
+    "reconciliations": [
+      {
+        "contract": "5623c9398d938ea59d8c6e237c4b341e6fbe53cdd8de11f008a88cd4f32084fe",
+        "kind": "external_oracle",
+        "sequence": "3",
+        "matched": true,
+        "state_hash": "f1d262f007384b4c204da9338afb482198fbdf86e0aafbc284a1ab66450d09fa"
+      },
+      {
+        "contract": "fdfc121211e9a8db0f17cde258f8162339e45bed8c5620a8298ae6ccc259b677",
+        "kind": "core",
+        "sequence": "16",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 19,
+    "alerts": []
+  },
+  "journal_reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "1",
+      "block_hash": "4hkubSCuo3orAhK89bdps8gsVuXwPpuLcXCbBvM72EKP",
+      "height": "170",
+      "rpc_failures": 0,
+      "rpc_failovers": 0
+    },
+    "reconciliations": [
+      {
+        "contract": "5623c9398d938ea59d8c6e237c4b341e6fbe53cdd8de11f008a88cd4f32084fe",
+        "kind": "external_oracle",
+        "sequence": "3",
+        "matched": true,
+        "state_hash": "f1d262f007384b4c204da9338afb482198fbdf86e0aafbc284a1ab66450d09fa"
+      },
+      {
+        "contract": "fdfc121211e9a8db0f17cde258f8162339e45bed8c5620a8298ae6ccc259b677",
+        "kind": "core",
+        "sequence": "16",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 19,
+    "alerts": []
+  },
+  "root_balance": "645072697204780700000000",
+  "deployment": {
+    "version": 1,
+    "network": "sandbox",
+    "client": {
+      "network": "sandbox",
+      "chain_id": "test-chain-s6NZ9",
+      "genesis_hash": "3fJBTZiHJjPKwg3c5m4RR4zbG6gRcSa9L1ojvr96H6Fr",
+      "rpc_url": "http://127.0.0.1:63729",
+      "contract_id": "fdfc121211e9a8db0f17cde258f8162339e45bed8c5620a8298ae6ccc259b677",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+    },
+    "indexer": {
+      "network": "sandbox",
+      "chain_id": "test-chain-s6NZ9",
+      "genesis_hash": "3fJBTZiHJjPKwg3c5m4RR4zbG6gRcSa9L1ojvr96H6Fr",
+      "anchor_hash": "7yeQ1HKzQioE87Xh9afNT3CG42yCvDaGBCgfhdB3RwBr",
+      "rpc_urls": [
+        "http://127.0.0.1:63729"
+      ],
+      "request_interval_ms": 0,
+      "read_concurrency": 4,
+      "contracts": [
+        {
+          "kind": "external_oracle",
+          "account_id": "5623c9398d938ea59d8c6e237c4b341e6fbe53cdd8de11f008a88cd4f32084fe",
+          "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+        },
+        {
+          "kind": "core",
+          "account_id": "fdfc121211e9a8db0f17cde258f8162339e45bed8c5620a8298ae6ccc259b677",
+          "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+        }
+      ],
+      "schema": "hv_testnet_native_roots",
+      "transaction_filter": "watched-roots",
+      "max_blocks": 10000,
+      "stale_after_ms": 60000,
+      "poll_ms": 2000
+    },
+    "source": {
+      "account_id": "source.sandbox",
+      "reporter": "source.sandbox",
+      "code_hash": "73KUWYiet2G6ef33kp2aQPaYw7GodWWfiLYQFGbX4ZM"
+    },
+    "series": {
+      "series_id": "beta",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3500000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794288016022738000",
+      "mint_cutoff_ns": "1794287476022738000",
+      "observation_window": {
+        "start_ns": "1794287476022738000",
+        "end_ns": "1794288016022738000"
+      },
+      "oracle_account_id": "5623c9398d938ea59d8c6e237c4b341e6fbe53cdd8de11f008a88cd4f32084fe",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "pricing_observation": {
+      "spot": "3500000000000",
+      "source": "EXPLICIT_SANDBOX_FIXTURE"
+    },
+    "accounts": [
+      {
+        "role": "administrator",
+        "id": "b9b5a008da1b2b91873fe0476626f2b5cd0e93d92f960f4fd8497f9881548246",
+        "initial_balance": "48000000000000000000000000",
+        "public_key": "ed25519:DVw49auJ9oouVzZQyqCTTZRKzh1JQKso6A7xJRwZdnvH"
+      },
+      {
+        "role": "core",
+        "id": "fdfc121211e9a8db0f17cde258f8162339e45bed8c5620a8298ae6ccc259b677",
+        "initial_balance": "30000000000000000000000000",
+        "public_key": "ed25519:J6T5eFhYQD2QFSeaY1kwcjzen5eZYRb3pnW46nSzQZLa"
+      },
+      {
+        "role": "oracle",
+        "id": "5623c9398d938ea59d8c6e237c4b341e6fbe53cdd8de11f008a88cd4f32084fe",
+        "initial_balance": "8000000000000000000000000",
+        "public_key": "ed25519:6oFiG1S1HCdcdAXaDJKWdFRjs9HL8vbsHfjCkEKv3qMP"
+      },
+      {
+        "role": "maker",
+        "id": "630b3adbd9431f0369da9db9b9792f6392c5dbab31b3ebf7c612945c7daab932",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:7fdJ3bLv5mUDtx1PmAdnsW9yqtBGwfNQyj39Cc8NNRxd",
+        "rfq_public_key": "71e3fabe878bfc0ca7d7c2d3cfb49654b7a573e368ddd3e15540785728f1b179"
+      },
+      {
+        "role": "maker",
+        "id": "5e3ed6cf1a9fdf3375b5072d2a1dd82995b6dd5029306ef9121a9398ef453d71",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:7Ltu8arQbmdSFSGdEzrTNj6oRp5bJfzshQrS4PEFYZTv",
+        "rfq_public_key": "d4962ef41bb60966a76dcf4a3f7550448469451442ee439c9dbcedcc79df0fa1"
+      }
+    ],
+    "oracle_label": "SANDBOX SOURCE FIXTURE",
+    "vault_enabled": false,
+    "artifacts": {
+      "core": {
+        "path": "target/core-artifacts/clearinghouse.wasm",
+        "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+        "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+      },
+      "external_oracle": {
+        "path": "target/external-oracle-artifacts/external_settlement.wasm",
+        "sha256": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+        "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+      }
+    }
+  },
+  "reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "1",
+      "block_hash": "9y3n9voLNeMUSyPKeT7vEZ2HVrPFPa2YMYHPe8cZGFwy",
+      "height": "168",
+      "rpc_failures": 0,
+      "rpc_failovers": 0
+    },
+    "reconciliations": [
+      {
+        "contract": "5623c9398d938ea59d8c6e237c4b341e6fbe53cdd8de11f008a88cd4f32084fe",
+        "kind": "external_oracle",
+        "sequence": "3",
+        "matched": true,
+        "state_hash": "f1d262f007384b4c204da9338afb482198fbdf86e0aafbc284a1ab66450d09fa"
+      },
+      {
+        "contract": "fdfc121211e9a8db0f17cde258f8162339e45bed8c5620a8298ae6ccc259b677",
+        "kind": "core",
+        "sequence": "16",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 19,
+    "alerts": []
+  }
+}

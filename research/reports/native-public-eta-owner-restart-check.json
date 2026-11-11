@@ -1,0 +1,14 @@
+{
+  "scope": "Actual public post-settlement restart; complete receipts, events, ledger positions, tickets and resolver state unchanged",
+  "observed_at": "2026-11-11T03:41:26.114Z",
+  "before": "native-public-eta-owner-before-restart.json",
+  "after": "native-public-eta-owner-after-restart.json",
+  "counts": {
+    "blocks": "9203",
+    "transactions": "73",
+    "outcomes": "313",
+    "events": "66"
+  },
+  "passed": true,
+  "limits": "SIGTERM left an ownership lock; operator verified the owner PID was dead before removing only that lock. Fresh checkpoint blocks differ. No duplicate monetary action, journal reset or receipt replacement."
+}

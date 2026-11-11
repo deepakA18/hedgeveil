@@ -1,0 +1,22 @@
+{
+  "scope": "Read-only actual local funding page in Chromium; no wallet signature or public funding acceptance",
+  "checks": [
+    "exact wallet intent is one 48-test-NEAR transfer to the public-plan receiver",
+    "page discloses changed account layout, local key control and cancellation of old prompt",
+    "funding stays disabled until wallet connection",
+    "long destination fits 375px viewport",
+    "long destination fits 768px viewport",
+    "long destination fits 1280px viewport",
+    "preview did not claim or broadcast the funding request",
+    "browser initialized without script errors"
+  ],
+  "sources": {
+    "services/testnet/bootstrap.mjs": "975c1687533693aec46c985ef7619dbb10004d4ce9f23bd7249fd3a9c858c0b8",
+    "services/testnet/setup-browser.mjs": "90c5ea1fa98d0cccd0e954aa93fe1677b6f3d88ee5a1677fbcfa5390a7d0dce2",
+    "services/testnet/funding.mjs": "c8b817ab238ff53569ecb735e6fa4f615cdf9eb370d422438d89ec3922dd5584",
+    "tests/demo/funding-preview.mjs": "f23d69fad2453a1d4fa3cf7da3c10f8fc4bd53f58eed7549d6aafe0f24b12502"
+  },
+  "passed": true,
+  "operation_id": "f614b0752356f93c2ba178fe2f877d04296610c310c1840525482b315ab5a21e",
+  "receiver_id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b"
+}

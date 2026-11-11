@@ -1,0 +1,10 @@
+{
+  "testnet": {
+    "expected_genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+    "expected_code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV"
+  },
+  "mainnet": {
+    "expected_genesis_hash": "EPnLgE7iEq9s7yTkos96M3cWymH5avBAPm3qx3NXqR8H",
+    "expected_code_hash": "AAfLssB91E2XgQEEvKo6mHW61RB4PoTzk6Ha7Xypd8Tw"
+  }
+}

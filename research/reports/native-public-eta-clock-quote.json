@@ -1,0 +1,126 @@
+{
+  "observed_at": "2026-11-11T03:08:49.105Z",
+  "scope": "Real funded quote; no owner signature or trade",
+  "request": {
+    "mode": "BUY",
+    "asset": {
+      "kind": "P",
+      "series_id": "eta"
+    },
+    "amount": "50000000000000000000000",
+    "taker": "0xdeepak18.testnet"
+  },
+  "status": 200,
+  "response": {
+    "items": [
+      {
+        "quote": {
+          "kind": "quote",
+          "schema_version": "0.2.0",
+          "domain": {
+            "protocol_version": "1",
+            "network": "testnet",
+            "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437"
+          },
+          "maker": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+          "taker": "0xdeepak18.testnet",
+          "maker_gives": [
+            {
+              "asset": {
+                "kind": "P",
+                "series_id": "eta"
+              },
+              "amount": "50000000000000000000000"
+            }
+          ],
+          "taker_gives": [
+            {
+              "asset": {
+                "kind": "COLLATERAL"
+              },
+              "amount": "50064781567667625000000"
+            }
+          ],
+          "fee": {
+            "asset": "NATIVE_NEAR",
+            "amount": "25032390783833812500",
+            "receiver": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134"
+          },
+          "fill_rule": "ALL_OR_NOTHING",
+          "rounding": "EXACT_AMOUNTS",
+          "nonce": "0",
+          "cancellation_epoch": "1",
+          "expiry_ns": "1794366616877935790",
+          "signing_key_id": "demo-key",
+          "signature_scheme": "ed25519",
+          "signature": "2f30d59ee5114e67da32907dcb472457f8d6c15ca8ad4314809219a2370dafdd3e3ff181fb500033a662953fdfcd5d1c9eb1f4bd29d58064aab527ed84c9150e"
+        },
+        "reason": null,
+        "diagnostics": {
+          "equity_atomic": "4000000000000000000000000",
+          "notional_atomic": "50064781567667625000000",
+          "reference_timestamp_ns": "1794366525933441770",
+          "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+          "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+          "snapshot_hash": "b20a40d2e6beedb064d38d1f3c5238db6eb902f0b59d3358c4c6ada58bb417af",
+          "sigma": 1.0549112246407164,
+          "history_end_ns": "1794366000000000000"
+        }
+      },
+      {
+        "quote": {
+          "kind": "quote",
+          "schema_version": "0.2.0",
+          "domain": {
+            "protocol_version": "1",
+            "network": "testnet",
+            "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437"
+          },
+          "maker": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+          "taker": "0xdeepak18.testnet",
+          "maker_gives": [
+            {
+              "asset": {
+                "kind": "P",
+                "series_id": "eta"
+              },
+              "amount": "50000000000000000000000"
+            }
+          ],
+          "taker_gives": [
+            {
+              "asset": {
+                "kind": "COLLATERAL"
+              },
+              "amount": "50164264491796125000000"
+            }
+          ],
+          "fee": {
+            "asset": "NATIVE_NEAR",
+            "amount": "25082132245898062500",
+            "receiver": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe"
+          },
+          "fill_rule": "ALL_OR_NOTHING",
+          "rounding": "EXACT_AMOUNTS",
+          "nonce": "0",
+          "cancellation_epoch": "1",
+          "expiry_ns": "1794366616877935790",
+          "signing_key_id": "demo-key",
+          "signature_scheme": "ed25519",
+          "signature": "2bc5a7ff22973af409f167134b79f3feb7cdd9b065d5a171dad4f29601bae9c6f96bf66c257e4a2e4a15d6f825b867859ca0119600ef11e320eb4acd8bd7420f"
+        },
+        "reason": null,
+        "diagnostics": {
+          "equity_atomic": "4000000000000000000000000",
+          "notional_atomic": "50164264491796125000000",
+          "reference_timestamp_ns": "1794366525933441770",
+          "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+          "model": "EUROPEAN_ZERO_CARRY_REALIZED_VOL_V1",
+          "snapshot_hash": "b20a40d2e6beedb064d38d1f3c5238db6eb902f0b59d3358c4c6ada58bb417af",
+          "sigma": 1.0549112246407164,
+          "history_end_ns": "1794366000000000000"
+        }
+      }
+    ]
+  }
+}

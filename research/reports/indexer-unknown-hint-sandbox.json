@@ -1,0 +1,33 @@
+{
+  "scope": "Actual transfer-only funding, implicit service accounts, native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment",
+  "checks": [
+    "wallet request contains exactly one transfer and no key permission",
+    "single transfer creates implicit account with the locally generated key",
+    "48 NEAR setup funds and deploys both native contracts without synthetic publishers",
+    "setup restart recovers existing receipts and preserves immutable terms",
+    "011a7e3b9e6e965bf09a78b94e98bf684d1755062c480778ded1c9077762c7b2 has separately backed P/N inventory and free collateral",
+    "5e6500f47a653b0e35bc6ba896865c8ffc4121cb0575aa5fefc0f20006a54187 has separately backed P/N inventory and free collateral",
+    "vault remains disabled",
+    "fresh series preserves old immutable terms and recombines only intact pairs",
+    "restart preserves the active fresh series without reminting or reverting terms",
+    "native deployment indexer reconciles actual setup receipts",
+    "journal hashes discover real complete receipts and reproduce full-scan balances",
+    "journal discovery restarts without duplicate events or receipt replay",
+    "missing real journal transaction cannot enable risk",
+    "migration replays actual source checkpoint and keeps risk disabled until fresh sync"
+  ],
+  "sources": {
+    "services/testnet/native.mjs": "d63278bb90485c7ee99d4d30bdb19a8aa638d0cbcf2ec5f42795b5192c6abc9d",
+    "services/testnet/transactions.mjs": "7ce6783bdca62fa494bff610bac48d96e75b2898db7a068d14056b9ccbc65421",
+    "services/testnet/funding.mjs": "c8b817ab238ff53569ecb735e6fa4f615cdf9eb370d422438d89ec3922dd5584",
+    "services/indexer/ancestry.mjs": "190f77add6e1889102d1afcde49b25888e5ead763f3e40a8632153e7e5353173",
+    "services/indexer/discovery.mjs": "53538f96c04638641a811560cd6cedacada51f4ca59953721570f17276ad9b1d",
+    "services/indexer/migrate-discovery.mjs": "be08d04cf9a049af3debe4ce05615b658ce65833b71aaf43b5b879750d41ebc6",
+    "services/indexer/neardata.mjs": "49e2d53ab6456e22d4d94fb6b6ce21864edb5ecf1ca700ce140885da6739c74d",
+    "services/indexer/store.mjs": "b301bac64f897454e503b2056db1b746d26a96fb66ea66864d434c0e9c0cab84",
+    "services/indexer/indexer.mjs": "ef407b96819253ffc883003e4bded3b8f81f5e567074e62fd94c968bb0f8ea66",
+    "services/indexer/rpc.mjs": "bfd2fc51f550c8b4141a0adf153f74c50461e6fe3c9ef82cb13da6a9a4706581",
+    "tests/sandbox/transfer-setup.mjs": "a97b9e1586672e3b1d6a6553b31a61dd8478ed0b11f2d8c90c9250aaf3023b74"
+  },
+  "passed": false
+}

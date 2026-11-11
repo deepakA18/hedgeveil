@@ -1,0 +1,625 @@
+{
+  "version": 1,
+  "scope": "Read-only Outlayer NEAR/USD feasibility; no paid calls or contract integration",
+  "source_commit": "888ae663803209e5689892d671657331852428f8",
+  "networks": {
+    "testnet": {
+      "network": "testnet",
+      "rpc_url": "https://rpc.testnet.near.org/",
+      "contract_id": "price-oracle.testnet",
+      "observed_at": "2026-11-09T18:36:28.830Z",
+      "scope": "READ_ONLY; no transactions; no settlement authorization",
+      "responses": {
+        "status": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "chain_id": "testnet",
+              "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+              "latest_protocol_version": 88,
+              "node_key": null,
+              "node_public_key": "ed25519:GTdUhFKmrPAFSmRPh3xp5JoLA7HMdebAdxqNNddM6ehS",
+              "protocol_version": 88,
+              "rpc_addr": "0.0.0.0:3030",
+              "sync_info": {
+                "earliest_block_hash": "GrigHVKCkzXW5QTwaHNscZYgbgfMK1nfmR7MCmL4m2dj",
+                "earliest_block_height": 276781255,
+                "earliest_block_time": "2026-11-08T13:22:12.798182903Z",
+                "epoch_id": "3nNEDHq663kf6kisbTesdmZJiSvRPDRGd6hHrFjjCnHG",
+                "epoch_start_height": 276954055,
+                "latest_block_hash": "8C1nfBerwLVK5CoB5hy4GQ9HNxebVPzKxe3XqVJ1CUZV",
+                "latest_block_height": 276957728,
+                "latest_block_time": "2026-11-09T18:36:31.486329028Z",
+                "latest_state_root": "J6Ej4JJAFign59yM4qeHfhePYZU1PChp4SFAE2dWgy6f",
+                "syncing": false
+              },
+              "uptime_sec": 1539968,
+              "validator_account_id": null,
+              "validator_public_key": null,
+              "validators": [
+                {
+                  "account_id": "node0"
+                },
+                {
+                  "account_id": "node1"
+                },
+                {
+                  "account_id": "kiln.pool.f863973.m0"
+                },
+                {
+                  "account_id": "node2"
+                },
+                {
+                  "account_id": "node3"
+                },
+                {
+                  "account_id": "aurora.pool.f863973.m0"
+                },
+                {
+                  "account_id": "01node.pool.f863973.m0"
+                },
+                {
+                  "account_id": "stakely_v2.pool.f863973.m0"
+                },
+                {
+                  "account_id": "legends.pool.f863973.m0"
+                },
+                {
+                  "account_id": "ni.pool.f863973.m0"
+                },
+                {
+                  "account_id": "ts.pool.f863973.m0"
+                },
+                {
+                  "account_id": "lunanova2.pool.f863973.m0"
+                },
+                {
+                  "account_id": "validator4.testnet"
+                },
+                {
+                  "account_id": "validator5.testnet"
+                },
+                {
+                  "account_id": "validator6.testnet"
+                },
+                {
+                  "account_id": "validator7.testnet"
+                },
+                {
+                  "account_id": "validator8.testnet"
+                },
+                {
+                  "account_id": "validator9.testnet"
+                },
+                {
+                  "account_id": "validator10.testnet"
+                },
+                {
+                  "account_id": "validator11.testnet"
+                }
+              ],
+              "version": {
+                "build": "2.14.0-rc.5",
+                "commit": "b7b4737cab46f17a6daa2ed694d7aebbd204363a",
+                "rustc_version": "1.95.0",
+                "version": "2.14.0-rc.5"
+              }
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "account": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "amount": "10206788444583444400000031",
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV",
+              "locked": "0",
+              "storage_paid_at": 0,
+              "storage_usage": 343273
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_price_data": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "logs": [],
+              "result": [
+                123,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                57,
+                52,
+                50,
+                52,
+                57,
+                51,
+                57,
+                51,
+                57,
+                50,
+                54,
+                55,
+                50,
+                57,
+                50,
+                50,
+                51,
+                34,
+                44,
+                34,
+                114,
+                101,
+                99,
+                101,
+                110,
+                99,
+                121,
+                95,
+                100,
+                117,
+                114,
+                97,
+                116,
+                105,
+                111,
+                110,
+                95,
+                115,
+                101,
+                99,
+                34,
+                58,
+                51,
+                48,
+                48,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                115,
+                34,
+                58,
+                91,
+                123,
+                34,
+                97,
+                115,
+                115,
+                101,
+                116,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                119,
+                114,
+                97,
+                112,
+                46,
+                110,
+                101,
+                97,
+                114,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                123,
+                34,
+                109,
+                117,
+                108,
+                116,
+                105,
+                112,
+                108,
+                105,
+                101,
+                114,
+                34,
+                58,
+                34,
+                51,
+                53,
+                57,
+                53,
+                50,
+                54,
+                54,
+                54,
+                54,
+                34,
+                44,
+                34,
+                100,
+                101,
+                99,
+                105,
+                109,
+                97,
+                108,
+                115,
+                34,
+                58,
+                56,
+                125,
+                125,
+                93,
+                125
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_asset": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "logs": [],
+              "result": [
+                123,
+                34,
+                114,
+                101,
+                112,
+                111,
+                114,
+                116,
+                115,
+                34,
+                58,
+                91,
+                123,
+                34,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                95,
+                105,
+                100,
+                34,
+                58,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                45,
+                111,
+                114,
+                97,
+                99,
+                108,
+                101,
+                46,
+                116,
+                101,
+                115,
+                116,
+                110,
+                101,
+                116,
+                34,
+                44,
+                34,
+                116,
+                105,
+                109,
+                101,
+                115,
+                116,
+                97,
+                109,
+                112,
+                34,
+                58,
+                34,
+                49,
+                55,
+                57,
+                52,
+                50,
+                52,
+                57,
+                50,
+                54,
+                48,
+                49,
+                55,
+                50,
+                50,
+                51,
+                55,
+                50,
+                50,
+                55,
+                34,
+                44,
+                34,
+                112,
+                114,
+                105,
+                99,
+                101,
+                34,
+                58,
+                123,
+                34,
+                109,
+                117,
+                108,
+                116,
+                105,
+                112,
+                108,
+                105,
+                101,
+                114,
+                34,
+                58,
+                34,
+                51,
+                53,
+                57,
+                53,
+                50,
+                54,
+                54,
+                54,
+                54,
+                34,
+                44,
+                34,
+                100,
+                101,
+                99,
+                105,
+                109,
+                97,
+                108,
+                115,
+                34,
+                58,
+                56,
+                125,
+                125,
+                93,
+                44,
+                34,
+                101,
+                109,
+                97,
+                115,
+                34,
+                58,
+                91,
+                93,
+                125
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_price": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "error": "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+              "logs": []
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_owner_id": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "logs": [],
+              "result": [
+                34,
+                122,
+                97,
+                118,
+                111,
+                100,
+                105,
+                108,
+                50,
+                46,
+                116,
+                101,
+                115,
+                116,
+                110,
+                101,
+                116,
+                34
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_oracles": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "logs": [],
+              "result": [
+                91,
+                93
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_subsidize_outlayer_calls": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "logs": [],
+              "result": [
+                102,
+                97,
+                108,
+                115,
+                101
+              ]
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_council_members": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "error": "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+              "logs": []
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        },
+        "get_council_threshold": {
+          "http_status": 200,
+          "raw": {
+            "jsonrpc": "2.0",
+            "result": {
+              "block_hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+              "block_height": 276957732,
+              "error": "wasm execution failed with error: MethodResolveError(MethodNotFound)",
+              "logs": []
+            },
+            "id": "hedgeveil-outlayer-readonly"
+          }
+        }
+      },
+      "views": {
+        "get_price_data": {
+          "value": {
+            "timestamp": "1794249393926729223",
+            "recency_duration_sec": 300,
+            "prices": [
+              {
+                "asset_id": "wrap.near",
+                "price": {
+                  "multiplier": "359526666",
+                  "decimals": 8
+                }
+              }
+            ]
+          }
+        },
+        "get_asset": {
+          "value": {
+            "reports": [
+              {
+                "oracle_id": "price-oracle.testnet",
+                "timestamp": "1794249260172237227",
+                "price": {
+                  "multiplier": "359526666",
+                  "decimals": 8
+                }
+              }
+            ],
+            "emas": []
+          }
+        },
+        "get_price": {
+          "error": "ORACLE_VIEW_ERROR"
+        },
+        "get_owner_id": {
+          "value": "zavodil2.testnet"
+        },
+        "get_oracles": {
+          "value": []
+        },
+        "get_subsidize_outlayer_calls": {
+          "value": false
+        },
+        "get_council_members": {
+          "error": "ORACLE_VIEW_ERROR"
+        },
+        "get_council_threshold": {
+          "error": "ORACLE_VIEW_ERROR"
+        }
+      },
+      "block": {
+        "hash": "J7FN3ck39odu2ZFhdUsKf2zzvPpyaxt5E33Ubepx4U4Z",
+        "height": 276957732,
+        "timestamp_ns": "1794249393926729223"
+      },
+      "identity": {
+        "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+        "code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV",
+        "pin_status": "MATCHED"
+      },
+      "assessment": {
+        "asset_id": "wrap.near",
+        "price_scale": "1000000000000",
+        "settlement_eligible": false,
+        "settlement_blocker": "HISTORICAL_OBSERVATION_PROOF_REQUIRED",
+        "state": "STALE_REPORTS",
+        "price": null
+      }
+    }
+  },
+  "sources": {
+    "services/outlayer/reader.mjs": "c07acf8e7de5646b4d5eeab16d7028ebc5141afb0579e047d01de8d1271e9873",
+    "services/outlayer/probe.mjs": "d8ac1a9b781e420e42de98c715a32d16fdff706e29de59c2a51637c94643f9f6"
+  }
+}

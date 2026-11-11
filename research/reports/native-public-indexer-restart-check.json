@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-11-10T05:07:33.195Z",
+  "scope": "Actual stopped-process restart, verified-dead ownership-lock cleanup and preserved database; no on-chain operation resubmitted",
+  "before": "J6uo3Lv8QVT6k5ZCCrQrFrpAMVKNwpAxmb2YQ3JBzWTo",
+  "after": "FrGferht2LjoTjdVWTn3ys7ZivJZ2WsMSMovx7XyqjgD",
+  "counts": {
+    "blocks": "8590",
+    "transactions": "20",
+    "outcomes": "68",
+    "events": "15"
+  },
+  "receipt_hashes_unchanged": true,
+  "event_history_unchanged": true,
+  "balances_unchanged": true,
+  "resolver_commitment_unchanged": true,
+  "fresh_reconciled_after_restart": true,
+  "independent_review": "pending",
+  "passed": true
+}

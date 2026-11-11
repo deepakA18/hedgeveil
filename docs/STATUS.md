@@ -1,6 +1,54 @@
 # Implementation status
 
-Reconciled 9 November 2026 against the Open Innovation revision of
+FASTNEAR full-block discovery is implemented as an optional addition to the
+canonical receipt indexer: durable cursor and hints, routed-call discovery,
+atomic restart, free-tier pacing and persisted cooldown, plus discovery health.
+The live shadow run saved actual blocks but encountered HTTP 429; continuous
+coverage is not accepted. Additive mode preserves the original reconciliation
+gates and reports feed lag separately. The application still owns its database
+and API. [Configuration and checks](../services/indexer/README.md#fastnear-full-block-discovery).
+The additive worker is now enabled at port 8794. Actual feed parity passed for
+71 historical blocks / 72 watched receipts. Post-restart same-block reconciliation
+preserved 73 transactions / 313 outcomes / 66 events.
+[Evidence and operational limits](../research/reports/INF02_NEARDATA.md).
+
+New-series expiry-price policy: Deribit-style inverse-call payoff and a 30-minute
+pre-expiry NEAR/USD TWAP selected on 11 November. A fixed Coinbase trade-history
+worker and separate resolver are implemented; new-profile public acceptance is pending.
+[Derive / Deribit / Panoptic / Paradex comparison](../research/reports/EXPIRY_SETTLEMENT_COMPARISON.md)
+records the research. Existing deployed series keep their rules.
+[ORC-04 evidence](../research/reports/ORC04_HISTORICAL_WORKER.md) now contains two
+real Outlayer worker executions, exact Rust/Python historical replay, a pinned
+callback resolver, generated isolated schema and compiled-Wasm lifecycle tests.
+Matching TWAP maker valuation, indexer/collector/UI integration, callback-limit
+availability and the new profile's public lifecycle remain open. The existing
+terminal model explicitly refuses unresolved new-profile series. Independent
+review and release approval remain pending.
+
+Current hosted-indexer assessment: [SubQuery / OnFinality](HOSTED_INDEXER.md).
+The user deployed `hedgeveil-testnet`, but runner initialization fails because
+6.0.2 requests the hard-coded mainnet genesis block on testnet; see
+[diagnosis and support handoff](../research/reports/INF02_HOSTED_STARTUP_FAILURE.md).
+The native-NEAR
+SubQuery package is built, tested against 73 real archived transactions / 66
+events and published to IPFS. Hosted runner operation, same-block parity and
+cutover remain unverified. The live desk still uses the retained custom PostgreSQL
+indexer. See [package instructions](../services/subquery/README.md) and
+[publication record](../research/reports/inf02-subquery-publication.json).
+
+Latest real testnet evidence (11 November): eta collected three verified external
+reports, finalized/imported their exact average, and project accounts redeemed
+both legs and completed a native withdrawal with a SUCCEEDED ticket. Post-flow
+replay reconciles 71 transactions / 63 protocol events. Owner P purchase is
+confirmed; the owner's P redemption and 0.02 test NEAR withdrawal now also pass
+actual receipt/ticket verification, with 73 transactions / 66 events reconciled.
+The post-settlement restart check preserved all receipts, events, positions and
+tickets, with operator removal of a confirmed-dead ownership lock. Owner N
+purchase remains incomplete. Live
+indexer freshness still fails during receipt ingestion; a recovered checkpoint
+does not establish sustained reliability. See [current acceptance](ACCEPTANCE_RUN_2026-11-11.md).
+
+Reconciled 10 November 2026 against the Open Innovation revision of
 [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md). The plan defines the target;
 this file records evidence. Documents and fixtures alone do not complete a gate.
 
@@ -10,7 +58,7 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G1 feasibility — partial | Pinned local Wasm/Sandbox harness, FT/MT resolver experiments, synthetic oracle lifecycle and real payout callback faults | Independent G0 review, complete token conformance/wallet/indexer decision and testnet measurements; production recovery/source limits remain separate |
 | G2 economics — local experiment implemented | Rational/Rust payoff agreement; 9,180 synthetic strategy runs, four policy families, finite makers, 612 benchmark runs, held-out results and failure envelope; G5 adds a local execution sample | No rolling candidate passes frozen training gates; independent review, broader market assumptions and testnet/load execution validation; vault policy unselected |
 | G3 collateral core — local implementation | Bounded public ledger, separate storage/refunds, immutable series/P/N, split/transfer/merge, rounded redemption/dust, scoped pauses, native tickets, canonical events and compiled-Wasm tests | Independent review, broader adversarial/load coverage, production key/recovery controls; local collateral CLI now in G7; complete SDK/browser flows remain |
-| G4 settlement — local demo implementation | Committed synthetic archive/replay, authenticated publishers, bonded proposals/challenges, fallback/arbitration/delay, immutable resolution import and bond-credit custody | Independent review, broader timing/load/interleaving coverage, broader browser evidence/fault coverage and public testnet indexing; production historical sources and economic bond sizing remain G10 |
+| G4 settlement — local demo implementation | Committed synthetic archive/replay, authenticated publishers, bonded proposals/challenges, fallback/arbitration/delay, immutable resolution import and bond-credit custody | Independent review, broader timing/load/interleaving coverage, broader browser evidence/fault coverage and public testnet indexing; authenticated external sampled-price source/adapter required for G9; production economic bond sizing remains G10 |
 | G5 market — local implementation | Registered Ed25519 keys, funded exact fills/pair issuance, durable nonce/epoch cancellation, two separate maker processes, atomic direct rolls and receipt/event reconciliation | Independent review, broader capacity/interleavings, testnet maker funding/measurements; relay/wallet flows remain G7 |
 | G6 vault — local basket and experimental guards | Sandbox-only basket/share mechanics plus optional immutable one-shot roll, authenticated synthetic reference, competing maker execution, fee/loss/notional limits and deferred inflows with exits | Independent review, selected recurring policy/current-source trust, broader interleavings, RFQ-and-mint/cash-only conveniences and testnet deployment |
 | G7 application — SDK wallet boundary and local UI/indexer | Exact SDK/journal/CLI and PostgreSQL replay/reconciliation; six browser views with real funding, RFQs, basket entry/exit, settlement, payout recovery and maker controls; 35 browser checks plus a 14-check wallet-boundary fixture | Connected external-wallet UI and public wallet/testnet conformance, full demo orchestration/crash drills, remaining SDK/strategy UX and browser fault coverage, operator notifications/load/accessibility checks and independent review |
@@ -18,6 +66,72 @@ this file records evidence. Documents and fixtures alone do not complete a gate.
 | G9 hackathon release — local rehearsal verified | 109 fresh-local-clone checks, actual frontend-offline CLI exit, scoped twelve-step map, verified source/Wasm/evidence archive and unsubmitted draft; see [REL-01](../research/reports/rel01-local.md) | Public wallet/testnet lifecycle and records, policy decision, independent review, fresh full rehearsal for the wallet increment, published-candidate reproduction and walkthrough video |
 | G10 capped pilot | Separate, optional; blocked | Independent historical oracle, reviewed unknown-payout recovery, custody/key audit, limits and incident drills |
 | G11 expansion | Out of initial release | Pilot evidence and specification/review for each new trust boundary |
+
+## Real-data release requirement — accepted, implementation pending
+
+The user rejected synthetic data in the public product on 9 November 2026.
+[Readiness inventory](REAL_DATA_READINESS.md) identifies the fixture collector,
+resolver commitments/test arbitrator and originally fixed 50/50 maker marks.
+Their public replacements and acceptance are G7/G9 requirements. Synthetic local tests and simulations
+remain historical/test evidence, not public release acceptance. Market-derived maker pricing now has actual-data Sandbox receipt evidence; an
+isolated native sampled resolver candidate has compiled-Wasm lifecycle evidence.
+The user accepted sampled-price settlement with pause-only authority for testnet
+on 10 November 2026. Public source verification and the testnet lifecycle remain pending.
+The held public setup must not be resumed unchanged.
+
+## Options testnet integration — preparation in progress
+
+User approved dedicated accounts under `0xdeepak18.testnet` and an options-first
+release with the vault disabled. Meteor connection and an actual wallet-signed Outlayer request are confirmed.
+The options protocol wallet lifecycle remains pending. After the source request,
+the observed owner balance was 49.9972773225077191 test NEAR. The former 81-test-NEAR setup budget is on hold, not a current
+funding request. No public deployment has been sent.
+
+[Setup instructions and acceptance limits](TESTNET_SETUP.md) describe the public
+review plan, local wallet funding page, durable administrative receipt journal,
+HTTPS testnet indexer profile and maker/service orchestration. Testnet domain
+replay uses network-specific operation IDs, and a mismatched deployment cannot
+enable wallet funding. Local compiled-Wasm checks are retained separately in
+[g7-testnet-integration-sandbox.json](../research/reports/g7-testnet-integration-sandbox.json).
+The [preparation report](../research/reports/G7_TESTNET_PREPARATION.md) records
+11 passing compiled-Wasm setup/settlement checks and 35 passing browser regressions.
+Neither local tests nor planned accounts establish testnet deployment or sign-off.
+Independent review and full public lifecycle/release acceptance remain pending.
+
+## External oracle feasibility — ORC-03
+
+The [Outlayer report](../research/reports/OUTLAYER_FEASIBILITY.md) records actual
+read-only testnet/mainnet responses, source review and 13 passing safety tests.
+Both initial observed caches lacked a usable NEAR price. A 10 November local-date
+read found an actual but stale testnet report with matching chain/code pins.
+Historical venue-time acceptance remains outstanding; a separately specified
+native sampled adapter now has local evidence below. A later owner-wallet request now has verified public receipts and matching
+callback-block source data; see the refresh/setup increment below. The current and
+newly prepared setup plans block bootstrap/deployment pending budget review;
+existing keys, journals and local synthetic oracle tests are preserved.
+Independent oracle/contracts/security review remains pending.
+
+ORC-03 now also has an [offline signed-intake/archive increment](../research/reports/ORC03_SIGNED_INTAKE.md).
+Exact signatures, strict decoding, freshness, immutable replay and conflict checks
+are implemented. The provider's published example failed two verifiers; valid
+external interoperability remains pending. No paid API was called. The held maker
+runtime now refuses startup before keys/workspace access. Those intake-only checks do not establish settlement acceptance; the separate
+pricing/resolver work is described below.
+
+## Real-data implementation increment
+
+[Implementation evidence](../research/reports/REAL_DATA_IMPLEMENTATION.md) records
+market-derived maker valuation (11 unit groups, seven actual-market Sandbox
+checks) and the native sampled resolver candidate (24 compiled-Wasm checks through
+redemption/withdrawal and PostgreSQL reconciliation/restart). The user accepted its specified on-chain report
+times and pause-only authority for testnet on 10 November. It does not establish
+historical venue timestamps or bonded arbitration. Public source verification,
+refresh acceptance and deployment remain open. The indexer now verifies native resolver sequences/state commitments,
+exposes authority accounts and detects missing samples. The bounded 0.02-test-NEAR source request is now confirmed by actual finalized
+receipts; public protocol lifecycle acceptance remains pending.
+A non-executable 48-test-NEAR budget draft replaces the old 80-NEAR estimate
+under the accepted native profile, subject to source/deployment preflight. The old public synthetic setup remains held; maker requests cannot inject marks
+into the public external-data pricing profile.
 
 ## Retained verification
 
@@ -195,3 +309,375 @@ cases and a real Chromium link/picker/reload test pass (42 Node test results
 including the parent). API/write, Host and Origin guards remain in force;
 independent review stays pending. Earlier wallet evidence retains its original
 source hashes and receipts.
+
+## Sampled-price decision and collector — 10 November 2026
+
+The testnet design decision is accepted; historical venue-time/bonded arbitration
+remain production work. Source acceptance is still separate. The bounded
+collector now checks chain/code pins, immutable terms and actual report freshness,
+retains one refresh and sample attempt per slot, recovers uncertain receipts before
+later work, and uses an exclusive journal lock. A crash leaves the lock for operator
+inspection; it is never removed on a timer. Confirmed source failure or a missed
+slot cannot create synthetic data or authorize another paid attempt.
+
+`services/testnet/sampling.mjs` adds the guarded `sample` command for a newly
+provisioned native deployment; old synthetic deployments and held plans reject
+before loading keys. The older synthetic `settle` command now also enforces the
+deployment hold. Public native deployment preparation/funding and wallet/source
+acceptance remain unfinished. See `research/reports/ORC03_SAMPLER.md` for checks.
+
+## Verified external refresh and native setup — 10 November 2026
+
+Wallet transaction `BMV5wLTUnJHR5bE664AGb15bDypkbaDSH4XWW97mMynn`
+completed the exact 0.02-test-NEAR `request_price_data` call to
+`price-oracle.testnet`. Complete finalized receipts, pinned source code, and
+callback-block `get_asset` agree on `3618966660000` at price scale `10^12`.
+The upstream result reported `from_cache: false`. This confirms a real request
+path and sample; it does not prove continuous availability or the whole lifecycle.
+The provider request allows cached data up to 300 seconds; our freshness checks
+refer to on-chain ingestion, not independent venue time.
+
+A separate native workspace is prepared under `hv-native.0xdeepak18.testnet`.
+The tested allocation is core 30, resolver 8, two makers 4.5 each and admin 1:
+48 test NEAR total, with a one-NEAR owner reserve. The earlier resolver estimate
+of 5 (also 5.1) failed initialization; 8 passed. Maker collateral stays 4 each.
+Seven compiled-Wasm setup checks pass, including restart, inventory, disabled
+vault, PostgreSQL reconciliation and retained admin headroom. The native funding
+review page on port 8793 is browser-checked; funding and deployment remain pending.
+The old synthetic workspace remains held. See [refresh/setup evidence](../research/reports/ORC03_PUBLIC_REFRESH.md).
+
+## Meteor funding block and transfer-only replacement — 10 November 2026
+
+Meteor blocked the original new-account `AddKey` wallet request. The `native`
+workspace is held as `METEOR_ADD_KEY_BLOCKED`; its attempt has no hash and remains
+unresolved. No reset, resend or receipt success was inferred. Read-only public
+state at block `DffnMNLuVbU7WPozHTk7N8wbfrGdGVdbSQZY1XRn5D64` showed the
+original destination absent and owner balance 49.9972773225077191 test NEAR.
+
+The separate `native-transfer` plan requests a single 48-NEAR transfer to a
+locally generated implicit administrator account. Core, resolver and two makers
+are independent implicit accounts, replacing the named subaccount layout.
+Wallet keys are untouched; allocations remain 30/8/4.5/4.5/1. Nine compiled-Wasm
+checks pass, including real single-transfer account creation, deployed contracts,
+restart, inventories and PostgreSQL reconciliation. A named top-level account
+experiment failed the current registrar rule in Sandbox and is not used.
+Evidence: `research/reports/orc03-transfer-setup-sandbox.json`. Public wallet
+acceptance, funding/deployment and lifecycle are still pending. Dependencies:
+APP-01/02, DEM-01, ORC-03 and native setup. Invariant: exact receipts before
+spending, no access key on owner, unresolved attempts never resend. Failure path:
+block deployment and retain journal. Independent security/release review pending.
+
+The transfer review page passes eight read-only Chromium checks at 375/768/1280
+pixels: exact receiver/amount/action, disclosure of the changed account layout,
+connect-before-sign, no script errors and no claimed/broadcast operation during
+preview. Evidence: `research/reports/orc03-transfer-funding-preview.json`.
+All 59 focused funding/receipt/proof/collector/origin checks pass. Schema, payoff
+(565 cases) and RFQ vectors reproduce; Rust workspace/contract tests, formatting
+and Clippy completed successfully. No public funding or deployment is inferred
+from these checks. The replacement page awaits the owner's wallet signature.
+
+## Public funding and deployment — 10 November 2026
+
+Owner-approved transfer `4HZ3pepUhzm7GZGYvfJMyCNXqBCRQH3dokU4EeVJsB7H`
+and all 18 setup operations are confirmed by complete finalized receipts. Core,
+external resolver and both funded makers are deployed; same-block readback checks
+code pins, immutable series, balances and disabled vault. The local runtime is
+on port 8794. Indexer reconciliation is currently failing and blocks trading;
+collector initially reports `WAIT_WINDOW`. No public trader or settlement
+acceptance is inferred. See `research/reports/ORC03_PUBLIC_DEPLOYMENT.md` and
+`research/reports/orc03-public-native-deployment.json` (paths from repo root).
+Dependencies: APP-01/02, INF-01, DEM-01, ORC-03, MKT-03. Invariant: no receipt
+replay, no synthetic fallback, unhealthy indexer blocks risk. Independent
+security/release review remains pending.
+
+Public collection/recovery update: the first actual refresh succeeded, but RPC
+delays prevented a fresh slot-0 sample. `alpha` remains delayed; the collector
+stopped further refresh spending. Both makers consumed their intact P/N pairs
+through normal confirmed merges back to free ledger collateral. This is not
+successful settlement and no series was rewritten. See the public deployment
+report for hashes. The indexer has a separately bound watched-root discovery
+profile and bounded header prefetch, with full receipt/sequence/snapshot checks;
+indirect unselected roots must block reconciliation. Local checks pass; public
+reconciliation and a successful fresh-series wallet lifecycle remain pending.
+
+## Free public testnet RPC selection — 10 November 2026
+
+FASTNEAR is now primary, with NEAR archival as read-only indexer fallback.
+Both passed six small live compatibility checks; dRPC returned HTTP 429 and
+Intear was inconsistent in this sample. No paid account/key was added. Native
+setup/resumption preserves the selected endpoints and pacing. The indexer shares
+a 250 ms request-start budget, respects HTTP 429 Retry-After (60 seconds by
+default), and retains cached immutable history. All chain/deployment, complete
+receipt and state-reconciliation checks still apply; public catch-up/lifecycle
+acceptance remains pending. Evidence: `research/reports/testnet-rpc-provider-check.json`
+and 21 focused indexer tests; all 11 compiled Sandbox setup/restart checks also
+pass. Shared schemas, 565 payoff vectors and RFQ vectors reproduce.
+Dependencies: INF-01, APP-02, ORC-03. Failure path:
+all providers unavailable disables risk, without replaying writes. Independent
+infrastructure/security reviewer pending.
+
+## Native journal discovery and hosted headers — 10 November 2026
+
+Added an explicitly bound `journal-roots` profile: wallet/service journals supply
+only candidate hashes; complete FINAL RPC receipt trees, actual chunk inclusion,
+full finalized ancestry, contiguous event sequences and same-block balances/state
+remain required. The old full-scan schema is preserved. Neardata supplies
+numeric-height header hints; actual testnet anchor/recent headers were verified
+without an API key. RPC still pins final head, chain/genesis and contract state.
+Public catch-up is in progress; this implementation entry is not a healthy-public
+acceptance claim. A missing actual transaction fails closed in compiled tests.
+
+Evidence: `research/reports/INDEXER_SOURCE_DECISION.md`, 27 focused indexer tests,
+14 compiled setup/discovery checks (full-scan equivalence, restart, omission),
+12 wallet boundary and 42 origin/browser checks. Root locked Rust tests, format,
+Clippy, contract locked tests/format and Wasm-target Clippy, reference/schema
+checks and vectors pass. Dependencies: INF-01, APP-02, DEM-01, ORC-03. Failure:
+unrecorded operations, unavailable headers/receipts or state disagreement block
+risk, never reset/replay transactions. Independent infrastructure/security review
+pending. `docs/REAL_DATA_READINESS.md` defines actual remaining public-flow gates.
+
+## Public reconciliation achieved — 10 November 2026
+
+The actual native testnet checkpoint is RECONCILED with risk allowed and both
+contract snapshots matching receipt replay: core sequence 13, resolver sequence
+2, 20 indexed transactions, 68 outcomes and 15 canonical events. The audit export
+rechecks the stored complete FINAL trees and reconstructs balances/resolver state;
+no synthetic data or success was substituted. Evidence:
+`research/reports/native-public-indexer-reconciliation.json`.
+
+Selected profile: `canonical-journal` with canonical receipt-block height/hash
+checks, actual root chunk inclusion, fresh same-block snapshots and unchanged
+lag/stale/sequence/custody gates. It stores sparse canonical checkpoints rather
+than requiring every network header; HTTPS RPC provider trust and journal-only
+discovery coverage are explicit in SPEC. The earlier full-ancestry schemas and
+verified history are retained. The migration reverified existing evidence and
+kept risk disabled until fresh reconciliation. This is operational acceptance
+for the local demo indexer, not independent review or complete public lifecycle.
+
+31 focused indexer cases and 18 compiled setup/discovery/migration checks pass.
+Dependencies: INF-01, APP-02, DEM-01, ORC-03. Outside/missing transactions,
+unavailable receipts or state mismatch still block risk. Independent
+infrastructure/security review remains pending. Real user storage/deposit,
+funded trading, successful fresh-series settlement, redemption and withdrawal
+remain required by `docs/REAL_DATA_READINESS.md`.
+
+
+Public restart acceptance also passed: after stopping the process, inspecting and
+removing only its dead ownership lock, the same database resumed to a fresh
+RECONCILED checkpoint. The same 20 transaction hashes, 68 outcomes, 15 events,
+all ledger balances and resolver commitment were retained; no on-chain operation
+was replayed. Evidence: `research/reports/native-public-indexer-restart.json` and
+`research/reports/native-public-indexer-restart-check.json`. The user has been
+asked to sign separate 0.04096-test-NEAR storage and 0.1-test-NEAR collateral
+transactions at port 8794. Those signatures and the subsequent real lifecycle
+remain pending; no timed beta series was started prematurely.
+
+## Wallet funding and beta setup — 10 November 2026
+
+The owner's 0.04096-test-NEAR storage registration and 0.1-test-NEAR collateral
+funding have exact matching actions, complete successful FINAL receipt trees and
+reconciled balances. Evidence: `research/reports/native-public-wallet-funding.json`.
+A cancelled earlier registration remains preserved and was not resent.
+
+Beta is deployed with four confirmed setup operations: resolver registration,
+clearinghouse creation and two funded maker splits. Strike 3.6278 USD is derived
+from the retained actual Coinbase observation. Its immutable sampling window is
+07:22:34.923–07:31:34.923 UTC, with three 180-second slots. Alpha stays delayed;
+its history and terms were not rewritten. Evidence:
+`research/reports/native-public-beta-setup.json`. Trading, successful sampling,
+finalization, redemption and withdrawal are not implied by setup.
+
+FASTNEAR returned rate-limit errors during setup recovery. Intear is now the
+active free primary for client, collector and indexer, with FASTNEAR as indexer
+fallback. Recovery used existing hashes; attempted operations were not resent.
+Maker epoch cancellations now use durable journals included in indexer discovery;
+unknown attempts block new quotes and survive restart. Public quotes allow 90
+seconds for wallet review, bounded by maturity; source freshness and financial
+invariants remain enforced. The user has been asked to review actual P/N beta
+fills. Dependencies: INF-01, APP-02, MKT-03, ORC-03, REL-01. Missing prices/receipts
+fail closed; independent markets, oracle, infrastructure/security review pending.
+
+## Beta missed-sample failure and quote handling — 10 November 2026
+
+Beta's first actual refresh succeeded (`8qSVgDRpYZGNXpLF4f3jjvXiEb1Sx7xRmQd3PiXPQLNi`),
+but the report aged beyond the 15-second collector preflight allowance before
+sampling. All three samples remained null; beta is delayed, not settled. The
+owner reported `MAKER_UNAVAILABLE` for both quotes. That response was generic;
+the precise transient worker error was not retained and must not be inferred.
+Subsequent direct domain/account/series reads succeeded. No owner trade was
+submitted; the latest actual account view retains 0.1 test NEAR free collateral.
+Both makers normally merged their intact beta pairs. The first merge's initially
+unknown result was recovered by its original hash, never resent. Evidence:
+`native-public-beta-sampling-observation.json`, `native-public-beta-pair-recovery.json`
+in `research/reports/`.
+
+The public quote gateway and fill preview now reject missed samples from
+reconciled resolver state before new authorization. UI copy distinguishes
+missed-sample, expired-series, RPC, timeout and generic maker failures, and displays
+loading while fetching offers. Intact-pair merge preview now matches the contract:
+maturity alone does not disable merging; finalization does. No settlement rules,
+source reports or owner balances were rewritten.
+
+Collector independent identity/head reads and same-block source/resolver/code
+reads are concurrent. The final preflight checks actual report age against the
+latest head, preserving the 15-second bound and on-chain 30-second maximum.
+A public read-only pass took 3,900 ms; this is one observation, not a latency SLA
+or proof of successful public sampling. Nine coordinator unit cases and seven
+compiled-Wasm sampler checks pass. Eight actual-market compiled maker checks,
+including durable cancellation and repeated-shutdown no-send, also pass. The
+negative restart test preserves unknown cancellation and blocks new quotes.
+Four quote-gate cases include an HTTP proof that a missed slot never invokes a
+maker. Origin/browser checks and schema reproducibility pass.
+
+Reports: `orc03-sampler-concurrent-sandbox.json`,
+`mkt03-journal-market-sandbox.json`, `native-public-collector-read-timing.json`.
+The initial maker test directory-permission failure is retained separately in
+`mkt03-journal-private-directory-failure.json`; earlier passing evidence is
+preserved. Dependencies: APP-02, INF-01, MKT-03, ORC-03, REL-01. Failure path:
+missing/old data disables new risk and leaves settlement delayed; unknown writes
+are recovered, never repeated. Independent review remains pending.
+
+## Authenticated refresh handoff — 10 November 2026
+
+Gamma also missed slot 0 after collection errors; its refreshed report was real,
+but no sample was accepted. Both makers normally merged their intact pairs, and
+the owner still had 0.1 test NEAR free. Gamma/alpha/beta terms remain immutable.
+See `research/reports/native-public-gamma-pair-recovery.json`.
+
+The collector now reuses the just-verified complete FINAL refresh receipt tree
+and authenticates source code, asset state and timestamp at its actual callback
+block, using the existing source-proof verifier. Four independent reads run
+concurrently. If the report passes the same 15-second preflight at the latest
+final head, it immediately submits the resolver sample. The resolver still reads
+the external contract itself and enforces its unchanged on-chain freshness,
+slot, callback and pause rules. Unavailable/invalid proof does not authorize a
+sample or another paid refresh; unknown submissions remain quarantined.
+
+A separately bounded actual source refresh proved the handoff: source transaction
+`5D9XSFCxRH4oXE82YSpbA9VH1n3hnoBQVEb7g75JyKFS`, proof reads 354 ms,
+actual report age at final head 1.049107481 seconds. This establishes one actual
+fresh handoff, not option settlement. Evidence:
+`research/reports/native-public-refresh-handoff.json`. Three new evidence-replay/
+coordinator tests reject changed code/report/receipt trees and prevent a duplicate
+sample across restart. HTTP-200 JSON-RPC `-429` responses now trigger a 60-second
+indexer cooldown, with a regression test; earlier handling covered HTTP 429 only.
+
+Delta has four confirmed setup operations with actual market strike 3.6327 USD
+and immutable window 08:02:46.796–08:11:46.796 UTC. Evidence:
+`research/reports/native-public-delta-setup.json`. The fresh public run remains
+pending. Demo creation is bounded to alpha/beta/gamma/delta; other IDs reject.
+The current client/collector primary is free FASTNEAR, rechecked by the successful
+handoff; indexer reads keep Intear primary and FASTNEAR fallback. No paid API key.
+
+A real 0.001-P internal-ledger round trip between the project makers passed with
+complete actual receipts and restored balances; this is not wallet-token standard
+support. Evidence: `research/reports/native-public-claim-transfer.json`.
+Dependencies: APP-02, INF-01, MKT-03, ORC-03, REL-01. Independent review pending.
+
+## Source-cache cause established and fixed — 10 November 2026
+
+Delta accepted its first actual sample (report age at request about 5.53 seconds),
+but its second refresh returned cached data. The response wrapper timestamp was
+`1794297957925314073`; the actual stored report remained
+`1794297785591631204`. Source policy at that block was 300 seconds. The callback
+proof correctly rejected `REFRESH_REPORT`. Evidence:
+`research/reports/native-public-source-cache.json`. The pinned upstream
+`request_price_data` returns cached price data while reports are within recency;
+its wrapper time is not report time. Earlier latency-only diagnosis was incomplete.
+Three fresh reports with this cache cannot reliably fit the old 180-second slots.
+
+The collector now reads and verifies the source's 300-second cache policy and
+uses only stored report time to wait for cache expiry before its one refresh
+attempt per slot. It preserves immediate authenticated callback handoff, the
+15-second preflight and all unchanged on-chain guards. New series use three
+360-second slots (18 minutes). Existing alpha/beta/gamma/delta terms are retained;
+none was rewritten or falsely finalized. Source-policy changes fail closed.
+
+20 focused cache/coordinator/handoff/bounds tests and seven compiled setup/
+restart/reconciliation checks pass. The new regression explicitly verifies a
+cached source does not invoke a refresh, and changing wrapper time cannot make
+it fresh. The initial unit test used a BigInt where the strict API requires a
+canonical string; that test input was corrected. Delta maker pairs were normally
+merged with actual receipts; owner free collateral remains 0.1 test NEAR. See
+`research/reports/native-public-delta-pair-recovery.json`.
+
+The next bounded series is epsilon; its successful public lifecycle remains to
+be verified. Further arbitrary series IDs reject. Dependencies: ORC-03, APP-02,
+INF-01, MKT-03, REL-01. Invariant: cached response is never a new observation;
+missed samples delay settlement, unknown writes never resend. Oracle/security/
+infrastructure/release independent review remains pending.
+
+## Unresolved setup isolation — 11 November 2026
+
+Epsilon registration remains SUBMISSION_UNKNOWN under its original hash
+`56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q`. Its window has elapsed.
+No core registration, maker inventory or successful epsilon lifecycle is claimed.
+The intent and hash remain retained; no resend, refund or replacement of its terms.
+
+INF-01 now distinguishes an explicit matching UNKNOWN_TRANSACTION response from
+every identity-verified provider from outages/mismatches. Such discovery hints
+remain unresolved and are retried; they produce no events or success records.
+Exact same-block sequence, custody and resolver-state reconciliation still gates
+risk. Missing executed transactions must still fail reconciliation. The health
+response lists unresolved hints. This change needs focused and compiled acceptance.
+
+The bounded next independent series is zeta, with fresh immutable terms and
+three 360-second slots. Epsilon remains isolated; this is not its resubmission.
+Existing funded maker inventory is reused only through normal contract operations.
+Dependencies: INF-01, ORC-03, MKT-03, APP-02, REL-01. Invariant: unresolved attempts
+never fabricate balance changes; failed reconciliation blocks risk. Evidence and
+public lifecycle results will be recorded as observed. Independent review pending.
+
+Validation: 24 focused transport/discovery/setup-bound tests passed. The compiled
+Sandbox regression then passed 19 checks, including exact full-scan agreement,
+unknown-hint retention, restart, and rejection of an omitted real financial
+operation. Evidence: `research/reports/indexer-unknown-hint-none-sandbox.json`.
+The first regression exposed that waiting for FINAL on an absent hash can time
+out instead of returning UNKNOWN_TRANSACTION; discovery now requests NONE and
+still requires returned receipt trees to be FINAL. The first failed report remains
+retained separately. Current public source code matches its pin; owner free
+collateral is 0.1 test NEAR and each maker has 4 test NEAR free before zeta setup.
+No owner trade, settlement or withdrawal completion is inferred.
+
+The retained broadcast classes for epsilon and zeta are `NotEnoughBalanceError`,
+not evidence of execution. Both remain unresolved under their original hashes.
+Current administrator balance was 0.3401062703031869 test NEAR. A bounded actual
+transfer of 2 test NEAR from resolver operating surplus to the administrator
+confirmed as `HaiPagpGeBtZo1Nsm4GxevjKD3CRovuU73EnUKUv2ChB`; the resolver retains
+over 6 NEAR and core/user/maker collateral was untouched. Evidence:
+`research/reports/native-operating-rebalance.json`. No additional owner funding
+was requested. Setup now requires at least 0.5 test NEAR administrator operating
+balance before fresh series materialization. Eta is the next bounded independent
+series; zeta and epsilon are not resent or reset. The service runtime was restarted
+with the tested unknown-hint isolation and cache-aware collector. Actual public
+reconciliation and eta acceptance are still to be recorded.
+
+## Live eta and maker clock alignment — 11 November 2026
+
+Eta's four setup operations now have complete confirmed receipts in
+`research/reports/native-public-eta-setup.json`. Window: 03:13:04.230–03:31:04.230
+UTC, then 60 seconds review. The public indexer recovered with unresolved epsilon
+and zeta hints retained; `native-public-unknown-isolation.json` independently
+replays 49 actual transactions / 193 outcomes / 39 events at that checkpoint.
+
+The first eta quote probe returned MARKET_DATA_UNAVAILABLE. Direct reproduction
+identified MODEL_SOURCE: a fresh exchange tick can precede its inclusion in
+finalized chain time. The maker now retains that observed tick and makes bounded
+finalized-head reads until chain time catches up; otherwise no quote. Consumption
+clock validation also accepts ticks arriving during transport without widening
+the 60-second age limit or allowing future completion-time data. 18 pricing/expiry
+checks pass. Actual public fill and sampled settlement remain pending. Dependencies:
+MKT-03, APP-02, INF-01, ORC-03. Independent markets/security review remains pending.
+
+The market-clock fix passed eight actual-market compiled Sandbox checks, including
+P/N purchases, P sale and durable cancellation; evidence:
+`research/reports/mkt03-clock-alignment-sandbox.json`. Both public eta makers now
+returned actual funded signed offers with Coinbase snapshot provenance, recorded
+in `research/reports/native-public-eta-clock-quote.json`. No owner fill is inferred
+from a quote. Owner purchase signatures were requested through the live desk.
+Root rational/vector tests, locked workspace tests, format/Clippy and 14 schema
+checks pass. The HTTP quote-gate regression passes with loopback permissions;
+its first sandboxed invocation hit a Node native assertion, not a passing test.
+Active series now sort before historical delayed series in the UI.
+
+The current live run and remaining acceptance gates are maintained in [11 November acceptance](ACCEPTANCE_RUN_2026-11-11.md). Hosting is deferred by user direction until backend/end-to-end acceptance finishes.

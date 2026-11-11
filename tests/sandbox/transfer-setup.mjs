@@ -1,0 +1,63 @@
+import {parseArgs} from 'node:util';
+const {values:reportOptions}=parseArgs({options:{report:{type:'string',default:'research/reports/indexer-unknown-hint-none-sandbox.json'}}});
+import assert from 'node:assert/strict';import {readFile,writeFile,mkdtemp,mkdir} from 'node:fs/promises';import {createHash,generateKeyPairSync} from 'node:crypto';
+import {Sandbox,GenesisAccount} from 'near-sandbox';import {Account,JsonRpcProvider,KeyPair,actions} from 'near-api-js';
+import {implicitAccount,transferFunding,walletFundingActions} from '../../services/testnet/funding.mjs';
+import {migrateDiscovery} from '../../services/indexer/migrate-discovery.mjs';
+import {journalCandidates} from '../../services/indexer/discovery.mjs';
+import {deployNative} from '../../services/testnet/native.mjs';import {AdminTransactions} from '../../services/testnet/transactions.mjs';import {durableWrite} from '../../services/demo/storage.mjs';import {base58} from '../../packages/sdk/rpc.mjs';import {ACCEPTED_POLICY} from '../../services/outlayer/sampler.mjs';import {Indexer} from '../../services/indexer/indexer.mjs';import {startPostgres} from '../indexer/postgres.mjs';
+const Q=10n**24n,GAS=250n*10n**12n,report={scope:'Actual transfer-only funding, implicit service accounts, native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment',checks:[],sources:{},passed:false};let sandbox,indexer,pg;
+const check=(name,v)=>{assert(v,name);report.checks.push(name);console.log('PASS',name);};
+try{
+ sandbox=await Sandbox.start({version:'2.14.0'});const rpc=new JsonRpcProvider({url:sandbox.rpcUrl},{retries:1}),g=GenesisAccount.createDefault(),owner=new Account(g.accountId,rpc,g.privateKey),status=await rpc.sendJsonRpc('status',{}),dir=await mkdtemp('target/native-setup-');
+ const k=KeyPair.fromRandom('ed25519'),sourceId='source.'+g.accountId;await owner.createAccount({newAccountId:sourceId,publicKey:k.getPublicKey(),nearToTransfer:5n*Q});const sourceAccount=new Account(sourceId,rpc,k.toString()),code=await readFile('target/external-oracle-artifacts/external_source_fixture.wasm');await sourceAccount.signAndSendTransaction({receiverId:sourceId,actions:[actions.deployContract(code),actions.functionCall('new',{owner:g.accountId},GAS,0n)],waitUntil:'FINAL'});
+ const bootstrapKey=KeyPair.fromRandom('ed25519'),bootstrapId=implicitAccount(bootstrapKey.getPublicKey().toString()),root=bootstrapId,keys={[g.accountId]:g.privateKey,[bootstrapId]:bootstrapKey.toString()},accounts=[];
+ for(const [role,n]of [['administrator',48n],['core',30n],['oracle',8n],['maker',45n],['maker',45n]]){const k=role==='administrator'?bootstrapKey:KeyPair.fromRandom('ed25519'),id=implicitAccount(k.getPublicKey().toString());keys[id]=k.toString();const a={role,id,initial_balance:String(role==='maker'?n*Q/10n:n*Q),public_key:k.getPublicKey().toString()};if(role==='maker')a.rfq_public_key=generateKeyPairSync('ed25519').publicKey.export({format:'der',type:'spki'}).subarray(-32).toString('hex');accounts.push(a);}
+ const artifacts={};for(const [kind,path]of [['core','target/core-artifacts/clearinghouse.wasm'],['external_oracle','target/external-oracle-artifacts/external_settlement.wasm']]){const b=await readFile(path);artifacts[kind]={path,sha256:createHash('sha256').update(b).digest('hex'),code_hash:base58(createHash('sha256').update(b).digest())};}
+ const plan={version:1,kind:'hedgeveil-native-testnet',network:'sandbox',owner:g.accountId,root_id:root,genesis_hash:status.genesis_hash,rpc_url:sandbox.rpcUrl,source:{account_id:sourceId,reporter:sourceId,code_hash:base58(createHash('sha256').update(code).digest())},oracle_version:'native-sampled-v1',policy_acceptance:ACCEPTED_POLICY,accounts,artifacts,funding_amount:String(48n*Q),owner_minimum:String(49n*Q),funding:{mode:'implicit-transfer-v1',receiver_id:bootstrapId,public_key:bootstrapKey.getPublicKey().toString()},oracle_label:'SANDBOX SOURCE FIXTURE',vault_enabled:false};
+ await durableWrite(dir+'/signers.json',{keys});const admin=new AdminTransactions({provider:rpc,journal:dir+'/admin-journal',identity:{kind:'native-setup-test',genesis_hash:status.genesis_hash},verify:async()=>{assert.equal((await rpc.sendJsonRpc('status',{})).genesis_hash,status.genesis_hash);}});
+ const funding=transferFunding(plan),fund=await admin.prepare(funding.label,g.accountId,funding.receiver_id,funding.actions);
+ check('wallet request contains exactly one transfer and no key permission',JSON.stringify(walletFundingActions(fund))===JSON.stringify([{type:'Transfer',params:{deposit:String(48n*Q)}}]));await admin.send(fund,g.privateKey);
+ const access=await rpc.sendJsonRpc('query',{request_type:'view_access_key_list',account_id:bootstrapId,finality:'final'});check('single transfer creates implicit account with the locally generated key',access.keys.length===1&&access.keys[0].public_key===plan.funding.public_key);
+ const options={admin,publish:async()=>{},market:{snapshot:async()=>({spot:'3500000000000',source:'EXPLICIT_SANDBOX_FIXTURE'})}};
+ const d=await deployNative({directory:dir,plan},options);check('48 NEAR setup funds and deploys both native contracts without synthetic publishers',d.indexer.contracts.some(x=>x.kind==='external_oracle')&&accounts.length===5);
+ const again=await deployNative({directory:dir,plan},options);check('setup restart recovers existing receipts and preserves immutable terms',JSON.stringify(again.series)===JSON.stringify(d.series));
+ const view=(id,method,args={})=>rpc.callFunction({contractId:id,method,args,blockQuery:{finality:'final'}});
+ for(const a of accounts.filter(a=>a.role==='maker')){const b=await view(d.client.contract_id,'get_account',{account_id:a.id});check(a.id+' has separately backed P/N inventory and free collateral',b.free===String(2n*Q)&&b.positions[0].p===String(2n*Q)&&b.positions[0].n===String(2n*Q));}
+ check('vault remains disabled',(await view(d.client.contract_id,'get_vault'))===null);
+ for(const a of accounts.filter(a=>a.role==='maker'))await admin.send(await admin.prepare('merge-test-alpha-'+a.id,a.id,d.client.contract_id,[{type:'FunctionCall',method:'merge',args:{series_id:'alpha',amount:String(2n*Q)},gas:String(GAS),deposit:'1'}]),keys[a.id]);
+ const beta=await deployNative({directory:dir,plan},{...options,seriesId:'beta'});
+ const original=await view(d.client.contract_id,'get_series',{series_id:'alpha'});
+ check('fresh series preserves old immutable terms and recombines only intact pairs',JSON.stringify(original.config)===JSON.stringify(d.series)&&original.outstanding_p==='0'&&original.outstanding_n==='0'&&beta.series.series_id==='beta');
+ const resumed=await deployNative({directory:dir,plan},options);check('restart preserves the active fresh series without reminting or reverting terms',JSON.stringify(resumed.series)===JSON.stringify(beta.series));
+ pg=await startPostgres();indexer=new Indexer({...beta.indexer,postgres:pg.config,stale_after_ms:300000});await indexer.init();const result=await indexer.sync();check('native deployment indexer reconciles actual setup receipts',result.health.risk_allowed&&result.reconciliations.every(r=>r.matched));
+ await indexer.close();
+ const journalConfig={...beta.indexer,transaction_filter:'journal-roots',schema:'hv_journal_discovery',postgres:pg.config,stale_after_ms:300000};
+ const discover=journalCandidates([dir+'/admin-journal']);
+ indexer=new Indexer(journalConfig,{discover});await indexer.init();
+ const journalResult=await indexer.sync();check('journal hashes discover real complete receipts and reproduce full-scan balances',journalResult.health.risk_allowed&&JSON.stringify(journalResult.reconciliations)===JSON.stringify(result.reconciliations));
+ await indexer.close();indexer=new Indexer(journalConfig,{discover});await indexer.init();const restarted=await indexer.sync();check('journal discovery restarts without duplicate events or receipt replay',restarted.event_count===journalResult.event_count&&restarted.health.risk_allowed);
+ await indexer.close();
+ const candidates=await discover();
+ const omitted=(await admin.journal.get((await admin.prepare('inventory-beta-'+accounts.find(a=>a.role==='maker').id,accounts.find(a=>a.role==='maker').id,d.client.contract_id,[{type:'FunctionCall',method:'split',args:{series_id:'beta',amount:String(2n*Q)},gas:String(GAS),deposit:'1'}])).operation_id)).hash;
+ indexer=new Indexer({...journalConfig,schema:'hv_journal_missing'},{discover:async()=>candidates.filter(c=>c.hash!==omitted)});await indexer.init();
+ await assert.rejects(indexer.sync(),/EVENT_SEQUENCE_GAP|CUSTODY_MISMATCH/);check('missing real journal transaction cannot enable risk',(await indexer.store.read('health')).health.risk_allowed===false);
+ await indexer.close();
+ const canonicalConfig={...journalConfig,transaction_filter:'canonical-journal',schema:'hv_canonical_receipts'};
+ const unknownHint={hash:base58(Buffer.alloc(32,219)),signer_id:root};
+ const withUnknown=async()=>[...await discover(),unknownHint];
+ indexer=new Indexer(canonicalConfig,{discover:withUnknown});await indexer.init();
+ const migration=await migrateDiscovery(indexer.store,beta.indexer.schema);check('migration replays actual source checkpoint and keeps risk disabled until fresh sync',migration.events>0&&(await indexer.store.read('health')).health.risk_allowed===false);
+ await assert.rejects(migrateDiscovery(indexer.store,beta.indexer.schema),/MIGRATION_DESTINATION_NOT_EMPTY/);
+ const canonicalResult=await indexer.sync();
+ check('unknown hint is retained without fabricated success',canonicalResult.health.unresolved_transactions.length===1&&canonicalResult.health.unresolved_transactions[0].hash===unknownHint.hash);
+ check('canonical receipt checkpoints reproduce full-scan balances using actual final blocks',canonicalResult.health.risk_allowed&&JSON.stringify(canonicalResult.reconciliations)===JSON.stringify(result.reconciliations));
+ await indexer.close();indexer=new Indexer(canonicalConfig,{discover:withUnknown});await indexer.init();const canonicalRestart=await indexer.sync();
+ check('canonical checkpoints retain exact event counts across restart',canonicalRestart.health.risk_allowed&&canonicalRestart.event_count===canonicalResult.event_count);
+ await indexer.close();indexer=new Indexer({...canonicalConfig,schema:'hv_canonical_missing'},{discover:async()=>candidates.filter(c=>c.hash!==omitted)});await indexer.init();
+ await assert.rejects(indexer.sync(),/EVENT_SEQUENCE_GAP|CUSTODY_MISMATCH/);check('canonical checkpoints reject an omitted real financial operation',(await indexer.store.read('health')).health.risk_allowed===false);
+ report.canonical_reconciliation=canonicalResult;
+ report.journal_reconciliation=journalResult;
+ report.root_balance=(await rpc.sendJsonRpc('query',{request_type:'view_account',account_id:root,finality:'final'})).amount;check('administrator retains refresh/gas budget after setup',BigInt(report.root_balance)>Q/2n);
+ report.deployment=beta;report.reconciliation=result;report.passed=true;
+}finally{await indexer?.close();await pg?.runtime.stop();await sandbox?.tearDown();for(const f of ['services/testnet/native.mjs','services/testnet/transactions.mjs','services/testnet/funding.mjs','services/indexer/ancestry.mjs','services/indexer/discovery.mjs','services/indexer/migrate-discovery.mjs','services/indexer/neardata.mjs','services/indexer/store.mjs','services/indexer/indexer.mjs','services/indexer/rpc.mjs','tests/sandbox/transfer-setup.mjs'])report.sources[f]=createHash('sha256').update(await readFile(f)).digest('hex');await writeFile(reportOptions.report,JSON.stringify(report,null,2)+'\n');}

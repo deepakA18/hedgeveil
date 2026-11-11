@@ -1,0 +1,255 @@
+{
+  "scope": "Actual transfer-only funding, implicit service accounts, native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment",
+  "checks": [
+    "wallet request contains exactly one transfer and no key permission",
+    "single transfer creates implicit account with the locally generated key",
+    "48 NEAR setup funds and deploys both native contracts without synthetic publishers",
+    "setup restart recovers existing receipts and preserves immutable terms",
+    "51eb88162253dfb40343439a562493bdefdcb8b43095e694f80a2736463188fa has separately backed P/N inventory and free collateral",
+    "8df4108a6bbd818ba80066f945b72e446abf63030b88956eadbd8b3b2676dca7 has separately backed P/N inventory and free collateral",
+    "vault remains disabled",
+    "fresh series preserves old immutable terms and recombines only intact pairs",
+    "restart preserves the active fresh series without reminting or reverting terms",
+    "native deployment indexer reconciles actual setup receipts",
+    "journal hashes discover real complete receipts and reproduce full-scan balances",
+    "journal discovery restarts without duplicate events or receipt replay",
+    "missing real journal transaction cannot enable risk",
+    "migration replays actual source checkpoint and keeps risk disabled until fresh sync",
+    "unknown hint is retained without fabricated success",
+    "canonical receipt checkpoints reproduce full-scan balances using actual final blocks",
+    "canonical checkpoints retain exact event counts across restart",
+    "canonical checkpoints reject an omitted real financial operation",
+    "administrator retains refresh/gas budget after setup"
+  ],
+  "sources": {
+    "services/testnet/native.mjs": "d63278bb90485c7ee99d4d30bdb19a8aa638d0cbcf2ec5f42795b5192c6abc9d",
+    "services/testnet/transactions.mjs": "7ce6783bdca62fa494bff610bac48d96e75b2898db7a068d14056b9ccbc65421",
+    "services/testnet/funding.mjs": "c8b817ab238ff53569ecb735e6fa4f615cdf9eb370d422438d89ec3922dd5584",
+    "services/indexer/ancestry.mjs": "190f77add6e1889102d1afcde49b25888e5ead763f3e40a8632153e7e5353173",
+    "services/indexer/discovery.mjs": "29671272e0259cc31d2e644ce2a70485be2cdf31bc8a721f58c53c831da8a307",
+    "services/indexer/migrate-discovery.mjs": "be08d04cf9a049af3debe4ce05615b658ce65833b71aaf43b5b879750d41ebc6",
+    "services/indexer/neardata.mjs": "49e2d53ab6456e22d4d94fb6b6ce21864edb5ecf1ca700ce140885da6739c74d",
+    "services/indexer/store.mjs": "b301bac64f897454e503b2056db1b746d26a96fb66ea66864d434c0e9c0cab84",
+    "services/indexer/indexer.mjs": "ef407b96819253ffc883003e4bded3b8f81f5e567074e62fd94c968bb0f8ea66",
+    "services/indexer/rpc.mjs": "bfd2fc51f550c8b4141a0adf153f74c50461e6fe3c9ef82cb13da6a9a4706581",
+    "tests/sandbox/transfer-setup.mjs": "b9fcb77c02973885beefcfed4a2ce24cea5b63ccad173a08d74510c92a007c6b"
+  },
+  "passed": true,
+  "canonical_reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "0",
+      "block_hash": "AGHKua979D7PdsgQfjCaL4wneAkg23UoivJKJFBLCzN4",
+      "height": "174",
+      "rpc_failures": 1,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [
+        {
+          "hash": "FoEjLwzEWK3cYpn9XRSDii24Tn55VvMaNMxhmEpCcxdp",
+          "signer_id": "8b5a0aa40605259a0335d69162dfd33e30925523218729f63fdb8bfbd75d8815",
+          "state": "SUBMISSION_UNKNOWN"
+        }
+      ]
+    },
+    "reconciliations": [
+      {
+        "contract": "77a702ac6cc9b455311fab34504f05aeff1307ca7f78aaa6c7295cabbc69b132",
+        "kind": "external_oracle",
+        "sequence": "3",
+        "matched": true,
+        "state_hash": "5676004965d104468b16b4f482234f37d67b727030962c83259c7bbead86031a"
+      },
+      {
+        "contract": "10ba26686a46d80627b26cfa6feae0967b8e7960a416d8aa37755c38f4d836d9",
+        "kind": "core",
+        "sequence": "16",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 19,
+    "alerts": []
+  },
+  "journal_reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "2",
+      "block_hash": "DYX4MGRy9KHfkSqcSQL2Ksyv1NGozyoSMRUqU8gjSfVi",
+      "height": "170",
+      "rpc_failures": 0,
+      "rpc_failovers": 0,
+      "unresolved_transactions": []
+    },
+    "reconciliations": [
+      {
+        "contract": "77a702ac6cc9b455311fab34504f05aeff1307ca7f78aaa6c7295cabbc69b132",
+        "kind": "external_oracle",
+        "sequence": "3",
+        "matched": true,
+        "state_hash": "5676004965d104468b16b4f482234f37d67b727030962c83259c7bbead86031a"
+      },
+      {
+        "contract": "10ba26686a46d80627b26cfa6feae0967b8e7960a416d8aa37755c38f4d836d9",
+        "kind": "core",
+        "sequence": "16",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 19,
+    "alerts": []
+  },
+  "root_balance": "645072393371703500000000",
+  "deployment": {
+    "version": 1,
+    "network": "sandbox",
+    "client": {
+      "network": "sandbox",
+      "chain_id": "test-chain-SHq43",
+      "genesis_hash": "21EWjta6ZXvvkjq2PPaGb2ineXWjKSvjTzaPQz1jCSqT",
+      "rpc_url": "http://127.0.0.1:54642",
+      "contract_id": "10ba26686a46d80627b26cfa6feae0967b8e7960a416d8aa37755c38f4d836d9",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+    },
+    "indexer": {
+      "network": "sandbox",
+      "chain_id": "test-chain-SHq43",
+      "genesis_hash": "21EWjta6ZXvvkjq2PPaGb2ineXWjKSvjTzaPQz1jCSqT",
+      "anchor_hash": "3p6DzAokZHoiJ5qAupg7Kbw3cw127w6ywwY6wKURuCAL",
+      "rpc_urls": [
+        "http://127.0.0.1:54642"
+      ],
+      "request_interval_ms": 0,
+      "read_concurrency": 4,
+      "contracts": [
+        {
+          "kind": "external_oracle",
+          "account_id": "77a702ac6cc9b455311fab34504f05aeff1307ca7f78aaa6c7295cabbc69b132",
+          "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+        },
+        {
+          "kind": "core",
+          "account_id": "10ba26686a46d80627b26cfa6feae0967b8e7960a416d8aa37755c38f4d836d9",
+          "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+        }
+      ],
+      "schema": "hv_testnet_native_roots",
+      "transaction_filter": "watched-roots",
+      "max_blocks": 10000,
+      "stale_after_ms": 60000,
+      "poll_ms": 2000
+    },
+    "source": {
+      "account_id": "source.sandbox",
+      "reporter": "source.sandbox",
+      "code_hash": "73KUWYiet2G6ef33kp2aQPaYw7GodWWfiLYQFGbX4ZM"
+    },
+    "series": {
+      "series_id": "beta",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3500000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794365665635215000",
+      "mint_cutoff_ns": "1794364585635215000",
+      "observation_window": {
+        "start_ns": "1794364585635215000",
+        "end_ns": "1794365665635215000"
+      },
+      "oracle_account_id": "77a702ac6cc9b455311fab34504f05aeff1307ca7f78aaa6c7295cabbc69b132",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "pricing_observation": {
+      "spot": "3500000000000",
+      "source": "EXPLICIT_SANDBOX_FIXTURE"
+    },
+    "accounts": [
+      {
+        "role": "administrator",
+        "id": "8b5a0aa40605259a0335d69162dfd33e30925523218729f63fdb8bfbd75d8815",
+        "initial_balance": "48000000000000000000000000",
+        "public_key": "ed25519:ANyJaz4BjhSy8g4YgGsipR6ebPDirg4xJ6x9GqEUaqNU"
+      },
+      {
+        "role": "core",
+        "id": "10ba26686a46d80627b26cfa6feae0967b8e7960a416d8aa37755c38f4d836d9",
+        "initial_balance": "30000000000000000000000000",
+        "public_key": "ed25519:28JA15R3QMcLeyhQ4ZBHoSDmumz7enBahWCbRaXHcAPa"
+      },
+      {
+        "role": "oracle",
+        "id": "77a702ac6cc9b455311fab34504f05aeff1307ca7f78aaa6c7295cabbc69b132",
+        "initial_balance": "8000000000000000000000000",
+        "public_key": "ed25519:945DpATBuaDeKwKTTmboVtegYdZYUZv8akttL7fzMzfb"
+      },
+      {
+        "role": "maker",
+        "id": "51eb88162253dfb40343439a562493bdefdcb8b43095e694f80a2736463188fa",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:6WnL5FMmvCURmdLj3KojvjCqmfpLAkM5tRJERocpnL5F",
+        "rfq_public_key": "e71371af66f33b678515ccf27e5578df1a38d026e1116e94171aaa8156bef4aa"
+      },
+      {
+        "role": "maker",
+        "id": "8df4108a6bbd818ba80066f945b72e446abf63030b88956eadbd8b3b2676dca7",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:AZ8LZtsjyhtkAmDoDXH2bdgmDSMQnJv3ozXocEPUhajG",
+        "rfq_public_key": "018dd1ea1416e0c6e0046c4c1143f77d351ee996fc4484a73c5bc10963aebd52"
+      }
+    ],
+    "oracle_label": "SANDBOX SOURCE FIXTURE",
+    "vault_enabled": false,
+    "artifacts": {
+      "core": {
+        "path": "target/core-artifacts/clearinghouse.wasm",
+        "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+        "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+      },
+      "external_oracle": {
+        "path": "target/external-oracle-artifacts/external_settlement.wasm",
+        "sha256": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+        "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+      }
+    }
+  },
+  "reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "0",
+      "block_hash": "CQErHbJaTSbsSEJfxssUbXQbwpJzqKa3HSg3E8V7RbZT",
+      "height": "169",
+      "rpc_failures": 0,
+      "rpc_failovers": 0,
+      "unresolved_transactions": []
+    },
+    "reconciliations": [
+      {
+        "contract": "77a702ac6cc9b455311fab34504f05aeff1307ca7f78aaa6c7295cabbc69b132",
+        "kind": "external_oracle",
+        "sequence": "3",
+        "matched": true,
+        "state_hash": "5676004965d104468b16b4f482234f37d67b727030962c83259c7bbead86031a"
+      },
+      {
+        "contract": "10ba26686a46d80627b26cfa6feae0967b8e7960a416d8aa37755c38f4d836d9",
+        "kind": "core",
+        "sequence": "16",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 19,
+    "alerts": []
+  }
+}

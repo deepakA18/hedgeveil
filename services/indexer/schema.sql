@@ -41,3 +41,17 @@ CREATE TABLE IF NOT EXISTS alerts (
 );
 CREATE INDEX IF NOT EXISTS outcome_block ON outcomes(block_hash);
 CREATE INDEX IF NOT EXISTS event_contract_sequence ON events(contract,sequence);
+CREATE TABLE IF NOT EXISTS rpc_cache (
+    key text PRIMARY KEY, body jsonb NOT NULL, created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS rpc_cache_age ON rpc_cache(created_at);
+CREATE TABLE IF NOT EXISTS feed_cursor (
+    id integer PRIMARY KEY CHECK(id=1), baseline_height bigint NOT NULL,
+    baseline_hash text NOT NULL, height bigint NOT NULL, block_height bigint NOT NULL,
+    block_hash text NOT NULL, observed_height bigint NOT NULL,
+    state text NOT NULL, checked_at timestamptz
+);
+CREATE TABLE IF NOT EXISTS feed_candidates (
+    hash text PRIMARY KEY, signer_id text NOT NULL, discovered_height bigint NOT NULL
+);
+ALTER TABLE feed_cursor ADD COLUMN IF NOT EXISTS retry_at_ms bigint NOT NULL DEFAULT 0;

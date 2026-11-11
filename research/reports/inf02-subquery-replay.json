@@ -1,0 +1,19 @@
+{
+  "scope": "SubQuery mapping replay of actual archived testnet outcomes, not a hosted runner/parity test",
+  "passed": true,
+  "transactions": 73,
+  "events": 66,
+  "evidence_file": "research/reports/native-public-eta-owner-after-restart.json",
+  "evidence_sha256": "33a7616e8939990f580f89a4d57fdf304e6dfe8e6ef7f53c6f121429488b6c5a",
+  "sources": {
+    "src/index.ts": "185a3bb6398cac26ca46c8d88cc23ecac5e8dea59556f801cf9dfbf674a5a6bf",
+    "src/evidence.ts": "8df41b21a93f57552ca3dab47f677d3d51eeca85dc966f56e61f15f39d66eea1",
+    "src/binding.ts": "64fc10c047d996c132c22975b277f4c5d6969c078a4666aa866d57d9f88aeeec",
+    "project.yaml": "0bdde3a52ff4765779a5ab7e001bde51756988688f8f5fca11a4a2b79405a8fa",
+    "schema.graphql": "77ae6f940ca98444c49d58318f9b1f3468a7d57e27c02732677e3e3313e7c934",
+    "package-lock.json": "13f600ab8aed985dc9fbf186827ac9aa1180a6136a00ae91f257fb24a19c7d09",
+    "test/evidence.test.cjs": "f4918021d4c5b0d7cfe7d5e3c189e3cd8fed34dfb1d179db4084ee69dbc2490d"
+  },
+  "hosted_deployment_verified": false,
+  "cutover_allowed": false
+}

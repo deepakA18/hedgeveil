@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "kind": "hedgeveil-native-testnet",
+  "network": "testnet",
+  "owner": "0xdeepak18.testnet",
+  "root_id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+  "rpc_url": "https://test.rpc.fastnear.com/",
+  "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+  "oracle_version": "native-sampled-v1",
+  "policy_acceptance": "native-sampled-v1/testnet/2026-11-10",
+  "source": {
+    "account_id": "price-oracle.testnet",
+    "reporter": "price-oracle.testnet",
+    "code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV"
+  },
+  "source_verification": {
+    "network": "testnet",
+    "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+    "source_account": "price-oracle.testnet",
+    "source_code_hash": "C1frAe93wcjtGjeavZDA6znsV5EUnKJFWuX24vTmH3ZV",
+    "reporter": "price-oracle.testnet",
+    "transaction_hash": "BMV5wLTUnJHR5bE664AGb15bDypkbaDSH4XWW97mMynn",
+    "callback_receipt_id": "EvEXJbZVdUkiVZKVYzuiRtsFeA95UEVSsFNQcDP8v8ny",
+    "block_hash": "FcVske431xqKyzRPbfuWv3HWZztJE22MQdfNL12bZKmw",
+    "timestamp_ns": "1794250293019388552",
+    "price": "3618966660000",
+    "price_scale": "1000000000000",
+    "refresh_verified": true,
+    "public_lifecycle_complete": false,
+    "evidence_sha256": "b83b5c5081c578411a8c25a9a8822337ab2db996019d9ab8df3fed2d846370c9"
+  },
+  "accounts": [
+    {
+      "role": "administrator",
+      "id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "public_key": "ed25519:3DJJzs4X4WDw1LVg5AKCsBvyFjLR6mQtfynq1VK7U9Qn",
+      "initial_balance": "48000000000000000000000000"
+    },
+    {
+      "role": "core",
+      "id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "public_key": "ed25519:BnnmZ2KNmTM7UoPVosAr5cbVFDitgXqv4r9jZBMRLuie",
+      "initial_balance": "30000000000000000000000000"
+    },
+    {
+      "role": "oracle",
+      "id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+      "public_key": "ed25519:AQCoBJJ8ueQKb9A1wJpoYVDXcMVBbeJLsn8djAQwMzrN",
+      "initial_balance": "8000000000000000000000000"
+    },
+    {
+      "role": "maker",
+      "id": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "public_key": "ed25519:8EYGCxz4DDgLRce7HUF33nGqxEHHsBGjuKBuHLQPf9WK",
+      "initial_balance": "4500000000000000000000000",
+      "rfq_public_key": "134fdbd2775aa8df1d7eb391395cdbbe4acbf58c375335d92b34fb6fdc850658"
+    },
+    {
+      "role": "maker",
+      "id": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "public_key": "ed25519:3LzTWNj4mVFkCiJTizzLopiFuzJwLEMfBtoWX89X31fs",
+      "initial_balance": "4500000000000000000000000",
+      "rfq_public_key": "7bdb302cbe672095c7ed5e12c0b06697107faf2c306c747b5658bbcd8d2ef2da"
+    }
+  ],
+  "artifacts": {
+    "core": {
+      "path": "target/core-artifacts/clearinghouse.wasm",
+      "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ",
+      "bytes": 614630
+    },
+    "external_oracle": {
+      "path": "target/external-oracle-artifacts/external_settlement.wasm",
+      "sha256": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+      "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT",
+      "bytes": 260717
+    }
+  },
+  "funding": {
+    "mode": "implicit-transfer-v1",
+    "receiver_id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+    "public_key": "ed25519:3DJJzs4X4WDw1LVg5AKCsBvyFjLR6mQtfynq1VK7U9Qn"
+  },
+  "funding_amount": "48000000000000000000000000",
+  "owner_minimum": "49000000000000000000000000",
+  "vault_enabled": false,
+  "oracle_label": "EXTERNAL ORACLE · THREE ON-CHAIN SAMPLES",
+  "created_at": "2026-11-10T03:25:57.775Z",
+  "collector_rpc_url": "https://test.rpc.fastnear.com/",
+  "indexer_rpc_urls": [
+    "https://testnet-rpc.intea.rs/",
+    "https://test.rpc.fastnear.com/",
+    "https://archival-rpc.testnet.near.org/"
+  ],
+  "indexer_request_interval_ms": 500,
+  "indexer_read_concurrency": 4,
+  "indexer_schema": "hv_testnet_native_canonical",
+  "indexer_transaction_filter": "canonical-journal",
+  "indexer_discovery_source": "neardata-testnet",
+  "indexer_discovery_required": false
+}

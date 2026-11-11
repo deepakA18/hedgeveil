@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hedgeveil.invalid/schemas/external-oracle/native-sampled-v1",
+  "title": "Candidate native sampled resolver, not deployment approval",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/registration"
+    },
+    {
+      "$ref": "#/$defs/case"
+    },
+    {
+      "$ref": "#/$defs/event"
+    },
+    {
+      "$ref": "#/$defs/snapshot"
+    }
+  ],
+  "$defs": {
+    "uint128": {
+      "type": "string",
+      "maxLength": 39,
+      "pattern": "^(0|[1-9][0-9]{0,38})(?![\\s\\S])"
+    },
+    "uint64": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^(0|[1-9][0-9]{0,19})(?![\\s\\S])"
+    },
+    "positive": {
+      "type": "string",
+      "maxLength": 39,
+      "pattern": "^[1-9][0-9]{0,38}(?![\\s\\S])"
+    },
+    "account": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:[-_][a-z0-9]+)*(?![\\s\\S])"
+    },
+    "hash256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])"
+    },
+    "series_terms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "series_id",
+        "version",
+        "collateral_kind",
+        "index_definition_hash",
+        "payoff_kind",
+        "strike",
+        "price_scale",
+        "maturity_ns",
+        "mint_cutoff_ns",
+        "observation_window",
+        "oracle_account_id",
+        "oracle_version",
+        "oracle_config_hash",
+        "finalization_policy_hash",
+        "max_supply"
+      ],
+      "properties": {
+        "series_id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "const": "1"
+        },
+        "collateral_kind": {
+          "const": "NATIVE_NEAR"
+        },
+        "index_definition_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "payoff_kind": {
+          "const": "CAPPED_USD_COMPLEMENT"
+        },
+        "strike": {
+          "$ref": "#/$defs/positive"
+        },
+        "price_scale": {
+          "const": "1000000000000"
+        },
+        "maturity_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "mint_cutoff_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "observation_window": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start_ns",
+            "end_ns"
+          ],
+          "properties": {
+            "start_ns": {
+              "$ref": "#/$defs/uint64"
+            },
+            "end_ns": {
+              "$ref": "#/$defs/uint64"
+            }
+          }
+        },
+        "oracle_account_id": {
+          "$ref": "#/$defs/account"
+        },
+        "oracle_version": {
+          "const": "native-sampled-v1"
+        },
+        "oracle_config_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "finalization_policy_hash": {
+          "$ref": "#/$defs/hash256"
+        },
+        "max_supply": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "account",
+        "reporter",
+        "asset",
+        "min_price",
+        "max_price"
+      ],
+      "properties": {
+        "account": {
+          "$ref": "#/$defs/account"
+        },
+        "reporter": {
+          "$ref": "#/$defs/account"
+        },
+        "asset": {
+          "const": "wrap.near"
+        },
+        "min_price": {
+          "$ref": "#/$defs/positive"
+        },
+        "max_price": {
+          "$ref": "#/$defs/positive"
+        }
+      }
+    },
+    "sample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report_ns",
+        "request_ns",
+        "accepted_ns",
+        "price",
+        "response_hash"
+      ],
+      "properties": {
+        "report_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "request_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "accepted_ns": {
+          "$ref": "#/$defs/uint64"
+        },
+        "price": {
+          "$ref": "#/$defs/positive"
+        },
+        "response_hash": {
+          "$ref": "#/$defs/hash256"
+        }
+      }
+    },
+    "pending": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "slot",
+        "requested_ns"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/uint64"
+        },
+        "slot": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "requested_ns": {
+          "$ref": "#/$defs/uint64"
+        }
+      }
+    },
+    "registration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config",
+        "source"
+      ],
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/series_terms"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        }
+      }
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "config",
+        "source",
+        "samples",
+        "pending",
+        "price"
+      ],
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/series_terms"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "samples": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/sample"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "pending": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/pending"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "price": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/positive"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "standard",
+        "version",
+        "event",
+        "data"
+      ],
+      "properties": {
+        "standard": {
+          "const": "hedgeveil_external_oracle"
+        },
+        "version": {
+          "const": "1.0.0"
+        },
+        "event": {
+          "enum": [
+            "INITIALIZED",
+            "SERIES_REGISTERED",
+            "SAMPLE_REQUESTED",
+            "SAMPLE_ACCEPTED",
+            "SAMPLE_REJECTED",
+            "FINALIZED",
+            "PAUSE_CHANGED"
+          ]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "network",
+              "contract_id",
+              "sequence",
+              "state_hash"
+            ],
+            "properties": {
+              "network": {
+                "enum": [
+                  "sandbox",
+                  "testnet"
+                ]
+              },
+              "contract_id": {
+                "$ref": "#/$defs/account"
+              },
+              "sequence": {
+                "$ref": "#/$defs/uint64"
+              },
+              "state_hash": {
+                "$ref": "#/$defs/hash256"
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 1
+        }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network",
+        "contract_id",
+        "sequence",
+        "version",
+        "registrar",
+        "guardian",
+        "request_sequence",
+        "paused",
+        "cases"
+      ],
+      "properties": {
+        "network": {
+          "enum": [
+            "sandbox",
+            "testnet"
+          ]
+        },
+        "contract_id": {
+          "$ref": "#/$defs/account"
+        },
+        "sequence": {
+          "$ref": "#/$defs/uint64"
+        },
+        "version": {
+          "const": "native-sampled-v1"
+        },
+        "registrar": {
+          "$ref": "#/$defs/account"
+        },
+        "guardian": {
+          "$ref": "#/$defs/account"
+        },
+        "request_sequence": {
+          "$ref": "#/$defs/uint64"
+        },
+        "paused": {
+          "type": "boolean"
+        },
+        "cases": {
+          "type": "object",
+          "maxProperties": 16,
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/case"
+          }
+        }
+      }
+    }
+  }
+}

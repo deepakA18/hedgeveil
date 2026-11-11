@@ -1,0 +1,136 @@
+{
+  "scope": "Read-only deployed wallet desk preview; no external wallet signature or transaction acceptance",
+  "session": {
+    "network": "testnet",
+    "chain_id": "testnet",
+    "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+    "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+    "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ",
+    "wallet": true,
+    "configured": true,
+    "manifest": {
+      "version": "hedgeveil-pinned-1",
+      "wallets": [
+        {
+          "id": "meteor-wallet",
+          "name": "Meteor Wallet",
+          "icon": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%228%22%20fill%3D%22%23444%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2227%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2223%22%3EM%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "description": "The most simple and secure wallet to manage your crypto, access DeFi, and explore Web3",
+          "website": "https://meteorwallet.app/",
+          "version": "1.1.1-sha256-96210256a89cb382bb7fe95f29d6a2489319da87472fe77018b4cdcbf1672b50",
+          "executor": "/wallet-executors/meteor-wallet-96210256a89cb382bb7fe95f29d6a2489319da87472fe77018b4cdcbf1672b50.js",
+          "type": "sandbox",
+          "features": {
+            "signMessage": true,
+            "signInWithoutAddKey": true,
+            "signInAndSignMessage": true,
+            "signAndSendTransaction": true,
+            "signAndSendTransactions": true,
+            "signInWithFunctionCallKey": true,
+            "signDelegateActions": true,
+            "mainnet": true,
+            "testnet": true
+          },
+          "platform": {
+            "web": "https://wallet.meteorwallet.app",
+            "chrome": "https://chromewebstore.google.com/detail/meteor-wallet/pcndjhkinnkaohffealmlmhaepkpmgkb",
+            "android": "https://play.google.com/store/apps/details?id=app.meteorwallet.v2",
+            "ios": "https://apps.apple.com/us/app/meteor-wallet/id6739558223"
+          },
+          "permissions": {
+            "storage": true,
+            "allowsOpen": [
+              "https://chromewebstore.google.com",
+              "https://wallet.meteorwallet.app",
+              "https://meteorwallet.app",
+              "meteorwallet://"
+            ],
+            "external": [
+              "meteorCom",
+              "meteorComV2"
+            ]
+          }
+        },
+        {
+          "id": "intear-wallet",
+          "name": "Intear Wallet",
+          "icon": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%228%22%20fill%3D%22%23444%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2227%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2223%22%3EI%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "description": "A fast and secure wallet for everyday interactions with dapps",
+          "website": "https://intea.rs/",
+          "version": "1.0.0-sha256-6decc283352af197feff4988628899d19e05f4168a4277fe699bd8a0d6178e34",
+          "executor": "/wallet-executors/intear-wallet-6decc283352af197feff4988628899d19e05f4168a4277fe699bd8a0d6178e34.js",
+          "type": "sandbox",
+          "features": {
+            "signMessage": true,
+            "signTransaction": false,
+            "signAndSendTransaction": true,
+            "signAndSendTransactions": true,
+            "signInWithoutAddKey": true,
+            "verifyOwner": false,
+            "testnet": true,
+            "signDelegateActions": true,
+            "signInAndSignMessage": true,
+            "signInWithFunctionCallKey": true
+          },
+          "platform": {
+            "web": "https://wallet.intear.tech"
+          },
+          "permissions": {
+            "storage": true,
+            "location": true,
+            "allowsOpen": [
+              "https://wallet.intear.tech",
+              "intear://",
+              "https://logout-bridge-service.intear.tech"
+            ]
+          }
+        }
+      ]
+    },
+    "accounts": [
+      {
+        "id": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+        "role": "maker"
+      },
+      {
+        "id": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+        "role": "maker"
+      }
+    ],
+    "signer": "Browser wallet signs. This loopback-only service retains the journal and verifies finalized receipts; connection is not server authentication.",
+    "oracle_profile": "native-sampled-v1",
+    "oracle_label": "EXTERNAL ORACLE · THREE ON-CHAIN SAMPLES",
+    "subsidy": "Testnet assets only. External on-chain report samples; source timestamps describe ingestion time. The provider request permits cached inputs up to 300 seconds. Makers are project-operated. Missing samples delay settlement. Production and vault actions remain disabled."
+  },
+  "health": {
+    "state": "UNINITIALIZED",
+    "risk_allowed": false,
+    "stale": true,
+    "age_ms": null,
+    "cursor_hash": "42MbGBXczr5ANRcBxeB8QGKgYybEEoVCv4wzrMPPKRRx",
+    "height": "277012602",
+    "generation": "0"
+  },
+  "sync": {
+    "phase": "headers",
+    "completed": 1569,
+    "total": 3218,
+    "started_at": "2026-11-10T04:03:05.029Z"
+  },
+  "widths": [
+    {
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

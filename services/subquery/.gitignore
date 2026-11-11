@@ -1,0 +1,4 @@
+dist/
+.project-cid
+.env*
+src/types/

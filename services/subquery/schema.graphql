@@ -1,0 +1,44 @@
+# Evidence archive only. These entities never alone authorize trading or payouts.
+type IndexedHead @entity {
+  id: ID!
+  network: String!
+  height: BigInt!
+  hash: String!
+  timestampNs: String!
+  binding: String!
+}
+
+type TransactionEvidence @entity {
+  id: ID!
+  signer: String!
+  receiver: String!
+  rootBlockHash: String!
+  rootBlockHeight: BigInt!
+  finalStatusJson: String!
+  receiptCount: Int!
+  bodyJson: String!
+}
+
+type ReceiptEvidence @entity {
+  id: ID!
+  transaction: TransactionEvidence!
+  executor: String! @index
+  blockHash: String!
+  blockHeight: BigInt! @index
+  successful: Boolean!
+  bodyJson: String!
+}
+
+type ProtocolEvent @entity {
+  id: ID!
+  receipt: ReceiptEvidence!
+  contract: String! @index
+  blockHeight: BigInt! @index
+  kind: String!
+  name: String!
+  sequence: String
+  operationId: String
+  logIndex: Int!
+  itemIndex: Int!
+  bodyJson: String!
+}

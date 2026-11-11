@@ -1,0 +1,25 @@
+specVersion: 1.0.0
+name: hedgeveil-testnet
+version: 0.1.0
+description: Hedgeveil native NEAR testnet receipt evidence archive; reconciliation and migration acceptance pending
+runner:
+  node:
+    name: '@subql/node-near'
+    version: '6.0.2'
+  query:
+    name: '@subql/query'
+    version: '2.25.0'
+schema:
+  file: ./schema.graphql
+network:
+  chainId: testnet
+  endpoint:
+    - https://archival-rpc.testnet.near.org
+dataSources:
+  - kind: near/Runtime
+    startBlock: 277012602
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlock
+          kind: near/BlockHandler

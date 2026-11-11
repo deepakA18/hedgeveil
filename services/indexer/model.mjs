@@ -6,16 +6,17 @@ import {canonical, uint, fail} from '../../packages/sdk/intent.mjs';
 const ajv = new Ajv({strict:false, allErrors:true});
 const ledgerSchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/public-ledger.schema.json', import.meta.url))));
 const oracleSchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/oracle.schema.json', import.meta.url))));
+const externalSchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/external-oracle.schema.json', import.meta.url))));
 export const sha = value => createHash('sha256').update(value).digest('hex');
 export const digest = value => sha(canonical(value));
 export const success = status => status && Object.keys(status).length === 1 &&
     (Object.hasOwn(status,'SuccessValue') || Object.hasOwn(status,'SuccessReceiptId'));
 export const assetId = a => a.kind === 'COLLATERAL' ? 'COLLATERAL' : a.kind === 'VAULT_SHARE' ? `VAULT_SHARE:${a.vault_id}` : `${a.kind}:${a.series_id}`;
 export const balanceKey = (owner,bucket,id,asset) => JSON.stringify([owner,bucket,id,asset]);
-export function operationId(contract, sequence) {
+export function operationId(contract, sequence, network='sandbox') {
     const string = s => {const b=Buffer.from(s), n=Buffer.alloc(4);n.writeUInt32LE(b.length);return Buffer.concat([n,b]);};
     const seq=Buffer.alloc(8);seq.writeBigUInt64LE(BigInt(sequence));
-    return sha(Buffer.concat([string('sandbox'),string(contract),seq]));
+    return sha(Buffer.concat([string(network),string(contract),seq]));
 }
 export function completeOutcomes(raw, transaction) {
     if (raw?.final_execution_status !== 'FINAL') fail('TRANSACTION_NOT_FINAL');
@@ -36,7 +37,7 @@ export function completeOutcomes(raw, transaction) {
     if(seen.size!==rows.length)fail('RECEIPT_TREE');
     return rows;
 }
-export function extractEvents(row, watched) {
+export function extractEvents(row, watched, network='sandbox') {
     if(!success(row.outcome.status))return [];
     const contract=watched.find(c=>c.account_id===row.outcome.executor_id);
     if(!contract)return [];
@@ -44,12 +45,20 @@ export function extractEvents(row, watched) {
     for(const [log_index,log] of row.outcome.logs.entries()) {
         if(!log.startsWith('EVENT_JSON:'))continue;
         let envelope;try{envelope=JSON.parse(log.slice(11));}catch{fail('EVENT_JSON_INVALID');}
-        const standard=contract.kind==='core'?'hedgeveil':'hedgeveil_oracle';
+        const standard=contract.kind==='core'?'hedgeveil':contract.kind==='external_oracle'?'hedgeveil_external_oracle':'hedgeveil_oracle';
         if(envelope.standard!==standard)continue;
+        if(contract.kind==='external_oracle'){
+            if(!externalSchema(envelope))fail('EXTERNAL_ORACLE_EVENT_SCHEMA');
+            const event=envelope.data[0];
+            if(event.network!==network||event.contract_id!==contract.account_id)fail('EXTERNAL_ORACLE_DOMAIN');
+            uint(event.sequence,64,true);
+            out.push({receipt_id:row.id,log_index,item_index:0,contract:contract.account_id,kind:'external_oracle',name:envelope.event,payload:event});
+            continue;
+        }
         if(contract.kind==='core') {
             if(envelope.version!=='0.2.0'||envelope.event!=='ledger'||!Array.isArray(envelope.data)||!envelope.data.length)fail('EVENT_SCHEMA');
             for(const [item_index,event] of envelope.data.entries()) {
-                if(!ledgerSchema(event)||event.kind!=='event'||event.domain.network!=='sandbox'||event.domain.contract_id!==contract.account_id)fail('EVENT_SCHEMA');
+                if(!ledgerSchema(event)||event.kind!=='event'||event.domain.network!==network||event.domain.contract_id!==contract.account_id)fail('EVENT_SCHEMA');
                 for(const delta of event.deltas)uint(delta.amount,128,true);
                 uint(event.fee_amount);
                 out.push({receipt_id:row.id,log_index,item_index,contract:contract.account_id,kind:'core',name:event.event,payload:event});
@@ -65,13 +74,14 @@ export function extractEvents(row, watched) {
     }
     return out;
 }
-export function replayCore(contract, events) {
+export function replayCore(contract, events, network='sandbox') {
     const byId=new Map(events.map(e=>[e.payload.operation_id,e]));
     if(byId.size!==events.length)fail('OPERATION_DUPLICATE');
     const balances=new Map();
     for(let i=1;i<=events.length;i++) {
-        const e=byId.get(operationId(contract,String(i)));
+        const e=byId.get(operationId(contract,String(i),network));
         if(!e)fail('EVENT_SEQUENCE_GAP');
+        if(e.payload.domain.network!==network||e.payload.domain.contract_id!==contract)fail('EVENT_SCHEMA');
         e.sequence=String(i);
         for(const d of e.payload.deltas) {
             const key=balanceKey(d.account_id,d.bucket,d.ledger_id,assetId(d.asset));
@@ -91,6 +101,21 @@ export function replayOracle(events) {
         if(BigInt(x.received)!==BigInt(x.paid)+BigInt(x.locked)+BigInt(x.credits)+BigInt(x.in_flight))fail('ORACLE_CONSERVATION');
     }
     return {sequence:String(events.length),aggregate:sorted.at(-1)?.payload??null};
+}
+export function replayExternal(events){
+    const sorted=[...events].sort((a,b)=>BigInt(a.payload.sequence)<BigInt(b.payload.sequence)?-1:1);
+    for(const [i,e]of sorted.entries()){if(e.payload.sequence!==String(i+1))fail('EVENT_SEQUENCE_GAP');e.sequence=e.payload.sequence;}
+    return {sequence:String(sorted.length),aggregate:sorted.at(-1)?.payload??null};
+}
+export function reconcileExternal(replay,snapshot){
+    const state=snapshot.state,a=replay.aggregate;
+    if(!externalSchema(state))fail('EXTERNAL_ORACLE_STATE_SCHEMA');
+    if(!a||replay.sequence!==snapshot.identity.sequence||replay.sequence!==state.sequence)fail('EVENT_SEQUENCE_GAP');
+    if(state.contract_id!==snapshot.contract||state.network!==snapshot.identity.network||state.version!=='native-sampled-v1'||a.contract_id!==snapshot.contract||a.network!==state.network)fail('EXTERNAL_ORACLE_DOMAIN');
+    if(a.state_hash!==digest(state))fail('EXTERNAL_ORACLE_STATE_MISMATCH');
+    if(Object.keys(state.cases).length>16||Object.entries(state.cases).some(([id,c])=>id!==c.config.series_id||!externalSchema(c)))fail('EXTERNAL_ORACLE_CASE');
+    if(BigInt(snapshot.native.amount)<10n**24n)fail('EXTERNAL_ORACLE_OPERATING_RESERVE');
+    return {contract:snapshot.contract,kind:'external_oracle',sequence:replay.sequence,matched:true,state_hash:a.state_hash};
 }
 export function coreBalances(snapshot) {
     const out=new Map(),core=snapshot.contract;
@@ -152,9 +177,10 @@ export function alerts(snapshots, nowNs) {
         } else {
             for(const x of s.cases) {
                 const id=x.config.series_id;
-                if(['DISPUTED','DELAYED'].includes(x.state))add(`ORACLE_${x.state}`,s.contract,id);
+                if(['DISPUTED','DELAYED','RESOLUTION_DELAYED'].includes(x.state))add(`ORACLE_${x.state}`,s.contract,id);
                 if(x.state!=='FINALIZED'&&BigInt(nowNs)>=BigInt(x.config.maturity_ns))add('ORACLE_NOT_FINAL',s.contract,id);
                 if(x.state!=='FINALIZED'&&BigInt(nowNs)>=BigInt(x.config.maturity_ns)&&s.observations?.[id]?.PRIMARY===null)add('ORACLE_OBSERVATIONS_INCOMPLETE',s.contract,id);
+                if(s.kind==='external_oracle'&&x.price===null&&x.samples.some(sample=>sample===null)&&BigInt(nowNs)>=BigInt(x.config.maturity_ns))add('ORACLE_OBSERVATIONS_INCOMPLETE',s.contract,id);
                 if(x.proposal&&!x.bonds_released&&BigInt(nowNs)<BigInt(x.proposal.challenge_end)&&BigInt(nowNs)+60_000_000_000n>=BigInt(x.proposal.challenge_end))add('ORACLE_DEADLINE_APPROACHING',s.contract,id);
                 if(x.proposal&&!x.bonds_released&&BigInt(nowNs)>=BigInt(x.proposal.challenge_end))add('ORACLE_DEADLINE',s.contract,id);
             }

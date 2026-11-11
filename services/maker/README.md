@@ -63,3 +63,21 @@ is returned. Resume verifies the existing registered public key and never
 automatically re-registers it; missing/corrupt state refuses startup. Default G5
 and disposable APP-02 workers still generate ephemeral keys. See
 [retained-demo custody and limits](../../docs/LOCAL_DEMO.md).
+
+MKT-03 adds the [external market profile](../market-data/README.md). Public testnet
+workers now require `pricing_source: "coinbase"` and `market_archive`; they fetch
+actual public inputs and ignore request-provided references. Earlier fixture IPC
+instructions above apply only to Sandbox tests. Actual-data compiled-Wasm fills
+are recorded separately in `research/reports/mkt03-live-market-sandbox.json`.
+
+Public testnet quotes allow 90 seconds for wallet review (Sandbox: 15), always
+bounded by maturity. Pricing inputs must still pass freshness checks at issuance.
+Testnet workers require a private `operation_journal` for epoch cancellations.
+They retain the exact pending operation before broadcast, recover it before new
+quotes after restart, and never resend an unknown attempt. The native runtime
+includes both maker journals in canonical receipt discovery.
+
+External ticker timestamps are validated at HTTP completion. A maker retains that
+exact observation and waits up to ten finalized-head reads (500 ms intervals)
+for chain time to reach it before pricing. Future/stale data and a chain that
+does not catch up yield no quote; the 60-second source-age limit is unchanged.

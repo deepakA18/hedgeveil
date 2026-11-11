@@ -1,0 +1,203 @@
+{
+  "checked_at": "2026-11-10T04:27:00.189Z",
+  "scope": "Small read-only compatibility check, not a load benchmark or availability guarantee",
+  "source": "https://docs.near.org/api/rpc/providers",
+  "results": [
+    {
+      "endpoint": "https://testnet-rpc.intea.rs/",
+      "checks": [
+        {
+          "method": "status",
+          "ok": false,
+          "error": "SyntaxError",
+          "elapsed_ms": 999
+        }
+      ]
+    },
+    {
+      "endpoint": "https://test.rpc.fastnear.com/",
+      "checks": [
+        {
+          "method": "status",
+          "params": {},
+          "http_status": 200,
+          "elapsed_ms": 339,
+          "ok": true,
+          "error": null,
+          "chain_id": "testnet",
+          "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b"
+        },
+        {
+          "method": "block",
+          "params": {
+            "finality": "final"
+          },
+          "http_status": 200,
+          "elapsed_ms": 326,
+          "ok": true,
+          "error": null
+        },
+        {
+          "method": "block",
+          "params": {
+            "block_id": "42MbGBXczr5ANRcBxeB8QGKgYybEEoVCv4wzrMPPKRRx"
+          },
+          "http_status": 200,
+          "elapsed_ms": 323,
+          "ok": true,
+          "error": null
+        },
+        {
+          "method": "chunk",
+          "params": {
+            "chunk_id": "dZmSrd9GWSsx5JHPug2q9Lj2wE5DwkQkrrGDmRYL62i"
+          },
+          "http_status": 200,
+          "elapsed_ms": 426,
+          "ok": true,
+          "error": null
+        },
+        {
+          "method": "tx",
+          "params": {
+            "tx_hash": "4HZ3pepUhzm7GZGYvfJMyCNXqBCRQH3dokU4EeVJsB7H",
+            "sender_account_id": "0xdeepak18.testnet",
+            "wait_until": "FINAL"
+          },
+          "http_status": 200,
+          "elapsed_ms": 252,
+          "ok": true,
+          "error": null,
+          "final_execution_status": "FINAL"
+        },
+        {
+          "method": "query",
+          "params": {
+            "request_type": "call_function",
+            "account_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+            "method_name": "deployment_identity",
+            "args_base64": "e30=",
+            "finality": "final"
+          },
+          "http_status": 200,
+          "elapsed_ms": 366,
+          "ok": true,
+          "error": null,
+          "block_hash": "9RFdL5VUxWKW1je6LEtLCzRRF6wCRn4594nVqBchUsFv",
+          "identity": {
+            "protocol_version": "1",
+            "network": "testnet",
+            "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437"
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "https://near-testnet.drpc.org/",
+      "checks": [
+        {
+          "method": "status",
+          "params": {},
+          "http_status": 429,
+          "elapsed_ms": 117,
+          "ok": false,
+          "error": {
+            "message": "You reached Public endpoint rate limit, please upgrade to paid plan",
+            "code": 15
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "https://archival-rpc.testnet.near.org/",
+      "checks": [
+        {
+          "method": "status",
+          "params": {},
+          "http_status": 200,
+          "elapsed_ms": 3485,
+          "ok": true,
+          "error": null,
+          "chain_id": "testnet",
+          "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b"
+        },
+        {
+          "method": "block",
+          "params": {
+            "finality": "final"
+          },
+          "http_status": 200,
+          "elapsed_ms": 3196,
+          "ok": true,
+          "error": null
+        },
+        {
+          "method": "block",
+          "params": {
+            "block_id": "42MbGBXczr5ANRcBxeB8QGKgYybEEoVCv4wzrMPPKRRx"
+          },
+          "http_status": 200,
+          "elapsed_ms": 3158,
+          "ok": true,
+          "error": null
+        },
+        {
+          "method": "chunk",
+          "params": {
+            "chunk_id": "dZmSrd9GWSsx5JHPug2q9Lj2wE5DwkQkrrGDmRYL62i"
+          },
+          "http_status": 200,
+          "elapsed_ms": 3160,
+          "ok": true,
+          "error": null
+        },
+        {
+          "method": "tx",
+          "params": {
+            "tx_hash": "4HZ3pepUhzm7GZGYvfJMyCNXqBCRQH3dokU4EeVJsB7H",
+            "sender_account_id": "0xdeepak18.testnet",
+            "wait_until": "FINAL"
+          },
+          "http_status": 200,
+          "elapsed_ms": 3204,
+          "ok": true,
+          "error": null,
+          "final_execution_status": "FINAL"
+        },
+        {
+          "method": "query",
+          "params": {
+            "request_type": "call_function",
+            "account_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+            "method_name": "deployment_identity",
+            "args_base64": "e30=",
+            "finality": "final"
+          },
+          "http_status": 200,
+          "elapsed_ms": 3864,
+          "ok": true,
+          "error": null,
+          "block_hash": "HHq8EXACzUZ6E8wxmPsMf5VKjT4FUXEpgBbedkgHQrks",
+          "identity": {
+            "protocol_version": "1",
+            "network": "testnet",
+            "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437"
+          }
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "primary": "https://test.rpc.fastnear.com/",
+    "fallback": "https://archival-rpc.testnet.near.org/",
+    "reason": "Both passed all six read compatibility checks; FASTNEAR responses were faster in this small sequential sample. Not a throughput benchmark.",
+    "request_interval_ms": 250,
+    "read_concurrency": 4,
+    "review": "Independent review pending"
+  },
+  "intear_followup": {
+    "http_status": 200,
+    "content_type": "application/json",
+    "result": "Status subsequently returned testnet identity and a note that keyless requests are slowed by one second; initial response parsing failed. Not selected as fallback in this run."
+  }
+}

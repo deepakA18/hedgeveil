@@ -1,0 +1,166 @@
+{
+  "scope": "Actual native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment",
+  "checks": [
+    "48 NEAR setup funds and deploys both native contracts without synthetic publishers",
+    "setup restart recovers receipts and preserves immutable terms even with a different requested lead",
+    "maker-a.native.sandbox has separately backed P/N inventory and free collateral",
+    "maker-b.native.sandbox has separately backed P/N inventory and free collateral",
+    "vault remains disabled",
+    "native deployment indexer reconciles actual setup receipts",
+    "administrator retains refresh/gas budget after setup"
+  ],
+  "sources": {
+    "services/testnet/native.mjs": "a8e0a124d90e7fb1d85e7217a4673bb50819d5c36b61fc7ca997ea5cdeb8ae34",
+    "services/testnet/transactions.mjs": "7ce6783bdca62fa494bff610bac48d96e75b2898db7a068d14056b9ccbc65421",
+    "tests/sandbox/native-setup.mjs": "c64216243a60849fc5783d8e2163ed5b88902243b54fff8223617ca82a6d5a62"
+  },
+  "passed": true,
+  "root_balance": "787757539875883800000000",
+  "deployment": {
+    "version": 1,
+    "network": "sandbox",
+    "client": {
+      "network": "sandbox",
+      "chain_id": "test-chain-xPpos",
+      "genesis_hash": "3EZgE5kzjkrVekT7m6VZG4LeWJWSAuCsUXxoNRCmg6nU",
+      "rpc_url": "http://127.0.0.1:53891",
+      "contract_id": "core.native.sandbox",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+    },
+    "indexer": {
+      "network": "sandbox",
+      "chain_id": "test-chain-xPpos",
+      "genesis_hash": "3EZgE5kzjkrVekT7m6VZG4LeWJWSAuCsUXxoNRCmg6nU",
+      "anchor_hash": "3VCj33uhAUgYxi9YVefVUKdNB6iFNxLxToaPNqSg6Ejp",
+      "rpc_urls": [
+        "http://127.0.0.1:53891"
+      ],
+      "request_interval_ms": 0,
+      "read_concurrency": 4,
+      "contracts": [
+        {
+          "kind": "external_oracle",
+          "account_id": "oracle.native.sandbox",
+          "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+        },
+        {
+          "kind": "core",
+          "account_id": "core.native.sandbox",
+          "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+        }
+      ],
+      "schema": "hv_testnet_native_roots",
+      "transaction_filter": "watched-roots",
+      "max_blocks": 10000,
+      "stale_after_ms": 60000,
+      "poll_ms": 2000
+    },
+    "source": {
+      "account_id": "source.sandbox",
+      "reporter": "source.sandbox",
+      "code_hash": "73KUWYiet2G6ef33kp2aQPaYw7GodWWfiLYQFGbX4ZM"
+    },
+    "series": {
+      "series_id": "alpha",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3500000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794300891023104000",
+      "mint_cutoff_ns": "1794299811023104000",
+      "observation_window": {
+        "start_ns": "1794299811023104000",
+        "end_ns": "1794300891023104000"
+      },
+      "oracle_account_id": "oracle.native.sandbox",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "pricing_observation": {
+      "spot": "3500000000000",
+      "source": "EXPLICIT_SANDBOX_FIXTURE"
+    },
+    "accounts": [
+      {
+        "role": "administrator",
+        "id": "native.sandbox",
+        "initial_balance": "48000000000000000000000000",
+        "public_key": "ed25519:7atx3HGM5ZcNchwYYuWKJvY6tEByd7MLaPVtjoJY6ouk"
+      },
+      {
+        "role": "core",
+        "id": "core.native.sandbox",
+        "initial_balance": "30000000000000000000000000",
+        "public_key": "ed25519:8tHsqF7JLcYDsfqD9LQ2gAcubV7BCowtkKNot5uEdmWe"
+      },
+      {
+        "role": "oracle",
+        "id": "oracle.native.sandbox",
+        "initial_balance": "8000000000000000000000000",
+        "public_key": "ed25519:4CU6oFQuAyDkxeo3YcEpAnTca2mxt7CyQEK9X2MTDXGs"
+      },
+      {
+        "role": "maker",
+        "id": "maker-a.native.sandbox",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:7V8HBNYJUKdywtimPzHMgxwPYPecjiMeXd48KqrDkyDv",
+        "rfq_public_key": "18a5379e6bd9474a73e273427e5d8bf660475a48febd1a4bad77c4496968f585"
+      },
+      {
+        "role": "maker",
+        "id": "maker-b.native.sandbox",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:6B4KjNypZx8UKrB4jSe1LdcyRZKieuR3W7n8M5A96b18",
+        "rfq_public_key": "e7e1d78e831372b34d9602440b540a3a6137321f2bd1ecf7558817e392fbe5dc"
+      }
+    ],
+    "oracle_label": "SANDBOX SOURCE FIXTURE",
+    "vault_enabled": false,
+    "artifacts": {
+      "core": {
+        "path": "target/core-artifacts/clearinghouse.wasm",
+        "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+        "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+      },
+      "external_oracle": {
+        "path": "target/external-oracle-artifacts/external_settlement.wasm",
+        "sha256": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+        "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+      }
+    }
+  },
+  "reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "1",
+      "block_hash": "E9kupjMYY9BwqA5gbpBKHbjjx4d9jm9mxE16w12cbr43",
+      "height": "127",
+      "rpc_failures": 0,
+      "rpc_failovers": 0
+    },
+    "reconciliations": [
+      {
+        "contract": "oracle.native.sandbox",
+        "kind": "external_oracle",
+        "sequence": "2",
+        "matched": true,
+        "state_hash": "7a120d347e564e095e61ee54e4364f15c2df32f2a2f91424660d39901b52fe93"
+      },
+      {
+        "contract": "core.native.sandbox",
+        "kind": "core",
+        "sequence": "11",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 13,
+    "alerts": []
+  }
+}

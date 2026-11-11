@@ -1,0 +1,150 @@
+{
+  "scope": "Six observed live health reads after concurrent snapshot restart; not a sustained load benchmark",
+  "samples": [
+    {
+      "observed_at": "2026-11-11T03:33:16.759Z",
+      "health": {
+        "state": "EVENT_SEQUENCE_GAP",
+        "failed_at": "2026-11-11T03:32:40.464Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "tx",
+            "tx_hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "started_at": "2026-11-11T03:32:23.013Z"
+        },
+        "stale": true,
+        "age_ms": 88148,
+        "cursor_hash": "3oeySQFYDjLMcTibEk7ywtHSjUtdvC299KuwEKdeJ3uE",
+        "height": "277160103",
+        "generation": "417"
+      }
+    },
+    {
+      "observed_at": "2026-11-11T03:33:26.801Z",
+      "health": {
+        "state": "EVENT_SEQUENCE_GAP",
+        "failed_at": "2026-11-11T03:32:40.464Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "tx",
+            "tx_hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "started_at": "2026-11-11T03:32:23.013Z"
+        },
+        "stale": true,
+        "age_ms": 98191,
+        "cursor_hash": "3oeySQFYDjLMcTibEk7ywtHSjUtdvC299KuwEKdeJ3uE",
+        "height": "277160103",
+        "generation": "417"
+      }
+    },
+    {
+      "observed_at": "2026-11-11T03:33:36.844Z",
+      "health": {
+        "state": "EVENT_SEQUENCE_GAP",
+        "failed_at": "2026-11-11T03:33:33.655Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "tx",
+            "tx_hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "started_at": "2026-11-11T03:33:16.233Z"
+        },
+        "stale": true,
+        "age_ms": 108234,
+        "cursor_hash": "3oeySQFYDjLMcTibEk7ywtHSjUtdvC299KuwEKdeJ3uE",
+        "height": "277160103",
+        "generation": "417"
+      }
+    },
+    {
+      "observed_at": "2026-11-11T03:33:46.852Z",
+      "health": {
+        "state": "EVENT_SEQUENCE_GAP",
+        "failed_at": "2026-11-11T03:33:33.655Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "tx",
+            "tx_hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "started_at": "2026-11-11T03:33:16.233Z"
+        },
+        "stale": true,
+        "age_ms": 118241,
+        "cursor_hash": "3oeySQFYDjLMcTibEk7ywtHSjUtdvC299KuwEKdeJ3uE",
+        "height": "277160103",
+        "generation": "417"
+      }
+    },
+    {
+      "observed_at": "2026-11-11T03:33:56.860Z",
+      "health": {
+        "state": "EVENT_SEQUENCE_GAP",
+        "failed_at": "2026-11-11T03:33:33.655Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "tx",
+            "tx_hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "started_at": "2026-11-11T03:33:16.233Z"
+        },
+        "stale": true,
+        "age_ms": 128249,
+        "cursor_hash": "3oeySQFYDjLMcTibEk7ywtHSjUtdvC299KuwEKdeJ3uE",
+        "height": "277160103",
+        "generation": "417"
+      }
+    },
+    {
+      "observed_at": "2026-11-11T03:34:06.870Z",
+      "health": {
+        "state": "EVENT_SEQUENCE_GAP",
+        "failed_at": "2026-11-11T03:33:33.655Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "tx",
+            "tx_hash": "FFbyU2k5BDc4X1pdY6EkQ3quPdee8j3WohBJaAKNZpCT"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "started_at": "2026-11-11T03:33:16.233Z"
+        },
+        "stale": true,
+        "age_ms": 138259,
+        "cursor_hash": "3oeySQFYDjLMcTibEk7ywtHSjUtdvC299KuwEKdeJ3uE",
+        "height": "277160103",
+        "generation": "417"
+      }
+    }
+  ],
+  "all_risk_allowed": false
+}

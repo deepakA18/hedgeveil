@@ -1,0 +1,11 @@
+[package]
+name = "hedgeveil-expiry-source-fixture"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[lib]
+crate-type = ["cdylib"]
+test = false
+doctest = false
+[dependencies]
+near-sdk.workspace = true

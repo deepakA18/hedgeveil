@@ -1,0 +1,78 @@
+{
+  "observed_at": "2026-11-10T08:42:59.251Z",
+  "scope": "Read-only lookup of an unresolved setup attempt; absence/timeouts do not authorize a resend or refund",
+  "hash": "56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q",
+  "signer": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+  "lookups": [
+    {
+      "endpoint": "https://test.rpc.fastnear.com/",
+      "identity_verified": true,
+      "transaction": {
+        "http_status": 200,
+        "body": {
+          "jsonrpc": "2.0",
+          "error": {
+            "name": "HANDLER_ERROR",
+            "cause": {
+              "info": {
+                "requested_transaction_hash": "56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q"
+              },
+              "name": "UNKNOWN_TRANSACTION"
+            },
+            "code": -32000,
+            "message": "Server error",
+            "data": "Transaction 56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q doesn't exist"
+          },
+          "id": "readonly-recovery"
+        }
+      }
+    },
+    {
+      "endpoint": "https://testnet-rpc.intea.rs/",
+      "identity_verified": true,
+      "transaction": {
+        "http_status": 200,
+        "body": {
+          "error": {
+            "cause": {
+              "info": {
+                "requested_transaction_hash": "56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q"
+              },
+              "name": "UNKNOWN_TRANSACTION"
+            },
+            "code": -32000,
+            "data": "Transaction 56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q doesn't exist",
+            "message": "Server error",
+            "name": "HANDLER_ERROR"
+          },
+          "id": "readonly-recovery",
+          "jsonrpc": "2.0",
+          "note": "Requests without an API key are being slowed down for one second. Get an API key at https://rainy.intea.rs for faster response times."
+        }
+      }
+    },
+    {
+      "endpoint": "https://rpc.testnet.near.org/",
+      "identity_verified": true,
+      "transaction": {
+        "http_status": 200,
+        "body": {
+          "jsonrpc": "2.0",
+          "error": {
+            "name": "HANDLER_ERROR",
+            "cause": {
+              "info": {
+                "requested_transaction_hash": "56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q"
+              },
+              "name": "UNKNOWN_TRANSACTION"
+            },
+            "code": -32000,
+            "message": "Server error",
+            "data": "Transaction 56zM3T4ok74SsHwV31MKimxgSdG6SfHKNbSXvC9Y4c3Q doesn't exist"
+          },
+          "id": "readonly-recovery"
+        }
+      }
+    }
+  ]
+}

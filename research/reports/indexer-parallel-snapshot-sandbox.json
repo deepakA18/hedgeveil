@@ -1,0 +1,21 @@
+{
+  "scope": "Actual transfer-only funding, implicit service accounts, native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment",
+  "checks": [
+    "wallet request contains exactly one transfer and no key permission",
+    "single transfer creates implicit account with the locally generated key"
+  ],
+  "sources": {
+    "services/testnet/native.mjs": "10164178b1217ef47023e13c3f4122931ccd1d9a9971e866ce43bbf3f9ddf5a1",
+    "services/testnet/transactions.mjs": "7ce6783bdca62fa494bff610bac48d96e75b2898db7a068d14056b9ccbc65421",
+    "services/testnet/funding.mjs": "c8b817ab238ff53569ecb735e6fa4f615cdf9eb370d422438d89ec3922dd5584",
+    "services/indexer/ancestry.mjs": "190f77add6e1889102d1afcde49b25888e5ead763f3e40a8632153e7e5353173",
+    "services/indexer/discovery.mjs": "29671272e0259cc31d2e644ce2a70485be2cdf31bc8a721f58c53c831da8a307",
+    "services/indexer/migrate-discovery.mjs": "be08d04cf9a049af3debe4ce05615b658ce65833b71aaf43b5b879750d41ebc6",
+    "services/indexer/neardata.mjs": "49e2d53ab6456e22d4d94fb6b6ce21864edb5ecf1ca700ce140885da6739c74d",
+    "services/indexer/store.mjs": "b301bac64f897454e503b2056db1b746d26a96fb66ea66864d434c0e9c0cab84",
+    "services/indexer/indexer.mjs": "4e8d32fcfd875c65b80e80a09669ec49b39d47528bff1670e9a96b81361b537e",
+    "services/indexer/rpc.mjs": "4f159833864a6daf7719e8916fbee20928905346666dfd229534f27e7a0afaf3",
+    "tests/sandbox/transfer-setup.mjs": "4a27021dc8c87c27e7bc1b1370a900aa84098d7c38b6186a77661da2af9b2427"
+  },
+  "passed": false
+}

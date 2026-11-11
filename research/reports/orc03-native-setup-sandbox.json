@@ -1,0 +1,163 @@
+{
+  "scope": "Actual native setup and budget in Sandbox; explicit source/strike fixtures, not public deployment",
+  "checks": [
+    "48 NEAR setup funds and deploys both native contracts without synthetic publishers",
+    "setup restart recovers existing receipts and preserves immutable terms",
+    "maker-a.native.sandbox has separately backed P/N inventory and free collateral",
+    "maker-b.native.sandbox has separately backed P/N inventory and free collateral",
+    "vault remains disabled",
+    "native deployment indexer reconciles actual setup receipts",
+    "administrator retains refresh/gas budget after setup"
+  ],
+  "sources": {
+    "services/testnet/native.mjs": "82145a885c4ee143629c47eeda6d8f0798e1f3cf04a9f51276e36ac1257c2fe4",
+    "services/testnet/transactions.mjs": "e69a12fe355da38a5449bb448c246af452776127d2a93e5597a1a966474e9585",
+    "tests/sandbox/native-setup.mjs": "51705ae6eaaf1882e820ded74113027d08ad35426b2d14ed845c33d07f3d66e7"
+  },
+  "passed": true,
+  "root_balance": "787757526876339000000000",
+  "deployment": {
+    "version": 1,
+    "network": "sandbox",
+    "client": {
+      "network": "sandbox",
+      "chain_id": "test-chain-lAkXU",
+      "genesis_hash": "4DgCnjeSauPvcbQggPThGKhjQn3CGuSHk2CkPymyAMCT",
+      "rpc_url": "http://127.0.0.1:56429",
+      "contract_id": "core.native.sandbox",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+    },
+    "indexer": {
+      "network": "sandbox",
+      "chain_id": "test-chain-lAkXU",
+      "genesis_hash": "4DgCnjeSauPvcbQggPThGKhjQn3CGuSHk2CkPymyAMCT",
+      "anchor_hash": "Bhw8Ls7ZACNJACCxC8iYqcYiJHPKvuNZx56fa7dLGBCL",
+      "rpc_urls": [
+        "http://127.0.0.1:56429"
+      ],
+      "contracts": [
+        {
+          "kind": "external_oracle",
+          "account_id": "oracle.native.sandbox",
+          "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+        },
+        {
+          "kind": "core",
+          "account_id": "core.native.sandbox",
+          "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+        }
+      ],
+      "schema": "hv_testnet_native",
+      "max_blocks": 10000,
+      "stale_after_ms": 60000,
+      "poll_ms": 2000
+    },
+    "source": {
+      "account_id": "source.sandbox",
+      "reporter": "source.sandbox",
+      "code_hash": "73KUWYiet2G6ef33kp2aQPaYw7GodWWfiLYQFGbX4ZM"
+    },
+    "series": {
+      "series_id": "alpha",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3500000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794252161328542000",
+      "mint_cutoff_ns": "1794251621328542000",
+      "observation_window": {
+        "start_ns": "1794251621328542000",
+        "end_ns": "1794252161328542000"
+      },
+      "oracle_account_id": "oracle.native.sandbox",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "pricing_observation": {
+      "spot": "3500000000000",
+      "source": "EXPLICIT_SANDBOX_FIXTURE"
+    },
+    "accounts": [
+      {
+        "role": "administrator",
+        "id": "native.sandbox",
+        "initial_balance": "48000000000000000000000000",
+        "public_key": "ed25519:39hG8k8g6TP5xqL9BDeWrp5ao1NMB2GtRk1z8Qe4eSK7"
+      },
+      {
+        "role": "core",
+        "id": "core.native.sandbox",
+        "initial_balance": "30000000000000000000000000",
+        "public_key": "ed25519:CjgHrqYXd67VbDbytx1HBQ9UCSBKULQ9hfvAeBgUFW6e"
+      },
+      {
+        "role": "oracle",
+        "id": "oracle.native.sandbox",
+        "initial_balance": "8000000000000000000000000",
+        "public_key": "ed25519:EqakXT7jhQ7skr5H8qLNtsGqjzNmqL55giwAG4SreBUj"
+      },
+      {
+        "role": "maker",
+        "id": "maker-a.native.sandbox",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:HtJsekgY1pkWEFyaWf89bxRpzyp1iidpExKcTcHLnXUZ",
+        "rfq_public_key": "d3b5e7c13c50ab1ba684fe37aff5ea543f6bf3c09382b37d72b6f34fb02e503e"
+      },
+      {
+        "role": "maker",
+        "id": "maker-b.native.sandbox",
+        "initial_balance": "4500000000000000000000000",
+        "public_key": "ed25519:HdCUmdSKAeFodSi8GSMBgnbqv7BYmCzM9N5T6WrqCjJQ",
+        "rfq_public_key": "6869421b53560ed3c4144097c6d6e29222c0a296e223310a7042f7b4eb00c468"
+      }
+    ],
+    "oracle_label": "SANDBOX SOURCE FIXTURE",
+    "vault_enabled": false,
+    "artifacts": {
+      "core": {
+        "path": "target/core-artifacts/clearinghouse.wasm",
+        "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+        "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+      },
+      "external_oracle": {
+        "path": "target/external-oracle-artifacts/external_settlement.wasm",
+        "sha256": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+        "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+      }
+    }
+  },
+  "reconciliation": {
+    "health": {
+      "state": "RECONCILED",
+      "risk_allowed": true,
+      "reconciled": true,
+      "lag_blocks": "1",
+      "block_hash": "FGYfSe3stc7fBoW5h7yfvfDngjjhhV6QhQRgSgQnChi5",
+      "height": "127",
+      "rpc_failures": 0,
+      "rpc_failovers": 0
+    },
+    "reconciliations": [
+      {
+        "contract": "oracle.native.sandbox",
+        "kind": "external_oracle",
+        "sequence": "2",
+        "matched": true,
+        "state_hash": "ad1758e4d43456b4e96e2cd5c0b6c35d521dd2fb538d18d6af5dc59210dc0916"
+      },
+      {
+        "contract": "core.native.sandbox",
+        "kind": "core",
+        "sequence": "11",
+        "balance_count": 16,
+        "matched": true
+      }
+    ],
+    "event_count": 13,
+    "alerts": []
+  }
+}

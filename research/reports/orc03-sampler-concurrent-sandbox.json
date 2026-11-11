@@ -1,0 +1,203 @@
+{
+  "scope": "Compiled-Wasm Sandbox sampler orchestration with synthetic source fixture; no public source acceptance",
+  "checks": [
+    "collector waits before its immutable window",
+    "slot 0: real refresh and sample receipts survive restart without resending",
+    "slot 1: real refresh and sample receipts survive restart without resending",
+    "slot 2: real refresh and sample receipts survive restart without resending",
+    "collector finalizes exact average and imports it into the core",
+    "completed collector stays complete across another restart",
+    "automatically sampled settlement supports real redemption and native withdrawal"
+  ],
+  "transactions": [
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "refresh:0",
+      "result": {
+        "operation_id": "73ccebdd301341fbc4e65c9e88dfe03b1b4d30623bbab7509ddc83fcbb60370f",
+        "hash": "7TXTFymZrSEmNBSdmsA7NQvEyJwARbKyEzgS1rZ6uyGn",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "sample:0",
+      "result": {
+        "operation_id": "00e63af78ff3457be3f75119cf8a653b938e1fe402aeaa6e6fb37f2b33cd5d8f",
+        "hash": "8fwknfFvsKRSMHjmXkAuxMKCi8YAH4kxUpdXtAfeS9b8",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "refresh:1",
+      "result": {
+        "operation_id": "fc63a8b0b1ec6ceff4b8aa46f11a802524ef0a0df6199770a73fedb25e67aa65",
+        "hash": "FSYY5LHnXsCNcF69oUeZHtLVYYEA8X94X4E4jG4UJLei",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "sample:1",
+      "result": {
+        "operation_id": "6ceab658732a9b37ee2c9c0dd0e67251232b8f9b09c6a970403902bb93a05517",
+        "hash": "AfryeiyaPvGLxW3Me8CRppYJdKy2ugwvuN96Asm3fPoC",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "refresh:2",
+      "result": {
+        "operation_id": "19fec1a483281d36357dfe9a72f1c118bc00cd9bc96acd1895955c7d94c86226",
+        "hash": "4YijoegHe5JTAmtvUgxFUm23YSxVQUgPrBWnXqdtajQm",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "sample:2",
+      "result": {
+        "operation_id": "f3a734d93ef9300093b351e4e0506b75efd25c76fc7c9db09eaad5b182d15c86",
+        "hash": "2ZQZ21B3jUgSt9JTEgLFDX1AiNRpnnPrPBeYpxHUZ8fU",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "finalize",
+      "result": {
+        "operation_id": "8f173074644f46bf3ee1b59604577f7da7761755c19a6b18e7fc4013562c7426",
+        "hash": "EadHojzidrrRteYH9M7mTArrSXXq6SpCbtdyDcp9zxdm",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "state": "TRANSACTION_CONFIRMED",
+      "operation": "import",
+      "result": {
+        "operation_id": "fb91f484f7d0a51049b674eba7f0201626a523c0c70a20d1ff148ebe09b6d449",
+        "hash": "Ao4jftApsmPrWFEXtwekQas67H1aJphVAe4zVxpze9Po",
+        "state": "SUCCEEDED"
+      }
+    }
+  ],
+  "sources": {
+    "target/external-oracle-artifacts/external_source_fixture.wasm": "018c1b3e1613d85209d92fbe417e6a4d8aa733c35a58b233e2369db56194b9f0",
+    "target/external-oracle-artifacts/external_settlement.wasm": "b69abe3bf92b9d1acd3e6291141a76fc18758acdfc755b0a53e280b734305058",
+    "target/core-artifacts/clearinghouse.wasm": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+    "services/outlayer/sampler.mjs": "7f55300662327dc9b73258a0f30edbd3be1f03ef0240fdae7570d2b9c306d091",
+    "services/testnet/transactions.mjs": "7ce6783bdca62fa494bff610bac48d96e75b2898db7a068d14056b9ccbc65421",
+    "contracts/test-fixtures/external-source/src/lib.rs": "206e8e7510071a2e2318e5bccfb39187659c6fa19032faa6912ef7b924a35f8b",
+    "tests/sandbox/sampler.mjs": "f75aa6d87659bcc842103cce2b3e89a52a255bef9beb50cedc502f25a39deffb"
+  },
+  "passed": true,
+  "tickets": [
+    {
+      "id": "0",
+      "owner": "sandbox",
+      "receiver": "sandbox",
+      "amount": "2000000000000000000000000",
+      "state": "SUCCEEDED",
+      "kind": "COLLATERAL",
+      "created_ns": "1794298574213207000",
+      "version": 1,
+      "balance_restored": false
+    }
+  ],
+  "profile": {
+    "network": "sandbox",
+    "chain_id": "test-chain-weIyb",
+    "genesis_hash": "8PEUFZ6CwzkXRyUEEAx6jC9vz8RCkm1kxfGw8EDYQLgD",
+    "policy_acceptance": "native-sampled-v1/testnet/2026-11-10",
+    "signer_id": "sandbox",
+    "source": {
+      "account_id": "source.sandbox",
+      "code_hash": "73KUWYiet2G6ef33kp2aQPaYw7GodWWfiLYQFGbX4ZM"
+    },
+    "resolver": {
+      "account_id": "resolver.sandbox",
+      "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT"
+    },
+    "core": {
+      "account_id": "core.sandbox",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ"
+    },
+    "terms": {
+      "series_id": "sampled",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "2000000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794298508767372000",
+      "mint_cutoff_ns": "1794297968767372000",
+      "observation_window": {
+        "start_ns": "1794297968767372000",
+        "end_ns": "1794298508767372000"
+      },
+      "oracle_account_id": "resolver.sandbox",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    }
+  },
+  "case": {
+    "config": {
+      "series_id": "sampled",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "2000000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794298508767372000",
+      "mint_cutoff_ns": "1794297968767372000",
+      "observation_window": {
+        "start_ns": "1794297968767372000",
+        "end_ns": "1794298508767372000"
+      },
+      "oracle_account_id": "resolver.sandbox",
+      "oracle_version": "native-sampled-v1",
+      "oracle_config_hash": "69331aa4872ccdf6b4b16039a0848967b6deab5ffdfcf73b878114610a092475",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+      "max_supply": "100000000000000000000000000"
+    },
+    "source": {
+      "account": "source.sandbox",
+      "reporter": "source.sandbox",
+      "asset": "wrap.near",
+      "min_price": "10000000000",
+      "max_price": "1000000000000000"
+    },
+    "samples": [
+      {
+        "report_ns": "1794297976078087000",
+        "request_ns": "1794297976819475000",
+        "accepted_ns": "1794297977082355000",
+        "price": "3000000000000",
+        "response_hash": "e5a3f0c366ab6c58d3156424d6d40ce1e7d57c2f1887c02b186117ec47e2dc92"
+      },
+      {
+        "report_ns": "1794298156594647000",
+        "request_ns": "1794298157340531000",
+        "accepted_ns": "1794298157595397000",
+        "price": "4000000000000",
+        "response_hash": "ff5046e6c5e95c8fed913882fa1c91cb4e59f9dff9864c97ba098cc009b34595"
+      },
+      {
+        "report_ns": "1794298335799650000",
+        "request_ns": "1794298336533842000",
+        "accepted_ns": "1794298336797365000",
+        "price": "5000000000000",
+        "response_hash": "8e8b9fa102320f192b0fa78d2682d33f7a3b8947f3472f0f6d631204328d309e"
+      }
+    ],
+    "pending": null,
+    "price": "4000000000000"
+  },
+  "refresh_count": 3
+}

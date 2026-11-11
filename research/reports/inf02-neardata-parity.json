@@ -1,0 +1,294 @@
+{
+  "observed_at": "2026-11-11T14:23:49.397Z",
+  "scope": "Real FASTNEAR full blocks compared to retained 73-transaction acceptance archive; targeted block coverage, not continuous backfill",
+  "blocks": [
+    {
+      "height": "277012624",
+      "hash": "7FoSe8fYhjmXoHmUeD4J15pdWnnNEFwAeZvrjScMRp2G"
+    },
+    {
+      "height": "277012658",
+      "hash": "D9B2dT22AJn9hLveAsPgtVawPjA9e42Y2BVHcqg6ETvK"
+    },
+    {
+      "height": "277012901",
+      "hash": "ABw8J5mqzNiYx7TbHRQgt1t8atYFhgDzwJ1UcTpPjmjd"
+    },
+    {
+      "height": "277012902",
+      "hash": "C3Rdfo4X3utKJM8UQtfePwm9uf59W87W3rzbD3UkoV2g"
+    },
+    {
+      "height": "277012912",
+      "hash": "3grqwTnp1R76nKGyUdHDJjXg4ywCZnLh4jn5Wf9PJoBJ"
+    },
+    {
+      "height": "277012913",
+      "hash": "6weJ6XasD8v2sh8RuwA8x5xv8Jqi1HD9HjikFtPSJzPA"
+    },
+    {
+      "height": "277012922",
+      "hash": "AfQWkbaz86kd2CgHHVo9wSdcuD7PPDHcVrzvKwexjArJ"
+    },
+    {
+      "height": "277012931",
+      "hash": "DLtXrTR8U6TwUGTuxjjHCkAMeed7bv3eGEhoXPSQGy2J"
+    },
+    {
+      "height": "277012939",
+      "hash": "BALxmxWc9yBZkcAFnj6uwU5Kh32Td3UQJAmNDUePegG6"
+    },
+    {
+      "height": "277012948",
+      "hash": "7ZrK7shih65Rmm13MNzuyww9FNNrdEN5vtXzk9ir7XJU"
+    },
+    {
+      "height": "277012958",
+      "hash": "7QmAQoa2ywrka9cLY7FghrUf2GsgoX58kP6UbbnEjnsF"
+    },
+    {
+      "height": "277012968",
+      "hash": "CZisGnMPngg87H5XQa2Uq6kCMqqv7eDJwR9UVAvfaZH1"
+    },
+    {
+      "height": "277012977",
+      "hash": "Cd7RP7UFWrS7Lm3tYehihzjC1wx7EfKWGqCqmobAr6tM"
+    },
+    {
+      "height": "277012986",
+      "hash": "DQZgQezsWzEuYXeXgySQCDv1KirATYbJyUjjC3F84Y2E"
+    },
+    {
+      "height": "277012995",
+      "hash": "AGCYcxMoJoVqsnoWa2UBVY7hrDUzKuAz6vGMw8XMmrZB"
+    },
+    {
+      "height": "277013005",
+      "hash": "3aXdzU7LLRjCHBxBUC739yCALvXHZtMJsoWpkstnfkRU"
+    },
+    {
+      "height": "277013014",
+      "hash": "6BgvwuhMtqYtBGExRfQyWQTAwzU8oJZ7VzM2JmSYBYrP"
+    },
+    {
+      "height": "277014815",
+      "hash": "EkVhXtpMFeDXEGvKNrbeMfs5J4nHSwg3ebULHsKqyTHG"
+    },
+    {
+      "height": "277014823",
+      "hash": "2rSBYipwjM8CuJSt4uhhS4zCse1L5haMQsuF7Fi3ZEvw"
+    },
+    {
+      "height": "277034688",
+      "hash": "3WKb5vV5CXDj7RZ3DS8Wt54c1nypNaAXhrDHp3XcozNZ"
+    },
+    {
+      "height": "277034875",
+      "hash": "6aan1j9FwNrojGsGZQ6Qjj2if4b5ozyeXwnXUVLLpiYC"
+    },
+    {
+      "height": "277035204",
+      "hash": "EhoFsd4LYf3YcM3WVWLNVxeJeLu817tgiqzfPk2FXqCJ"
+    },
+    {
+      "height": "277035212",
+      "hash": "87ukmhVwrifsfQdDKqAhM1peDhecDFRT9A9jK5N1X5Wh"
+    },
+    {
+      "height": "277035888",
+      "hash": "21KzK9FHsvmhDEbHS7fVznPxHnJJyPEUw1xZsTEU5FPF"
+    },
+    {
+      "height": "277035913",
+      "hash": "5gvcbFrmUiSF1xqJwEmXTeLmbJ5fq9GtczKsi9BofjMr"
+    },
+    {
+      "height": "277037648",
+      "hash": "BnNjPVLtTxBPpMWK6gaVW1YW5YZokMyCHthDxangwCpy"
+    },
+    {
+      "height": "277037914",
+      "hash": "4Qhp53gkZpoqUmVewyGSX99X8mR4oVhnjpU5kJoToGkm"
+    },
+    {
+      "height": "277038237",
+      "hash": "G7KwFutKKKNkg9eU53HaZLbnrAq2SwFBLDddmLBQckiz"
+    },
+    {
+      "height": "277038245",
+      "hash": "HNR8ehtMQZsefFzY1Azt9SZi96ddmnXFojsv5ddPKs8d"
+    },
+    {
+      "height": "277038253",
+      "hash": "6fsZFoDMA4LEUNj3PAuZHDNg8KDMfprhKNuPaAXHTCzk"
+    },
+    {
+      "height": "277038261",
+      "hash": "3pgMn9YTrreAuoQbF5UkFjf1zFLHq2tjDLDDeDDGxfMn"
+    },
+    {
+      "height": "277039876",
+      "hash": "BBU8DATajDh9N7JVHqZ7jihLhjXqJCriBTeLYVuTuR1x"
+    },
+    {
+      "height": "277039885",
+      "hash": "EBFweMjgc5zGgEF7sjW15i5ZAKjHPYz6qXZxr3K9EYMV"
+    },
+    {
+      "height": "277039965",
+      "hash": "AP7zSngMfvi3sVbJoQRozXKz2sALoQvTWoQriySXFHfH"
+    },
+    {
+      "height": "277039973",
+      "hash": "88FnumazbdPZgtdYKtwfFxwdfKdrzSUReTzeKdBE9Xjp"
+    },
+    {
+      "height": "277039981",
+      "hash": "7jW6WevQU3on9AyasgyTntxZAiT3w9y3Cf8RnoHxZD7V"
+    },
+    {
+      "height": "277039991",
+      "hash": "32aYVNnVgpyQn1jRPv9FUWrFXnWwVZdvA3sJaCfUS4rS"
+    },
+    {
+      "height": "277040264",
+      "hash": "y11NTdGHWvHD9G79LGZvGEGZtgt9LSQmizUVH4CW7oV"
+    },
+    {
+      "height": "277040273",
+      "hash": "GdcgHsYgbecq6aaCF7yL2Kwyu5bmh3rt5HR8uYadJQC1"
+    },
+    {
+      "height": "277040312",
+      "hash": "51NApwU9BYx62zGXZUaN4D1b3CBsXFvDSfsNwuyC9RRi"
+    },
+    {
+      "height": "277040314",
+      "hash": "EutXeShiLA4T8WfF6DKaDTUZQPXFnrvwbyVHNV5E5Ln4"
+    },
+    {
+      "height": "277042828",
+      "hash": "7MdFSUhGhA4Q5qPTrEB1hbtiKD4YGmGktumqenUJqvba"
+    },
+    {
+      "height": "277042837",
+      "hash": "BJSaFd4eEPCKS3898hBySHVqPwbWYAeU1Q5hdfsoDFiB"
+    },
+    {
+      "height": "277157079",
+      "hash": "A1dHcfGqbTNREdztGvHScVuJeqt4t5L7BF8B1TvXuGFt"
+    },
+    {
+      "height": "277157182",
+      "hash": "hGmCsBX8TAopMKAAQNLd4BzDHLfgu3kgxsunx7rSvP2"
+    },
+    {
+      "height": "277157191",
+      "hash": "456mBf87UrW27ZjAuQtDcHwH3m9TEtp6m2zeSyUuAq3i"
+    },
+    {
+      "height": "277157199",
+      "hash": "8F1J7wwyPneTJVQxuia8D1sR4gXexUcCsVoU4RFueeTR"
+    },
+    {
+      "height": "277157208",
+      "hash": "BXoUDsNTifuxDcQGUEvkHDpFgAXMy3fJ7wc4CHamh7L6"
+    },
+    {
+      "height": "277157418",
+      "hash": "4KaoZFSi71S6Kt6ErsFzpqHwM2TaDjtE66qQBpQE7zed"
+    },
+    {
+      "height": "277158161",
+      "hash": "D5jTuQ8s9tRubVfY2Xf818PxUJoJ6DLtcEh7MNk6hNfe"
+    },
+    {
+      "height": "277158237",
+      "hash": "E8n4qUbato4Js86bhf4iuW55TbGPQxNifvoLvZQ2Ftb5"
+    },
+    {
+      "height": "277158248",
+      "hash": "3A6sPDbMiNHEk7bQAiyT1HEXa5hnVSW7jt9LXAM68ssg"
+    },
+    {
+      "height": "277158250",
+      "hash": "GfuA5pEiGFzBwECbgB7zoJhZPuVUe43j6NUdvQyuq7Vr"
+    },
+    {
+      "height": "277158299",
+      "hash": "CspPvkzGqvxS2cUFg8RyddE7tYcXdDgFpR5MYx44m79E"
+    },
+    {
+      "height": "277158310",
+      "hash": "BAZWS189uscfqcV4CBnFeACASGsggEysmNfRXokzSrPu"
+    },
+    {
+      "height": "277158318",
+      "hash": "H7Jvb9Eoy1rcQ5kKGY5aWhqaLUV1TbmitxNh73vj58BV"
+    },
+    {
+      "height": "277158865",
+      "hash": "46YJQBPMCdunKN4wrmppWqNJ9TkEdcc5L2JJZhgAFtfj"
+    },
+    {
+      "height": "277158867",
+      "hash": "B4RBLcEc4nPVL98z3oPori86DjZkbfa4crVDRcWD6YEj"
+    },
+    {
+      "height": "277159473",
+      "hash": "GpaathtKCPYN9Acx2jHsATLBKov3Dyms3YdEzB8TMUTe"
+    },
+    {
+      "height": "277159475",
+      "hash": "3qAbygVsQZ6HRSdPX9QviuhKDBxvixZJH1ven61XdsYL"
+    },
+    {
+      "height": "277160140",
+      "hash": "83jHnEiSA1G2kmbB79YLPT7SYLZmN8CBtRjewQEZFtiT"
+    },
+    {
+      "height": "277160151",
+      "hash": "ArmQDE3HRMoDvVcQMRzu7cHY9VQkpwcaSusZeB8aWSHz"
+    },
+    {
+      "height": "277160152",
+      "hash": "5Ze4oDo33ZqwebkrWcAcwdb2N5xDALiouYdxtpu8h33f"
+    },
+    {
+      "height": "277160153",
+      "hash": "7eYZyLqSgqvZ9RzkjfWZoW1xhBw5rwTgjDByFm8GoJj7"
+    },
+    {
+      "height": "277160234",
+      "hash": "3AVyVeouJTbvHAESz8ECm8eW6fqv8bxRo5WRDHR7WN14"
+    },
+    {
+      "height": "277160244",
+      "hash": "FLy4teiUSUMjPyij2fHCXapWe9Hy3bNeMQvggjiDMCw9"
+    },
+    {
+      "height": "277160253",
+      "hash": "bjXq5mTrcAauru6u18nMYXVsjjLkixiBADye4ZYmVeU"
+    },
+    {
+      "height": "277160255",
+      "hash": "x3aNWAJCH9gy9dhyd5gWpq8CABztYu38UQWx1Hw6gDs"
+    },
+    {
+      "height": "277160667",
+      "hash": "GP8ciYdZ1FGiq2hv7YEVdx3A3wNt44PL52EfgG9EFm5c"
+    },
+    {
+      "height": "277160748",
+      "hash": "81Emix4YZsoy4ykMbHk65PSsroGsmiTUm7MSg2mqhxhe"
+    },
+    {
+      "height": "277160750",
+      "hash": "5fFuv7WrFPwkCekfnaE5RArBVxBfA8xHVAzNWamDX3yM"
+    }
+  ],
+  "watched_receipts": 72,
+  "discovered_hints": 69,
+  "passed": true,
+  "cutover_accepted": false
+}

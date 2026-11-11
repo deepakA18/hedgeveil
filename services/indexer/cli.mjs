@@ -16,7 +16,7 @@ try {
     else {
         server=createApi(indexer.store);
         await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(indexer.config.api_port,'127.0.0.1',resolve);});
-        process.stdout.write(JSON.stringify({network:'sandbox',api:`http://127.0.0.1:${server.address().port}`,read_only:true})+'\n');
+        process.stdout.write(JSON.stringify({network:indexer.config.network,api:`http://127.0.0.1:${server.address().port}`,read_only:true})+'\n');
         while(!stopped) {
             try{await indexer.sync();}
             catch(e){process.stderr.write(JSON.stringify({error:e instanceof ClientError?e.code:'INDEXER_FAILURE',risk_allowed:false})+'\n');}

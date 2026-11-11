@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "payload": "{\"eth.bridge.near\":{\"price\":\"196837500000\",\"expo\":-8,\"publish_time\":1785149621},\"usdt.tether-token.near\":{\"price\":\"99908500\",\"expo\":-8,\"publish_time\":1785149622},\"wrap.near\":{\"price\":\"184283333\",\"expo\":-8,\"publish_time\":1785149621}}",
+  "signature": "YC2Nd2IyViEp7JKIDqkehHT9bnn2qTJl8iP0frNrlK63NJTjNO0LbI8u28qmH66+mEP2IIi+NrC4oIkXxk/uBw==",
+  "public_key": "ed25519:FU6EnB4UaAiDCAxvQPkRUu5QQExgzvKQAX891wMEX3rU",
+  "sig_format": "json",
+  "error": null,
+  "skipped": null,
+  "sources": null
+}

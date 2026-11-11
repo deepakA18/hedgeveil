@@ -36,6 +36,15 @@ export const stateText={
  WITHDRAWAL_UNKNOWN:'Payout unresolved. Funds stay quarantined. A timeout never authorizes resend or refund.'
 };
 export const errorText={
+ MERGE_AFTER_FINALIZATION:'This series is finalized. Redeem each claim using its final payout instead of merging.',
+ MAKER_UNAVAILABLE:'The maker could not return an offer. No trade was submitted. Try again when the maker service is available.',
+ MAKER_RPC_UNAVAILABLE:'The maker cannot verify current chain state. No trade was submitted. Wait briefly, then request a fresh quote.',
+ MAKER_TIMEOUT:'The maker took too long to respond. No trade was submitted. Wait briefly before requesting again.',
+ ORACLE_SAMPLE_MISSED:'This series missed a required oracle sample. New trades are disabled. Wait for a new series; existing funds and claims remain in your ledger.',
+ ORACLE_UNAVAILABLE:'Verified oracle state is unavailable or paused. New trades are disabled until it is available.',
+ SERIES_UNAVAILABLE:'This series is expired, finalized or unavailable for trading. Select an active series when one is available.',
+ MARKET_DATA_UNAVAILABLE:'Fresh market data is unavailable. The maker has not issued a new quote. Try again later.',
+
  UNRESOLVED_OPERATION:'An earlier action of this type is unresolved. Recover it before creating another deposit or withdrawal.',
  INDEXER_UNHEALTHY:'Indexer stale or unreconciled. Refresh before adding risk. Receipt recovery and exits remain available.',
  INSUFFICIENT_STORAGE:'Register storage before using the ledger. Storage is separate from collateral.',

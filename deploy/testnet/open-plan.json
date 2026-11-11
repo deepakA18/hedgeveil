@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "kind": "hedgeveil-options-testnet",
+  "network": "testnet",
+  "owner": "0xdeepak18.testnet",
+  "root_id": "hv-open.0xdeepak18.testnet",
+  "rpc_url": "https://archival-rpc.testnet.near.org/",
+  "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+  "accounts": [
+    {
+      "role": "administrator",
+      "id": "hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:GstGeqniAHWWnD9BKrW8RRTtbUeMFYppb8gSEzDKrA6",
+      "initial_balance": "80000000000000000000000000"
+    },
+    {
+      "role": "core",
+      "id": "core.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:FbrX7zt8FYm5jRKaTQmQuqT4V3wf4SPJ3xczLi3BgZq6",
+      "initial_balance": "30000000000000000000000000"
+    },
+    {
+      "role": "oracle",
+      "id": "oracle.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:82qqNTtwtUheiQ6qfqeYwgx1gjwr8U777Q1PHB8LLF95",
+      "initial_balance": "30000000000000000000000000"
+    },
+    {
+      "role": "maker",
+      "id": "maker-a.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:HUv31ab6GyQzHL3EnpaEaBWtdA35a4HizZZuP3tqymNS",
+      "initial_balance": "6000000000000000000000000",
+      "rfq_public_key": "96e76ec1056b089147d660e10d161e9ce3568a4bb51c3870548a742d9c624eb3"
+    },
+    {
+      "role": "maker",
+      "id": "maker-b.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:CMfYJKB7qibDXsf5jcTAfBfhXv6VLbsGdthQ9Ggo3qZc",
+      "initial_balance": "6000000000000000000000000",
+      "rfq_public_key": "23219ec1c974ccc50d096f97c4b106ed3c918d8b20e8eef5cdd071b6cd5ade15"
+    },
+    {
+      "role": "arbitrator",
+      "id": "judge.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:57irPUaFrh4SZWXXSygkzyEfnSLVVMvNU9e7KaJCLHVQ",
+      "initial_balance": "500000000000000000000000"
+    },
+    {
+      "role": "publisher",
+      "id": "publisher-0.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:95HLfZtcN67u3CeZeDBU7Biq2aji7CjSPPQNrd2mg1Sg",
+      "initial_balance": "500000000000000000000000"
+    },
+    {
+      "role": "publisher",
+      "id": "publisher-1.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:CJppq2UwbkQe9io9yxQRJ6k8qsRyBqPTTaFy3Mtz21Bw",
+      "initial_balance": "500000000000000000000000"
+    },
+    {
+      "role": "publisher",
+      "id": "publisher-2.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:421NMjvUG6NQMHjwYX5BGYHJ2N3rbSymrhGY5DPd1f25",
+      "initial_balance": "500000000000000000000000"
+    },
+    {
+      "role": "publisher",
+      "id": "publisher-3.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:7Z9NNGBLLGjtvtq6wVjH56exKHELfuNtZL95FQUSdoMg",
+      "initial_balance": "500000000000000000000000"
+    },
+    {
+      "role": "publisher",
+      "id": "publisher-4.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:DvQ6Vp1k2PY2633zvJEecyofZ2wPjcEEDJC1yBdKK7Sg",
+      "initial_balance": "500000000000000000000000"
+    },
+    {
+      "role": "publisher",
+      "id": "publisher-5.hv-open.0xdeepak18.testnet",
+      "public_key": "ed25519:BfxgFfdfaUfGQqZ5i7NmkcLBzUzxNFvPLrJeXuubKSwU",
+      "initial_balance": "500000000000000000000000"
+    }
+  ],
+  "artifacts": {
+    "clearinghouse.wasm": {
+      "sha256": "378f6ce6e57e073670d53580b64d6f1744b9c8ca2f54c2022e608e345fa3a007",
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ",
+      "bytes": 614630
+    },
+    "settlement-oracle.wasm": {
+      "sha256": "2ccced7a6ba697f38a142e627c96acf3bbe0eb3e128c5a4375141810843f8e75",
+      "code_hash": "41tBJxowHQYgpztMybpeLRhDqcP1ErhYZegMc9GLpCLt",
+      "bytes": 384252
+    }
+  },
+  "funding_amount": "80000000000000000000000000",
+  "vault_enabled": false,
+  "oracle_label": "DEMO ORACLE — SYNTHETIC PRICES",
+  "created_at": "2026-11-09T11:01:12.499Z",
+  "deployment_hold": "OUTLAYER_FEASIBILITY_AND_BUDGET_REVIEW"
+}

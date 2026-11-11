@@ -1,0 +1,40 @@
+// Read-only verification of an archived real Outlayer execution. Never signs.
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {completeOutcomes} from '../services/indexer/model.mjs';
+import {matchActions} from '../services/testnet/transactions.mjs';
+const [hash='86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43',expiry='1794401460']=process.argv.slice(2);
+assert.match(hash,/^[a-f0-9]{64}$/);assert.match(expiry,/^[1-9][0-9]{0,10}$/);
+const artifact=await readFile('services/expiry-worker/target/wasm32-wasip2/release/hedgeveil-expiry-worker.wasm');
+assert.equal(createHash('sha256').update(artifact).digest('hex'),hash,'local artifact must match executed worker');
+const signer='20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b',receiver='outlayer.testnet';
+const url=`https://test.fastfs.io/${signer}/${receiver}/${hash}.wasm`;
+const executionPath=`research/reports/expiry-worker-execution-${hash}-${expiry}.json`;
+const raw=await readFile(executionPath),r=JSON.parse(raw),tx=r.receipt;
+assert.equal(r.state,'SUCCEEDED');assert.equal(r.hash,hash);assert.equal(r.url,url);
+assert.equal(tx.transaction.hash,r.transaction_hash);assert.equal(tx.transaction.signer_id,signer);assert.equal(tx.transaction.receiver_id,receiver);
+const source={WasmUrl:{url,hash,build_target:'wasm32-wasip2'}};
+const args={source,execution_source:source,resource_limits:{max_instructions:10000000000,max_memory_mb:128,max_execution_seconds:60},input_data:JSON.stringify({expiry_seconds:expiry}),secrets_ref:null,response_format:'Json',payer_account_id:signer,params:null,callback_receiver_id:null};
+assert.deepEqual(r.request,args);
+matchActions(tx.transaction.actions,[{type:'FunctionCall',method:'request_execution',args,deposit:String(10n**24n/50n),gas:'250000000000000'}]);
+const outcomes=completeOutcomes(tx,tx.transaction);assert(outcomes.every(x=>!x.outcome.status.Failure));
+assert.equal(typeof tx.status.SuccessValue,'string');
+const returning=tx.receipts_outcome.filter(x=>x.outcome.executor_id===receiver&&x.outcome.status.SuccessValue===tx.status.SuccessValue);
+assert.equal(returning.length,1);
+const outputBytes=Buffer.from(tx.status.SuccessValue,'base64'),output=JSON.parse(outputBytes);
+assert.equal(output.evidence.request.expiry_seconds,expiry);
+const tmp=await mkdtemp(join(tmpdir(),'hv-expiry-replay-'));
+try{
+ const input=JSON.stringify(output.evidence),file=join(tmp,'evidence.json');await writeFile(file,input);
+ const calculation=JSON.parse(execFileSync('cargo',['+1.97.1','run','--manifest-path','services/expiry-worker/Cargo.toml','--locked','--offline','--quiet'],{input,maxBuffer:4e6}).toString());
+ const reference=JSON.parse(execFileSync('python3',['services/expiry-worker/reference.py',file]).toString());
+ assert.deepEqual(output.calculation,calculation);assert.equal(calculation.price,reference.price);
+ const sourceHashes={};for(const f of ['services/expiry-worker/Cargo.lock','services/expiry-worker/src/lib.rs','services/expiry-worker/src/main.rs','services/expiry-worker/reference.py','scripts/verify-expiry-execution.mjs'])sourceHashes[f]=createHash('sha256').update(await readFile(f)).digest('hex');
+ const report={scope:'Archived real testnet receipt/action binding and independent exact-history replay; not new-series lifecycle acceptance',passed:true,execution_report:executionPath,execution_report_sha256:createHash('sha256').update(raw).digest('hex'),transaction_hash:r.transaction_hash,return_receipt_id:returning[0].id,worker_sha256:hash,output_bytes:outputBytes.length,output_sha256:createHash('sha256').update(outputBytes).digest('hex'),calculation,reference,sources:sourceHashes,settlement_eligible:false,trust:'Outlayer operator/contract and Coinbase HTTPS; not an independent TEE-attestation verification'};
+ await writeFile(`research/reports/orc04-real-history-verification-${hash}-${expiry}.json`,JSON.stringify(report,null,2)+'\n');
+ console.log(JSON.stringify({passed:true,transaction_hash:r.transaction_hash,price:calculation.price,evidence_sha256:calculation.evidence_sha256}));
+}finally{await rm(tmp,{recursive:true,force:true});}

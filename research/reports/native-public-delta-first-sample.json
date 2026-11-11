@@ -1,0 +1,62 @@
+{
+  "observed_at": "2026-11-10T08:06:18.918Z",
+  "scope": "Actual reconciled first accepted delta sample; full settlement still pending",
+  "checkpoint": "31gVCDjwf1LdKtXVvdjqJ2wgiSsKHLEcuNSgqeoauJ3t",
+  "health": {
+    "state": "RECONCILED",
+    "height": "277040565",
+    "block_hash": "31gVCDjwf1LdKtXVvdjqJ2wgiSsKHLEcuNSgqeoauJ3t",
+    "lag_blocks": "32",
+    "reconciled": true,
+    "risk_allowed": true,
+    "rpc_failures": 3,
+    "rpc_failovers": 3,
+    "stale": false,
+    "age_ms": 41109,
+    "cursor_hash": "31gVCDjwf1LdKtXVvdjqJ2wgiSsKHLEcuNSgqeoauJ3t",
+    "generation": "341"
+  },
+  "case": {
+    "price": null,
+    "state": "OPEN",
+    "config": {
+      "strike": "3632700000000",
+      "version": "1",
+      "series_id": "delta",
+      "max_supply": "100000000000000000000000000",
+      "maturity_ns": "1794298306796622620",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "price_scale": "1000000000000",
+      "mint_cutoff_ns": "1794297766796622620",
+      "oracle_version": "native-sampled-v1",
+      "collateral_kind": "NATIVE_NEAR",
+      "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+      "observation_window": {
+        "end_ns": "1794298306796622620",
+        "start_ns": "1794297766796622620"
+      },
+      "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+      "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+      "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245"
+    },
+    "source": {
+      "asset": "wrap.near",
+      "account": "price-oracle.testnet",
+      "reporter": "price-oracle.testnet",
+      "max_price": "1000000000000000",
+      "min_price": "10000000000"
+    },
+    "pending": null,
+    "samples": [
+      {
+        "price": "3639733330000",
+        "report_ns": "1794297785591631204",
+        "request_ns": "1794297791119556030",
+        "accepted_ns": "1794297792251667847",
+        "response_hash": "f40f3407d8632c244fb78bd1147222fac37577b81a53377f61e73d5eb3eb6e78"
+      },
+      null,
+      null
+    ]
+  }
+}
