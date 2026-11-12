@@ -7,6 +7,7 @@
   },
   "scripts": {
     "start": "node demo.mjs",
+    "home": "node homepage.mjs",
     "test": "node --test ../../tests/e2e/model.test.mjs",
     "test:browser": "node ../../tests/e2e/browser.mjs",
     "build:wallet": "node build-wallet.mjs",

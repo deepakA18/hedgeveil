@@ -47,6 +47,19 @@ Previous privacy-track experiments and deployment evidence are preserved in
 [the historical archive](archive/privacy-track/README.md), excluded from active
 builds and release gates. No AI credential, circuit or prover is needed here.
 
+## Next.js frontend
+
+The approved homepage is implemented in Next.js, React and TypeScript:
+
+```sh
+npm ci --prefix apps/frontend
+npm --prefix apps/frontend run dev
+```
+
+Open http://127.0.0.1:3000. [Frontend structure and checks](apps/frontend/README.md)
+describe the build and configuration. Its app links open the existing wallet
+desk; migrating trading and portfolio screens to React remains separate work.
+
 ## Connect a testnet wallet
 
 The separate NEAR Connect desk offers Meteor/Intear account connection with the

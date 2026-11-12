@@ -681,3 +681,97 @@ its first sandboxed invocation hit a Node native assertion, not a passing test.
 Active series now sort before historical delayed series in the UI.
 
 The current live run and remaining acceptance gates are maintained in [11 November acceptance](ACCEPTANCE_RUN_2026-11-11.md). Hosting is deferred by user direction until backend/end-to-end acceptance finishes.
+
+## Retail homepage preview — 11 November 2026
+
+APP-02 now includes a plain-language homepage with an off-white/black/lime
+visual direction, interactive introduction, risk/exit FAQs and working links
+to the existing testnet desk. No transaction or financial behavior changed.
+[Implementation and browser evidence](../research/reports/APP02_HOMEPAGE.md).
+User design acceptance and independent review remain pending; other app pages
+are not redesigned by this work.
+
+Homepage revision: removed decorative arrows, the two highlighted hero labels,
+the real-money/wallet-connection FAQs and the FAQ eyebrow per user feedback.
+Remaining risk and exit explanations are retained. Visual acceptance remains pending.
+
+Homepage content expansion: added the problem, interactive position/exit
+explanations and a sourced Deribit inverse-options comparison. An attributed
+10-word excerpt from the user-linked Vitalik post was verified through X's
+public oEmbed endpoint; it links to the original and is not presented as an
+endorsement. No example prices or simulated returns were added. Chromium
+checks pass at 375/768/1280/1440 px, including keyboard action selection and
+no page overflow. Financial behavior is unchanged; independent review pending.
+
+Homepage comparison now includes Derive alongside Deribit and Hedgeveil, using
+current official product, margin and settlement documentation. Four-column
+layout checked at 375/768/1440 px; independent review remains pending.
+
+Homepage comparison condensed to Yes/No and short labels per user feedback;
+necessary purchase-risk and payout qualifications remain below the table.
+
+Homepage comparison now emphasizes payout backing, seller liquidation, portfolio
+margin, order-book availability, settlement, currency, puts and release status.
+Short cells retained; seller/buyer scope and capital trade-offs explained below.
+
+Homepage copy: removed testnet/test-token labels and the availability comparison
+row at user request. This is a presentation change only; deployment network,
+wallet network indicators, transaction safeguards and release status are unchanged.
+
+Homepage refinement: removed the comparison notes/source-links block and dangling
+footnote markers at user request. Research sources remain in APP02_HOMEPAGE.md;
+the backing row now explicitly describes a requirement. No financial behavior changed.
+
+Homepage FAQ now addresses perps vs options, spot limit orders, fragmented
+liquidity, project-operated makers/no quotes, oracle outages, pricing and residual
+risks. Seven keyboard-accessible disclosure rows checked at 375/768/1440 px.
+No financial behavior changed; independent product review remains pending.
+
+FAQ content corrected to Hedgeveil-specific questions: paired positions, capped
+exposure, dollar reference vs NEAR payout, locked backing, expiring offers,
+series price rules and claim/withdrawal separation. Reference-inspired generic
+questions replaced; existing disclosure layout retained.
+
+Hero redesigned to the user’s centered dark reference: two-tone headline, pill
+actions and interactive payoff/backing panels. No fabricated prices or balances.
+Both normalized curves verified against shared payoff math (762 points), with
+responsive/keyboard checks at 375/768/1440 px. Rest of page retains light styling.
+
+Hero correction: restored the existing light palette and flat styling; the
+reference informs centered composition only. Payoff interactions unchanged.
+
+Approved homepage integration (11 November 2026): the wallet runtime now serves
+this homepage at `/` and `/home`, with the trading desk at `/app`. Existing root
+trade bookmarks redirect to the desk; legacy wallet-return queries still load
+receipt recovery, and new wallet returns target `/app`. Sandbox root routing and
+origin guards remain intact. User visual direction accepted; independent review
+remains pending. Evidence: 53 origin/model checks passed, plus Chromium against
+the retained local runtime on port 8794 confirmed homepage → desk and legacy
+portfolio navigation with no script errors or horizontal overflow. No financial
+behavior changed. See `research/reports/APP02_HOMEPAGE.md`.
+
+## APP-02 Next.js homepage — 12 November 2026
+
+The approved light, centered homepage now has a real Next.js App Router / React /
+TypeScript implementation in `apps/frontend`, served locally at port 3000. It
+uses reusable JSX components and React state for the interactive selectors,
+with the original design tokens and copy. Existing wallet/trading pages remain
+in the retained desk at port 8794; links navigate there without a proxy or new
+signing boundary. This supersedes the earlier implication that HTML integration
+completed the React frontend. Trading/portfolio migration remains planned.
+
+Dependencies: APP-02, approved homepage, existing wallet desk. Invariant: no
+changes to financial rules, transaction recovery, origin guards or live data;
+no credentials loaded into the new frontend. Failure path: missing backend
+means trading is unavailable, never replaced with simulated results; malformed
+public desk URLs fail configuration validation. Evidence: optimized Next.js
+build, strict TypeScript, formatting and eight automated checks passed, including
+375/768/1440 px hydration/keyboard/layout, no-JS FAQs, route behavior and 762
+payoff points compared with shared exact arithmetic. Desktop/mobile captures
+inspected. User design accepted; independent product/QA/security reviewer pending.
+See `apps/frontend/README.md` and `research/reports/APP02_NEXT_FRONTEND.md`.
+
+APP-02 visual follow-up (12 November): centered hero app CTA now uses the closing
+section's lime token; the secondary CTA uses a blackish-green forest token.
+Dependency: Next.js homepage. Invariant: destinations and interactions unchanged.
+Hover/focus states retained; build passed. Independent visual review pending.

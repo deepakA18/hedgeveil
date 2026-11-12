@@ -22,6 +22,12 @@ test('cross-site links load the wallet document; API and write guards stay stric
     const cases=[
         ['direct address-bar load','/',{},200],
         ['external top-level link','/',navigation,200],
+        ['external homepage link','/home',navigation,200],
+        ['external desk link','/app',navigation,200],
+        ['external desk slash link','/app/',navigation,200],
+        ['external desk fetch','/app',{'sec-fetch-site':'cross-site','sec-fetch-mode':'cors','sec-fetch-dest':'empty'},403],
+        ['external homepage slash link','/home/',navigation,200],
+        ['external fetch of homepage','/home',{'sec-fetch-site':'cross-site','sec-fetch-mode':'cors','sec-fetch-dest':'empty'},403],
         ['wallet redirect with recovery hints','/?hv_operation='+'a'.repeat(64)+'&transactionHashes='+'1'.repeat(32),navigation,200],
         ['external fetch of root','/',{'sec-fetch-site':'cross-site','sec-fetch-mode':'cors','sec-fetch-dest':'empty'},403],
         ['external iframe','/',{...navigation,'sec-fetch-dest':'iframe'},403],
@@ -65,11 +71,37 @@ test('Chromium can follow an external link and load the wallet application',asyn
     await page.getByRole('link',{name:'Open wallet desk'}).click();
     assert.deepEqual(metadata,{site:'cross-site',mode:'navigate',dest:'document'});
     assert.equal((await response).status(),200,'external document navigation must not get LOCAL_ORIGIN_ONLY');
+    await page.getByRole('heading',{name:'Options on NEAR. Your exposure. Your choice.'}).waitFor();
+    await page.locator('.hero-actions .button').first().click();
     await page.getByRole('heading',{name:'Connect your testnet wallet.'}).waitFor();
+    assert.equal(new URL(page.url()).pathname,'/app');
     await page.locator('#connect').click();
     await page.getByRole('button',{name:'Meteor Wallet',exact:true}).waitFor();
     await page.getByRole('button',{name:'Intear Wallet',exact:true}).waitFor();
     await page.keyboard.press('Escape');
     await page.reload();await page.getByRole('heading',{name:'Connect your testnet wallet.'}).waitFor();
+    assert.deepEqual(errors,[]);
+});
+
+
+test('homepage integrates the desk, legacy bookmarks and wallet returns',async t=>{
+    const app=await startWallet({port:0});t.after(()=>app.stop());
+    const browser=await chromium.launch();t.after(()=>browser.close());
+    const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+    const oldReturn='/?hv_operation='+'a'.repeat(64)+'&transactionHashes='+'1'.repeat(32);
+    for(const path of [oldReturn,'/app?hv_operation='+'a'.repeat(64)]){
+        const response=await fetch(app.url+path);const html=await response.text();
+        assert.match(html,/wallet-nonce/);assert.match(html,/id="connect"/);
+    }
+    for(const route of ['trade','portfolio','transactions']){
+        await page.goto(app.url+'/#'+route);
+        await page.waitForURL(app.url+'/app#'+route);
+        await page.getByRole('heading',{name:'Connect your testnet wallet.'}).waitFor();
+    }
+    await page.locator('header .wordmark').click();
+    await page.locator('#hero-title').waitFor();assert.equal(new URL(page.url()).pathname,'/home');
+    assert.equal(await page.locator('a[href="/app#trade"]').count(),4);
+    await page.locator('[data-payoff="capped"]').click();
+    assert.equal(await page.locator('#capped-curve').getAttribute('visibility'),'visible');
     assert.deepEqual(errors,[]);
 });

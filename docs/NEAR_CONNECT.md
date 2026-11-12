@@ -115,3 +115,12 @@ wallet/HTTP fixtures from real Sandbox receipts. Installed Meteor/Intear signing
 mobile/popup behavior, public-testnet receipts, hosted authentication, independent
 review and a fresh full release rehearsal remain pending. The rehearsal script
 now requires this connector phase; older release reports are historical.
+
+## Homepage and desk routes
+
+The wallet runtime serves the homepage at `/` and `/home`, and the wallet desk
+at `/app`. Homepage app links open `/app#trade`; the desk logo returns to `/home`.
+New wallet returns target `/app`. Existing root wallet-return query parameters
+still open the desk for recovery, and legacy root desk hashes redirect to `/app`
+with their query/hash intact. Sandbox root routing is unchanged. The homepage
+is informational; connecting and signing continue in the existing desk.

@@ -52,7 +52,7 @@ export async function connectUI({session,changed,reportError,api}) {
         }
     };
     function setBusy(value){busy=value;$('#connect').disabled=value;$('#disconnect').disabled=value;$('#account').disabled=value||!wallet;}
-    const sign=nearConnectSigner({connector,selected,allowedWallets:allowed,returnUrl:location.origin+'/'});
+    const sign=nearConnectSigner({connector,selected,allowedWallets:allowed,returnUrl:location.origin+'/app'});
     clear();
     try{const connected=await connector.getConnectedWallet();await accept(connected.wallet,connected.accounts);}catch{/* No stored connection. Explicit Connect remains available. */}
     return {
