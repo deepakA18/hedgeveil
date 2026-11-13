@@ -4,8 +4,18 @@ import { useState } from "react";
 import { payoffCopy } from "./content";
 import { payoffPath } from "../../lib/payoff-illustration";
 
-export function PayoffChart() {
-  const [selected, setSelected] = useState<"upside" | "capped">("upside");
+type Side = "upside" | "capped";
+
+export function PayoffChart({
+  selectedSide,
+  onSelect,
+}: { selectedSide?: Side; onSelect?: (side: Side) => void } = {}) {
+  const [localSelected, setLocalSelected] = useState<Side>("upside");
+  const selected = selectedSide ?? localSelected;
+  function setSelected(side: Side) {
+    setLocalSelected(side);
+    onSelect?.(side);
+  }
   const copy = payoffCopy[selected];
   return (
     <figure className="payoff-panel" aria-labelledby="payoff-title">

@@ -1649,3 +1649,53 @@ footer > div > span {
 .backing-panel {
   background: var(--panel);
 }
+
+footer.site-footer {
+  display: block;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+.site-footer > .footer-inner {
+  width: 82%;
+  max-width: 1280px;
+  min-height: 52px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0 24px;
+  font: inherit;
+}
+.footer-inner > nav,
+.footer-inner > .footer-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 20px;
+}
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.footer-meta > span {
+  font-size: 11px;
+}
+.site-footer a:hover {
+  color: var(--ink);
+}
+@media (max-width: 600px) {
+  .site-footer > .footer-inner {
+    width: calc(100% - 32px);
+    gap: 0 16px;
+  }
+  .footer-inner > nav,
+  .footer-inner > .footer-meta {
+    gap: 0 16px;
+  }
+}

@@ -27,8 +27,8 @@ export default function HomePage() {
           <Questions />
           <Closing deskUrl={deskUrl} />
         </main>
-        <SiteFooter />
       </div>
+      <SiteFooter />
     </>
   );
 }

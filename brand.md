@@ -15,8 +15,8 @@ This is Hedgeveil's proposed identity, not a claim of official NEAR branding.
 - No invented prices, activity, returns, liquidity or endorsements. Network indicators remain in the wallet desk; homepage labels were removed at user request.
 
 Homepage tokens now live in `apps/frontend/app/globals.css`; the original preview
-styles remain in `apps/web/public/home/style.css`. The trading desk retains
-its existing interface until its separate redesign. Generated architecture is
+styles remain in `apps/web/public/home/style.css`. The React trading workspace shares these colors and uses compact headings,
+readable table rows, tabular numbers and a mobile navigation menu. Generated architecture is
 decorative artwork, not a chart or depiction of financial performance.
 
 Hero direction correction: use references for composition only unless the user
@@ -26,7 +26,7 @@ it does not use a dark section, glow or new rounded-card visual language.
 
 User accepted the current light, centered homepage on 11 November 2026. It is
 integrated into the main wallet app. This acceptance covers the homepage visual
-direction; independent review and the trading desk redesign remain separate.
+direction; independent review and connected-wallet acceptance remain separate.
 
 Hero button refinement (12 November): centered Explore CTA uses lime #c8f77b
 with ink text; How it works uses forest #1f3023 with paper text. Other CTAs

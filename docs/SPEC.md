@@ -593,3 +593,39 @@ hour checks remain unchanged. Before valuation, the maker retains that exact
 observation and waits at most 4.5 seconds (ten finalized-head reads, 500 ms apart)
 for finalized chain time to reach its timestamp. Failure yields no quote. No
 timestamp is rewritten, price interpolated or freshness bound widened.
+
+
+### MKT-05 rolling listing target (13 November 2026; not activated)
+
+The user-selected target is two distinct expiries: next daily and next Friday,
+both 08:00 UTC, with 90/95/100/105/110% strikes from one fresh source snapshot per
+expiry cohort. Coincident daily/Friday dates use the following Friday for weekly.
+The read-only planner uses at least one hour of lead, preserves each expiry's
+initial seed and never modifies existing series. This is a planned provisioning
+policy, not authorization to reuse old oracle terms or bypass capacity/data gates.
+
+Activation requires scalable versioned series/position storage (current core has
+8 lifetime slots), storage pricing and migration tests, aligned TWAP maker pricing,
+accepted oracle/runtime integration, actual funded inventory and receipt-journal
+recovery. Unknown writes cannot be resent; unavailable inputs may leave no open
+markets. Startup/periodic/event reconciliation must be idempotent. No automatic
+listing transaction or new series is implemented by the read-only planner.
+
+Public model marks are display estimates only, never executable RFQs. The existing
+legacy terminal model remains limited to its disclosed old-profile approximation;
+new TWAP marks refuse that model. Finalized historical rows use actual coefficients.
+No change to payoff, custody, settlement or withdrawal semantics is introduced.
+
+
+### Trading display clarification — 13 November 2026
+
+Display-only spot-derived values require observed and fetched ages of at most
+30 seconds; missing data must not become zero or an executable quote. Hypothetical
+reference-price scenarios remain labelled illustrations. Server-clock countdowns
+are early UI gates; chain validation and finalized receipts are authoritative.
+Expiry alone does not lock payout: only the clearinghouse's finalized coefficient
+fixes the NEAR amount. Current USD conversion can continue changing afterward.
+NEAR-cost breakeven and entry-USD-cost breakeven are different bases and must be
+labelled; fees are included in quoted cost, gas excluded. Intrinsic payoff slope
+is not model delta. Historical native-sampled series retain their own immutable
+windows; this UI change introduces no settlement-profile migration.

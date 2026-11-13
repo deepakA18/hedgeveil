@@ -29,7 +29,7 @@ test('frontend destination rejects credentials and unsafe URL schemes', () => {
       assert.throws(getDeskUrl);
     }
     delete process.env.HEDGEVEIL_DESK_URL;
-    assert.equal(getDeskUrl(), 'http://127.0.0.1:8794/app#trade');
+    assert.equal(getDeskUrl(), '/markets');
   } finally {
     if (original === undefined) delete process.env.HEDGEVEIL_DESK_URL;
     else process.env.HEDGEVEIL_DESK_URL = original;
@@ -66,7 +66,7 @@ test('Next homepage renders, hydrates and retains keyboard interactions across s
     assert.equal(await page.locator('details').count(), 7);
     await page.locator('summary').first().focus();await page.keyboard.press('Enter');
     assert.equal(await page.locator('details').first().getAttribute('open'), '');
-    assert.equal(await page.locator('a[href="http://127.0.0.1:8794/app#trade"]').count(), 4);
+    assert.equal(await page.locator('a[href="/markets"]').count(), 4);
     if(width===1440) await page.screenshot({path:'/tmp/hedgeveil-next-desktop.png',fullPage:true});
     if(width===375) await page.screenshot({path:'/tmp/hedgeveil-next-mobile.png',fullPage:true});
     assert.deepEqual(errors, []);
@@ -91,5 +91,5 @@ test('content and FAQs remain usable without JavaScript', async t => {
   assert.equal(await page.locator('h1').count(),1);
   await page.locator('summary').first().click();
   assert.equal(await page.locator('details').first().getAttribute('open'),'');
-  assert.equal(await page.locator('.hero-actions .button').first().getAttribute('href'),'http://127.0.0.1:8794/app#trade');
+  assert.equal(await page.locator('.hero-actions .button').first().getAttribute('href'),'/markets');
 });

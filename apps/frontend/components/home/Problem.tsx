@@ -49,7 +49,7 @@ export function Problem() {
           </span>
           <div>
             <strong>Vitalik Buterin</strong>
-            <span>@VitalikButerin · June 1, 2026</span>
+            <span>@VitalikButerin, June 1, 2026</span>
           </div>
           <span className="post-platform" aria-hidden="true">
             X
@@ -66,7 +66,7 @@ export function Problem() {
           >
             Read the original post
           </a>
-          <span>Related reading · not an endorsement of Hedgeveil</span>
+          <span>Related reading, not an endorsement of Hedgeveil</span>
         </div>
       </aside>
     </section>

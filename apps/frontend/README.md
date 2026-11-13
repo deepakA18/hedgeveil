@@ -1,68 +1,151 @@
 # Hedgeveil frontend
 
-Next.js App Router, React and TypeScript implementation of the approved homepage.
-This is JSX with server-rendered sections and React state for the payoff/action
-selectors. It does not embed the earlier HTML page or run its DOM scripts.
-
-From the repository root:
+Next.js App Router, React and TypeScript implementation of the approved light
+homepage and application workspace. All pages use reusable JSX components.
 
 ```sh
 npm ci --prefix apps/frontend
 npm --prefix apps/frontend run dev
 ```
 
-Open http://127.0.0.1:3000. For the optimized build:
+Open http://127.0.0.1:3000. To run the optimized build, stop the development
+server first, then run:
 
 ```sh
 npm --prefix apps/frontend run build
 npm --prefix apps/frontend run start
 ```
 
-Stop the development server before starting the built app on the same port.
-Dependencies are pinned in `package-lock.json`; system fonts avoid build-time
-font downloads. Next.js telemetry is disabled by the scripts.
+Dependencies are pinned; system fonts avoid build-time font downloads. Scripts
+disable Next telemetry. The trading service must remain running at
+http://127.0.0.1:8794 with its retained deployment and journal. Do not reset that
+service or initialize a new deployment just to start the frontend.
 
-## Current scope
+## Pages
 
-- `app/page.tsx`: homepage composition and server-rendered metadata/layout.
-- `components/home/`: header, hero, payoff chart, problem, actions, comparison,
-  FAQs, closing and footer. Only `Actions` and `PayoffChart` need client state.
-- `app/globals.css`: the approved off-white/black/olive/lime design tokens and
-  responsive styles, retained from the design preview.
-- `lib/payoff-illustration.ts`: normalized explanatory curves, never transaction
-  amounts or market quotes. Regression coverage compares all 762 points with
-  the existing exact shared payoff calculation.
+- `/`: approved homepage; app links now open `/markets`.
+- `/markets`: actual registered series, dates, strikes and settlement status.
+- `/trade`: buy/sell requests, funded offers, review and an explanatory payoff chart.
+- `/portfolio`: finalized holdings, redemption, merging and creating pairs.
+- `/funds`: account storage, collateral deposits and withdrawals.
+- `/activity`: retained signing attempts, receipt recovery and withdrawal tickets.
+- `/liquidity`: actual project maker inventory and connected maker authorization controls.
+- `/vault`: disabled research status; no deposit controls.
 
-The wallet/trading desk is still the existing application on port 8794. Homepage
-CTAs navigate to it; this increment does not migrate wallet providers, trading,
-portfolio or transaction recovery into React. No API proxy, signing authority
-or backend credentials are introduced. The legacy homepage remains available
-on that service while subsequent frontend pages are migrated.
+`components/desk/DeskProvider.tsx` owns the pinned NEAR Connect wallet and account
+state. `components/home` retains the approved homepage. Shared exact amount and
+wallet-boundary code comes from `packages/sdk`; no financial behavior is redefined.
+The chart is a normalized payoff illustration before cost and fees, not a market
+price or a simulated offer. Live balance/price failures never substitute fixtures.
 
-The optional public `HEDGEVEIL_DESK_URL` is read at build time. Its default is
-`http://127.0.0.1:8794/app#trade`. Copy this app's `.env.example` to `.env.local`
-only if changing that destination; never copy the repository's credential file.
-URLs with credentials/query parameters or non-HTTPS remote origins reject.
-The frontend can render without the backend; trading requires the real desk to
-be running. It never substitutes a fake quote, balance or transaction result.
+## Local API boundary
+
+The new React workspace calls a same-origin allowlisted bridge at `/api/desk`.
+The existing service still owns the immutable intent, durable handoff, journal,
+receipt reconciliation and live contract checks. The browser wallet signs;
+the frontend loads no wallet private keys or service credentials. The bridge
+cannot invoke server-side submission. It checks Host, Origin, Fetch Metadata,
+JSON content type and body size, and never retries a mutation.
+
+`/wallet-executors` serves only the existing pinned Meteor/Intear lock entries,
+verifying SHA-256 before returning the code. Workspace pages use nonce CSP.
+Unknown signing outcomes lead to Activity recovery, never automatic resubmission.
+Changing accounts invalidates the current review and ignores old asynchronous
+balance responses. Wallet returns target `/activity` and are recovery hints only.
+
+This bridge is **loopback-only**, not a public backend deployment. Settings:
+
+| Variable | Default | Use |
+| --- | --- | --- |
+| `HEDGEVEIL_DESK_URL` | `/markets` | Optional public homepage destination, evaluated at build time |
+| `HEDGEVEIL_FRONTEND_ORIGIN` | `http://127.0.0.1:3000` | Exact browser origin for the local bridge |
+| `HEDGEVEIL_BACKEND_ORIGIN` | `http://127.0.0.1:8794` | Fixed retained wallet service origin |
+
+Both bridge origins accept only HTTP `127.0.0.1` without credentials, paths,
+queries or fragments. Use this address rather than `localhost`. Keep these server
+settings out of `NEXT_PUBLIC_*`. If customizing, copy this app's `.env.example`
+to `.env.local`; **never copy the repository's credential file**.
 
 ## Verification
 
-With the built frontend running on port 3000:
+With the built frontend and real retained backend running:
 
 ```sh
 npm --prefix apps/frontend run typecheck
 npm --prefix apps/frontend run format:check
-npm ci --prefix apps/web
+node --test tests/e2e/next-bridge.test.mjs tests/wallet/near-connect.test.mjs tests/wallet/boundary.test.mjs
 npm --prefix apps/frontend run test:browser
 ```
 
-Browser checks use the repository's existing Playwright installation in
-`apps/web`. Install Chromium there with `npx --prefix apps/web playwright install
-chromium` if it is not available. `FRONTEND_TEST_URL` can select another local
-frontend address; the checks assume the default desk destination.
+Browser checks use Playwright in `apps/web`. Install its locked dependencies and
+Chromium if needed. `FRONTEND_TEST_URL` changes the test address; bridge origins
+must match. The workspace integration suite requires real retained markets and
+wallet executors. It covers all seven routes at 375/768/1440 px, navigation,
+position/chart synchronization, wallet picker, offline failures, CSP and API
+boundaries. It sends no wallet transactions. Homepage checks include keyboard
+interaction, no-JS FAQs and 762 payoff points against shared exact arithmetic.
 
-The browser suite covers hydration, mobile/tablet/desktop layout, keyboard
-selectors, native FAQs without JavaScript, routes and destination validation.
-It submits no wallet transactions. Independent product/accessibility/security
-review and public hosting remain pending.
+Fresh external-wallet signing acceptance through this React frontend, independent
+review and public hosting remain pending. Prior receipts from the legacy desk do
+not establish acceptance of this new UI. The legacy desk remains available for
+existing recovery paths. No open series means no new offers; creating new series
+is a separate backend operation, never a frontend fixture.
+
+
+## Retail trade context
+
+The workspace uses Trade / Portfolio / Activity navigation. Market history,
+funding and maker/pricing tools remain secondary routes. `/api/spot` retrieves
+the fixed public Coinbase Exchange NEAR/USD ticker; no API key is required.
+Spot is indicative only, refreshed every 30 seconds while visible and rejected
+after 120 seconds. Missing data removes USD estimates rather than inventing values.
+
+The scenario chart uses shared payoff rounding and actual selected buy-offer cost
+for P&L. It is a hypothetical payout explorer, not a spot-price history chart.
+First funding remains registration then deposit with separate wallet approvals.
+Automatic receipt checks only verify attempted operations; they never resend.
+
+Additional deterministic checks:
+
+```sh
+node --test tests/e2e/next-market-display.test.mjs tests/e2e/next-amount-display.test.mjs
+```
+
+Run from the repository root. See
+[retail flow evidence](../../research/reports/APP02_RETAIL_FLOW.md) for calculation
+conventions, live acceptance limitations and the automatic-roll release gate.
+
+Compact trade data (13 November): `/api/marks` reads registered markets without a
+wallet and exposes fresh legacy model marks or actual finalized coefficients.
+It never signs an RFQ. Unavailable/TWAP-pending models remain unavailable; default
+Trade inspects labelled recent history when there are no open markets. The Cult terminal supersedes model-mark display on Trade; the read-only marks endpoint remains available. Read-only
+ladder policy and activation blockers are in `services/markets/README.md` at the
+repository root. Run `node --experimental-strip-types --test tests/e2e/next-marks.test.mjs` from the root for mark/ladder boundary checks.
+
+
+## Cult UI terminal
+
+The trading workspace uses Cult UI Halo Tabs, Halo Button and Family Drawer,
+manually installed from the official MIT registry. Source attribution and license
+are in `components/ui/CULT-SOURCES.md` and `CULT-LICENSE.md`. Tailwind v4 utilities
+are scoped through `(desk)/cult.css`; `terminal.css` applies the accepted Hedgeveil
+palette, desktop rails and mobile drawer without changing the homepage.
+
+Exact financial helpers live in `lib/terminal-data.ts`. The terminal reads the
+existing desk bridge and public spot endpoint; it does not synthesize markets or
+quotes. See [scope and evidence](../../research/reports/APP02_CULT_TERMINAL.md).
+
+```sh
+node --experimental-strip-types --test tests/e2e/next-terminal-data.test.mjs
+npm --prefix apps/frontend run test:browser
+```
+
+Run these from the repository root, with the real local backend and frontend
+running for browser acceptance. A wallet connection and funded open markets are
+required for separate live signing acceptance.
+
+First-visit onboarding: the trade tour starts automatically after workspace data
+loads and anchors each step to its relevant section. There is no launch button.
+Done, Skip and Escape remember dismissal using `hedgeveil.trade-tour.v2` in
+browser local storage. Clear that single preference to exercise a fresh visit
+in development; ordinary workspace browser tests seed it as already seen.

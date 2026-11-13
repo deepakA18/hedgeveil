@@ -1,9 +1,11 @@
-// This public destination is the only backend setting used by the homepage.
-// The wallet desk retains its own origin boundary, journal and signing flow.
+// Public homepage destination only. Server-side bridge settings are separate.
 export function getDeskUrl(): string {
-  const url = new URL(
-    process.env.HEDGEVEIL_DESK_URL ?? "http://127.0.0.1:8794/app#trade",
-  );
+  if (
+    !process.env.HEDGEVEIL_DESK_URL ||
+    process.env.HEDGEVEIL_DESK_URL === "/markets"
+  )
+    return "/markets";
+  const url = new URL(process.env.HEDGEVEIL_DESK_URL);
   const local = ["127.0.0.1", "localhost", "[::1]"].includes(url.hostname);
   if (
     url.username ||

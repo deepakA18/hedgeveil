@@ -1,5 +1,7 @@
 # NEAR options-based index assets: Open Innovation implementation plan
 
+**Deferred backend resume checklist (13 November 2026):** [DEFERRED_BACKEND.md](docs/DEFERRED_BACKEND.md) consolidates the live-market ladder, TWAP integration, pricing, indexing, wallet acceptance and release work postponed while frontend work continues. These items remain open; UI completion is not backend acceptance.
+
 **Current version: Open Innovation revision, updated 11 November 2026.** This is the authoritative implementation plan and supersedes the earlier track versions. Scope is end-to-end and dependency-based, without a seven-day constraint.
 
 **New-series settlement direction (11 November, user accepted):** replace the
@@ -1016,3 +1018,350 @@ APP-02 visual follow-up (12 November): centered hero app CTA now uses the closin
 section's lime token; the secondary CTA uses a blackish-green forest token.
 Dependency: Next.js homepage. Invariant: destinations and interactions unchanged.
 Hover/focus states retained; build passed. Independent visual review pending.
+
+
+## APP-02 React application pages — 12 November 2026
+
+Markets, Trade, Portfolio, Funds, Activity, Liquidity and disabled-vault pages are
+implemented in `apps/frontend` with the approved light/lime/forest theme. Homepage
+links now open `/markets`. This supersedes the homepage-only migration scope above.
+The existing backend and journal remain running, reached through an allowlisted,
+origin-checked loopback bridge. The browser uses the existing exact SDK wallet
+boundary and pinned Meteor/Intear executors; it holds no service signing keys.
+
+Dependencies: APP-01, APP-02 homepage, INF-01, DEM-01, existing maker/oracle runtime.
+Invariant: unchanged financial behavior, exact quantities, durable handoff and
+receipt-based completion; no fabricated market data or success. Failure path:
+missing service/market data disables the affected action, stale checks block new
+risk, uncertain signing remains recoverable without resend. Vault stays disabled.
+Evidence: optimized build, TypeScript/format checks, 21 bridge/SDK checks and 15
+homepage/workspace browser checks passed, including all seven routes at three
+viewport sizes against actual retained backend data. See
+[workspace evidence](research/reports/APP02_NEXT_WORKSPACE.md).
+
+Fresh wallet-signing acceptance in React, connected-account visual acceptance,
+new-series RFQ checks and public hosting remain pending. All five currently
+retained series are past expiry; the UI does not manufacture active markets.
+Reviewer: independent product/QA/security review pending; no G9 completion claim.
+
+
+## APP-02 frontend self-review — 12 November 2026
+
+Applied seven relevant frontend skills and reviewed the code plus actual browser
+renders. Improved mobile navigation, compact page hierarchy, readable numbers
+with exact-value disclosure/copy, keyboard/modal behavior and unavailable-trade
+guidance. Offer transport errors are distinct from no liquidity; stale request
+results are discarded. Approved homepage styling and financial behavior persist.
+
+Dependencies: APP-02 React workspace, SDK, retained backend/indexer/makers.
+Invariant: exact signing units and receipt-based completion, no fabricated data.
+Failure path: unavailable/stale data blocks new risk, wallet uncertainty never
+authorizes resend. Evidence: build/TypeScript/format, 23 deterministic checks,
+16 browser checks and responsive screenshot inspection; [self-review](research/reports/APP02_FRONTEND_REVIEW.md).
+Reviewer: implementation-agent self-review completed; independent review pending.
+Live new-interface signing, connected-account visuals, fresh open-market RFQs and
+public deployment remain pending. Backend health was paused and retained series
+expired during review; this does not establish readiness for new trades.
+
+
+APP-02 refinement (12 November): removed the two-column Upside / Capped value
+explainer below the Markets table, as requested, and its unused styles.
+Dependency: React Markets page. Invariant: market data and trading behavior
+unchanged. Failure handling remains unchanged. Evidence: optimized build and
+TypeScript passed. Reviewer: agent self-check; independent review pending.
+
+
+## APP-02 retail flow — 12 November 2026
+
+Priorities 1–4 implemented: open/history defaults, human market names, three-item
+primary navigation, real freshness-checked Coinbase spot, USD/NEAR scenario chart,
+quote cost/loss/bounds/breakeven/countdown, direct claim reviews, simpler funding
+and receipt history. Explicit intent choices persist in the URL. USD values are
+indicative; settlement and exact signing remain unchanged. Registration/deposit
+remain two disclosed approvals; unresolved withdrawals block repeats.
+
+Dependencies: APP-02 workspace, SDK, real backend/makers and public spot endpoint.
+Invariant: no fixture live prices, changed financial behavior or optimistic
+transaction success. Failure: stale spot removes estimates; missing markets,
+health checks and unresolved outcomes continue to block affected actions.
+Evidence: build/TypeScript/format; 30 deterministic checks (2,400 scenario reference
+comparisons), 17 actual-service browser checks and responsive screenshot review.
+See [implementation and gates](research/reports/APP02_RETAIL_FLOW.md). Reviewer: implementation-agent self-review;
+independent review pending.
+
+Priority 5 automatic selection/rolling remains gated, as requested, on execution
+proof. It additionally depends on ORC-04 matching maker/collector/indexer/public
+lifecycle acceptance and bounded atomic cross-series quote support. No new series,
+wallet signatures or rollout approval were fabricated. Connected-wallet visual
+and signing acceptance, automatic receipt recovery for a new actual attempt,
+public hosting and G9 completion remain pending.
+
+
+### APP-02 trade layout refinement — 13 November 2026
+
+Implemented chart beside trade ticket, real market selection strip, optional
+“Help me choose”, selected-offer cost/chart synchronization, prominent purchase
+cost/loss/breakeven and mobile selection → cost → chart → review order. Sell
+remains accessible from Portfolio. Dependencies: existing APP-02/SDK/backend;
+live acceptance needs open liquidity and the existing settlement gates.
+Invariant: exact signing/payoff/custody unchanged. Expired or mismatched offers
+lose their cost estimate; unavailable markets/health still block execution.
+Evidence: build/TypeScript, 18 browser checks, 9 amount/market checks and three-size
+visual inspection. [Details and limitations](research/reports/APP02_RETAIL_FLOW.md#trade-layout-refinement--13-november-2026).
+Implementation-agent self-review only; independent review and live wallet/quote
+execution acceptance remain pending. No fresh markets or receipts fabricated.
+
+
+### APP-02 compact markets / MKT-05 ladder — 13 November 2026
+
+Compact grid, inline selectors, corner status and wallet-independent read-only
+model/final-payout rows implemented. No-open state shows labelled historical
+numbers; it does not activate historical trading. Model estimates are distinct
+from signed offers. [Evidence and blockers](research/reports/APP02_COMPACT_MARKETS.md).
+User selected daily + Friday 08:00 UTC and five 90–110% spot levels. A deterministic
+seeded planner exists but submits no actions. The current contract has **8 lifetime
+series slots**, so ten simultaneous markets plus replenishment require a new
+compatible storage/version/migration design. ORC-04/MKT-04 pricing and public
+lifecycle acceptance also remain open; automatic provisioning is not implemented.
+Dependencies: APP-02/SDK/INF-01/public prices, ORC-04/MKT-04 and versioned scalable
+core for activation. Invariant: historical terms, custody and exact signing remain
+unchanged. Failure: stale/unavailable data, insufficient capacity, unknown receipts
+or unaccepted profile blocks affected actions. Evidence: build/types/format,
+18 browser-suite and 12 deterministic checks; four-width visual inspection.
+Reviewer: implementation-agent self-review; independent review pending.
+
+
+### APP-02 wallet UI — 13 November 2026
+
+Implemented a themed wallet picker with local logos, pending/retry states and a
+compact connected-account dialog (switch/copy/explorer/funds/activity/disconnect).
+Dependencies: APP-02 provider, pinned NEAR Connect wallets and SDK. Invariant:
+validated accounts only; signing, custody and receipt recovery unchanged. Failure:
+connection errors return to the picker; clipboard failures provide manual copying.
+Build/types/format, 16 wallet boundary tests and three targeted browser tests passed;
+picker visually reviewed at 375/768/1440px. Live account-menu acceptance and
+independent review remain pending. [Evidence](research/reports/APP02_WALLET_UI.md).
+
+
+### APP-02 Cult terminal — 13 November 2026
+
+Implemented themed Cult UI tabs/buttons/mobile drawer, persistent real series
+rail, USD/NEAR scenarios, signed-offer economics, sampled settlement evidence,
+finalized-payout exposure, position actions, separate balances and unresolved
+receipt visibility. This supersedes the earlier Trade selector/model-mark layout;
+models are not executable prices. No financial terms or signing authority changed.
+Dependencies: APP-02 SDK/NEAR Connect, INF-01, spot service and real evidence.
+Invariant: bigint financial math, core-finalization payout lock and receipt-based
+completion. Failure: stale spot hides derived estimates; outdated account checks,
+closed markets, expired quotes and missing evidence block affected actions.
+Build/types/format, 17 deterministic checks, 19 browser checks and 16 wallet
+boundary tests passed; visual evidence and
+remaining live acceptance are recorded in [the report](research/reports/APP02_CULT_TERMINAL.md). No open series
+or successful new wallet transactions are fabricated. Reviewer: implementation-agent
+self-review; independent review pending. Ladder capacity, ORC-04/MKT-04 public
+lifecycle, hosting and G9 completion remain separate open gates.
+
+
+APP-02 graph interaction refinement (13 November 2026): removed the separate
+scenario slider. The payoff graph supports pointer hover, touch selection, arrow
+keys and Home/End, with a crosshair and synchronized price/payout readout.
+Dependency: existing ScenarioChart and exact payoff helpers. Invariant: financial
+math remains bigint; hypothetical selection never changes a quote or signs an
+action. Pointer positions clamp to the plotted range; unavailable spot retains
+the labelled strike-based illustration. Build/types/format, two targeted browser
+checks and actual mobile touch inspection passed. Reviewer: implementation-agent
+self-review; independent review pending.
+
+
+APP-02 settled-series corrections (13 November 2026): actual final price and
+per-unit P/N payouts, read-only finalized chart with correct quantity/axis labels,
+final-price historical ratios, slot-relative evidence timing, visible missing
+slots, series backing and matched-pair merge context implemented. Closed ticket
+controls/fields use explicit gate reasons; default quantity is one. Dependencies:
+existing stored evidence, account reads and SDK. Invariant: no recomputation from
+rounded reports, no changed payout/signing semantics. Failure: missing source or
+account data remains unavailable; unfinished series do not imply finality.
+Build/types/format and real-data browser checks recorded in APP02_CULT_TERMINAL.
+Reviewer: implementation-agent self-review; independent review pending.
+MKT-05 activation remains blocked by the eight-slot fixed layout and old-profile
+allowlist, plus TWAP public acceptance/funded inventory. No open markets fabricated.
+
+
+APP-02 exit/supply follow-up (13 November 2026): delayed series now put the
+matched-pair merge panel first, with a working wallet-connect path and an exact
+SDK merge review once holdings are known. Closed Buy/Sell controls are disabled.
+The quote area uses one gate message and unavailable-value dashes. Cumulative
+minted, merged and per-leg redeemed units explain unequal outstanding supply;
+redemption is derived as total_split - total_merged - outstanding for each leg,
+with missing/inconsistent counters unavailable. Key chart ticks are exact strike
+and final price with separate label positions. All three missed slots read
+"Window elapsed · no reports". Dependencies: retained series/account evidence
+and SDK. Invariant: no new payout or custody behavior; no wallet send on inspect
+or connect. Failure: insufficient/unavailable matched holdings block merge;
+finalized series do not offer it. Build/types/format and targeted browser/data
+checks recorded in APP02_CULT_TERMINAL. Reviewer: implementation-agent self-review;
+independent and connected-wallet merge acceptance pending. MKT-05 activation
+remains incomplete; this follow-up makes no live-market acceptance claim.
+
+### APP-02 chart inspection and compact footer — 2026-11-13
+
+Graph hover/tap/keyboard inspection now shows the selected price, NEAR/USD payout
+and P&L when a cost is available. Finalized-series inspection is explicitly
+hypothetical; the actual settled result remains fixed. A shared compact footer
+replaces the homepage tagline and workspace footer, using existing documentation,
+FAQ, pricing, NEAR and GitHub destinations in the existing theme.
+Dependencies: exact payoff helpers, retained settlement and spot/cost evidence.
+Invariant: no financial behavior, wallet submission or settlement-state changes.
+Failure: absent cost leaves P&L unavailable; stale spot cannot supply USD entry
+cost. Evidence: production build, typecheck and formatting passed; two focused
+workspace browser tests passed, plus touch inspection at 390px with no horizontal
+overflow. Desktop footer measured 49px; desktop/mobile visuals self-reviewed.
+Reviewer: implementation-agent self-review; independent review pending.
+This UI update does not complete the MKT-05 live ladder activation.
+
+### APP-02 footer placement correction — 2026-11-13
+
+Moved the shared footer outside the content frame, with a full-width divider and
+an inset link row (82%, capped at 1280px). Removed the trailing blank scroll area:
+chart screen-reader instructions now have a positioned containing block inside
+the scroll panel. Dependencies: existing shell and shared footer. Invariant:
+content/actions and keyboard instructions are preserved. Failure path: mobile
+links wrap without horizontal overflow. Evidence: build/type compilation and
+format check passed; full-page desktop (1512px), mobile (390px), and homepage
+browser checks put footer bottom within 1px of viewport bottom at end of scroll.
+Desktop footer 53px; mobile 89px. Full-page screenshots self-reviewed.
+Reviewer: implementation-agent; independent review pending.
+
+### APP-02 settlement clarity and merge visibility — 2026-11-13
+
+Backing now reads "NEAR backing remaining" with six display decimals and exact
+atomic units retained; outstanding claims remain separately labelled in units.
+The final-price gridline/tick is solid and drawn above the fill; strike caption
+uses the same exact price as its tick. Delayed rows omit redundant final-price
+pending text. Finalized markets lead with the payout chart; settlement reports,
+coefficients and supply remain available in an initially collapsed disclosure.
+The existing delayed-series primary merge action was verified on real alpha
+state (wallet-connect opens without a transaction). Mobile now labels its drawer
+entry "Merge matching pairs". Finalized eta correctly does not offer merge.
+Dependencies: exact display helpers, recorded core/oracle data, existing SDK.
+Invariant: no change to settlement, holdings or signing; hypothetical inspection
+cannot change the fixed payout. Failure: unavailable or unmatched holdings still
+block merge; missing live offers stay unavailable. Evidence: production build
+and type compilation; 10 amount/terminal tests and 2 focused browser tests pass;
+desktop alpha/eta visuals inspected, mobile merge-to-wallet route checked.
+Reviewer: implementation-agent self-review; independent review and connected
+wallet merge acceptance remain pending.
+
+MKT-05 remains unimplemented beyond the read-only planner: current core has eight
+lifetime slots and a constructor-bound sampled oracle version; five slots are in
+use. The ten-market rolling ladder requires a compatible new deployment/storage
+layout and TWAP maker, collector/indexer and public receipt acceptance. No new
+series, funded offers, chain actions or acceptance evidence were fabricated.
+
+### APP-02 guided tour and contextual help — 13 November 2026
+
+Implemented an optional six-step trade tour, launched with Start here and
+replayable as Quick tour. It highlights the current controls, supports Back,
+Next, Skip, Escape and focus restoration; dismissal is a nonessential local
+preference. The tour acknowledges zero open markets and never clicks a wallet,
+requests an offer or submits an action. Existing theme retained.
+
+Installed Base UI Popover powers reusable information buttons with hover,
+keyboard activation, touch, Escape/Close and viewport collision handling.
+Quantity, set price, chart semantics, matched pairs, backing, trading balance,
+quote reserves and quote execution/cost definitions now use contextual help.
+Cost/loss values, price provenance, pending states and execution blockers remain
+visible; underlying financial calculations and signing are unchanged.
+
+Dependencies: APP-02, existing Base UI/Cult stack, current SDK/provider state.
+Invariant: explanatory UI cannot fabricate markets or authorize transactions.
+Failure: missing live markets remains explicit; unavailable storage does not
+block the tour; unavailable amounts and gates keep their existing behavior.
+Evidence: production build/type compilation, formatting, two guidance browser
+checks and two existing focused workspace checks passed. Tests exercise six
+steps/back/replay/dismissal, real no-open state, focus, hover/keyboard/touch,
+mobile fit and zero tour POSTs. Desktop/mobile screenshots self-reviewed.
+Reviewer: implementation-agent; independent review and new-user usability
+acceptance remain pending. Backend work remains in DEFERRED_BACKEND.md.
+
+### APP-02 header and wording cleanup — 13 November 2026
+
+Removed the header network label/status dot and the inline indicative/source/age
+subtitle. Source, observation age and display-only meaning remain in the price
+info popover; stale prices still become unavailable. Removed middle-dot text
+separators across frontend components/display labels, using plain punctuation
+and clearer wording. Wallet account IDs, network configuration and signing are
+unchanged. Dependencies: APP-02/spot/help. Invariant: data provenance and execution
+guards remain available. Failure: stale/offline spot stays explicit and hides
+spot-derived estimates. Evidence: build/types passed; tour/help, settlement and
+real-source/stale-price browser checks passed; 1440px/390px headers inspected
+with no dot separators or horizontal overflow. Reviewer: implementation-agent
+self-review; independent review pending.
+
+### APP-02 automatic anchored onboarding — 13 November 2026
+
+Replaced the fixed-corner/manual tour with a first-visit tour using the installed
+Base UI Popover. Each step anchors beside its wallet, market list, position,
+chart, ticket or account-panel target and scrolls that target into view. Removed
+the launch button. Completion, Skip and Escape persist a versioned browser
+preference; unavailable local storage falls back to dismissal for this page
+session. Startup waits for workspace data and avoids an already-open dialog.
+Dependencies: APP-02 workspace and Base UI. Invariant: onboarding never submits
+wallet/financial actions or substitutes live data; closed-market explanations
+remain truthful. Failure path: unavailable data defers onboarding; blocked
+storage cannot break the workspace. Evidence: production build/type compilation
+and formatting passed; three guidance checks cover automatic startup, six-step
+desktop/mobile placement, Back, completion/Skip/Escape persistence, focus,
+help interactions and zero tour POSTs. Two focused settlement/stale-price
+workspace checks passed. Desktop/mobile screenshots self-reviewed. Reviewer:
+implementation-agent self-review; independent/new-user review remains pending.
+Backend completion remains tracked separately in docs/DEFERRED_BACKEND.md.
+
+### APP-02 payout explanation cleanup — 13 November 2026
+
+Replaced the shared “Settlement terms” raw series JSON/resolver dump with
+“How payouts work”: end date, profile-specific final-price method, configured
+source, NEAR payouts, claiming and missing-evidence delays. Dependencies:
+APP-02 and existing series metadata. Invariant: existing settlement rules and
+execution remain unchanged. Unknown profiles/source metadata show unavailable
+information rather than invented terms. Evidence: production build/types and
+formatting passed; real eta checked at 390px/1440px with no JSON in the disclosure
+and no horizontal overflow; mobile disclosure visually inspected. Reviewer:
+implementation-agent self-review; independent review pending.
+
+### APP-02 compact settlement hierarchy — 13 November 2026
+
+Settled trade views now lead with final reference price and the fixed payout for
+selected quantity, followed by a 180px reference chart. Removed duplicate result
+headings, midpoint gridline, far-end x tick and stacked settlement/terms disclosures.
+Samples (default), Backing and Terms use the existing Cult/Base UI tabs. Evidence
+metadata and payout explanations use info popovers. Backing has one remaining
+NEAR reserve and a three-column minted/redeemed/outstanding table; merged pairs
+remain visible so supply still reconciles. Unknown evidence remains unavailable;
+delayed markets retain missing-sample blockers and merge actions. Existing terms,
+exact bigint payouts, original source data and execution gates are unchanged.
+Dependencies: APP-02, existing series/indexer metadata and Cult/Base UI. Invariant:
+hypothetical hover cannot change the finalized outcome; no invented observations
+or live markets. Failure path: missing reports and stale snapshots remain explicit.
+Evidence: production build/types, format check and five focused browser checks
+passed (tabs/keyboard, fixed payoff and hover, delayed merge/mobile drawer, stale
+spot, tour and help). Real eta reviewed at 390/768/1440px; evidence panels have no
+internal scrolling. Final outcome block measured 289px desktop/291px mobile plus
+180px chart within it. Reviewer: implementation-agent self-review; independent
+review remains pending. Deferred backend/release gates remain open.
+
+### APP-02 remove redundant trade header — 13 November 2026
+
+Removed the visible trade title row and full-width degraded-status strip on
+/trade. More detail now lives in the NEAR markets header; the open count is
+beside Open now. Trading status and refresh are available from the ticket info
+button, including reconciliation, snapshot age, discovery lag and unavailable
+spot. Unresolved-operation badges, unavailable spot display and action-level
+execution gates remain visible. Other workspace pages retain their status strip.
+Dependencies: APP-02 shell, market list and ticket. Invariant: presentation does
+not enable stale/unreconciled execution or alter wallet actions. Failure path:
+price estimates remain hidden on stale data and affected actions stay blocked.
+Evidence: production build/typecheck, desktop/mobile visual checks and four
+focused browser checks passed (status, settlement/mobile controls and first-visit
+tour). No horizontal overflow at 390/1440px. Reviewer: implementation-agent
+self-review; independent review pending.

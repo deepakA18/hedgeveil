@@ -11,20 +11,30 @@
     "build": "NEXT_TELEMETRY_DISABLED=1 next build",
     "start": "NEXT_TELEMETRY_DISABLED=1 next start --hostname 127.0.0.1 --port 3000",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write app components lib next.config.ts tsconfig.json package.json",
-    "format:check": "prettier --check app components lib next.config.ts tsconfig.json package.json",
-    "test:browser": "node --test ../../tests/e2e/next-homepage.test.mjs"
+    "format": "prettier --write app components lib proxy.ts next.config.ts tsconfig.json package.json",
+    "format:check": "prettier --check app components lib proxy.ts next.config.ts tsconfig.json package.json",
+    "test:browser": "node --test ../../tests/e2e/next-homepage.test.mjs ../../tests/e2e/next-workspace.test.mjs ../../tests/e2e/next-guidance.test.mjs"
   },
   "dependencies": {
+    "@base-ui/react": "1.9.0",
+    "@hot-labs/near-connect": "0.12.0",
+    "@radix-ui/react-slot": "1.5.0",
+    "clsx": "2.1.1",
+    "motion": "14.13.0",
     "next": "16.4.6",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "react-dom": "19.3.1",
+    "react-use-measure": "2.1.7",
+    "tailwind-merge": "3.7.0",
+    "vaul": "1.1.2"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "4.3.5",
     "@types/node": "22.20.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "prettier": "3.10.1",
+    "tailwindcss": "4.3.5",
     "typescript": "7.0.2"
   }
 }

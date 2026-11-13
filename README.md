@@ -49,7 +49,7 @@ builds and release gates. No AI credential, circuit or prover is needed here.
 
 ## Next.js frontend
 
-The approved homepage is implemented in Next.js, React and TypeScript:
+The homepage and application pages are implemented in Next.js, React and TypeScript:
 
 ```sh
 npm ci --prefix apps/frontend
@@ -57,8 +57,10 @@ npm --prefix apps/frontend run dev
 ```
 
 Open http://127.0.0.1:3000. [Frontend structure and checks](apps/frontend/README.md)
-describe the build and configuration. Its app links open the existing wallet
-desk; migrating trading and portfolio screens to React remains separate work.
+describe the build and configuration. App links open `/markets`, with Trade,
+Portfolio, Funds, Activity and Liquidity in the same theme. The retained wallet
+service on port 8794 supplies the real APIs through a loopback-only bridge; it
+must remain running. New React wallet-signing acceptance is still pending.
 
 ## Connect a testnet wallet
 
