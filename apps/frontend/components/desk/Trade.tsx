@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, useId } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 
 import { useDesk, LegList } from "./DeskProvider";
 import { Empty, Form, AmountField, useNow, seriesStatus } from "./Elements";
@@ -14,6 +13,7 @@ import {
 } from "../../lib/desk-api";
 
 import { InfoPopover } from "./InfoPopover";
+import { useWorkspaceResize } from "./WorkspaceResize";
 import { ServiceStatus } from "./ServiceStatus";
 import { TradeTour } from "./TradeTour";
 import { ScenarioChart } from "./ScenarioChart";
@@ -68,6 +68,7 @@ export function Trade() {
     [expert, setExpert] = useState(false),
     [mobile, setMobile] = useState(false),
     [ticketOpen, setTicketOpen] = useState(false);
+  const resize = useWorkspaceResize(mobile);
   useEffect(() => {
     const m = matchMedia("(max-width: 1023px)");
     const update = () => {
@@ -224,7 +225,11 @@ export function Trade() {
     lifecycle(series, now, oracleCase(d.state, series)) ===
       "RESOLUTION_DELAYED";
   const ticket = (
-    <section className="terminal-ticket" aria-label="Trade ticket">
+    <section
+      className="terminal-ticket workspace-panel"
+      data-panel="ticket"
+      aria-label="Trade ticket"
+    >
       <div className="region-heading">
         <h2>
           {delayed
@@ -234,7 +239,6 @@ export function Trade() {
               : "Trade ticket"}
           <ServiceStatus />
         </h2>
-        <span>{claim === "N" ? "Upside" : "Capped value"}</span>
       </div>
       {delayed && series && (
         <SeriesPositionContext
@@ -394,18 +398,11 @@ export function Trade() {
         />
       )}
       <BalanceGrid compact />
-      <Link
-        href="/funds"
-        className="desk-text-link"
-        onClick={() => setTicketOpen(false)}
-      >
-        Manage funds
-      </Link>
     </section>
   );
   return (
     <MotionConfig reducedMotion="always">
-      <div className="trade-workspace terminal-workspace">
+      <div className="trade-workspace terminal-workspace" style={resize.style}>
         <h1 className="sr-only">Trade NEAR</h1>
         <TradeTour
           ready={
@@ -414,7 +411,7 @@ export function Trade() {
           mobile={mobile}
           hasOpenMarkets={d.series.some((s) => isOpen(s, now))}
         />
-        <div className="terminal-grid">
+        <div className="terminal-grid resizable-grid" ref={resize.gridRef}>
           <SeriesList
             series={d.series}
             selected={selectedId}
@@ -429,7 +426,8 @@ export function Trade() {
             offers={visibleOffers}
             side={mode}
           />
-          <div className="terminal-center">
+          {resize.leftDivider}
+          <div className="terminal-center workspace-panel" data-panel="chart">
             <section className="trade-controls" aria-label="Choose your market">
               <div
                 className="desk-tabs"
@@ -560,6 +558,7 @@ export function Trade() {
               </Empty>
             )}
           </div>
+          {resize.rightDivider}
           {!mobile && ticket}
         </div>
         {mobile && (
@@ -597,6 +596,7 @@ export function Trade() {
             </FamilyDrawerPortal>
           </FamilyDrawerRoot>
         )}
+        {resize.heightDivider}
         <TradingDock expert={expert} />
       </div>
     </MotionConfig>

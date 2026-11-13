@@ -1365,3 +1365,118 @@ Evidence: production build/typecheck, desktop/mobile visual checks and four
 focused browser checks passed (status, settlement/mobile controls and first-visit
 tour). No horizontal overflow at 390/1440px. Reviewer: implementation-agent
 self-review; independent review pending.
+
+### APP-02 full-width workspace and draggable dividers — 13 November 2026
+
+Removed inherited shell/header/frame width caps. The navbar divider spans the
+viewport; workspace outer gutters are 12px desktop and 8px mobile. Following
+the user's correction, draggable shared edges replace the earlier button-based
+collapse/expand controls. Desktop vertical dividers resize Markets, the chart
+and the trade ticket; the horizontal divider adjusts the split above the account
+panel. Double-click resets a divider; keyboard arrow keys resize it, with
+Home/End bounds and accessible separator values. Mobile retains the stacked
+layout and trade drawer without drag handles.
+
+Dependencies: APP-02 terminal, responsive styles and account dock. Invariant:
+resizing preserves selected series, leg, quantity and execution gates, and never
+submits transactions. Failure path: viewport resizing clamps panel widths to
+keep the chart usable; unavailable data/offers still block affected actions.
+Evidence: production build/typecheck, format check and git diff check passed.
+Five focused browser checks passed, covering actual pointer drags, account-panel
+height, keyboard/reset behavior, viewport clamping, retained trade state,
+first-visit onboarding and information controls. Layout checked at 390, 1440
+and 2400px with no horizontal overflow or transaction POSTs; desktop/mobile
+screenshots self-reviewed. Reviewer: implementation-agent self-review;
+independent review pending. No backend/release gate completion claimed.
+
+### APP-02 light and dark themes — 13 November 2026
+
+Added a keyboard-accessible sun/moon switch to homepage and workspace headers.
+Light remains the default; the dark palette uses forest-tinted surfaces, soft
+white/sage text and lime actions. Shared tokens cover charts, navigation,
+forms, wallet dialogs, tooltips, drawers and the footer. The choice persists
+across navigation/reloads and synchronizes open tabs. An early nonce-authorized
+script applies the saved theme before paint under the workspace CSP; blocked
+storage does not prevent switching for the current page.
+
+Dependencies: APP-02 shared layout, palette and existing CSP nonce. Invariant:
+theme changes preserve selection, quantities, wallet state and execution gates;
+they do not submit transactions. Failure path: unavailable storage falls back
+to light on reload without breaking the page. Evidence: production build/types,
+format and diff checks passed. Five theme browser checks cover 375/768/1440px,
+keyboard operation, saved preferences, cross-tab sync, storage denial, CSP,
+wallet dialogs, overflow and zero transaction POSTs. Five existing homepage
+and draggable-workspace checks also passed. Dark desktop/mobile screenshots
+self-reviewed; primary, muted, action and error text contrast exceed AA.
+Reviewer: implementation-agent self-review; independent review pending.
+Deferred backend/release gates remain open.
+
+### APP-02 edge-to-edge trading workspace — 13 November 2026
+
+Removed the trade page's outer horizontal/top gutters and bottom frame padding.
+Panels now meet the navbar and viewport edges; the account dock fills down to
+the footer. Desktop sizing measures the actual header/content offset and footer
+height instead of reserving a fixed empty area. Dragging the horizontal divider
+reallocates space between the upper workspace and account dock. Small screens
+retain the scrollable stacked layout; short desktop windows preserve minimum
+usable panel sizes and can scroll.
+
+Dependencies: APP-02 draggable dividers and shared shell. Invariant: layout
+changes preserve trade selection/quantity and do not submit transactions or
+change execution gates. Failure path: minimum widths/heights and scrolling keep
+controls reachable. Evidence: production build/types, formatting and diff checks
+passed; focused browser coverage at 390/1440/2400px verifies zero outer gutters,
+navbar/panel contact, account/footer contact before and after dragging, keyboard
+resizing, retained trade state, no overflow and no transaction POSTs. Desktop
+and mobile screenshots self-reviewed. Reviewer: implementation-agent self-review;
+independent review pending. Backend/release gates are unchanged.
+
+### APP-02 direct Trade entry — 13 November 2026
+
+Homepage app CTAs now open /trade. The redundant /markets page redirects to
+/trade, and its separate mobile navigation entry is removed. Portfolio/vault
+entry links also target Trade; series selection and history remain in its rail.
+The default HEDGEVEIL_DESK_URL is /trade; legacy /markets configuration maps to
+/trade without changing user settings. Dependencies: APP-02 trade workspace
+and homepage routing. Invariant: navigation never submits a trade or changes
+execution gates. Failure path: existing URL validation and trading data gates
+remain active; old bookmarks resolve through a 307 redirect. Evidence: build/
+typecheck, eight homepage checks, live redirect verification and diff check
+passed. Reviewer: implementation-agent self-review; independent review pending.
+
+### APP-02 Funds navigation — 13 November 2026
+
+Workspace navigation is now Trade, Portfolio and Funds on desktop and mobile.
+Removed the redundant Manage funds link at the bottom of the trade ticket and
+updated onboarding to point to navigation. Activity remains in the account dock;
+its details/recovery route and unresolved-operation links remain accessible.
+Dependencies: APP-02 shell, Funds and account dock. Invariant: this navigation
+change does not alter deposits, withdrawals, receipt recovery or execution gates.
+Failure path: existing wallet/funding gates remain enforced. Evidence: production
+build/typecheck, diff check and real-browser checks at 390/1440px passed for Funds
+navigation, retained Activity tab and no horizontal overflow. Reviewer:
+implementation-agent self-review; independent review pending.
+
+### APP-02 funding panel heights — 13 November 2026
+
+The Funds page now stretches its side-by-side Add funds and Withdraw panels to
+the same grid-row height, scoped through funds-panels. Mobile single-column
+rows retain natural content height. Dependency: APP-02 Funds grid. Invariant:
+no form, balance or transaction behavior changes. Failure path: expanded storage
+or recipient details grow the row without fixed-height clipping. Evidence:
+production build/typecheck, format and diff checks passed; CSS self-reviewed.
+Connected-wallet visual acceptance and independent review remain pending.
+
+### APP-02 centered wallet prompts — 13 November 2026
+
+Disconnected Funds and Portfolio pages now center a contextual Connect wallet
+prompt in the available page area; the shared Activity gate uses the same
+layout. Positions uses a compact centered prompt inside the account panel.
+Buttons open the existing provider picker and preserve busy/service checks.
+Dependencies: APP-02 wallet provider, shared gate and account dock. Invariant:
+opening the picker does not submit a transaction or fabricate account data.
+Failure path: unavailable service/busy state disables connection; connecting
+status remains visible. Evidence: production build/types, format/diff checks,
+real-browser checks at 390/1440px for all three requested surfaces, picker open/
+Escape/focus return, centering, overflow and zero POSTs passed. Screenshots
+self-reviewed; independent review pending.

@@ -2,9 +2,9 @@
 export function getDeskUrl(): string {
   if (
     !process.env.HEDGEVEIL_DESK_URL ||
-    process.env.HEDGEVEIL_DESK_URL === "/markets"
+    ["/trade", "/markets"].includes(process.env.HEDGEVEIL_DESK_URL)
   )
-    return "/markets";
+    return "/trade";
   const url = new URL(process.env.HEDGEVEIL_DESK_URL);
   const local = ["127.0.0.1", "localhost", "[::1]"].includes(url.hostname);
   if (

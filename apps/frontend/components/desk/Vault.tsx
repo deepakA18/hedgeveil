@@ -15,7 +15,7 @@ export function Vault() {
           There is no advertised yield, guaranteed dollar balance or active
           automated strategy.
         </p>
-        <a className="desk-button lime" href="/markets">
+        <a className="desk-button lime" href="/trade">
           Explore options
         </a>
       </Panel>

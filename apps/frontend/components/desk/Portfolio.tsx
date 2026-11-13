@@ -68,7 +68,7 @@ export function Portfolio() {
         }
       />
       {!d.account ? (
-        <WalletGate />
+        <WalletGate description="Connect to view and manage your positions." />
       ) : (
         <>
           <div className="desk-stats">
@@ -109,7 +109,7 @@ export function Portfolio() {
                 <Link
                   prefetch={false}
                   className="desk-button"
-                  href={balance ? "/markets" : "/funds"}
+                  href={balance ? "/trade" : "/funds"}
                 >
                   {balance ? "Explore markets" : "Manage funds"}
                 </Link>

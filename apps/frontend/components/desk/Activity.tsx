@@ -26,7 +26,7 @@ export function Activity() {
         copy="Follow confirmed receipts, pending transfers and actions that need another check."
       />
       {!d.account ? (
-        <WalletGate />
+        <WalletGate description="Connect to view your account activity." />
       ) : (
         <>
           <p className="desk-muted">

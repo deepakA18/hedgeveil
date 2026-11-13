@@ -28,7 +28,7 @@
 }
 .top-navigation a[aria-current="page"] {
   background: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
 }
 .desk-network {
   font-size: 10px;
@@ -249,7 +249,7 @@
   font-weight: 400;
 }
 .state-good {
-  color: var(--forest);
+  color: var(--olive);
 }
 .quarantined {
   border-style: dashed;
@@ -592,7 +592,7 @@
   justify-content: center;
   border-radius: 0 !important;
   background: var(--lime) !important;
-  color: var(--ink);
+  color: var(--on-lime);
   box-shadow: none !important;
   min-height: 40px;
   padding: 8px 12px;
@@ -1303,7 +1303,7 @@
   border: 1px solid var(--line);
   border-radius: 2px;
   background: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
   font: 13px/1.5 var(--sans);
 }
 .info-title {
@@ -1392,7 +1392,7 @@
 }
 .tour-controls .tour-next {
   background: var(--lime);
-  color: var(--ink);
+  color: var(--on-lime);
   border-color: var(--lime);
 }
 [data-tour-active="true"] {
@@ -1614,4 +1614,254 @@
   color: inherit;
   background: transparent;
   cursor: pointer;
+}
+
+/* Use the viewport instead of leaving wide outer gutters around the workspace. */
+.desk-layout > .desk-shell,
+.desk-layout > .desk-shell:has(.terminal-workspace) {
+  max-width: none;
+  width: 100%;
+}
+.desk-layout .desk-header {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.desk-layout .desk-main {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.market-list-options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  padding: 0 8px;
+}
+.market-list-options .expert-toggle {
+  margin-left: auto;
+}
+.market-list-options .series-tabs {
+  border: 0;
+  padding: 0;
+}
+.terminal-workspace .trade-controls {
+  flex-wrap: wrap;
+}
+.desk-layout .desk-header,
+.desk-layout .desk-frame {
+  max-width: none;
+  width: 100%;
+}
+
+/* Drag the shared panel boundaries. Mobile keeps the stacked layout and drawer. */
+.workspace-divider {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .terminal-workspace .terminal-grid.resizable-grid {
+    grid-template-columns:
+      var(--markets-width, 260px) 8px minmax(0, 1fr)
+      8px var(--ticket-width, 290px);
+    height: var(--workspace-height, calc(100dvh - 330px));
+    min-height: 320px;
+  }
+  .resizable-grid > .workspace-panel {
+    min-width: 0;
+  }
+  .resizable-grid .terminal-center {
+    border: 0;
+  }
+  .workspace-divider {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    touch-action: none;
+    user-select: none;
+    background: var(--paper);
+    outline: none;
+  }
+  .workspace-divider[aria-orientation="vertical"] {
+    cursor: col-resize;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+  .workspace-divider[aria-orientation="horizontal"] {
+    height: 10px;
+    cursor: row-resize;
+  }
+  .workspace-divider::after {
+    content: "";
+    background: var(--line);
+    border-radius: 1px;
+  }
+  .workspace-divider[aria-orientation="vertical"]::after {
+    width: 2px;
+    height: 28px;
+  }
+  .workspace-divider[aria-orientation="horizontal"]::after {
+    width: 28px;
+    height: 2px;
+  }
+  .workspace-divider:hover,
+  .workspace-divider[data-dragging="true"] {
+    background: var(--panel);
+  }
+  .workspace-divider:hover::after,
+  .workspace-divider:focus-visible::after,
+  .workspace-divider[data-dragging="true"]::after {
+    background: var(--olive);
+  }
+  .workspace-divider:focus-visible {
+    box-shadow: inset 0 0 0 1px var(--olive);
+  }
+  .terminal-workspace .trading-dock {
+    margin-top: 0;
+  }
+  .terminal-workspace .trading-dock [data-slot="halo-tabs-content"] {
+    height: var(--account-content-height, 80px);
+    max-height: none;
+    min-height: 64px;
+    overflow: auto;
+  }
+}
+@media (max-width: 1023px) {
+  .desk-layout .desk-main {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* Keep the theme control in the first header row on narrow screens. */
+@media (max-width: 1023px) {
+  .desk-layout .desk-header {
+    grid-template-columns: minmax(0, 1fr) 40px auto;
+  }
+  .desk-header .theme-toggle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .desk-header .desk-menu-toggle {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .desk-header .spot-price {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .desk-header .desk-wallet {
+    grid-column: 2 / 4;
+    grid-row: 2;
+  }
+}
+
+/* Trade panels meet the navbar, viewport edges and footer directly. */
+.desk-layout .desk-main:has(.terminal-workspace) {
+  padding: 0;
+}
+.desk-layout .desk-frame:has(.terminal-workspace) {
+  padding-bottom: 0;
+}
+.terminal-workspace > .terminal-grid {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+.terminal-workspace > .trading-dock {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+@media (min-width: 1024px) {
+  .terminal-workspace {
+    display: flex;
+    flex-direction: column;
+    height: var(--workspace-total-height, calc(100dvh - 125px));
+    min-height: 450px;
+  }
+  .terminal-workspace > .terminal-grid,
+  .terminal-workspace > .workspace-divider {
+    flex: none;
+  }
+  .terminal-workspace > .trading-dock {
+    flex: 1;
+    min-height: 110px;
+    display: flex;
+  }
+  .terminal-workspace > .trading-dock > [data-slot="halo-tabs"] {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .trading-dock [data-slot="halo-tabs-list"] {
+    flex: none;
+  }
+  .terminal-workspace .trading-dock [data-slot="halo-tabs-content"] {
+    flex: 1;
+    height: auto;
+    min-height: 0;
+  }
+}
+
+/* Disconnected account pages use the available space for one clear next step. */
+.desk-layout:has(.wallet-gate-page) > .desk-shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.desk-layout:has(.wallet-gate-page) .desk-header {
+  flex: none;
+}
+.desk-layout .desk-frame:has(.wallet-gate-page) {
+  display: flex;
+  flex: 1;
+}
+.desk-layout .desk-main:has(> .wallet-gate-page) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.wallet-gate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 16px;
+}
+.wallet-gate-page {
+  flex: 1;
+  min-height: 280px;
+}
+.wallet-gate-content {
+  max-width: 420px;
+}
+.wallet-gate h2 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+.wallet-gate p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.wallet-gate .desk-button {
+  min-height: 44px;
+  padding-inline: 24px;
+}
+.wallet-gate-compact {
+  min-height: 128px;
+  height: 100%;
+  padding: 12px;
+}
+.wallet-gate-compact h2 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+.wallet-gate-compact p {
+  font-size: 12px;
+  margin-bottom: 12px;
 }

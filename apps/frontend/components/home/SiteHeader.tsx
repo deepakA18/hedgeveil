@@ -1,3 +1,4 @@
+import { ThemeToggle } from "../ThemeProvider";
 export function SiteHeader({ deskUrl }: { deskUrl: string }) {
   return (
     <header className="site-header">
@@ -15,6 +16,7 @@ export function SiteHeader({ deskUrl }: { deskUrl: string }) {
         <a href="#what-you-can-do">What you can do</a>
         <a href="#comparison">Why Hedgeveil</a>
       </nav>
+      <ThemeToggle />
       <a className="button button-small" href={deskUrl}>
         Explore the app
       </a>

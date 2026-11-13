@@ -60,12 +60,35 @@ export function Empty({
     </div>
   );
 }
-export function WalletGate() {
+export function WalletGate({
+  compact = false,
+  description = "Connect to view your balances and account activity.",
+}: {
+  compact?: boolean;
+  description?: string;
+}) {
+  const d = useDesk();
   return (
-    <Empty title="Your positions start with your wallet.">
-      <p>Connect to see your balance and review a trade.</p>
-      <p>Use Connect wallet in the header to get started.</p>
-    </Empty>
+    <section
+      className={`wallet-gate ${compact ? "wallet-gate-compact" : "wallet-gate-page"}`}
+      aria-label="Connect your wallet"
+    >
+      <div className="wallet-gate-content">
+        <h2>Connect your wallet</h2>
+        <p>{description}</p>
+        <button
+          type="button"
+          className="desk-button lime"
+          aria-haspopup="dialog"
+          aria-busy={!!d.connecting}
+          disabled={!d.session || d.busy}
+          onClick={d.connect}
+        >
+          {d.connecting ? "Connecting…" : "Connect wallet"}
+        </button>
+        {d.connecting && <p role="status">Continue in {d.connecting}</p>}
+      </div>
+    </section>
   );
 }
 export function Form({

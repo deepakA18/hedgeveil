@@ -31,3 +31,11 @@ direction; independent review and connected-wallet acceptance remain separate.
 Hero button refinement (12 November): centered Explore CTA uses lime #c8f77b
 with ink text; How it works uses forest #1f3023 with paper text. Other CTAs
 retain their existing treatment.
+
+Theme extension (13 November, user requested): light stays the default. The
+dark palette uses forest-black #111813, raised surface #17211a, panel #1c281f,
+soft-white text #edf2e8, muted sage #adb8a7, rules #354238, olive highlight
+#b1d889 and forest #263e2c. Lime #c8f77b keeps dark text in both themes.
+A sun/moon header button switches themes and remembers the choice locally;
+charts, dialogs, forms and navigation share the same tokens. This extends the
+accepted identity without changing homepage composition or financial behavior.

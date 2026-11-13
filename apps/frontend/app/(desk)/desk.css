@@ -70,7 +70,7 @@
 }
 .desk-sidebar nav a[aria-current="page"] {
   background: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
 }
 .sidebar-bottom {
   padding: 32px 16px;
@@ -168,6 +168,7 @@
   background: var(--panel);
 }
 .desk-button.lime {
+  color: var(--on-lime);
   background: var(--lime);
   border-color: var(--lime);
 }
@@ -177,9 +178,10 @@
 .desk-button.dark {
   background: var(--forest);
   border-color: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
 }
 .desk-button.dark:hover {
+  color: var(--paper);
   background: var(--olive);
 }
 .desk-button.small {
@@ -256,6 +258,9 @@
   gap: 20px;
   align-items: start;
 }
+.funds-panels {
+  align-items: stretch;
+}
 .desk-inline,
 .desk-actions {
   display: flex;
@@ -296,7 +301,7 @@
   min-height: 44px;
 }
 .desk-danger {
-  color: #92321f;
+  color: var(--danger);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -380,7 +385,7 @@
 }
 .desk-tabs button[aria-pressed="true"] {
   background: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
 }
 .desk-table-wrap {
   overflow: auto;
@@ -1021,7 +1026,7 @@
 }
 .mobile-navigation a[aria-current="page"] {
   background: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
 }
 .mobile-navigation a:hover {
   background: var(--panel);
@@ -1947,7 +1952,7 @@
 }
 
 .trade-workspace {
-  --trade-line: #d9dad0;
+  --trade-line: var(--line);
 }
 .spot-price strong {
   font-family: var(--mono);

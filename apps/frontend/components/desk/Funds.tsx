@@ -36,7 +36,7 @@ export function Funds() {
         copy="Keep your wallet balance and trading balance separate. Review each transfer before signing."
       />
       {!d.account ? (
-        <WalletGate />
+        <WalletGate description="Connect to add funds or withdraw to your wallet." />
       ) : (
         <>
           <BalanceGrid />
@@ -46,7 +46,7 @@ export function Funds() {
               adds trading funds. Each step needs a separate wallet approval.
             </p>
           )}
-          <div className="desk-two">
+          <div className="desk-two funds-panels">
             <Panel title={balance ? "Add funds" : "1. Set up your account"}>
               <Form
                 label={

@@ -1,5 +1,9 @@
 /* Approved Hedgeveil design tokens and responsive styles, retained during React migration. */
 :root {
+  color-scheme: light;
+  --on-lime: #161914;
+  --on-forest: #f7f8f2;
+  --danger: #92321f;
   --paper: #f7f8f2;
   --ink: #161914;
   --muted: #60665b;
@@ -55,7 +59,7 @@ button {
   transform: translateY(-150%);
   z-index: 10;
   background: var(--ink);
-  color: var(--white);
+  color: var(--paper);
   padding: 16px;
 }
 .skip:focus {
@@ -285,7 +289,7 @@ h2 {
   margin: 0 0 26px;
 }
 .muted-heading {
-  color: #7a8172;
+  color: var(--muted);
 }
 .introduction > div > p {
   font-size: 16px;
@@ -394,7 +398,7 @@ h2 {
   width: 32px;
   background: var(--lime);
   height: 22px;
-  border: 1px solid #b7d693;
+  border: 1px solid var(--line);
 }
 .abstract-path span:nth-child(2) {
   height: 38px;
@@ -1367,7 +1371,7 @@ footer > div > span {
 }
 .hero .hero-primary {
   background: var(--lime);
-  color: var(--ink);
+  color: var(--on-lime);
   border-color: var(--lime);
 }
 .hero .hero-primary:hover {
@@ -1376,7 +1380,7 @@ footer > div > span {
 }
 .hero .hero-secondary {
   background: var(--forest);
-  color: var(--paper);
+  color: var(--on-forest);
   border-color: var(--forest);
 }
 .hero .hero-secondary:hover {
@@ -1697,5 +1701,64 @@ footer.site-footer {
   .footer-inner > nav,
   .footer-inner > .footer-meta {
     gap: 0 16px;
+  }
+}
+
+/* Both palettes share forest surfaces and a lime action accent. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111813;
+  --ink: #edf2e8;
+  --muted: #adb8a7;
+  --line: #354238;
+  --olive: #b1d889;
+  --forest: #263e2c;
+  --panel: #1c281f;
+  --white: #17211a;
+  --danger: #ffa893;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  background: var(--panel);
+  border-color: var(--muted);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+}
+.closing {
+  color: var(--on-lime);
+  --ink: var(--on-lime);
+  --paper: #f7f8f2;
+  --muted: #405039;
+  --olive: #405916;
+}
+:root[data-theme="dark"] .hero .hero-secondary:hover {
+  color: var(--paper);
+}
+@media (max-width: 760px) {
+  .site-header {
+    gap: 8px;
+  }
+  .site-header .wordmark {
+    margin-right: auto;
+    font-size: 22px;
+    gap: 6px;
+  }
+  .site-header .button {
+    padding-inline: 10px;
   }
 }

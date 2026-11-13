@@ -23,8 +23,8 @@ service or initialize a new deployment just to start the frontend.
 
 ## Pages
 
-- `/`: approved homepage; app links now open `/markets`.
-- `/markets`: actual registered series, dates, strikes and settlement status.
+- `/`: approved homepage; app links open `/trade`.
+- `/markets`: compatibility redirect to `/trade`; open series and history live in the trading workspace.
 - `/trade`: buy/sell requests, funded offers, review and an explanatory payoff chart.
 - `/portfolio`: finalized holdings, redemption, merging and creating pairs.
 - `/funds`: account storage, collateral deposits and withdrawals.
@@ -57,7 +57,7 @@ This bridge is **loopback-only**, not a public backend deployment. Settings:
 
 | Variable | Default | Use |
 | --- | --- | --- |
-| `HEDGEVEIL_DESK_URL` | `/markets` | Optional public homepage destination, evaluated at build time |
+| `HEDGEVEIL_DESK_URL` | `/trade` | Optional public homepage destination, evaluated on the server; legacy `/markets` maps to `/trade` |
 | `HEDGEVEIL_FRONTEND_ORIGIN` | `http://127.0.0.1:3000` | Exact browser origin for the local bridge |
 | `HEDGEVEIL_BACKEND_ORIGIN` | `http://127.0.0.1:8794` | Fixed retained wallet service origin |
 

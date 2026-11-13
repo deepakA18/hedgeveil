@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { ThemeToggle } from "../ThemeProvider";
 import { SiteFooter } from "../home/SiteFooter";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
@@ -12,7 +13,7 @@ import { WalletControl } from "./WalletControl";
 const links = [
   ["/trade", "Trade"],
   ["/portfolio", "Portfolio"],
-  ["/activity", "Activity"],
+  ["/funds", "Funds"],
 ];
 export function DeskShell({ children }: { children: ReactNode }) {
   const d = useDesk(),
@@ -78,6 +79,7 @@ export function DeskShell({ children }: { children: ReactNode }) {
               {unknownWithdrawals ? `, ${unknownWithdrawals} withdrawals` : ""}
             </Link>
           )}
+          <ThemeToggle />
           <WalletControl />
         </header>
         {path !== "/trade" &&
@@ -105,22 +107,19 @@ export function DeskShell({ children }: { children: ReactNode }) {
         {menu && (
           <Modal title="Navigate Hedgeveil" onClose={() => setMenu(false)}>
             <nav className="mobile-navigation" aria-label="Mobile workspace">
-              {[
-                ...links,
-                ["/markets", "Market history"],
-                ["/funds", "Manage funds"],
-                ["/liquidity", "How pricing works"],
-              ].map(([href, label]) => (
-                <Link
-                  prefetch={false}
-                  key={href}
-                  href={href}
-                  aria-current={path === href ? "page" : undefined}
-                  onClick={() => setMenu(false)}
-                >
-                  {label}
-                </Link>
-              ))}
+              {[...links, ["/liquidity", "How pricing works"]].map(
+                ([href, label]) => (
+                  <Link
+                    prefetch={false}
+                    key={href}
+                    href={href}
+                    aria-current={path === href ? "page" : undefined}
+                    onClick={() => setMenu(false)}
+                  >
+                    {label}
+                  </Link>
+                ),
+              )}
             </nav>
           </Modal>
         )}

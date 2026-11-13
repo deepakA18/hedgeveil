@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useDesk } from "./DeskProvider";
-import { useNow } from "./Elements";
+import { useNow, WalletGate } from "./Elements";
 import { Num, StateBadge } from "./TerminalPrimitives";
 import { LockedPayout } from "./SettlementPanel";
 import {
@@ -35,7 +35,7 @@ export function PositionRows({ expert = false }: { expert?: boolean }) {
     )
     .filter((x) => x.quantity > 0n);
   if (!d.account)
-    return <p className="rail-note">Connect your wallet to see positions.</p>;
+    return <WalletGate compact description="Connect to see your positions." />;
   if (!d.live)
     return (
       <p className="rail-note">

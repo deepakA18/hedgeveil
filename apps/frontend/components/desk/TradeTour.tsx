@@ -37,7 +37,7 @@ export function TradeTour({
       anchor: ".desk-wallet",
       side: "bottom" as const,
       title: "Connect, then add trading funds",
-      body: "Use Connect wallet to choose your account. Manage funds opens account setup and deposits. Your first deposit needs two approvals: account storage, then trading funds. Keep some NEAR in your wallet for fees.",
+      body: "Use Connect wallet to choose your account. Open Funds from the navigation for account setup, deposits and withdrawals. Your first deposit needs two approvals: account storage, then trading funds. Keep some NEAR in your wallet for fees.",
     },
     {
       target: ".series-rail",

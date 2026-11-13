@@ -14,7 +14,7 @@ test('workspace routes render real market data and fit mobile/tablet/desktop', a
     const errors=[];
     page.on('pageerror', e => errors.push(e.message));
     page.on('console', m => {if(m.type()==='error') errors.push(m.text());});
-    for(const route of ['markets','trade','portfolio','funds','activity','liquidity','vault']) {
+    for(const route of ['trade','portfolio','funds','activity','liquidity','vault']) {
       const response=await page.goto(`${base}/${route}`,{waitUntil:'networkidle'});
       assert.equal(response.status(),200);
       assert.equal(await page.locator('h1').count(),1);
@@ -22,21 +22,7 @@ test('workspace routes render real market data and fit mobile/tablet/desktop', a
       assert.equal(await page.locator('.desk-alert').count(),0,`${route}: ${await page.locator('.desk-alert').allTextContents()}`);
       assert.match(response.headers()['content-security-policy'],/script-src 'self' 'nonce-[^']+' 'strict-dynamic'/);
       assert.equal(await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(247, 248, 242)');
-      if(route==='markets') {
-        const actual=await page.evaluate(async()=>{
-          const session=await (await fetch('/api/desk/session')).json();
-          const state=await (await fetch('/api/desk/state')).json();
-          return state.items.find(x=>x.contract===session.contract_id).body.series.map(s=>s.config.series_id);
-        });
-        assert.ok(actual.length>0,'live integration requires retained registered series');
-        assert.equal(await page.getByRole('button',{name:/^Open now/}).getAttribute('aria-pressed'),'true');
-        await page.getByRole('button',{name:'History',exact:true}).click();
-        assert.equal(await page.locator('tbody tr').count(),actual.length);
-        assert.ok((await page.locator('tbody tr td:first-child strong').allTextContents()).every(name=>name.startsWith('NEAR ')));
-        await page.getByRole('button',{name:/^Open now/}).click();
-        assert.equal(await page.getByRole('button',{name:/^Open now/}).getAttribute('aria-pressed'),'true');
-      }
-      if(['portfolio','funds','activity'].includes(route)) assert.equal(await page.getByRole('button',{name:'Connect wallet',exact:true}).count(),1);
+      if(['portfolio','funds','activity'].includes(route)) assert.equal(await page.locator('.desk-header').getByRole('button',{name:'Connect wallet',exact:true}).count(),1);
       if(width===1440&&['trade','markets','liquidity'].includes(route)) await page.screenshot({path:`/tmp/hedgeveil-${route}-desktop.png`,fullPage:true});
       if(width===375&&route==='trade') await page.screenshot({path:'/tmp/hedgeveil-trade-mobile.png',fullPage:true});
     }
@@ -71,7 +57,7 @@ test('trade deep links, synchronized payoff, wallet picker and client navigation
   await page.waitForURL('**claim=P**');
   assert.equal(await page.getByRole('button',{name:/Capped value/}).getAttribute('aria-pressed'),'true');
   assert.equal(await page.getByRole('button',{name:'Market closed',exact:true}).isDisabled(),true);
-  const connect=page.getByRole('button',{name:'Connect wallet',exact:true}).first();await connect.click();
+  const connect=page.locator('.desk-header').getByRole('button',{name:'Connect wallet',exact:true}).first();await connect.click();
   const dialog=page.getByRole('dialog',{name:'Connect your wallet'});await dialog.waitFor();
   const session=await page.evaluate(async()=>await (await fetch('/api/desk/session')).json());
   for(const wallet of session.manifest.wallets) assert.equal(await dialog.getByRole('button',{name:wallet.name,exact:true}).count(),1);
@@ -90,12 +76,12 @@ test('offline service fails visibly without substitute holdings or tradable offe
   const page=await workspacePage(browser,);
   // Failure injection only: no successful API response or wallet outcome is mocked.
   await page.route('**/api/desk/**',route=>route.abort('connectionrefused'));
-  await page.goto(base+'/markets');
+  await page.goto(base+'/trade');
   await page.locator('.desk-alert[role=alert]').waitFor();
   assert.match(await page.locator('.desk-alert[role=alert]').innerText(),/wallet service is unavailable/);
-  assert.equal(await page.getByRole('button',{name:'Connect wallet',exact:true}).isDisabled(),true);
+  assert.equal(await page.locator('.desk-header').getByRole('button',{name:'Connect wallet',exact:true}).isDisabled(),true);
   assert.equal(await page.locator('tbody tr').count(),0);
-  assert.match(await page.locator('main').innerText(),/Market data is unavailable/);
+  assert.equal(await page.locator('.series-row').count(),0);
 });
 
 test('deployed bridge and verified wallet executor boundaries',async()=>{
@@ -170,7 +156,7 @@ test('real spot is labelled indicative, stale/offline price never becomes zero, 
  assert.match(await page.locator('.info-description').innerText(),/Indicative price from Coinbase/);
  await page.keyboard.press('Escape');
  assert.match(await page.locator('.scenario-chart').innerText(),/Payout only/);
- assert.equal(await page.getByRole('button',{name:'Connect wallet',exact:true}).count(),1);
+ assert.equal(await page.locator('.desk-header').getByRole('button',{name:'Connect wallet',exact:true}).count(),1);
  await page.getByRole('button',{name:/Capped value/}).click();await page.waitForURL('**claim=P**');
  await page.reload({waitUntil:'networkidle'});
  assert.equal(await page.getByRole('button',{name:/Capped value/}).getAttribute('aria-pressed'),'true');
@@ -290,7 +276,7 @@ test('wallet picker fits three widths with local logos, keyboard focus and no tr
     page.on('request', r=>{if(r.method()==='POST')mutations.push(r.url());});
     page.on('pageerror', e=>errors.push(e.message));
     await page.goto(base+'/portfolio',{waitUntil:'networkidle'});
-    const trigger=page.getByRole('button',{name:'Connect wallet',exact:true});
+    const trigger=page.locator('.desk-header').getByRole('button',{name:'Connect wallet',exact:true});
     await trigger.click();
     const dialog=page.getByRole('dialog',{name:'Connect your wallet',exact:true});
     await dialog.waitFor();
@@ -315,3 +301,46 @@ test('wallet picker fits three widths with local logos, keyboard focus and no tr
 });
 
 async function workspacePage(browser, options) { const page=await browser.newPage(options); await page.addInitScript(()=>localStorage.setItem("hedgeveil.trade-tour.v2","seen")); return page; }
+
+test('workspace panels resize by dragging edges and preserve trade state',async t=>{
+ const browser=await chromium.launch();t.after(()=>browser.close());
+ for(const width of [390,1440,2400]){
+  const page=await workspacePage(browser,{viewport:{width,height:1000},reducedMotion:'reduce'});const posts=[],errors=[];
+  page.on('request',r=>{if(r.method()==='POST')posts.push(r.url());});page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(base+'/trade?series=eta&qty=2&claim=P',{waitUntil:'networkidle'});
+  const header=await page.locator('.desk-header').boundingBox(),grid=await page.locator('.terminal-grid').boundingBox();
+  assert.equal(Math.round(header.x),0);assert.equal(Math.round(header.width),width);assert.equal(grid.x,0);assert.equal(grid.width,width);assert.ok(Math.abs(grid.y-header.y-header.height)<1);
+  assert.equal(await page.locator('.panel-controls,.dock-collapse').count(),0);
+  const meetsFooter=async()=>{const dock=await page.locator('.trading-dock').boundingBox(),footer=await page.locator('.site-footer').boundingBox();assert.ok(Math.abs(dock.y+dock.height-footer.y)<2,'account panel meets footer');if(width>=1024)assert.ok(Math.abs(footer.y+footer.height-1000)<2,'fills viewport');};
+  await meetsFooter();
+  if(width>=1024){
+   const drag=async(name,dx,dy)=>{const handle=page.getByRole('separator',{name,exact:true});await handle.scrollIntoViewIfNeeded();const b=await handle.boundingBox();await page.mouse.move(b.x+b.width/2,b.y+b.height/2);await page.mouse.down();await page.mouse.move(b.x+b.width/2+dx,b.y+b.height/2+dy,{steps:8});await page.mouse.up();};
+   const beforeLeft=(await page.locator('.series-rail').boundingBox()).width;
+   await drag('Resize markets panel',80,0);
+   assert.ok(Math.abs((await page.locator('.series-rail').boundingBox()).width-beforeLeft-80)<2);
+   const beforeRight=(await page.locator('.terminal-ticket').boundingBox()).width;
+   await drag('Resize trade ticket',-70,0);
+   assert.ok(Math.abs((await page.locator('.terminal-ticket').boundingBox()).width-beforeRight-70)<2);
+   const beforeHeight=(await page.locator('.terminal-grid').boundingBox()).height;
+   const beforeDock=(await page.locator('.trading-dock').boundingBox()).height;
+   await drag('Resize trading and account panels',0,-90);
+   assert.ok(Math.abs((await page.locator('.terminal-grid').boundingBox()).height-beforeHeight+90)<2);
+   assert.ok((await page.locator('.trading-dock').boundingBox()).height>beforeDock+80);
+   await meetsFooter();
+   const left=page.getByRole('separator',{name:'Resize markets panel',exact:true});await left.focus();await page.keyboard.press('Home');
+   assert.equal(Number(await left.getAttribute('aria-valuenow')),200);
+   await page.keyboard.press('ArrowRight');assert.equal(Number(await left.getAttribute('aria-valuenow')),210);
+   await left.dblclick();assert.equal(Number(await left.getAttribute('aria-valuenow')),300);
+   await page.setViewportSize({width:1024,height:800});
+   await page.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth);
+   assert.ok((await page.locator('.terminal-center').boundingBox()).width>=319);
+   await page.setViewportSize({width,height:1000});
+  }else assert.equal(await page.getByRole('separator').count(),0);
+  assert.equal(await page.getByRole('button',{name:'Capped value',exact:true}).getAttribute('aria-pressed'),'true');
+  if(width>=1024)assert.equal(await page.getByLabel('Quantity',{exact:true}).inputValue(),'2');
+  else {await page.locator('.mobile-ticket-launch button').click();assert.equal(await page.getByLabel('Quantity',{exact:true}).inputValue(),'2');await page.keyboard.press('Escape');}
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await page.screenshot({path:`/tmp/hv-drag-panels-${width}.png`});
+  assert.deepEqual(posts,[]);assert.deepEqual(errors,[]);await page.close();
+ }
+});

@@ -1,5 +1,5 @@
-import { Markets } from "../../../components/desk/Markets";
-export const metadata = { title: "Markets | Hedgeveil" };
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <Markets />;
+  redirect("/trade");
 }

@@ -50,9 +50,23 @@ export function SeriesList({
     );
   const dates = [...new Set(rows.map((s) => s.config.maturity_ns))];
   return (
-    <aside className="series-rail" aria-label="Series list">
+    <aside
+      className="series-rail workspace-panel"
+      data-panel="markets"
+      aria-label="Series list"
+    >
       <div className="region-heading">
         <h2>NEAR markets</h2>
+      </div>
+      <div className="market-list-options">
+        <div className="desk-tabs series-tabs">
+          <button aria-pressed={!history} onClick={() => setHistory(false)}>
+            Open now <span className="num">({open.length})</span>
+          </button>
+          <button aria-pressed={history} onClick={() => setHistory(true)}>
+            History
+          </button>
+        </div>
         <label className="expert-toggle">
           <input
             type="checkbox"
@@ -61,14 +75,6 @@ export function SeriesList({
           />
           More detail
         </label>
-      </div>
-      <div className="desk-tabs series-tabs">
-        <button aria-pressed={!history} onClick={() => setHistory(false)}>
-          Open now <span className="num">({open.length})</span>
-        </button>
-        <button aria-pressed={history} onClick={() => setHistory(true)}>
-          History
-        </button>
       </div>
       {!open.length && !history && (
         <p className="rail-note">No open series. Showing history.</p>
