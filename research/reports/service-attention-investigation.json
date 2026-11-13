@@ -1,0 +1,270 @@
+{
+  "checked_at": "2026-11-13T18:09:16.522Z",
+  "transaction_hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+  "operation_id": "183b01543b16f29c19bfe7d9bf2fe27d055d8fefc80ad537692d8fbde8529187",
+  "rpc_results": [
+    {
+      "provider": "rpc.testnet.near.org",
+      "response": {
+        "jsonrpc": "2.0",
+        "error": {
+          "name": "HANDLER_ERROR",
+          "cause": {
+            "info": {
+              "requested_transaction_hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3"
+            },
+            "name": "UNKNOWN_TRANSACTION"
+          },
+          "code": -32000,
+          "message": "Server error",
+          "data": "Transaction QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3 doesn't exist"
+        },
+        "id": 1
+      }
+    },
+    {
+      "provider": "archival-rpc.testnet.near.org",
+      "response": {
+        "jsonrpc": "2.0",
+        "error": {
+          "name": "HANDLER_ERROR",
+          "cause": {
+            "info": {
+              "requested_transaction_hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3"
+            },
+            "name": "UNKNOWN_TRANSACTION"
+          },
+          "code": -32000,
+          "message": "Server error",
+          "data": "Transaction QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3 doesn't exist"
+        },
+        "id": 1
+      }
+    }
+  ],
+  "result": [
+    {
+      "provider": "test.rpc.fastnear.com",
+      "error": "UNKNOWN_TRANSACTION",
+      "final": null
+    },
+    {
+      "provider": "testnet-rpc.intea.rs",
+      "error": "UNKNOWN_TRANSACTION",
+      "final": null
+    }
+  ],
+  "resolver_observation": {
+    "block": {
+      "approvals": [
+        "ed25519:pnNtvQCUstuamsXkhKNTMX6cpg9dhZzLodMdzCyvRxgSQdQAVsYWyVC9MGMbuMDatQLU5BYG3geVTDjhvg7fLG6",
+        "ed25519:5whv8vo2G8r9dcW78teabFkDHpXgVuGiEYu25KrHNS8FUmpaDcbTBiMYgmBw2UFFJHYDXVLbJHxyMJYqzMMLajDH",
+        "ed25519:3SE1wNLf4jRnnaY8ntR8VDPTBhEP4AgC1AMxCDT8WEqatMgX99NyeM9a1HKxD8WKfSRJv5xXxegfpVetm9THGe6R",
+        "ed25519:SgGSXtyKoEVMYpj9sPsfAbHVpcw2C5fTLW4RYUx9sBbhQh5tp2DU3fVmqxdPf6xcER4CE2bTey7keSqvktukJGh",
+        null,
+        "ed25519:spoadJTwfWyiccFJmtmS4MzTahN9bNNKpjThExUqpWmTMRWMwfaWG3uLcaTStXyyJQiM9BHoPDok9VWFFisXfb7",
+        null,
+        "ed25519:UA5iXPSBuYVzUqKUVDYjNn34hNFxhkHD67JLJW1CUj6qg5wsVYcZTaPtaUNRyF4V6JBsBRCLMhP8Ei2iRXG147F",
+        null,
+        null,
+        null,
+        null,
+        "ed25519:3rv4G3x9WNmDWuLcC5FzqhzQVGvCBt5fwcynBpnDfArwh7TnVFdL9E5qJeGu1Epo7dUSm6zTEQvMR9MEKcWtdeAK",
+        "ed25519:5zRVdbzmUJhjxhgh6qJgUSy2RNECE7keiZE9UmC4mE8PRydmMmUVKu3pMn1gqXwvAY7j9KvGyK8YvVYyHBwDmpRZ",
+        null,
+        "ed25519:2Q6gCKGNQD4trHQHp7zfbcrYSbWFBGroGbMiwkrLDhVy1iUXDvPYMSwYVKB8SUzCVAC3x9J9hBTxqY73HhnpyH9e",
+        "ed25519:2Zs65z26AG5ea2AvGhjmUqDTwyfptBYzbQCWi4qgkE2hC6uxZiWTVH6rqWevF7nEyxQVBeFx8GauVKE9D2kAN4f9",
+        "ed25519:2jR7EV7WkNhgWKpsTg7HkkJqTeYDB1EDjVbQcjmA6PEm7wRJTF5CUos87P5ohG6QtkxbotfhxmNgkUM5o7N8WTHZ",
+        "ed25519:gmHf13bmmQUSNboHWeHMRqon2nvyX7UKzRuP9ygbDyk2XRgCfweZW21nfnimDovdK1dns3cqz1vp7W99u6zYKNz",
+        null
+      ],
+      "block_body_hash": "7UgoRcFBCqkRxBD69GyEN7j12rAJ1aGdbxur6WZX1grU",
+      "block_merkle_root": "ATsPbSXGhjC1qRKntM373sPZozC2SLNrKzwk3mt4XW1P",
+      "block_ordinal": 229536729,
+      "challenges_result": [],
+      "challenges_root": "11111111111111111111111111111111",
+      "chunk_endorsements": [
+        [
+          255,
+          127
+        ],
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          3
+        ],
+        [
+          255,
+          255,
+          1
+        ],
+        [
+          255,
+          255,
+          7
+        ],
+        [
+          255,
+          255
+        ],
+        [
+          255,
+          127
+        ],
+        [
+          255,
+          255,
+          3
+        ],
+        [
+          255,
+          255,
+          7
+        ],
+        [
+          255,
+          127
+        ]
+      ],
+      "chunk_headers_root": "5SPbX2uPLHnL1uNMooMeDm6qTU1G9ip1ct5zSgR8E4zj",
+      "chunk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "chunk_receipts_root": "AG6i2zFM7revbTwRXYynbTKUxj4MBEhi1N2gTdyUjGLU",
+      "chunk_tx_root": "DpbtV9taN73UhsAdhMCqt7Df5E9ergDSThv9VtMLefVy",
+      "chunks_included": 10,
+      "epoch_id": "88xF6qpufBJQnrd4mSJ8A4S4SfX8WyHUbHCQHQH4qqhR",
+      "epoch_sync_data_hash": null,
+      "gas_price": "100000000",
+      "hash": "6wGksUrmCyCidFxK7admXrkqVdWNCwop4Cv5TGDAYar5",
+      "height": 277544629,
+      "last_ds_final_block": "9dKFem9bceh62mZGDP11rzu2S69jnUv7qaawW32pYuYY",
+      "last_final_block": "pVpJ11ifgmTRoxQgVzzURs7zQw97PX7rmZAnoMpBZ53",
+      "latest_protocol_version": 88,
+      "next_bp_hash": "3jKjfJpCYX9Dq3PHkoqDuMvfpoaAtijBBkubMF1f81fn",
+      "next_epoch_id": "8BrCSwxU8snc1rLumc7At8HY9r7Yap1Dg1QFcojv859e",
+      "outcome_root": "D5hHhvuW637jAK7LTL4jYteidmvo79vcxPYQKj4qy6RN",
+      "prev_hash": "9dKFem9bceh62mZGDP11rzu2S69jnUv7qaawW32pYuYY",
+      "prev_height": 277544628,
+      "prev_state_root": "4tcDQb7NbEXEKgxbFwiQ2nQxZ7bqtA3fWx931bxwf1Rd",
+      "random_value": "2XkBf6KPaC9SxdqLWCywB43SqDNgDTe3N2qg8Fo7zLZi",
+      "rent_paid": "0",
+      "shard_split": null,
+      "signature": "ed25519:PY1LCkd99ferVvdDeQKpbo1LifJRgQb2jziYHc3JeEJDsYtqEvva5BAXdVfJ2XEzUFFELWfHexJUWT4C1mBH5ZJ",
+      "timestamp": 1794593227549280300,
+      "timestamp_nanosec": "1794593227549280128",
+      "total_supply": "2680191962253011606959082392077889",
+      "validator_proposals": [],
+      "validator_reward": "0"
+    },
+    "case": {
+      "config": {
+        "series_id": "acceptance-20261113",
+        "version": "1",
+        "collateral_kind": "NATIVE_NEAR",
+        "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+        "payoff_kind": "CAPPED_USD_COMPLEMENT",
+        "strike": "3569750000000",
+        "price_scale": "1000000000000",
+        "maturity_ns": "1794581917000000000",
+        "mint_cutoff_ns": "1794580117000000000",
+        "observation_window": {
+          "start_ns": "1794580117000000000",
+          "end_ns": "1794581917000000000"
+        },
+        "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+        "oracle_version": "native-trade-twap-v1",
+        "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+        "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+        "max_supply": "100000000000000000000000000"
+      },
+      "pending": null,
+      "accepted": null,
+      "price": null,
+      "last_result": "NOT_REQUESTED"
+    }
+  },
+  "conclusion": "UNRESOLVED: unknown RPC responses and NOT_REQUESTED contract state do not prove non-execution or authorize resend. Original journal remains quarantined.",
+  "independent_review": "pending",
+  "live_status_after_restart": {
+    "checked_at": "2026-11-13T18:10:27.609Z",
+    "services": [
+      {
+        "id": "api",
+        "name": "Application API",
+        "state": "operational",
+        "detail": "Status endpoint is responding.",
+        "observed_at": "2026-11-13T18:10:27.609Z"
+      },
+      {
+        "id": "indexer",
+        "name": "Receipt reconciliation",
+        "state": "operational",
+        "detail": "Block 277544930. 22s since the last snapshot. Trading data checks passed.",
+        "observed_at": "2026-11-13T18:10:04.633Z"
+      },
+      {
+        "id": "rpc",
+        "name": "NEAR RPC reads",
+        "state": "operational",
+        "detail": "Latest reconciliation reads succeeded. 0 fallback reads since indexer startup.",
+        "observed_at": "2026-11-13T18:10:04.633Z"
+      },
+      {
+        "id": "contracts",
+        "name": "Core and resolver",
+        "state": "operational",
+        "detail": "Deployed contracts passed the latest pinned-code and same-block reconciliation checks.",
+        "observed_at": "2026-11-13T18:10:04.633Z"
+      },
+      {
+        "id": "discovery",
+        "name": "FASTNEAR background audit",
+        "state": "degraded",
+        "detail": "31191 blocks behind. Background coverage is incomplete; trading uses receipt reconciliation.",
+        "observed_at": "2026-11-13T18:07:52.638Z"
+      },
+      {
+        "id": "maker-1",
+        "name": "Maker 1",
+        "state": "operational",
+        "detail": "Worker health check passed. Idle; pricing and funded size are checked when you review a trade.",
+        "observed_at": "2026-11-13T18:10:25.863Z"
+      },
+      {
+        "id": "maker-2",
+        "name": "Maker 2",
+        "state": "operational",
+        "detail": "Worker health check passed. Idle; pricing and funded size are checked when you review a trade.",
+        "observed_at": "2026-11-13T18:10:25.863Z"
+      },
+      {
+        "id": "settlement",
+        "name": "Outlayer settlement",
+        "state": "degraded",
+        "detail": "A settlement transaction has no verified final receipt. Signer quarantined; the request is not resent. This does not establish an Outlayer outage.",
+        "observed_at": "2026-11-13T18:10:26.494Z"
+      },
+      {
+        "id": "renewal",
+        "name": "Market renewal",
+        "state": "degraded",
+        "detail": "Blocked by an unresolved service transaction. Receipt recovery is required before new markets can be created.",
+        "observed_at": "2026-11-13T18:10:26.503Z"
+      }
+    ]
+  }
+}

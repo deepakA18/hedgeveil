@@ -39,3 +39,19 @@ test('stale backend responses and spot observations cannot produce healthy statu
  assert.equal(overallStatus([]),'unknown');
  assert.equal(overallStatus([{state:'unknown'}]),'unknown');
 });
+
+test('idle worker heartbeat is independent from offer verification and never erases a failed quote',()=>{
+ const make=m=>serviceStatus({snapshot,runtime:{...runtime,makers:[m]},now}).services.find(x=>x.id==='maker-1');
+ const idle={connected:true,health:{checked_at:at,ready:true}};
+ assert.equal(make(idle).state,'operational');assert.match(make(idle).detail,/Idle/);
+ assert.equal(make({...idle,health:{checked_at:new Date(now-76000).toISOString(),ready:true}}).state,'unknown');
+ assert.equal(make({...idle,offered:false,reason:'MAKER_RPC_UNAVAILABLE',checked_at:new Date(now-200000).toISOString()}).state,'degraded');
+ assert.equal(make({...idle,health:{checked_at:at,ready:false,reason:'CANCELLATION_UNRESOLVED'}}).state,'degraded');
+ assert.equal(make({...idle,connected:false}).state,'unavailable');
+});
+test('blocked settlement/renewal show the actual shared dependency; audit uses its own timestamp',()=>{
+ const services=serviceStatus({snapshot:{health:{...snapshot.health,discovery:{fresh:true,lag_blocks:0,state:'FEED_RATE_LIMITED',checked_at:at,required:false}}},runtime:{...runtime,keeper:{checked_at:at,items:[{state:'HALTED_SIGNER'}]},renewal:{checked_at:at,state:'BLOCKED',code:'RENEWAL_UNRESOLVED'}},now}).services;
+ const row=id=>services.find(x=>x.id===id);
+ assert.match(row('settlement').detail,/no verified final receipt/);assert.match(row('renewal').detail,/unresolved service transaction/);
+ assert.equal(row('discovery').state,'degraded');assert.match(row('discovery').detail,/rate limit/);assert.equal(row('discovery').observed_at,at);
+});

@@ -146,3 +146,9 @@ at that observed free quota. Legacy/new desks sharing one IP are paced at
 15000/2500 ms respectively. The user approved the already-supported additive mode for the new demo on
 13 November. Canonical receipt/state reconciliation remains required; full-network
 continuous-discovery acceptance is not claimed.
+
+
+Public status reports the full-block feed's own last successful observation time,
+separately from receipt reconciliation. Rate-limit/cooldown states remain degraded
+even if the last observed block lag was zero. Lagging additive coverage is never
+reported as complete just because receipt-based trading checks pass.

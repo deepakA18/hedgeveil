@@ -154,7 +154,7 @@ export class Store {
                 const {rows:[f]}=await db.query('SELECT * FROM feed_cursor WHERE id=1');
                 const lag=f?Math.max(0,Number(m.cursor_height)-Number(f.block_height),Number(f.observed_height)-Number(f.block_height)):null;
                 const fresh=f?.checked_at&&Date.now()-f.checked_at.getTime()<=this.config.stale_after_ms;
-                health.discovery={source:this.config.discovery_source,required:this.config.discovery_required!==false,baseline_height:f?.baseline_height??null,height:f?.block_height??null,scanned_height:f?.height??null,observed_height:f?.observed_height??null,lag_blocks:lag,state:f?.state??'STARTING',fresh:Boolean(fresh),retry_at_ms:f?.retry_at_ms??null};
+                health.discovery={source:this.config.discovery_source,required:this.config.discovery_required!==false,baseline_height:f?.baseline_height??null,height:f?.block_height??null,scanned_height:f?.height??null,observed_height:f?.observed_height??null,lag_blocks:lag,state:f?.state??'STARTING',fresh:Boolean(fresh),checked_at:f?.checked_at?.toISOString()??null,retry_at_ms:f?.retry_at_ms??null};
                 if(this.config.discovery_required!==false&&(!fresh||f.state!=='SCANNING'||lag>this.config.max_lag_blocks)){health.risk_allowed=false;health.state='DISCOVERY_UNAVAILABLE_OR_LAGGING';}
             }
             const common={network:this.config.network,chain_id:this.config.chain_id,binding:binding(this.config),checkpoint:m.cursor_hash,health};

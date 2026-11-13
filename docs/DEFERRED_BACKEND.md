@@ -220,3 +220,6 @@ Owner P purchase verified (13 November 2026): 0.01 Capped value at K $3.536; FIN
 
 
 13 November follow-up: owner P sale is now FINAL and reconciled in `research/reports/owner-capped-sell-confirmed.json`; both owner P/N buy and sell flows are verified. Review trade now fetches a fresh offer and opens exact review in one action. Scheduler skips unnecessary maker pauses while settlement reports an unresolved signer; it does not clear that unresolved transaction. Current-profile settlement/redemption, later public renewal, first-time combined deposit wallet acceptance and independent review remain open. See STATUS, “Capped value sale and combined trade review”.
+
+
+Service attention follow-up (13 November): idle maker checks are now active and verified without issuing quotes. Four RPCs still report the retained settlement request as unknown; finalized resolver state is NOT_REQUESTED. Quarantine and renewal block remain. FASTNEAR audit remains behind at the observed free quota; no coverage reset is permitted. Evidence and exact closure requirements: STATUS, “Service attention investigation”, and `research/reports/service-attention-investigation.json`.

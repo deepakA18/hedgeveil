@@ -1,5 +1,5 @@
 import { StatusLink } from "../status/StatusLink";
-export function SiteFooter({ workspace = false }: { workspace?: boolean }) {
+export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
@@ -16,7 +16,6 @@ export function SiteFooter({ workspace = false }: { workspace?: boolean }) {
         </nav>
         <div className="footer-meta">
           <StatusLink />
-          {workspace && <span>Test assets. Production disabled</span>}
           <a href="https://near.org" target="_blank" rel="noopener noreferrer">
             NEAR
           </a>

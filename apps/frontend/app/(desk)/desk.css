@@ -2157,3 +2157,32 @@
     max-width: 200px;
   }
 }
+
+.portfolio-actions {
+  margin-top: 0;
+}
+.portfolio-pair {
+  margin-bottom: 20px;
+}
+.portfolio-pair-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.portfolio-pair-heading h2 {
+  margin: 0;
+}
+.portfolio-pair .desk-form {
+  max-width: 720px;
+}
+.portfolio-pair .desk-form fieldset {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .portfolio-pair .desk-form fieldset {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2251,3 +2251,47 @@
     font-size: 13px;
   }
 }
+
+/* Compact workspace chrome; recovered height goes to the trading panels. */
+@media (min-width: 1024px) {
+  .desk-layout .desk-header {
+    height: 52px;
+    min-height: 52px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .desk-header .top-navigation a,
+  .desk-header .desk-wallet > .desk-button {
+    min-height: 36px;
+    padding: 6px 12px;
+  }
+  .desk-header .theme-toggle {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+  }
+}
+@media (max-width: 1023px) {
+  .desk-layout .desk-header {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    row-gap: 4px;
+  }
+  .desk-header .desk-menu-toggle,
+  .desk-header .desk-wallet > .desk-button {
+    min-height: 40px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+}
+@media (pointer: coarse) and (min-width: 1024px) {
+  .desk-header .top-navigation a,
+  .desk-header .desk-wallet > .desk-button {
+    min-height: 40px;
+  }
+  .desk-header .theme-toggle {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+}

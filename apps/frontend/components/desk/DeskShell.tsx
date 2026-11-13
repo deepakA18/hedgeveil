@@ -184,7 +184,7 @@ export function DeskShell({ children }: { children: ReactNode }) {
                 : ""
         }
       />
-      <SiteFooter workspace />
+      <SiteFooter />
     </div>
   );
 }

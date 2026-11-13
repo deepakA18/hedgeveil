@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PositionRows } from "./PositionRows";
 import { UsdEstimate } from "./SpotPrice";
 import { marketName, relativeEnd } from "../../lib/market-display";
@@ -14,22 +14,26 @@ import {
   Form,
   AmountField,
   useNow,
-  seriesStatus,
 } from "./Elements";
-import {
-  formatNear,
-  parseNear,
-  claimName,
-  dollars,
-  message,
-} from "../../lib/desk-api";
+import { parseNear } from "../../lib/desk-api";
 import type { Claim } from "../../lib/desk-types";
 export function Portfolio() {
   const d = useDesk(),
     now = useNow(),
-    [action, setAction] = useState("split"),
+    [action, setAction] = useState<"split" | "merge">("split"),
+    [pairOpen, setPairOpen] = useState(false),
     [id, setId] = useState(""),
     [quantity, setQuantity] = useState("");
+  const pairHeading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (pairOpen) pairHeading.current?.focus();
+  }, [pairOpen, action]);
+  function openPair(next: "split" | "merge") {
+    setAction(next);
+    setId("");
+    setQuantity("");
+    setPairOpen(true);
+  }
   const balance = d.live?.accounts[d.account];
   const positions = d.series
     .flatMap((s) =>
@@ -62,15 +66,105 @@ export function Portfolio() {
         title="Portfolio"
         copy="Track what you hold. Sell when an offer is available, or claim after settlement."
         action={
-          <Link prefetch={false} className="desk-button dark" href="/funds">
-            Add / withdraw funds
-          </Link>
+          <div className="desk-actions portfolio-actions">
+            {d.account && (
+              <>
+                <button
+                  type="button"
+                  className="desk-button lime"
+                  aria-expanded={pairOpen && action === "split"}
+                  aria-controls="position-actions"
+                  onClick={() => openPair("split")}
+                >
+                  Create a pair
+                </button>
+                <button
+                  type="button"
+                  className="desk-button dark"
+                  aria-expanded={pairOpen && action === "merge"}
+                  aria-controls="position-actions"
+                  onClick={() => openPair("merge")}
+                >
+                  Merge pairs
+                </button>
+              </>
+            )}
+          </div>
         }
       />
       {!d.account ? (
         <WalletGate description="Connect to view and manage your positions." />
       ) : (
         <>
+          {pairOpen && (
+            <section
+              id="position-actions"
+              className="desk-panel portfolio-pair"
+              aria-labelledby="pair-title"
+            >
+              <div className="portfolio-pair-heading">
+                <h2 id="pair-title" ref={pairHeading} tabIndex={-1}>
+                  {action === "split"
+                    ? "Create a pair"
+                    : "Merge pairs into NEAR"}
+                </h2>
+                <button
+                  type="button"
+                  className="desk-button"
+                  onClick={() => setPairOpen(false)}
+                >
+                  Close
+                </button>
+              </div>
+              <p className="form-hint">
+                {action === "split"
+                  ? "Use your trading balance to create equal amounts of Upside and Capped value. One pair is backed by 1 NEAR."
+                  : "Combine equal amounts of Upside and Capped value from the same market. Each pair returns 1 NEAR to your trading balance."}
+              </p>
+              <Form
+                key={action}
+                editable
+                disabled={!d.ready || d.busy || !!actionBlocked}
+                disabledReason={actionBlocked}
+                label={
+                  action === "split" ? "Review pair creation" : "Review merge"
+                }
+                onSubmit={() =>
+                  d.review({
+                    method: action,
+                    args: {
+                      series_id: series!.config.series_id,
+                      amount: parseNear(quantity),
+                    },
+                  })
+                }
+              >
+                <label>
+                  Market
+                  <select
+                    value={series?.config.series_id ?? ""}
+                    onChange={(e) => setId(e.target.value)}
+                  >
+                    {!series && <option value="">No eligible market</option>}
+                    {eligible.map((s) => (
+                      <option
+                        key={s.config.series_id}
+                        value={s.config.series_id}
+                      >
+                        {marketName(s)},{" "}
+                        {relativeEnd(s.config.maturity_ns, now)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <AmountField
+                  label="Pairs"
+                  value={quantity}
+                  onChange={setQuantity}
+                />
+              </Form>
+            </section>
+          )}
           <div className="desk-stats">
             <div>
               <span>Available balance</span>
@@ -118,80 +212,6 @@ export function Portfolio() {
               <PositionRows expert />
             )}
           </Panel>
-          <details className="desk-details">
-            <summary>Advanced: create or combine a backed pair</summary>
-            <div id="position-actions" className="desk-two">
-              <Panel title="Create or combine a pair">
-                <Form
-                  editable
-                  disabled={!d.ready || d.busy || !!actionBlocked}
-                  disabledReason={actionBlocked}
-                  label="Review action"
-                  onSubmit={() =>
-                    d.review({
-                      method: action,
-                      args: {
-                        series_id: series!.config.series_id,
-                        amount: parseNear(quantity),
-                      },
-                    })
-                  }
-                >
-                  <label>
-                    Action
-                    <select
-                      value={action}
-                      onChange={(e) => setAction(e.target.value)}
-                    >
-                      <option value="merge">
-                        Combine a matching pair into NEAR
-                      </option>
-                      <option value="split">Create a pair from NEAR</option>
-                    </select>
-                  </label>
-                  <label>
-                    Series
-                    <select
-                      value={series?.config.series_id ?? ""}
-                      onChange={(e) => setId(e.target.value)}
-                    >
-                      {!series && <option value="">No eligible series</option>}
-                      {eligible.map((s) => (
-                        <option
-                          key={s.config.series_id}
-                          value={s.config.series_id}
-                        >
-                          {marketName(s)},{" "}
-                          {relativeEnd(s.config.maturity_ns, now)}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <AmountField
-                    label="Quantity"
-                    value={quantity}
-                    onChange={setQuantity}
-                  />
-                </Form>
-              </Panel>
-              <section className="desk-panel soft">
-                <span className="desk-label">Your next step</span>
-                <h2>
-                  {action === "merge"
-                    ? "Two matching positions. One NEAR balance."
-                    : "Create both sides, fully backed."}
-                </h2>
-                <p>
-                  {action === "merge"
-                    ? "Combine equal quantities of upside and capped-value positions from the same unsettled series. The matching NEAR backing returns to your app balance."
-                    : "Creating a pair locks the full NEAR backing. This is available only before the series cutoff and while trading checks pass."}
-                </p>
-                <Link prefetch={false} className="desk-text-link" href="/funds">
-                  Go to funds
-                </Link>
-              </section>
-            </div>
-          </details>
         </>
       )}
     </>

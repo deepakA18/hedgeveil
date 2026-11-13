@@ -21,7 +21,7 @@ export default function Page() {
         </nav>
       </header>
       <StatusPage />
-      <SiteFooter workspace />
+      <SiteFooter />
     </div>
   );
 }

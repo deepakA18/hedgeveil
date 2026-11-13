@@ -1,3 +1,4 @@
+import {startMakerHealth} from '../maker/health.mjs';
 import {fork} from 'node:child_process';
 import {mkdir,readFile,rm} from 'node:fs/promises';
 import {join} from 'node:path';
@@ -16,9 +17,10 @@ import {coordinatedDatabaseStop} from './shutdown.mjs';
 export async function serve({directory,plan,port=8790}){
     assertDeploymentEnabled(plan);
     const lock=join(directory,'running');await mkdir(lock,{mode:0o700});
-    let pg,app,sampler,stopping,databaseStop;const workers=[];
+    let pg,app,sampler,healthChecks,stopping,databaseStop;const workers=[];
     const stop=()=>stopping??=(async()=>{
         await sampler?.stop();
+        await healthChecks?.stop();
         await app?.stop();
         await Promise.all(workers.map(w=>new Promise(r=>{if(w.exitCode!==null||w.signalCode!==null)return r();w.once('exit',r);w.kill();})));
         if(pg?.process&&pg.process.exitCode===null&&pg.process.signalCode===null)await (databaseStop?.stopDatabase??(()=>pg.stop()))();
@@ -53,6 +55,7 @@ export async function serve({directory,plan,port=8790}){
             const init=await ask('init',{config:{...deployment.client,rpc_fallbacks:deployment.indexer.rpc_urls.filter(url=>url!==deployment.client.rpc_url),contract:deployment.client.contract_id,maker:a.id,account_key:keys[a.id],key_id:'demo-key',fee_receiver:a.id,initial_equity:plan.maker_initial_equity??String(4n*Q),half_spread_bps:20+n*20,pricing_source:'coinbase',market_archive:join(directory,'market-observations',a.id),state_file:join(directory,'makers',a.id+'.json'),operation_journal:join(directory,'maker-journals',a.id),resume:true}});
             if(init.public_key!==a.rfq_public_key)throw Error('MAKER_KEY_MISMATCH');makers.push({ask,child,last:null});
         }
+        healthChecks=startMakerHealth(makers);
         const quoteProvider=async request=>{
             // Each maker fetches and validates external inputs itself. Requests
             // cannot inject prices or rewrite a market observation's timestamp.
@@ -65,7 +68,7 @@ export async function serve({directory,plan,port=8790}){
             try{await Promise.all(makers.map(m=>m.ask('pause',{})));return await fn();}
             finally{await Promise.all(makers.map(m=>m.ask('resume',{}))).finally(()=>{maintaining=false;});}
         }});
-        const diagnostics=async()=>({maintaining,makers:makers.map(m=>({connected:m.child.connected&&m.child.exitCode===null,...m.last})),keeper:await privateRead(join(directory,'expiry-status.json')).catch(()=>null),renewal:await privateRead(join(directory,'renewal-status.json')).catch(()=>null)});
+        const diagnostics=async()=>({maintaining,makers:makers.map(m=>({connected:m.child.connected&&m.child.exitCode===null,health:m.health??null,...m.last})),keeper:await privateRead(join(directory,'expiry-status.json')).catch(()=>null),renewal:await privateRead(join(directory,'renewal-status.json')).catch(()=>null)});
         app=await startWallet({diagnostics,port,config:deployment.client,retainedAnchor:await privateRead(join(directory,'anchor.json')),indexerConfig:{...deployment.indexer,postgres:{host:'127.0.0.1',port:pgPort,user:'postgres',password,database:'postgres'}},accounts:plan.accounts.filter(a=>a.role==='maker'),journal:join(directory,'wallet-journal'),quoteProvider,backgroundSync:true,discover:journalCandidates([join(directory,'admin-journal'),join(directory,'wallet-journal'),...plan.accounts.filter(a=>a.role==='maker').map(a=>join(directory,'maker-journals',a.id))])});
         return {url:app.url,stop};
     }catch(e){await stop();throw e;}
