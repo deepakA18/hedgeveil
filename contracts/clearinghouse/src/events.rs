@@ -104,14 +104,57 @@ impl Clearinghouse {
         self.assert_invariants();
         self.operation = self.operation.checked_add(1).expect("operation overflow");
         let after = self.ledgers();
-        let mut keys: std::collections::BTreeSet<_> = before.keys().cloned().collect();
-        keys.extend(after.keys().cloned());
-        let deltas:Vec<Value>=keys.into_iter().filter_map(|k| {
-            let old=*before.get(&k).unwrap_or(&0);let new=*after.get(&k).unwrap_or(&0);
-            if old==new{return None;}
-            let asset=if let Some(id)=k.3.strip_prefix("VAULT_SHARE:") {json!({"kind":"VAULT_SHARE","vault_id":id})} else {let a=if k.3=="COLLATERAL" {Asset::Collateral} else {let (leg,id)=k.3.split_once(':').expect("asset ID");if leg=="P" {Asset::P{series_id:id.into()}} else {Asset::N{series_id:id.into()}}};json!(a)};
-            Some(json!({"account_id":k.0,"bucket":k.1,"ledger_id":k.2,"asset":asset,"direction":if new>old {"CREDIT"} else {"DEBIT"},"amount":Amount(new.abs_diff(old))}))
-        }).collect();
+        // Both snapshots are ordered. Merge once without cloning every key into
+        // a third tree; callback work remains linear in the bounded ledger.
+        let mut before = before.into_iter().peekable();
+        let mut after = after.into_iter().peekable();
+        let mut deltas: Vec<Value> = Vec::new();
+        while before.peek().is_some() || after.peek().is_some() {
+            let order = match (before.peek(), after.peek()) {
+                (Some((a, _)), Some((b, _))) => a.cmp(b),
+                (Some(_), None) => std::cmp::Ordering::Less,
+                (None, Some(_)) => std::cmp::Ordering::Greater,
+                (None, None) => unreachable!(),
+            };
+            let (k, old, new) = match order {
+                std::cmp::Ordering::Less => {
+                    let (k, old) = before.next().expect("before");
+                    (k, old, 0)
+                }
+                std::cmp::Ordering::Greater => {
+                    let (k, new) = after.next().expect("after");
+                    (k, 0, new)
+                }
+                std::cmp::Ordering::Equal => {
+                    let (k, old) = before.next().expect("before");
+                    let (_, new) = after.next().expect("after");
+                    (k, old, new)
+                }
+            };
+            if old == new {
+                continue;
+            }
+            let asset = if let Some(id) = k.3.strip_prefix("VAULT_SHARE:") {
+                json!({"kind":"VAULT_SHARE","vault_id":id})
+            } else {
+                let a = if k.3 == "COLLATERAL" {
+                    Asset::Collateral
+                } else {
+                    let (leg, id) = k.3.split_once(':').expect("asset ID");
+                    if leg == "P" {
+                        Asset::P {
+                            series_id: id.into(),
+                        }
+                    } else {
+                        Asset::N {
+                            series_id: id.into(),
+                        }
+                    }
+                };
+                json!(a)
+            };
+            deltas.push(json!({"account_id":k.0,"bucket":k.1,"ledger_id":k.2,"asset":asset,"direction":if new>old {"CREDIT"} else {"DEBIT"},"amount":Amount(new.abs_diff(old))}));
+        }
         require!(deltas.len() <= 32, "event delta bound");
         let op =
             near_sdk::borsh::to_vec(&(&self.network, env::current_account_id(), self.operation))
@@ -171,6 +214,25 @@ impl Clearinghouse {
         require!(
             self.accounts.len() <= MAX_ACCOUNTS && self.series.len() <= MAX_SERIES,
             "state bound"
+        );
+        require!(
+            self.series_storage
+                == (self.series.len() as u128 + self.archived_series.len() as u128)
+                    * self.minimum_storage(),
+            "series storage invariant"
+        );
+        let slots: std::collections::BTreeSet<_> = self.series.values().map(|s| s.slot).collect();
+        require!(
+            slots.len() == self.series.len() && slots.iter().all(|s| (*s as usize) < MAX_SERIES),
+            "series slot invariant"
+        );
+        require!(
+            self.accounts.values().all(|a| a
+                .positions
+                .iter()
+                .enumerate()
+                .all(|(i, p)| slots.contains(&(i as u8)) || (p.p.0 == 0 && p.n.0 == 0))),
+            "orphan account claims"
         );
         let free: u128 = self.accounts.values().map(|a| a.free.0).sum();
         let reserve: u128 = self.series.values().map(|s| s.reserve.0).sum();

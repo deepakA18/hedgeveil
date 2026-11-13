@@ -1,0 +1,36 @@
+{
+  "intent": {
+    "args": {
+      "amount": "79662349869425157005740",
+      "receiver": "0xdeepak18.testnet"
+    },
+    "attached_deposit": "1",
+    "domain": {
+      "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "network": "testnet",
+      "protocol_version": "1"
+    },
+    "gas": "250000000000000",
+    "kind": "transaction",
+    "method": "request_withdrawal",
+    "operation_id": "87ae3615994f8efb3a8ff978b0beb0a1deaf50347d74bc6048ea7f118ff5c5f8",
+    "schema_version": "0.2.0",
+    "signer_id": "0xdeepak18.testnet"
+  },
+  "block_hash": "CVTYc5gbso7w4uYEj11tkahSvT28QbUHM6XwzXUJCxPR",
+  "now_ns": "1794578372665655180",
+  "required": [
+    {
+      "asset": {
+        "kind": "COLLATERAL"
+      },
+      "amount": "79662349869425157005740",
+      "shortfall": "0"
+    }
+  ],
+  "outputs": [],
+  "blockers": [],
+  "gas_allowance": "50000000000000000000000",
+  "custody": "Free collateral → withdrawal ticket → receiver only after confirmed receipts",
+  "share_quantity": null
+}

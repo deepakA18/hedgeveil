@@ -72,3 +72,9 @@ test('Max deposit reserves storage and twice the current SDK gas budget; missing
  assert.equal(maximumDeposit({...live,gas_price:undefined}),null);
  assert.equal(maximumDeposit(null),null);
 });
+
+test('TWAP markets stop accepting new offers at averaging start, before expiry',()=>{
+ const s={final_price:null,config:{oracle_version:'native-trade-twap-v1',observation_window:{start_ns:'1000000000'},maturity_ns:'2000000000'}};
+ assert.equal(isOpen(s,999),true);assert.equal(isOpen(s,1000),false);assert.equal(isOpen(s,1500),false);
+ assert.equal(isOpen({...s,config:{...s.config,oracle_version:'native-sampled-v1'}},1500),true);
+});

@@ -1,15 +1,15 @@
-import { canonical, fail, METHODS } from './intent.mjs';
+import { canonical, fail, METHODS, intentActions } from './intent.mjs';
 const success = s => s && (Object.hasOwn(s, 'SuccessValue') || Object.hasOwn(s, 'SuccessReceiptId'));
 export function matchTransaction(raw, intent, hash) {
     const tx = raw?.transaction;
     try {
-        const a = tx.actions[0].FunctionCall;
-        if (tx.hash !== hash || tx.signer_id !== intent.signer_id ||
-            tx.receiver_id !== intent.domain.contract_id || tx.actions.length !== 1 ||
-            Object.keys(tx.actions[0]).length !== 1 || a.method_name !== intent.method ||
-            String(a.deposit) !== intent.attached_deposit || String(a.gas) !== intent.gas ||
-            canonical(JSON.parse(Buffer.from(a.args, 'base64').toString())) !== canonical(intent.args)) {
-            fail('TRANSACTION_MISMATCH');
+        const expected = intentActions(intent);
+        if (tx.hash !== hash || tx.signer_id !== intent.signer_id || tx.receiver_id !== intent.domain.contract_id || tx.actions.length !== expected.length) fail('TRANSACTION_MISMATCH');
+        for (let i=0; i<expected.length; i++) {
+            const a=tx.actions[i].FunctionCall,e=expected[i];
+            if (Object.keys(tx.actions[i]).length !== 1 || a.method_name !== e.methodName ||
+                String(a.deposit) !== e.deposit || String(a.gas) !== e.gas ||
+                canonical(JSON.parse(Buffer.from(a.args, 'base64').toString())) !== canonical(e.args)) fail('TRANSACTION_MISMATCH');
         }
     }
     catch {
@@ -120,6 +120,13 @@ export async function assess(rpc, raw, intent, hash) {
     const expected = allEvents.filter(e => e.receipt_id === main.id && e.actor === intent.signer_id && e.event === METHODS[intent.method]);
     if (expected.length !== 1)
         return { ...base, state: 'PENDING', reason: 'MISSING_ACTION_EVENT' };
+    if (intent.storage_deposit !== undefined) {
+        const own=allEvents.filter(e=>e.receipt_id===main.id && e.actor===intent.signer_id);
+        const credit=(e,bucket,amount)=>e.deltas.some(d=>d.bucket===bucket && d.direction==='CREDIT' && d.account_id===intent.signer_id && d.asset.kind==='COLLATERAL' && d.amount===amount);
+        if (own.length!==2 || own[0].event!=='STORAGE_DEPOSIT' || own[1].event!=='DEPOSIT' ||
+            !credit(own[0],'STORAGE',intent.storage_deposit) || !credit(own[1],'FREE',String(BigInt(intent.attached_deposit)-BigInt(intent.storage_deposit))))
+            return {...base,state:'PENDING',reason:'MISSING_FUNDING_EVENTS'};
+    }
     base.receipt_id = main.id;
     base.ledger_operation_id = expected[0].operation_id;
     return intent.method === 'request_withdrawal'

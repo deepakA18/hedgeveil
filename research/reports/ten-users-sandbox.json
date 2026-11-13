@@ -1,0 +1,2757 @@
+{
+  "scope": "Ten concurrent local users, real compiled Wasm/receipts; synthetic pricing is test-only",
+  "passed": true,
+  "checks": [
+    "ten users plus two makers and admin occupy 13 slots",
+    "every user receives both exact bought balances",
+    "all ten withdrawals have successful transfer/callback tickets",
+    "all ten user ledgers are empty and full event replay reconciles"
+  ],
+  "timings": [
+    {
+      "name": "ten concurrent first deposits",
+      "ms": 759
+    },
+    {
+      "name": "ten users buy both legs from real maker processes",
+      "ms": 1651
+    },
+    {
+      "name": "ten concurrent sells and matched-pair merges",
+      "ms": 1642
+    },
+    {
+      "name": "ten concurrent redemptions and completed withdrawals",
+      "ms": 1763
+    }
+  ],
+  "transactions": [
+    {
+      "label": "deploy",
+      "hash": "vkEA7UZpWghmaxW7gxXrDL1ZHgJYkziQYEGRf4wzKJb",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FTE3h4xuRiNt3BM82AxmR1SsfGL29YTvpex5HogUdW9y",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 11744226268305
+        },
+        {
+          "id": "HousivcbHqgCfwWzoNAqzD1RmkpLazR5kEqnxzUwfk8S",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "deploy",
+      "hash": "8t7yw9DpRj92y2AZ5r6LjqsGpyhPKaFvpsuoVti187Fi",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BdJro4USDxjdaz3yeXoa4b7wDSLqeKpuksZnvpFMvYvt",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 44403283826243
+        },
+        {
+          "id": "GHjAFeQRHM4c1eYTivCCMJD6pYYx5WgTjgh4vhXfUGRk",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "D824gv1gtGpVcCmVsbChsF2K3pdruzgSmKri3aTpvUYB",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BYtGzEYAQuAoRXGNYQV1J2DeUQt7LJ1EwXCDE8uFw3u5",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 2507242324287
+        },
+        {
+          "id": "786kB1h7J6vuFg9U3gKiv6wnAQxiDqRwZKx8J7t21Q1F",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "DgYQoxHjZdqP1ek38J78wEGupqcuzbxfpJ2vz2qdGySg",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "EFi1a5n9kEqAMT5wETajHkR5g93fAbs4tfyCLzqYDRpd",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 2763140712740
+        },
+        {
+          "id": "isi1BMRG85CLkT7XpSmAwcpQzMwbamrVPxcEfvm8dGM",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "storage_deposit",
+      "hash": "2HCwCipKs7y8GiVAeGk5HvEpXs3xrubi8zupWb2Br2JK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "36aRYhrWbtNk5HaHsMQA8qwokYeSNj4cWuq6PYpcfxJj",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3001014900185
+        },
+        {
+          "id": "GpHkFqqwTWFYiBfmYPw36YqC8H6deXDvgDSSAVpKyovB",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "7ZJsz1cRBAywaiuWASY1SgZ6z5eu1zekZE7S6dE5hAPZ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "B9JpPYHHRSXkZL5RJcVrdFUFuHtapnzFnDySJUeDuz3R",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6974359332689
+        },
+        {
+          "id": "8sNdRv8rPK2WUr99hCTnchhSKBAw9LqZfrqYU9iAkGsc",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "6S3Rz15qLgKemHLRP7pDR2rzhBhLzUP9jsGHCg61Haup",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "JA2vxMeyWH5X1bzqW6uh5iCtZwsm8ZoWTxp2QeURc3wE",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7481928296873
+        },
+        {
+          "id": "AqButCtYaSWU2fTg6AmtNj3xtXa4Z7fKR26E5rj5ejwm",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "4Q6SBbcQ7WFVCh87ZGzDBV9wgC9eufyEGZcDrAPvCS7K",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8osQMvTEAXGQmRu6UZgTghpmrf1wHoaNzWFhnvwTYrTg",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 10109311185005
+        },
+        {
+          "id": "GzkfqdWXkQZHHEBJLV5hvkorj6wEuAGHcVteVpchWso7",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "HiQZ7nLL6hKvw8WqCTqhVLFbWf98Wxn2GXhWJ11xTkZp",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "DgzyLL9325NhkNJJWVDQsHN5NP5wyrMniXe7TETYYTeU",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6477615401743
+        },
+        {
+          "id": "FpZ6ojiVztMdCp18od2nihzCHvAwbd5m6xV7FSaPc2n3",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "C3bdiHzYMxqBS7jM5wDJL49QKb6Zki3Zt9i3w7FsXTCe",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4Q2DwS2EQcX39iasEi4f4eW4eAaG3MCSpk6mXhjjV6iL",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 10648175319161
+        },
+        {
+          "id": "3yUTFNAwqMXvSW4St6fDjdgjmxUoBqwAGLxn3tLY9QZT",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "2hEhCugp6HJzRYUXkkYkDweajDQ4JozhGppru3Z3G7E1",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FnLQhNXyyBNy7LFFrPgUFNVmNH89LBzFSFdd7WY6cZHP",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 9590829185237
+        },
+        {
+          "id": "HhMJLNzM2BUnN9aRQcDqgZmWefrqG4LGr8QZ9hpMiJX6",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "EG63rfdnYisjTho2kdnC9XcsTTr57jfdpKUNvUfZWr2o",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HJj9gTrJTdozMux2ZqqPr64NCuvbB7cDBAehf1XoqWzR",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 9075112468385
+        },
+        {
+          "id": "4An6U2oC3toJHCEcBJ1qfJmptLEYtQVNMm1px4JSo3HU",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "4S2bqqLFvt232pZS3drqcWk7Xp4LryRzVtrGEiB2E4rJ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8LAcA2wzZwm2i5X76n4dYcfeECcdGUf5WZJfWktGFLjd",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 8004156304709
+        },
+        {
+          "id": "7C3FpS6cJeVY7gSRKKZEsCn3WhqKoXWibMFJefv2Kb3U",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "CfSjzfPsd4SUAUeboNtWG3e2nc1MTTcFW6LSM8wzL9r5",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BMi3Vs7umF2wAMJE289sbdivaXndf1GiwLbov4yMkBdM",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 11159019674981
+        },
+        {
+          "id": "GuBzFqA5Dyn75xiZwH6F2w3PHohLuLhRHaREFumvdGcY",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "first deposit",
+      "hash": "GcC6Ut6YZnD4kQtoz2FYTAHHqY8g1Ai3fZAAUh3UcAUD",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HGMewSpkKLzMnWFSAQ8KYhtQwQBbCqEyvFtsqv8mt3Lu",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 8564506711805
+        },
+        {
+          "id": "7sGpqcAXGZWQRgQcCF6Gt7gaqW2nbnQ31eVTAVVbqTA2",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "create_series",
+      "hash": "B1Yt375ms1KjE2LYNAQczPLWMs2f8ofstyCqwFT2Y4HG",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "EdGiNnQSHn9zucr5wZdhXDz6DusDgqYcscH8RG8ybMrP",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6135890976258
+        },
+        {
+          "id": "Fak3tNP13e1yCwuYWUqJpzui7QkWcsGvmo9LuCoYXwyD",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "GgnGXpWGUduci8eLtcrDQ3NCawQZjFXVxWC7uKzihJGZ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8Td8vmjpcZRLuKpKoo18TVtNmqa7CWtzsLpKi1MWZoju",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5947336573341
+        },
+        {
+          "id": "9CCaqFp4WD2P1BXdhDpaiHVXcRoZeLEBXJtGXsJtR1CZ",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "3zohrC1xo82LzKC9CRP6RMiYNC3NekvLe15b3gV6TeE8",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "DrKV1htc8whAwb9W5Ykcd7VU72U68ruVk2cmT6bhrfoQ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6848056590294
+        },
+        {
+          "id": "4VWbcRrDjq8v3iVxxnNye2bmU3imhfBkuhDgYJgP7fxt",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "register_signing_key",
+      "hash": "2wdyTpuczRwnrcSFgQNcpuzMDaFug5EMSfW8C5ZHYiGv",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7DnHFTJnTnrU47RXic86GHoXZ3nN4yh3Yu1XNxZVoTSn",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6198684565091
+        },
+        {
+          "id": "HfqAkEYEaDd1V2UHD7wqtoBGEdSs54kTxjqan4tiBVdH",
+          "executor": "maker-a.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "deposit_collateral",
+      "hash": "GGeW5MerwxDxFBV72pLJX7uGN5Qqq3FnL7Ded1C2ngJd",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "74jz7NBsYNNB2pxshoTqi1SnFyffzr3hKd4H3oG8KdpE",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6076477443309
+        },
+        {
+          "id": "8eHw8MuxC1T3E3pEhvC7NYQwASQWxcdMXv1ksjomErTp",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "split",
+      "hash": "2t1dGmmW6B4MkkFrYZjDWRJmEhDJBv5tzTHLNt8d8bGc",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Hbhj18CkYpVfHVCAHJvus77B1WcdTuAun8chc3Vdhere",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6953121151434
+        },
+        {
+          "id": "7E1aLcJMSy8ea9emQXzEy5a9H7Y9DzxQ2pcHzgmNNCEE",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "register_signing_key",
+      "hash": "68ciZAjAWnEh7CPw38Pc9GMYXkHWpcVHHRsgrcv8NwLV",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6iym8BiWmGucy4PeTooYtAdb25rPZu6aUzrmGSQfRSK6",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6281631799439
+        },
+        {
+          "id": "4FMQ2E12f2cPpg5BfDv2oHxsFnC9nLnPjoq459K5FdCb",
+          "executor": "maker-b.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "BgF4XjomQEn5eHyLtZM9X5mtU4uKgm5xh6HisgcnYPAv",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "3VSKo1L5vxVgMqEBUWCHxiHuXxkEfV1JpqzycDSvPgmf",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7291256281129
+        },
+        {
+          "id": "9dVAmcPLgYPQ5TE6sA1qou9J2E3dYT9RLCxXwYeZc3qY",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "7n4NKS7TNMuv6a4FjCYmqCbRbgyvTWcnvWPTX7UhgaCq",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Hc8Y4xveaE5gq7N2VNfZz64GccvdL5tATjMpNp9kGxUH",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7333721186557
+        },
+        {
+          "id": "F4BguuvvD7EkWf6Hrdf5QV9fG9hdrVHsqKxWiHFvUPBa",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "GMKXqNbn4iJgoL6fBbC7hvTEfkBvCWNWN7bRN58qQS3W",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "bgoDVbEPstLW2fFS5VkxKatAKDTwipPxrjFToZ8P5eR",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7292634433417
+        },
+        {
+          "id": "TNrARRDSapbar2K2H3oFZ3cRAQrj9mXPRRtQboq1EDt",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "BLbbhpc2bUFCADCua7yQLGgSe8aKR4ZQqmiJwAX7wJVx",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5PkThLZkmn8SS6xQj3KjKGJTwVfnVBd2GDi6wd6FLWz9",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7318789810669
+        },
+        {
+          "id": "48f396xKX3DUmKaVKuSV5P7dkbgLxAhW3WM3rJgB91AK",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "CcZEkmw22FExPqVj1Zg9AB899YiC5iBLNBa3fmvEAu6t",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5SVbpGeERSrEcfQAj9DrjLqxKgxctXo1huGtYPj3yuUE",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7347223435273
+        },
+        {
+          "id": "74CnqMhNwvN81yky1zEdjFi7dTHKqNse8JXjC14fQ2UX",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "F5JYJMss1zzMHFkmyNURc9cgMYcsbaXjkBqptLYXkV7L",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "56bMXhH5fNHrC3DoS1dZwrTu5zqyQMMmQ9Vim5n4pB8R",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7305300726049
+        },
+        {
+          "id": "7KLXPJUhpj4RVXq2iaYiMthnKQtMsMGjZp96M1r1P7Wv",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "GCZR12fwsga72BTyXndLntSpqGVk2T19jiFtnG4h1Knk",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6ydsvt6sQCooBwzwymmXrUV1C14GzM3wE1g1ocFNqvbh",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7358316654421
+        },
+        {
+          "id": "35NFhGfEBXXrccQPsvbDYSXqeHXUJPWyLMYf9hAjvb3W",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "3gMXs4PEtAmDDEJK7AyyjBxAVfeYj8wo2EsMhe7PGGgr",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FFJPYwyr3PVpDUcHLFnNY5Uzqi2F464s7WtjzUnfeE97",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7399577045065
+        },
+        {
+          "id": "5QiHpaPyagJJsT4T2pKoNCSmxxK1zgRfEiEYTduvBusU",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "J1znZM9zd5Xa6etitff96mzieE6QNEKhLSRKqGZVjBTz",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "AykXZsbgpttzuhXRh4TUUy1cNYDDyfGGogvcUVHCmZN4",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7387417570129
+        },
+        {
+          "id": "3kTkT6D35WWq4Zc4KSKM2g4yLat9dhU61rtpgn5tq1TN",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "1L2a4vFpy35SVAcY33dywcZQhLDzfptFmzM6bVLXYLK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GaBfdGq4ruPM6RcYikr3BgqgHgKSGH43kWNyyb3LFeHd",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7386409658041
+        },
+        {
+          "id": "8pi4ordjmvnQFcQoJzbaqrY7rrpMbH42jETXrVwtupLf",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "EbpVddsR3tVsTq1HpmWDcFTQe4dHkRnUBab5PMrFeSd1",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "JDhYKRBgVq2enhrhAw3y6W1EqhwPpL526Yn6apT3NHhw",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7500393451525
+        },
+        {
+          "id": "AWmnzMRwBJdc5kbRKCZmdqgg1hFeu4FCp3xG1yNPjCJ3",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "2ViFUwNngj7seGGoN4nFTxdxpQsrjHPQBDsycp4VrLD6",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5xzv9ZkoFd96GeNrVTpUo6deBsUMffw8gVxMSrjK22BB",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7430033039905
+        },
+        {
+          "id": "3sqU2qDhJqB1gNvTmvQBEii8VWBRh6HNumwfzJLFJEaP",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "3CU1qHJvAsT437TDjEMbum77ZVdmtYJVhYCZwhGZRSkA",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BXKz1ocPqj1v4Ncvac4ieVNV1AttbGb4eoqaimAAWxcF",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7446756342373
+        },
+        {
+          "id": "4Z37x415yU4DpFBC1D4h2E9brc9SzkwR2YkNxgR1RbAN",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "8DJ6S9XSuk42KMcKej2G1i276thkc2Nf2PCNzRs3zHvS",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "ATmnM5idq7kC3uSsPaB7Cw1sQDfchCRTfiUwpmGKFTjV",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7487311631125
+        },
+        {
+          "id": "BuQfs9oti8XV8grMdYtpNf6JJ4AysKrpr61uo59qHJTW",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "DJgFRCfMu6SrG99qNWyGPDzTjX8cmnJVbrkikXcJxvNu",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8LWbs65tYeuwmTCH4EXWwqb2mEbwqbVW9L9YZbgDRY9",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7471057263589
+        },
+        {
+          "id": "4skYWEHyu2yk6TSVWrWv5fRqLygzQUdsRq2Yu9eQDVe9",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "B9tShQQmPG6PPu3qRx1PfcJM2dm7BLjPKzCgohn6NXCh",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "B9W6JwEPsRs2gK7fkh3DKScLu2D7JXfLBc6naD4RsHcF",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7460377067953
+        },
+        {
+          "id": "46eXuvux3krDwEr14RRrBm2PHkcphUTXwK1XCBpC8PJt",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "CzG4ThPtg8dQ32rjVyNuNiyTpSq6Ytk5JuDUrm8MW7bU",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8Byf5tuw4e3opPqbSd83ZA59eigPs8KCm8z5oc1Sp3gA",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7433273017045
+        },
+        {
+          "id": "AcwZxq2s5A27fsWM9MX7o5kiQiKpsiKiiTqcTyzixi6b",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "HD8PKGibsAynNT8Enn4DeLKUuosXLNUZnU7wefKdH4jt",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BdLiCmQNzpxNFgdXRn4MvgqAxRvStmBKK5UBNXJWW2nT",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7530713691625
+        },
+        {
+          "id": "7hrBjEPbp8TqZsRo7Jd6T2WBhC2rc9eQ6iJgxUgBZKyS",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "6PqQzd37WazvEZLpSyuKVQm41MAQYNC7ykNLdyLaT7QE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "DDoChM2N7BchtnpsLi355zbuay7J7eFEWgekHn9nVJuZ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7533507735013
+        },
+        {
+          "id": "9Zr8zEqXbNfGa9Zgt2gARy5PQeK5p1YYHKQWwcHtT8rg",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "uhFusQtz8jQfR5nMUm3WtMV4pNzC9nGWPWrZxpg2d9T",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "41kDzPSBYnAz1EjqgrhAME67QjDD2uU2XsMQzUiXnJsH",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7547363768809
+        },
+        {
+          "id": "GywPoa8yz7eZmSm2PPKYqy8jHQanwNGdUUKBv1CNN1wY",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "6pSAhz1dQNjDY5Pq4MYaF5nVh7MWGfVkUe6i6qRHQpY5",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Ca5HatozEeEKKcGgccDRiyBXsT3tnauenuaABfkCeU9z",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7549028979850
+        },
+        {
+          "id": "nkfRRjc5ZzLWJZXTFyTk6JwWfhFTY33sdGQU5tdPJdc",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "HBHjyJ9Lkm85P34p2XNAxiq5zxs321aRQdHwPGcnuF6s",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Gk8DGmaC4Ap8SAvrvAAkPRo5wSAJctM3XRhKWq75Ed2q",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7549589276686
+        },
+        {
+          "id": "AJp9WK7n3DUru6BiaD4zN3Bv9MxHdyJ6tRQtGVEAtLvj",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "3BnB1tZfRfc1PFkkAPA5w6gRTZ7xTfAY4fAY8KnLMUmq",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Dq3bZmku92C5BxZJaDAFH7iEBZWpVc8jzBrqsy2v3ctD",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7549386055954
+        },
+        {
+          "id": "3vnGKfdNAugvbQpXeo2ZeDan8cws9wBc4sc9TxpLsVwR",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "HobjfeqUUyzLu91UKj5MAabjT8eSiMa1MeR6MX1LNzug",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9ejrTJgyFZqbrgZBok5ki36F49TkGSkaQK7Mqz4wrY5o",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7562923719166
+        },
+        {
+          "id": "6AgujKGs4v3uKEdbzSah82d1WtCt8ThNsQWdyEGVJq9L",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "F4y8vZqcVWi7KKy7cB41brXeFgBCV4uGnPjP9uugYa86",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "F6QyotiqSPjf5siY5nLZ5kV5Yj9bZMMCgeys4pqSbyLB",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7547980788706
+        },
+        {
+          "id": "Dk4zVdku4kivZsVwJfcxDJkbyscha1nU8QkTSPqJvZUB",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "E8QTJXT1s5n5iaoCkFi41hg4PwE6d91tnypzQE8npfKe",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CCyiTLAxTXy4vtJVWURZXVxySZEJaWqGbdWUzfaTvZxw",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7548638170750
+        },
+        {
+          "id": "BKZ6BaUvmsrbnApK1NgEibVPbbVXJsRTAdbpeRvb14Su",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "DY9q1q5jTpCPF7gixPp1yKiqE44wqCiUTE9y2FJsgttR",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9D8WnCcUioE4XVzYyBzHTWBztxTpURMArzfZgrEkryrm",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7549894519162
+        },
+        {
+          "id": "4GmgCR9E32brSvs11YfD8jLmHYH98tK4jJTBdApo5eSY",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "2Stsmme2NrPCAtcHF4ihUR9h78NsZhYATyUfxF2WfuQx",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7bECdM4XRo1wrBXbyofKfmuKkKoAGmDjn6xoQfGhwRCD",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7547483021326
+        },
+        {
+          "id": "4JBgSYGFeARTfFpqyyMKRp6BMnUH2MwLyaynre2CEaby",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "LqnyqEy9oWEoFTNahq73Bm9yesspW2ka5tL8aMZvV6H",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "J5RQoBZDfb3qQ4gjuMfydSeu3VxqTZgG3wBG7LWhGaia",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7550110081234
+        },
+        {
+          "id": "4MUdmTc1o3zM8FuYfExuLMZhDHY9ey5bhcP6CdGw5WbL",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "fill_quote",
+      "hash": "GHVPRnMy1oz2CVHRMZ56o3bJCGjVNsneMh2gtw3M4XKV",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CSm9SjUX2QJDtgjKjR3VqPBjU7RKGJVf1e5dLvi41RLP",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7563575341918
+        },
+        {
+          "id": "AJrbUSrLyLLZ6XZ99XGWj6WArAB17a4VLqJDTrACJMgx",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "5tBEuLRBPH4PE4XyyY9TFHx8SE43vXKoezavfQam9tQE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9yCvsuNsrD6gece1HqW42s38Am4FVABBgpGXJJdKbpdF",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7182257224233
+        },
+        {
+          "id": "14KEMyiZdZ181zRrQLSZNy3ujpyB6MKtmAPh7NF8RHDt",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "8mbW8okZSsWN4UtMnY6GWy4CaSx2kaHz4qnZGMbd6s9H",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BajeXC7UUsu8J252GXT5T9J8xMe13NgD6KCMCWTGVHtN",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7240571701245
+        },
+        {
+          "id": "7c4xwAJm7zYA2sJGqNrGPVbhatPHMKNrjkvbiFczaUVC",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "EoQ4QywLv61eWPEykvTyjqQAGjRbo35675KDezwb6HYW",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "96RWatveyRg5gdohwpFk7CvTwwSeUGUUkRWUQ9n1qMLM",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7152498139713
+        },
+        {
+          "id": "DoSEsfgtXnfTGdSFCyu6triS5x8MAmttERopj8w1hRnb",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "2SiAsvCEsCAC9b4A9EwFm3Qdhio3GXPPSBrUHGvkei8z",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FjFsHHBaAmFZpuyXxDQGaxQfEEy2kNzLKpgcHjUR5rg7",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7207417102713
+        },
+        {
+          "id": "38UCb42Xw4KU1FayCzjDNaXcvcDeQwxswmHjYtrU5qRr",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "HdpdLcBxW9YC6b3wz9ijo4hcDrsLB8X3KQoCKrp1HL49",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7CsmNPDAAzv4FsNHLgU9S3hoNRMFwPp8kg7zDNGpLYuV",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7221650781513
+        },
+        {
+          "id": "2nNUStdskMG6pSDgEBRVsB6qByMUHv4ikeEF1NuWEVNN",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "D2AbtEvP868Un8x1uxMKVjgaXpcPMU1jXU6RhWTLF2LE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BZhgksvh5bFygonaGEiRozs2xy9Xt8Lj9dPoe6iGNDjW",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7140016931193
+        },
+        {
+          "id": "B79X22FjFX2DgLEmZ1GaZkTu6n1fpSiw2tBJ1zMAzB4H",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "48ERXfiBohASZXUgmG5Nkh3HXvnGF4cLhFhCaLbf4vha",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GYL1WVs2Pa3nudyFjeoEA9GmN2bwmupcsLYfkaefwEp5",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7194696472197
+        },
+        {
+          "id": "5DYM1QcBJi5jrgzCA3HgQq3WUdHtooVETqw5yH8LsfdL",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "2wRdYdkdM8U4xeWgBKUAtk9x3xzZb3o1Vz8521Bw3z6A",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "B5EVWNM8S9KubKve78bWLGNKY8YMoaCDZ7wSxyD6xZZ3",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7266579877149
+        },
+        {
+          "id": "9watyKw4vyiBhCQzUnbLyVRDrwMrjpZmYzqgvJeko5mL",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "GerCZKKUEMpJjime59wzLaoaAUpCUC2u5jTj3zHWGBBj",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6WRRAwGXKfXQQYNFx4Gn4Jre1AUrehNuwWzq6WKCg8Fq",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7166674225593
+        },
+        {
+          "id": "2h28nVWgu9uCWFVh1rgzer1ZuiHY2VXxEk9RGta8kR8e",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "merge",
+      "hash": "F5CNHSRbU9DCzWwAvugLu1twRfMN3S2AunDwWR4ZuEor",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "2HZvijF3CwoUQYAKg9t1jmiwdr9U17UTEpc5tNvdFiKv",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7137952672377
+        },
+        {
+          "id": "7GeikmWLnNFqE4oA29weeivz7nHLcaTquxnZidzkJLK7",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "7ePyTAEdBRbnBXXoZWSoQmThuGjKiuAiB3rZLuRYWjH6",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GnsmiqHqbhcUUquYyPn4FZR4Sbnjmep9ZThjRova4cVQ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6577417307970
+        },
+        {
+          "id": "8tgW9oRs5KcXP7U7hoETRsdH4ztnpo89a168rVnwYxem",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "3rptoVA5ghwTfLbDA4QhEZyYPBeLNBq4hSvWpYLZWPwm",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "2m2Egn8qheip1yS4SeKWCNoiC4hVUX359d1Hv1bzk2GJ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6575678001786
+        },
+        {
+          "id": "7t1jFvXF8gQbEEtNY6dtFJmq9aPSGhPKLQ9rz2Pfpnmb",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "JBCS5dzJeEtqaipn4FnibNFdmEh6kFkpYND6jDRX8Nmw",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8avieqYfXTPYV3ynNTLiCqLQPXexiGTgpVc6tfm7J5LW",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6576435760062
+        },
+        {
+          "id": "76DrQTw38WyyHhuKvB2v2Jr8bhsJGJt5rNmhq1vsshUS",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "HLz9bUo2jsJ33918qVc4QjDEWXbbuwkikjxBF59SPGkh",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BZJBPTbNEtC6k1CsGpf7AaLgfau3b1NkoGkRBvvbxnof",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6575975016702
+        },
+        {
+          "id": "FGacZyidpTvzQZfjgUASMXveZdu3iiTLDXMm2caSMyti",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "8waxGrDdgcsk9XMUD9RNB9gRm12741my721iN1rftkjh",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FQCoqLJ91u2ErshNqczvdaDC1C7LjYDhBfS5Fka8o6UG",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6577010043750
+        },
+        {
+          "id": "BNaYxnQq1ssNzUoPka1zqY99VRmCJbQPmrBGaG2uUHYb",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "35SkXFS4PiNw8BTXSUEKcvQmkfW7VScQjEM9bRzcPAQi",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "G5yT5N2zXV5bqn6SxN5v8ztUFJ45mMqbraF3K3Y395yr",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6588654545406
+        },
+        {
+          "id": "4KhCDvDDjk5xnzYvoU8XWsY3HXKRfQWdbvzg6tKUoaW2",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "Ep2gHkuYSDuHpb9jtYLbc5ppBEKqJEuEHph3XdTYDQvC",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "2oabjTyYMiDtf7HbphADg6szs7BnCBMGs6KyFSE2ffeA",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6574304822022
+        },
+        {
+          "id": "EzLt5DZeLiqZWD3KNXxoe5rrX57wXoWD7etGF6FWWmv5",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "5BTxwMMvkRLghquW2Q7sXeAgmrknDx9UqFVyPydpr6gx",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HWCUn1WvkTDfhs1sTsoYGPgp4NtVMXm5cDvnG4VjzotV",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6576049887498
+        },
+        {
+          "id": "7qLmYTcRCVUdugZhzXtyu9ZQGqKEPnvgakHZ87JHQQ3Q",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "fEY7YfDPj9sTu29GxXq2VQWwQ8mcp1Pixz1yXAA7zMh",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BQn7zt6ttQLy13M7pPfbXNkq7nL12PLPgsmLTBAgu1y1",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6577659198234
+        },
+        {
+          "id": "BaRU1UXKnaWRPu7EAkqCQE3mjuGQttd6eHuM3mofFRme",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "transfer",
+      "hash": "D7foTBJgj1iEftaEmy3rtUHXsFyqKM61wLKQqffei43M",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "EH8B4nvfUCWiznTasV3LFmVJJLQCsrV8itYgkefC4fVQ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6576471138570
+        },
+        {
+          "id": "5UTgsTh5W87DWcMPL5pmbrzmEwyic9ZRMLgf1QVGL5XU",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "set_report",
+      "hash": "2Xt1TWsp6QujBGBNvnq32U88bEZPpKQ8xsQg8cbgearK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8ZvrPN1pcHEfaZDNocijzDAugpBVet21G3hrf7BhPE3S",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 1342209482173
+        },
+        {
+          "id": "GrWmtdEMo9sJq6LDLYSWJMtS9xwdYc6sL8cuujJq3Dzq",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_resolution",
+      "hash": "D3VMtnFP54dXAW5C7zSuAL4Ns5uKwxRnWiSTwDqxK4Vn",
+      "status": {
+        "SuccessValue": "dHJ1ZQ=="
+      },
+      "receipts": [
+        {
+          "id": "ExGtTEYzp8ZACwMAeoomiG4MwFzGauepbvafTgs22qRS",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "AVog38XQQCXJ2JwVg6hJyYkvAsmtxM9mmMTwFZ6xBgMw"
+          },
+          "gas_burnt": 6931076311514
+        },
+        {
+          "id": "4ZKiHqeTTQDxAgD4ir3h8881b1fXUjBv3t8R5HZJ7rJU",
+          "executor": "oracle.sandbox",
+          "status": {
+            "SuccessValue": "eyJjb25maWciOnsic2VyaWVzX2lkIjoibG9hZCIsInZlcnNpb24iOiIxIiwiY29sbGF0ZXJhbF9raW5kIjoiTkFUSVZFX05FQVIiLCJpbmRleF9kZWZpbml0aW9uX2hhc2giOiIxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExIiwicGF5b2ZmX2tpbmQiOiJDQVBQRURfVVNEX0NPTVBMRU1FTlQiLCJzdHJpa2UiOiIyMDAwMDAwMDAwMDAwIiwicHJpY2Vfc2NhbGUiOiIxMDAwMDAwMDAwMDAwIiwibWF0dXJpdHlfbnMiOiIxNzk0NTg3MTQ3NzUxNDExMDAwIiwibWludF9jdXRvZmZfbnMiOiIxNzk0NTg1MzQ3NzUxNDExMDAwIiwib2JzZXJ2YXRpb25fd2luZG93Ijp7InN0YXJ0X25zIjoiMTc5NDU4NTM0Nzc1MTQxMTAwMCIsImVuZF9ucyI6IjE3OTQ1ODcxNDc3NTE0MTEwMDAifSwib3JhY2xlX2FjY291bnRfaWQiOiJvcmFjbGUuc2FuZGJveCIsIm9yYWNsZV92ZXJzaW9uIjoiZml4dHVyZS12MSIsIm9yYWNsZV9jb25maWdfaGFzaCI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJmaW5hbGl6YXRpb25fcG9saWN5X2hhc2giOiIzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzIiwibWF4X3N1cHBseSI6IjEwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCJ9LCJzdGF0ZSI6IkZJTkFMSVpFRCIsInByaWNlIjoiMzAwMDAwMDAwMDAwMCJ9"
+          },
+          "gas_burnt": 1336733802215
+        },
+        {
+          "id": "GFKJsQEQ1SFNtG9X35qvHq4Br3NiD8urR71aqWaUcQZu",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "AVog38XQQCXJ2JwVg6hJyYkvAsmtxM9mmMTwFZ6xBgMw",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "dHJ1ZQ=="
+          },
+          "gas_burnt": 6286065157852
+        },
+        {
+          "id": "Et4CP8pHzGhfjHgU6rV3eoggdsvPzkuf9J9isr5LXnUd",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "FAtD1P1MguEwo3g6VTPx1TWKo2u6bM4MnQxh1N2P2Kn3",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "A8fbZkFqezehsnZwD9xd29WHNzK8hhRj78uCgXKfaNUi",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "xB5oui6YtL8u5jAiwPBGtG9uMxkoqtgERh2ou54VhN5",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6744504601133
+        },
+        {
+          "id": "FndQZ6yBhyDNK9MhkEACBJ7nLtNSpJuFFUHhGarBRqH",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "7P1C5MqiDNMfzn9Yk3ytWJ3Xkz9Y1KpHVV6WmZGACXuu",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8EgVW4Q7c8cxPS9tLv5RC5fTHGCFuwLLF354mRWbzMJ7",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6839389759589
+        },
+        {
+          "id": "5RsfExV7bLc9GNxwde8AtT6THuwKS46kdQCGBnPweZGE",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "8Smw7Nt7aLPbPnuZiaDYBBy7vNFnBVsJuxRX8qsYX2cw",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "2h6MDTnkhvF1QhneWjGFW44iFz83Cfkfm8qfy1c6ZjM6",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6864631949657
+        },
+        {
+          "id": "9fAE8YXFQkX4VEczmneLmocSCbWvVu5i7kfp7aRrCg2b",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "7bPDx4Y1H6fpUpfxUHgGnXHaPB8VYaMk2R7S6Jno33fY",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GGibVrojd6AKcq5xufkHHE61Dk8vCUajcWLeDTaiFVZe",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6824730715937
+        },
+        {
+          "id": "51mBSdke3wPRVtbddhvQuXog7Z3WxT2UPf125kUs8qoU",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "DZshzztauRZAGoZWbcmxBQqsT3amc6GQj1irJefi3Bnp",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "25stY45iV3KZZFRThojgHr6DRwQxi3XUFkjc8s3ohEd8",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6773668010309
+        },
+        {
+          "id": "CV7Vd3uamr4uZcYcgGjygWBdEwvitqsvQt1GsgenABWs",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "8y8QwosgAVjco9jSkLxh2rWFduzqo8S7FWyyeenwJgbG",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6LFSxyiogWqj6UuprTGTq5KMBLdg4vvnFuojbp8Foq1L",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6731351200961
+        },
+        {
+          "id": "21Tr2GiQ5cRn8pZDGEJU8MEBdRbigTS1i43NBMPxrNA4",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "5K3ZjSzuV65rDoH6F5SzvfLrg6jYZvaKZu3CLrQqmTZS",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CRrgnDmz7Lz2nzKMtAV4yrxEBK8TL1D4rQjmDuc595KA",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6789189302249
+        },
+        {
+          "id": "6bKhdB8Paz43JAgv1tjQLReqmsNhmZ1aB9KvS8zzMZTk",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "APke3UjQJeoyxEEoMvnRyFSbQrjPY5YgYtmR9c3xXWXM",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "3CmpCMu8yFWJq1vAnjm6FSvhje19qZbcR2NYsCpkxsir",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6801096227081
+        },
+        {
+          "id": "D9c7e4rhWkBindTPbYpL7dnnmKC1kxgVEMgMtypW2iyM",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "5Jo7k3JKcg7tgeQRSKddqfQkJfAPcoB3uByTK1GKhDMJ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4MS1A4JTj1CNf5RKdbUJauX1d2RvnyhM9hNiLXXQgtJP",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6813474591101
+        },
+        {
+          "id": "3vXkqVoeSEEN2SWmBRwNS5Qop2vo9Creagh5LVHgy56m",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "redeem",
+      "hash": "Bbiu4VyP37P2ixouYmtCGDn9iAuTQdvvViaitNUEnZrE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9UzMN9vbebq6MWtDQPc3uquCwJaKsY7gQDG6yEhcxsey",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6757179980069
+        },
+        {
+          "id": "219UEiAymFyChcELFB6VwsRRmzdNTZbH9i6a3utRKKzS",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "DLwHBq2ACTMeaQZRAh5JXwGiT6KqRWVHCutjBcHA2iea",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "DuS7RFBsWo8cPuz2FdjviRuCck9qCVkHySfCCUXw3mGb",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "CrKmk5StVkJ64ZXSUADQkH5Tz9LzKzQyUTP6Zv7RVi3M"
+          },
+          "gas_burnt": 7223498104396
+        },
+        {
+          "id": "DhWXhTe4jXrjENJa3L8inwsF1xMKcw9vULAHxnsLaHnR",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "2zAUGkVhNVMtNbBp95NmK4hRPKjTWsPVWTi77LsAdNHZ",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "CrKmk5StVkJ64ZXSUADQkH5Tz9LzKzQyUTP6Zv7RVi3M",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6401181569928
+        },
+        {
+          "id": "8vxEMhHvEyDsoqhgQ3Njnu8pdPSKx4otfYThDGCjqbSs",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "5Qi3GLqZoBEuB5ajyfC3hAFAPkijw9TkN2D1qLz9HLnq",
+          "executor": "user1.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "HQLvh4bbr6N5EAxzik6hLsgBjox6tuHu4JLrSiDS3gia",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "C8555ZP4g8VopgMYFR5zePzMDzRFBooer7WTL8feoBEm",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "59eLyGmxHGzVkqGQTXtkATou1WFj4qpKqKZKA78HRgGi"
+          },
+          "gas_burnt": 7194424229932
+        },
+        {
+          "id": "ExtdQ5Vea24uGsBDV7UpcFkGzModyV2zYujg51uWwL8M",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "Brn8rqw2DeY94svFZirarEPaGYs55vS127K1uxG1sP1F",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "59eLyGmxHGzVkqGQTXtkATou1WFj4qpKqKZKA78HRgGi",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6416714380452
+        },
+        {
+          "id": "FxwSFhFfAPYSxqWsVtoSrfEDtc4QxXgR9wQfhiiy23dP",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "9BJq4d8ifMSq2iZQJzHDhSW749N1tfHDuNSeTPPA363g",
+          "executor": "user9.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "Ht9HZbpM31AMUGgJDGouULzEB6ZC1RC7AxWrSRjMnBZU",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "82cuqKtnHptUsdDgTbGWCxfX5bnTRuBgdZkUUf6zEnBx",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "9z6K8gUBNFVe8VVa2tCofiK7MpdqKbt8TsU5ksy6f45z"
+          },
+          "gas_burnt": 7358307403456
+        },
+        {
+          "id": "CLw8EnZ2JEJ9qnnDatx7KSzVagUBEQ35A1htPQVZkfe2",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "9dzz4DpxRbEZCLRux5HXAA7hW4WwT97taieZUgde9J5Q",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "9z6K8gUBNFVe8VVa2tCofiK7MpdqKbt8TsU5ksy6f45z",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6334610736456
+        },
+        {
+          "id": "BpAXCVZfMaGtdnduzBaGeaeQ2Q5jqdz3yMDmPfKounCh",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "FHMGUzWdQiCGZV2fyyriQrjDLUh5o6vT3xjVXoFKwEGM",
+          "executor": "user8.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "9FZiGSJLVCQZMpVT4HgTXAZ3HeHvSg5rYcixsBW19Vqw",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "F6Dy55g7Hzk1ALJNXzF3JrV7tPFBRnrRcdHBPfuB7Kcp",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "Da9XMZGRfBprECkrZLqrJ8ak9ePDnZawbGfqhkCuQJCJ"
+          },
+          "gas_burnt": 7163581430068
+        },
+        {
+          "id": "4DHj4Sf73nBXofC3DsPT6dh1thcEuRbCsmegJzkpHJVn",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "7wiX8vhzeoF26cSZa8PofSajecbydFdyWCpVCj8PoBuS",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "Da9XMZGRfBprECkrZLqrJ8ak9ePDnZawbGfqhkCuQJCJ",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6426883644612
+        },
+        {
+          "id": "13bqT4QnZ5goGiYFHHnRDVPaVF3ZUhNyyGMRfZado83C",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "CTQZhoVbjtN6KSrvtrs8TN3vwVxfJKpg73nqZKQGFfHH",
+          "executor": "user4.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "HU199ESRN58Z9qrSb4WW8k6Rk2JPtjxzm2BgCfzojnyZ",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "GB9oLTBasnsCQVZgYvQww98cnXDdAhcyXwW3db4E5EC1",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "6RBWbQmW4hoiSwhezczbnUiJCDeBH4WcWNjFDruwR8AY"
+          },
+          "gas_burnt": 7325633971492
+        },
+        {
+          "id": "51sN49odmZg3v9qAVqVU2GxKJtkZ7gaLoYsYwjPe7P3d",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "45L6adCLimuwaStvqCGfdVSdjyDRQ3FwqzjSfWZPvdMN",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "6RBWbQmW4hoiSwhezczbnUiJCDeBH4WcWNjFDruwR8AY",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6347921283024
+        },
+        {
+          "id": "6kzdyJ6MgCG553n2SZxpJohTgCx3L4dLQ5jjqhZYEiWu",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "FZJVCXJiLCfLVckakcJdz6GYfStunAfrsEpWwypr2DbE",
+          "executor": "user7.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "B8xyfJQp38HAmbhZE5M55YngG7vpo1RWEn44w4QPzseX",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "BpjiZqpkDhNKmnjJAVunCYRBuCz9QAiJB3ctorAJUCMM",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "inm4zDYjRUbyfrpHNjmVZ13Q3cdN3n4vi8zrrXdarhc"
+          },
+          "gas_burnt": 7297456078312
+        },
+        {
+          "id": "Fyo9ebTdwFhj5H4JGvWyXqyLZLqDg5xNty2JmTPaFVGM",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "HPjZPtSt9aQzjJ2qdVisC4iFhDNJ3QbGYEHG4VLMqnyi",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "inm4zDYjRUbyfrpHNjmVZ13Q3cdN3n4vi8zrrXdarhc",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6361132276116
+        },
+        {
+          "id": "J6x7nv81ofe8WRDK9vYceDWNDKobFpf533t8vaZqTf4U",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "J8sT7kNjVNUa96xC7WFiSD5W6iSXEY1vWDASaSYtWdNc",
+          "executor": "user6.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "88hvyRNzyPEGGW67tcqcj71NTZgE8Fqwj5p5hYzoww2i",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "2GjT9KNBtkNWgZrboqSY1u2hXhtWuTPKoEyncobgwspG",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "AC5XdJRzHCBHhCM9Xhwno5ke5Hut181QYmkatfKjDiSC"
+          },
+          "gas_burnt": 7139229352288
+        },
+        {
+          "id": "8iYU4LR8QQ6hvG4uv41E4C8ARuLURU43hbe7yBK2m5hb",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "5ePQcQNjdyGnxMKb5MCFYqSxK6xQh8Zwyq8m5zXnGBT4",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "AC5XdJRzHCBHhCM9Xhwno5ke5Hut181QYmkatfKjDiSC",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6441718758048
+        },
+        {
+          "id": "7eECEsQziPqcss9tQjk9M52EKNLwC6twebMarEAxaaS",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "ESNT2gZE9kpAxMgKCHw5oRU7B94za1XRJniBLbNc2yS6",
+          "executor": "user2.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "CjXvKVqaNrhab2JauAyCwJseHL8TBoH8oQYtfXPEDvRs",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "G4mFGogRzhfTQ5Jh6W7wLNh4ND63vyctGYhZ6W92d3uj",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "Gz647zLJCeK7xo7nTCzimK7i8fdoyxVuDBaktSZMF8nh"
+          },
+          "gas_burnt": 7123829718532
+        },
+        {
+          "id": "4jWrCFvCkkyeiBPNaTTcQ3vbj6JEAZoJKCwqiAJ1qGXB",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "48nJWw7WcPeRAFG74BideeSYt7YDcCkExKzg5wpNFDZs",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "Gz647zLJCeK7xo7nTCzimK7i8fdoyxVuDBaktSZMF8nh",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6469175807268
+        },
+        {
+          "id": "8yPX8jL2ZYEx23GQJHGhgpgoXe24YmT6xEM6gW2GwxCJ",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "Bw9EziTdHyibeHgKAyCu148UmotsywsY56SUMt4Z77gT",
+          "executor": "user5.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "zrWQBVKgFCyi5Tp34EUgjMr6teCJY5SF56hg93cx6S3",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "9GX4SCKa5ZkzWhN8c28voDU6GjVLvkCU55MG8945HEec",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "8hbpUpZZ6LUMZHFcho6Qymyg3quYLMhzpsbTT5UBkagh"
+          },
+          "gas_burnt": 7273201085740
+        },
+        {
+          "id": "7PnStkscbbf9sQF4nMtWjhYcKHwKp7ccJeibt27fHcrp",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "Hg8UhPBwKGeBGU362yMdgpaK6C2gyi8fy42RPicq8H6H",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "8hbpUpZZ6LUMZHFcho6Qymyg3quYLMhzpsbTT5UBkagh",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6374938121796
+        },
+        {
+          "id": "Gs1m5qzvisZxrDiiVMnwC6swouw8JpionfuMkz8bS6fx",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "6wSvhsnLk87aZdxdjvbKCSvWvE35bELbzrfMVQQuxVEz",
+          "executor": "user3.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    },
+    {
+      "label": "request_withdrawal",
+      "hash": "8RktjJhRLfp9aX5k6osUctMpXbtamx6dUiwMwByoC7Vj",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "receipts": [
+        {
+          "id": "D1HKuNLd891H8kPvrHfUH5Vo5EnmNnLEYiXgSJsNnnZ4",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessReceiptId": "CRjfumLUyqcxtmePvCC8fSFc1ByZDdU4QV8MPBLhrVN1"
+          },
+          "gas_burnt": 7249424937160
+        },
+        {
+          "id": "FChxjFmS5R8zkU9qZvtpFm4kEeojZ96Poh5aEyp3V5hx",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "CbtcxfHmr718iWAoTM9g7f5tThHAKaLw9fgVVFzbjvTF",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "CRjfumLUyqcxtmePvCC8fSFc1ByZDdU4QV8MPBLhrVN1",
+          "executor": "core.sandbox",
+          "status": {
+            "SuccessValue": "IlNVQ0NFRURFRCI="
+          },
+          "gas_burnt": 6387369142200
+        },
+        {
+          "id": "AxJKSzXTm9cnJJ8E4LvbUvPLdmygM64F3Ux89HBzfhom",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        },
+        {
+          "id": "3MWkLySzTvkp8ydpUCMhLVx5WkNRY95DsHE4DTfTjZPa",
+          "executor": "user0.sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500
+        }
+      ]
+    }
+  ],
+  "target/core-artifacts/oracle-fixture.wasm": "915aa78b36268178fb577ac0d0c4d5521c34059780a3693c92d7d2c41d32f9ad",
+  "target/core-artifacts/clearinghouse.wasm": "d7d16e53dceaaaa7681ac8d7a147b3ce14bc81eb891b4f069b9506882c265888",
+  "final_custody": {
+    "native_balance": "44660661925685237733333414",
+    "free_collateral": "2075900251250000000000000",
+    "vault_collateral": "0",
+    "vault_storage_fund": "0",
+    "roll_storage_fund": "0",
+    "series_reserves": "1933333333333333333333340",
+    "refundable_storage": "532480000000000000000000",
+    "fees": "1000000000000000000074",
+    "series_storage_fund": "40960000000000000000000",
+    "market_storage_fund": "81920000000000000000000",
+    "operating_allocation": "20000000000000000000000000",
+    "pending_in_flight": "0",
+    "unknown_in_flight": "0",
+    "tracked_user_collateral": "4009233584583333333333340",
+    "retained_categories": "24665593584583333333333414",
+    "retained_categories_covered": true,
+    "unallocated_or_in_flight_return": "19995068341101904400000000",
+    "storage_bytes": "664882",
+    "storage_byte_cost": "10000000000000000000",
+    "next_ticket_id": "10",
+    "operation_sequence": "113"
+  }
+}

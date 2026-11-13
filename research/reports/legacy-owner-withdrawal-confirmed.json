@@ -1,0 +1,102 @@
+{
+  "verified_at": "2026-11-13T14:09:53.538Z",
+  "network": "testnet",
+  "hash": "BYP7owSgzB5nAvEkK4p8MYPWXsqmxw8KeeRbLFT8iMzt",
+  "intent": {
+    "args": {
+      "amount": "79660000000000000000000",
+      "receiver": "0xdeepak18.testnet"
+    },
+    "attached_deposit": "1",
+    "domain": {
+      "contract_id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "network": "testnet",
+      "protocol_version": "1"
+    },
+    "gas": "250000000000000",
+    "kind": "transaction",
+    "method": "request_withdrawal",
+    "operation_id": "96cd600616448b3294905e992530cf1eba25fe85f75830df8fa6afd2d8182a47",
+    "schema_version": "0.2.0",
+    "signer_id": "0xdeepak18.testnet"
+  },
+  "result": {
+    "hash": "BYP7owSgzB5nAvEkK4p8MYPWXsqmxw8KeeRbLFT8iMzt",
+    "operation_id": "96cd600616448b3294905e992530cf1eba25fe85f75830df8fa6afd2d8182a47",
+    "warnings": [],
+    "receipt_id": "EzWEpSfjYKcjD2nM4UWP4RfhvYz5uMzDSBgpmS56onNF",
+    "ledger_operation_id": "8498a7b61b8b94d3946202b6dc71691db1da6e3876763e7e7cb3f3a7ee8a721a",
+    "ticket_id": "7",
+    "ticket_state": "SUCCEEDED",
+    "state": "WITHDRAWAL_SUCCEEDED",
+    "callback_receipt_id": "2MQnZSUFxpRXk6d34E7Ty5iRb4Rpk2DsMACmKc67iGRt"
+  },
+  "block": {
+    "hash": "9Uzj8kovyioNqHXGeo6JB6pp74TFAq7UBLiGt2sostqu",
+    "height": 277520338
+  },
+  "account": {
+    "free": "2349869425157005740",
+    "storage_paid": "40960000000000000000000",
+    "positions": [
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      }
+    ],
+    "retained_tickets": 2,
+    "closing": false
+  },
+  "custody": {
+    "native_balance": "20432637713356925157005791",
+    "free_collateral": "2349869425157005740",
+    "vault_collateral": "0",
+    "vault_storage_fund": "0",
+    "roll_storage_fund": "0",
+    "series_reserves": "3",
+    "refundable_storage": "40960000000000000000000",
+    "fees": "5000000000000000000048",
+    "series_storage_fund": "204800000000000000000000",
+    "market_storage_fund": "81920000000000000000000",
+    "operating_allocation": "20000000000000000000000000",
+    "pending_in_flight": "0",
+    "unknown_in_flight": "0",
+    "tracked_user_collateral": "2349869425157005743",
+    "retained_categories": "20332682349869425157005791",
+    "retained_categories_covered": true,
+    "unallocated_or_in_flight_return": "99955363487500000000000",
+    "storage_bytes": "619051",
+    "storage_byte_cost": "10000000000000000000",
+    "next_ticket_id": "8",
+    "operation_sequence": "71"
+  },
+  "total_recovered_to_owner": "22265965711682354042994213"
+}

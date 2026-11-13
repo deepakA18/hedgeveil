@@ -1,12 +1,14 @@
-import {walletFundingActions,transferFunding} from './funding.mjs';
+import {walletFundingActions,transferFunding,expiryFunding} from './funding.mjs';
 import {NearConnector} from '../../apps/web/node_modules/@hot-labs/near-connect/build/index.js';
 const $=s=>document.querySelector(s);
 async function api(path,body){const r=await fetch('/api/'+path,{cache:'no-store',...(body?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}:{})});const d=await r.json();if(!r.ok)throw Error(d.error);return d;}
 const data=await api('plan'),{plan,intent,manifest}=data;
 if(plan.kind==='hedgeveil-native-testnet')transferFunding(plan);
+const expiry=plan.kind==='hedgeveil-expiry-testnet';if(expiry)expiryFunding(plan);
 const probe=plan.kind==='hedgeveil-oracle-probe',native=plan.kind==='hedgeveil-native-testnet';
 $('#summary').textContent=probe?`Wallet: ${plan.owner}. Receiver: ${plan.root_id}. One request; deposit 0.02 test NEAR plus gas. No keys or accounts are created.`:native?`Funding wallet: ${plan.owner}. Transfer destination: ${intent.receiver_id}. This is a separate, locally controlled account. Budget: core 30; resolver 8; two makers 4.5 each; administrator 1. Total 48 test NEAR; keep at least 1 in your wallet. Source: price-oracle.testnet. Vault disabled.`:`Funding wallet: ${plan.owner}. New account: ${plan.root_id}. Budget: core 30; oracle 30; two makers 6 each; remaining 8 for admin, publishers, storage and gas. All amounts are test NEAR.`;
 $('#details').textContent=JSON.stringify({intent,plan},null,2);
+if(expiry)$('#summary').textContent=`Funding wallet: ${plan.owner}. Transfer 32 test NEAR to the new service account ${plan.root_id}. New accounts: core reserve 21; TWAP resolver 6; two makers 1.5 each. The service retains 2 NEAR for registrations and gas. Each maker starts with 0.1 unit per market; liquidity is limited. Old contracts and claims stay separate. No wallet access keys are requested. Keep at least 1 test NEAR in your wallet.`;
 let selected=null,attempted=data.record.attempted;
 const connector=new NearConnector({network:'testnet',autoConnect:false,manifest,footerBranding:null,cspNonce:$('meta[name="wallet-nonce"]').content});
 const valid=w=>manifest.wallets.includes(w.manifest)&&w.manifest.type==='sandbox';
@@ -25,7 +27,7 @@ $('#fund').onclick=async()=>{
             actions:walletFundingActions(intent)});
         const hash=result?.transaction?.hash;
         const out=await api('recover',hash?{hash}:{});$('#status').textContent=out.state==='SUCCEEDED'?(probe?'Price request receipts confirmed. Returned data still needs validation; this is not settlement approval.':'Setup funding confirmed by finalized receipts. The deployment service can now continue.'):out.state+' — check receipts; no automatic resend.';
-    }catch(e){attempted=true;$('#status').textContent=e.message==='OWNER_NEEDS_49_TEST_NEAR'?'Keep at least 49 test NEAR in the owner wallet before funding this 48-NEAR setup, then reload.':e.message==='OWNER_NEEDS_81_TEST_NEAR'?'Fund the owner wallet with at least 81 test NEAR, then reload.':'Setup response unavailable. Reload and check the retained attempt or recover its exact hash. No resend is authorized.';}
+    }catch(e){attempted=true;$('#status').textContent=e.message==='OWNER_NEEDS_33_TEST_NEAR'?'Keep at least 33 test NEAR in the owner wallet before this 32-NEAR transfer, then reload.':e.message==='OWNER_NEEDS_49_TEST_NEAR'?'Keep at least 49 test NEAR in the owner wallet before funding this 48-NEAR setup, then reload.':e.message==='OWNER_NEEDS_81_TEST_NEAR'?'Fund the owner wallet with at least 81 test NEAR, then reload.':'Setup response unavailable. Reload and check the retained attempt or recover its exact hash. No resend is authorized.';}
 };
 $('#recover').onsubmit=async e=>{e.preventDefault();try{$('#status').textContent=(await api('recover',{hash:$('#hash').value.trim()})).state;}catch{$('#status').textContent='Receipt verification unavailable or hash does not match this exact setup request.';}};
 state();

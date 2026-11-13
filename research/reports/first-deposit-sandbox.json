@@ -1,0 +1,73 @@
+{
+  "scope": "Local compiled-Wasm first deposit; no public transaction claims",
+  "wasm_sha256": "d7d16e53dceaaaa7681ac8d7a147b3ce14bc81eb891b4f069b9506882c265888",
+  "checks": [
+    "Two exact funding events verified from one finalized action receipt; storage and collateral stay separate; one durable handoff",
+    "Second-action failure rolls back registration; SDK confirms failure only from finalized receipts"
+  ],
+  "transactions": [
+    {
+      "label": "one approval, two actions",
+      "hash": "2P66SBUM8TWEyZHAkcAUi9ni54Nr2rN9pYeUnFfgpsRm",
+      "state": "SUCCEEDED",
+      "receipts": [
+        {
+          "id": "FouNSjWiZNkpCca4EBoWBiRbFUGxWoA7LbLuRFwLUHYG",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"d46db9fe2f3b350d935f0dabc3390db07cd4b75859e580a3565dc6bfba201329\",\"actor\":\"alice.sandbox\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"alice.sandbox\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"e3270b0ead16af13f686455d36ab55e27955ac39887d9d424542998d91e39ff9\"]}]}",
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"32343727fb8905bac6a94c0f7c5519a1bfac0edce2fb44808d8737fada6cd32f\",\"actor\":\"alice.sandbox\",\"event\":\"DEPOSIT\",\"deltas\":[{\"account_id\":\"alice.sandbox\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"50a6c8c4de89525fdcfc843328450a5dd429ee5bc77ac0dd5fca6acf517d7ae9\"]}]}"
+          ]
+        },
+        {
+          "id": "Be1YAPVaRMfjvEh6XWUiZCybKy4Bu5qH9Xj7Enosv8yx",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    },
+    {
+      "label": "second action failure rolls back setup",
+      "hash": "GmoaySq2BHzcxEDVYGPaJhaNdPkGBSdZNXvPH7NaiLTU",
+      "state": "FAILED_CONFIRMED",
+      "receipts": [
+        {
+          "id": "HMGu4MtUsLRenfRWA59DS3SGfzznNs13JmaQVoqwZ9T7",
+          "status": {
+            "Failure": {
+              "ActionError": {
+                "index": 1,
+                "kind": {
+                  "FunctionCallError": {
+                    "ExecutionError": "WebAssembly trap: An `unreachable` opcode was executed."
+                  }
+                }
+              }
+            }
+          },
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"core.sandbox\"},\"operation_id\":\"b271ffa6448e0011141efb03fb282cbe8b6ca10c1bba1d9838e7c9a0971c38d5\",\"actor\":\"bob.sandbox\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"bob.sandbox\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"1ac620aece72a0087306c67c0ca9948b5b15281a376273b53129d9ebf043d868\"]}]}"
+          ]
+        },
+        {
+          "id": "557CZBhESoVVVMLvJshGQZigCRMvmru6sG2VdZJHP4n1",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        },
+        {
+          "id": "3Winxp6w23p4FNDrhHjuaqdjknZ42ish3pfVkPHUBp4S",
+          "status": {
+            "SuccessValue": ""
+          },
+          "logs": []
+        }
+      ]
+    }
+  ]
+}

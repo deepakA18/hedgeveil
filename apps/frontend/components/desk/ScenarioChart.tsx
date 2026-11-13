@@ -44,10 +44,11 @@ export function ScenarioChart({
   let amount: bigint;
   try {
     amount = BigInt(parseNear(quantity));
-    if (amount <= 0n) throw Error();
+    if (amount < 0n) amount = 0n;
   } catch {
-    return <p>Enter a positive quantity to explore the payout.</p>;
+    amount = 0n;
   }
+  if (amount === 0n) cost = undefined;
   const base = finalPrice ?? live ?? strike,
     maxX = (base > strike ? base : strike) * 3n;
   const reference =
@@ -218,19 +219,21 @@ export function ScenarioChart({
             Payout in {unit} for {amountDisplay(amount.toString()).text}{" "}
             {amount === 10n ** 24n ? "unit" : "units"}
           </text>
-          {(finalized ? [0n, 2n] : [0n, 1n, 2n]).map((i) => (
-            <text
-              key={String(i)}
-              x="52"
-              y={py((ymax * i) / 2n) + 4}
-              textAnchor="end"
-              className="scenario-y-tick"
-            >
-              {unit === "USD"
-                ? usdText((ymax * i) / 2n)
-                : amountDisplay(((ymax * i) / 2n).toString()).text}
-            </text>
-          ))}
+          {(amount === 0n ? [0n] : finalized ? [0n, 2n] : [0n, 1n, 2n]).map(
+            (i) => (
+              <text
+                key={String(i)}
+                x="52"
+                y={py((ymax * i) / 2n) + 4}
+                textAnchor="end"
+                className="scenario-y-tick"
+              >
+                {unit === "USD"
+                  ? usdText((ymax * i) / 2n)
+                  : amountDisplay(((ymax * i) / 2n).toString()).text}
+              </text>
+            ),
+          )}
           <text x="60" y={finalized ? 187 : 239} textAnchor="middle">
             $0.00
           </text>
@@ -306,14 +309,19 @@ export function ScenarioChart({
             d={`${path} L580,${plotBottom} L60,${plotBottom} Z`}
             className="scenario-area"
           />
-          <path d={path} className="scenario-curve" />
+          {amount > 0n && <path d={path} className="scenario-curve" />}
+          {amount === 0n && (
+            <text x="320" y="120" textAnchor="middle">
+              Enter a quantity to preview payout
+            </text>
+          )}
           {(finalPrice ?? live) !== null && (
             <path
               d={`M${px((finalPrice ?? live)!)} ${plotTop}V${plotBottom}`}
               className={finalized ? "scenario-final" : "scenario-spot"}
             />
           )}
-          {inspecting && (
+          {amount > 0n && inspecting && (
             <>
               <path
                 d={`M${px(hoverPrice)} ${plotTop}V${plotBottom}`}
@@ -327,14 +335,16 @@ export function ScenarioChart({
               />
             </>
           )}
-          <circle
-            cx={px(reference)}
-            cy={py(unit === "USD" ? dollars : payout)}
-            r="5"
-            className="scenario-point"
-          />
+          {amount > 0n && (
+            <circle
+              cx={px(reference)}
+              cy={py(unit === "USD" ? dollars : payout)}
+              r="5"
+              className="scenario-point"
+            />
+          )}
         </svg>
-        {inspecting && (
+        {amount > 0n && inspecting && (
           <div
             className="scenario-tooltip"
             style={{ [px(hoverPrice) > 320 ? "right" : "left"]: "3%" }}

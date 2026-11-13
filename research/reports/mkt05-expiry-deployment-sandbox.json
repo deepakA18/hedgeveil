@@ -1,0 +1,1790 @@
+{
+  "scope": "Compiled Sandbox deployment and ten funded markets; fixture source only",
+  "passed": true,
+  "checks": [
+    "separate deployment lists ten genuine markets across two expiries",
+    "each market has real funded complementary supply",
+    "maker has independent funded inventory and free collateral",
+    "maker has independent funded inventory and free collateral",
+    "two separate operating NEAR covers setup without collateral borrowing",
+    "restart neither reprices cohorts nor reissues deposits or splits"
+  ],
+  "transactions": [
+    {
+      "operation_id": "8b08de02c5faead65e2731d87e99459715ddde0e5d6836d3a745427f2d23ceec",
+      "hash": "6YbWtd3EzxEDgWGr4yxa7yRZxza2iRxoJvmsYaNFhs8c",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BBQrsSRVySzi4LTi26Ht6QfHJLZjPwNTbSGx2ZBLoUFv",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        },
+        {
+          "id": "2XhXikWhFZ6dh93TshVqJ9Xmk7PdUiiWoXCAkA3SWxDB",
+          "executor": "sandbox",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 223182562500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "6d35e1ad6eb16db459017b8607c792d6e6b8f67c2ac0f3bc2909fd8aa15bbfb8",
+      "hash": "WtHS2jy7HA6b3FjDmzf5wFHZSWzdLqixWNStTiusnDm",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5XaSVYtGUoCsUh3k1MW6jHEh1pkjDZZ1EJEnpgvXodtB",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        },
+        {
+          "id": "EuihwMmKrx3annjUnRFDuJXnKpb3Qcv5F75Vg9UhvGYN",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "30fd628be3b6a5b17150e0ba1da30ff50af895e3f48bb81adfee63418ba82eb2",
+      "hash": "76p4rCHMixN6iaJtv7SEgnCvybPhuaHf2NjYx4sNmfJJ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4yLe64JXMVL9PDwew1fivR4ygu7bshuc8Leha5yipiMg",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        },
+        {
+          "id": "8cCdLn3Vhr7Ks4uAS3XXTMaVYf39WqsQBk5j5wWtx1SW",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "bb8e1cbbb09f5b04793a2b5008db44e1a115f5753076b010edf4a48d5cacef4f",
+      "hash": "9PFA8o9kqy5jooECinE4aumsKWi3DvibXVcC4p75x5Ab",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "G8NUE4QcsY1ypBVVHuHmr75VTFY8XNrufWZiE7dC5zvE",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        },
+        {
+          "id": "Ah1rdd6oJXdLugK3H2SuDNLzx7Sdy8hfc2VRguR2CWHt",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c5987be69df77c31819127dc7d9c74d98f1a3572c140c6986f007dfeb287ed85",
+      "hash": "4bPNWwEPAUrTez9D1s2kvcmquz7bei2AxtBuLxNM29WK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "EoY8i8GZPmMSFZRtEPW3bZ3ifYd2MoAbGjKVEGAc5H6n",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        },
+        {
+          "id": "EpsMX9izesmtbwRZ1pqvoRojYhB19t1bQxqBasUenPCy",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "ce1ddbc9634c76919e96a22a2822fcdd45731220dd7e20a657beb2441e7f1e49",
+      "hash": "DQQEYTRCi44rYUW5Cekk1UMwmSRMZKp3WKXA3CKYEAb4",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7bPEMihgzoCSjXfTXCx525rjsV1XYin9LE9CoseN6qZ4",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 24057759085510,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"INITIALIZED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"1\",\"state_hash\":\"baa78f2930e3052e5916fe15ade4822d6550bd6cad099dafc7094c3721adfcf6\"}]}"
+          ]
+        },
+        {
+          "id": "8tQPuxxkrZYofSxASe9kUXRLoTQb6MswEPL1on6uBRoD",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "0c03d863078eeb47352ba7b0a247e35c6473282f43915bb320f1faf6be44aa10",
+      "hash": "LWtTpg13ZBwSmhMuK6U8iesEy5iYr2SjguLfLyyv2Eb",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "3E76zkLqoSNrD91ucegRYZugWGs35k5iqJSEBKfQKhYh",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 44492992422059,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"e9db56a6dc8943dac3bae5a6cbedc46a9620454eea7874e7d0f2ec8dca67abc0\",\"actor\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"event\":\"INITIALIZED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"OPERATING\",\"ledger_id\":\"bootstrap\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"20000000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"50d63d00f892cc95d2f1897b1d0bb181b2a0d70691109362e0e292d5d242f941\"]}]}"
+          ]
+        },
+        {
+          "id": "CAJhXX8HfruaTexS2BKRTKqtNahKNKRDi5fsXWxa7zyH",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "35bf9c869445db1d2394a0a40b2c41a8fa650aa0b922b5840ea57aaf7b742af0",
+      "hash": "HxN2LtwbN8vrfJ87Hhot1dbU3WvfmsqUr1oF9fjUcgX8",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "Bx59UJM5jjRpERwrvQjWGXrBWajUVFotXFbxnDKttGNP",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 2605348252788,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"ac8f2c12b74bb5a59ae630c09e413c5063ad341dcecf869a6a5de6958c466846\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"6ba9c5844fd72b60642228396c94da82b0a0ac223665824f76b27cc8ad6dbe97\"]}]}"
+          ]
+        },
+        {
+          "id": "3okUFpxRKWXzT8FE1wCU4kT71Sk4PBVorMp5JTXH5e6H",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "71b23f7a165b35a6a12ab66b537eb849c765d473f5d740eff0213e3fe83e6d1e",
+      "hash": "91Ci8H9egny8uJPY7v9MJH4AFygV3BCDXWbRjMyfYqEY",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7tvi3yjJuc9g6tGwW4nf3tTaeWdT4G1cEsztGjL3wDPR",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 2867887490810,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"a3ee6fca0b080b2c4da2d8d9c59fc4338c5d5d54b54f539b6141d46b293503c9\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"e0ff0de6abf2f323c9710f753ba930efe96167dd9144b5c4dfffc303b21007ba\"]}]}"
+          ]
+        },
+        {
+          "id": "47dXuasSFgKhmAwrK6E8E5sqHiMv5fRKNAd2iCBMrMY9",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "78786e4799a54dcd63d24ec8dc600356bdbb1da852ed215747f14a155ed95596",
+      "hash": "FspFScLoHf4zGY2Cf7q9DkFiLGxxzdoj64gWEfSvjUt8",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7F84uJ173uyNBfnJyjCacLLBSdrQo3ZsHQ9V242sPNb7",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3121517926864,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"2abdb85f07c9864580feba1fb97e6c118436a7fbc20544e2399a953068e3744f\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"STORAGE_DEPOSIT\",\"deltas\":[{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"STORAGE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"2ee0ea7ae2b07dd102683eefd367aaa339ca289dc28e98201e2e08eba0526a09\"]}]}"
+          ]
+        },
+        {
+          "id": "3LtMCKdEyEJV2SWUv7KqQ65K7ttEu1z4u7xYoHBxnkxR",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "896f62796d59a5a1be4053e76f484bb7ad1df1ae8c3c6745468341b596aef4ac",
+      "hash": "14KF5Hv5zMfDbghBLDYsqoPfE6ka7WV2iXBaCfR9cpty",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8xf31EqP2k5SAZz2uKB5vaQFLD741kP9CoQH6ivsVvW1",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3220959915117,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"a2fd6aaefa36539eb1a771cad77772a4bf8acebe06b93b4300a2cf4f5228c064\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"DEPOSIT\",\"deltas\":[{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1100000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"bb12f85c62a1c45a831056dff1a01f9d150bf171721413325f4771b0eee1e306\"]}]}"
+          ]
+        },
+        {
+          "id": "5bvy8V6FDVXDVojKg3VB6zAMn93Y52kTq2rCWkEk8f2G",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "b7095e480df4237631d26736536e23b484457397a7eaf2e9f8406dd5f7b25ac5",
+      "hash": "FWjnNXb2MuZPg5B3emuMusYiT3RsrJEGuQmAB4HBmWNE",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "D8B86LVeeytMUEZW6E7iD6pBywyUN1oKLeLec17ZLqni",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3438806828240,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"1be5faf087a8968f24800090fbca31260a69fff73a7f52c0b4b16bdf3b792f6b\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SIGNING_KEY_REGISTERED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"market\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"1a254de158d652af3060abc0326449f0f78874bafea5013fd0b88d0d1596877a\"]}]}"
+          ]
+        },
+        {
+          "id": "8ZKsvSaJNUNZoFEKe4TVQYJuGQijiUr3CPVDpSrqGEvr",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "6b335b1c53abb4b00b0481e5d9386e8034db8a82bcde978ea2c7511f3889e1e0",
+      "hash": "7KybJSo5BPypCrXq9sEnAeNakbKoDP7tQMCSZqLhEpZh",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8hstMqQvJfiiustKQ6qKZt87HTH7wPwpBhY6pAKFiqv2",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3312009298830,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"e9fe1b97b3fa44d0e1b5a95de58973628aa0eca22a1edb5bd08606d931bfbbab\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"DEPOSIT\",\"deltas\":[{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1100000000000000000000000\"}],\"fee_amount\":\"0\",\"state_references\":[\"374c7a27818982873aaf2c4717aab5e34a7eb8be66f5ffaca7f7880ed65b7ffc\"]}]}"
+          ]
+        },
+        {
+          "id": "A4Gdu1K4rnqRXYywo9FLB7VqB1D9TziFeHCUG5tj1pct",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "dd95d650017fe966c26c7971fc9585b5b437d4a567cb20bd1151c0c76fc8441b",
+      "hash": "6wJoFMMzJxbuLtoAd8GHZa7PLdpgVdL4kgn5ojW3EHZx",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "G6Q3HseoDAj1AHypjdZbF3XLXQxs1HZqxgqbEmpkVaYg",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3531795447845,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"76ce96c5244a2c00519acbe8f1a1afe208b7a45f764a2874a85b01ea9e4553db\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SIGNING_KEY_REGISTERED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"market\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"876fd09a6754767a5b52b41a156e8fd0018a272eb08f46f8e67f9068961db7ba\"]}]}"
+          ]
+        },
+        {
+          "id": "EmyPV2VvAHpjcin9qyCiRN2oTMPxtK6m5w9cw14sekjU",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "706718d1769010f3fb930ee51be057ad74d9c307c36a82fc46f8007a81e4dddc",
+      "hash": "HWaTDgfStUuK2NtqK7RciUKve7pUfZzfWp7rEpbG366g",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HZtbRaF4twGQ2vTcMjcrZhPf8ZteUk1nUvCnfeiJEdxN",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 2850713565248,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"2\",\"state_hash\":\"62c81f252310d80e1849ffdaee2540b63e1aa6aaab22d593dabba1a07441a390\"}]}"
+          ]
+        },
+        {
+          "id": "3ERKyfVY3T7hSEiEtBNCV98eXin3qtVWwsaeMVRh6Rsd",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "dde734dd167df2261aa0052f2507d7e8f4d74e84dda175b6b0ce384555849476",
+      "hash": "59Db6ypNiYQPTfyLqSrxGzj5TBcVPwm3C3P97urmNKto",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6HsuHyAUR6fGUa9vkqQdbZxk7EXLyG4MKaVZtSVVxWiw",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3806673183237,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"d074a47ba6464a9c03dfee51223b2ca3951eea0b831f66b05d79fae8188fb725\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"9fa0a0d89e3ac98ee84ed4ca1d571b6b66627a2efe7b1ab1659ec9ef71d09abf\"]}]}"
+          ]
+        },
+        {
+          "id": "ACfx17rHhpoeFBVB5LJVYzKQ52BbsNCixuiGksKQiztM",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c137c5defee0aed09ef269d9d82188e8d5f3f06d0c0e55b00cc3c58ab6ef86e6",
+      "hash": "HiETHcvv52w6yRz8gDMqjz3fwH9AJHhMk5nrAPMYziwW",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5TWPwS2tS45JvdfW7YyZ9jUuPc6umc8pvaLTYEZ6odmr",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4653825759449,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"2e28499e2fdd8453e0fa925ed26eb415d239c9dc1f16448f095c3f16b1051901\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"09b68635ac99432d1ba770e1623729339a4b4d7bb55c1dfc04156d9403058574\"]}]}"
+          ]
+        },
+        {
+          "id": "Eq2FqidNkUTCZooVShJhs2Nts98UHPKu84mHQuewu3Hc",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "d228033d412af7efa12aff0c3d18a975dec7f9abdee9a86fcc62f8b7a7fc752d",
+      "hash": "C7hTLwqG8qmcKpEVqFH9NTXV1T9CspBh3yJvzs2RnE7z",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "5X4enEbTDen3gPn3gV4kyuBgTC6p8qW1pi8dB2u6rhCV",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4718498494829,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"aff4126d8fce63fe103f554f4c6bf70599f79d087e7a6a1bad82518d6b390811\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l76a1071cacb9658b5b413f98\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l76a1071cacb9658b5b413f98\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"66fe17b1e1fb5edd254bd8abbde2446f88b90a9b09c0659da61ed7c2d644fec4\"]}]}"
+          ]
+        },
+        {
+          "id": "B9kZC6udy4XsbiTayKJKd231hR1TuYP3HCEzndDpWJkU",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "8114c1bb860a4a9f1f0ddbb62216fa22eb4583a8c023ca736fec03f0a2fabb00",
+      "hash": "CEyGnFWgQeSF7Pse5XuNCRN29xjM1QC32wWTLH8uMqs8",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CBYAjXr4F77y6Pv2SQqcwPkgQigMABdbzJhr7VMquwny",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3198640921195,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"3\",\"state_hash\":\"09bfb356255cd0374a1f3cc0fa40c8cb8acefed074145b9ae606065a0ee1494e\"}]}"
+          ]
+        },
+        {
+          "id": "CaXKSxob6DzfPnuMXnHpZbo4DwVS9LQbWRDyZeL6S4Fw",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c8c87be3853a9b8133699a3196f0b2c9dd4503118fc7f07d3205380b1c6f1770",
+      "hash": "3uTZiTtktwcVkJgqujtQGr7zgcvVR4nDynnTzMSNwb6b",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "52ctNrTA3TgehAZYDvxP9TsgH6jh4oFUzMdvqvLCkyd",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4109142765243,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"5b9c7e34991bec7dfb39233dfb24206427b07dcfe940c082d1b2ae47f35a4101\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"fc890de321b3e79a57c44c5c95d01ec615a30aa11a06ced4797714bbbb5a4909\"]}]}"
+          ]
+        },
+        {
+          "id": "CsQvEnv1cPuMckf7c1kAJ5SAAcWu7KEPyASKAxe2Pg6F",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c3623afe033e55da06a5e0233b5e78b563fabb1246f8416aa9d43e4e10a0b9e5",
+      "hash": "FWq1hZB2BXGbmHUgthT1sS5Vaw5xirBq98V1RoSFJvgP",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "ASDYYASomdLngasN6HkNE9XzaEWiLBrLvdWVKiwwUfMK",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4968369285755,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"71646fc77da97822dc954423c7b68831cf695602bfe06846e40eab92d987ff16\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"de196052884add31480495ee7a17cb6a85fb3704033a0d6fc8d66ccad75e8da3\"]}]}"
+          ]
+        },
+        {
+          "id": "2afSJ1rkVQd9wbPkCj4UPApDHy43eD4hw8TFrHg4Akzq",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "44c212a0a716a74c08620fe6a9cfd2d95106302b07197bb8a06746225360fd8f",
+      "hash": "ATXPmVKX4JrxiFCSq22J8gaXMAK9D1m4eqZ6nJ6EtBAA",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CESDG8peEAU2TQreWm7hGgyd3F4otTmsakF1C6rzeHDm",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5057500088747,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"53241b4d2c666cc7672fd0bbc81d2dc9677bec58fdf303eb2d7625bce69cefe6\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l20b63986795167c2e7d477c9\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l20b63986795167c2e7d477c9\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"7b14fc746c568fcca0489a49f7437efc441a59f040d2dd89f22b03f54de48197\"]}]}"
+          ]
+        },
+        {
+          "id": "BHkuayxtaXCm24YGEBsWocFuwMpPkWaYqRixwVVvzpkL",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "91548a04cea2c9609e2e1a1692d5c568971870a687f6e473091417287cd887c8",
+      "hash": "7ibJQNcHGx6r8eVrPUUucvBHHUX8JwyvU2adsNHtMYZ7",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "2YsDuPSbArtZUoyyqRjvsQxHsHoKJq3xhAtRmtSxKHck",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3537086836998,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"4\",\"state_hash\":\"999a7d8f9a4ad46d2ff93cfc058e0bfc97bd18ead2aaa65321ff84019c7012e3\"}]}"
+          ]
+        },
+        {
+          "id": "HKzWJ5mhd4rt8xy4dfZbxwoiDb9Mhe2M3i8PLTWo6XhA",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "4846417754e27691ee366a9f3195f3722500004cc2aa581e2d6c3cba715689f3",
+      "hash": "56tEXgivraKPRkWuyVS1YsMwFiMYwm5SmSsmaeBRPvbP",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "47e1WYfMRk7stQYewCnRRqsp3BzAmdJBSqxCaWBGKq1n",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4457071261761,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"e8e4e75675f8c64c960072ab75aa3ad4cf222b7273fa02a5312dbad5c55b297e\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"ad056e28db9903fb95fcabafc7699f6f354caad3f74fe33809051cd2f8c1a2e7\"]}]}"
+          ]
+        },
+        {
+          "id": "Fs9TtEa9tjdA5bZmp2xiqp7L4vzJGXNkcxd8wyqEQAKR",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "dde90a9b34a921a6540dcb355c681cbb27b9bce54a351a4292b459947ed3d4ca",
+      "hash": "G4fFiAHTH2EsZ3Mj84ie8QMKWbmX4FNKiweK1XAjV1cV",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GMafqfRVMB8kMwRxx8T7vQ1KmEHZt5JmwaYjR5R4poLj",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5309811996725,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"db0868a03c5226611ade65a025c2086a34aa71f303953b4eb3c488a5ab721d7a\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"ade4eb05eff510efe32c68e2476756f124599b2f4edb8b3d6be63402829f8fd9\"]}]}"
+          ]
+        },
+        {
+          "id": "Ae8466i61xUvhrfS4wjEem4vvnPRtz6Xkq1j8ZJyQH9e",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c3e28fb950835bb4e8fd53e3940c0c60810604d6bd86e005cf56689fdf69467b",
+      "hash": "59Cw44DvpBHQ76DhGyupZD5gcuZAbTXMhnRLsPBe5yD9",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FS3k58XPVtvpb3gXDbGqbX2oSJfNAZDciSHaKHvYRSTP",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5398675404017,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"1eeb34bcc70d07193e33d89824a5a37fb431e5d78f3b867be768ff6077749251\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l5b6afa68eaa43bd71237ea5f\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l5b6afa68eaa43bd71237ea5f\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"8af5374aab88b83f903cc88656698c63626ff0fd019c7222563a3eff8a078414\"]}]}"
+          ]
+        },
+        {
+          "id": "8pWHamqkss1TtPzN5MpQjokKtn7Vu9KkqQqfCvHmv3ox",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "29a4394756c033644443ef87760880eacb85dec0397ee82c2ef028dbfcdf83df",
+      "hash": "DkkHLmzZCKsnGnr7iJPd4kBZ2QCHEYth2D8MNMMK7f9V",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "B7LpWsMDFruEwBdvLYafy3NTdsZpQz6vBTxpmV7nzQtE",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 3884028531257,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"5\",\"state_hash\":\"e561363e37dcd36e31a7b6e94a2f859ede9adb6038e8926da53412d5594f07ef\"}]}"
+          ]
+        },
+        {
+          "id": "B3jUYQx2QJFoo7cS35C22tB1SzGuhHVSFBvDRaajintA",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "689901be809aab8abb418ebc3f668eb00e584acaef5402d5147ef1b17dc591e5",
+      "hash": "GCYMhCeQNLfissKVeEf9TqvNzoUPphQWECJJc61nkfrZ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "cCSJW9YQFXwmBXrc47aam2PpRj7YtZKRHhNUAcGabUP",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4803627401271,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"e2123f4cd2bbcba62f61b9c594cea5ed43a04dc28cef28277fdfa486e2bf9e57\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"179099395b6854675f9f36ffbbfdcf6d64572971c5f44641f14f2e44f2c7f723\"]}]}"
+          ]
+        },
+        {
+          "id": "5k59ML9DY22yod5MXGtMMRq4PkWHzRsHisQbEC6dC8E9",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "78e6ee84960ab21150ffc749caee9a54b98ef0370bf02a2b0749cab1d343fc16",
+      "hash": "4SFUXioLhNwvSMLRpKbhjkYEAfbaV5itzYYqUp7fXowG",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "2t3QdnuTSFJToNvrAJ98K8CKrTYdZGNGMPz9TS5SFKX7",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5671840885571,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"3be78f8183d664c0d941c415c59eebdc23491feeb3adc9d0c5af33bee6185dc0\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"N\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"P\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"N\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"P\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"31038bcc875b7b5c53fecf121d2d92455954dd3328020b1300e35863733d61e9\"]}]}"
+          ]
+        },
+        {
+          "id": "5LR4jnYTnuiGYWUwoCPsSUkx9wgLhAu1uYBVZNMLFQSN",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "07134a18dfde437a4e88562d1232c7b6b23149f249b8e68de839b600c0049741",
+      "hash": "ByL1yw6SQMRfGkJJWKUTwZnZ1SBsFiF7hMC2y2EMRvRs",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7Hhxt5rbbecMXAcpmfkiwCzwyo4V6hXKtpTA2TyyDGDS",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5781634382747,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"79355a10497a37be0dc6a143f7307e027d8c2aa1f0fb34dc44c2861fa762be31\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"N\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"P\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"N\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"ld5794d5629130d063ff39bbd\",\"asset\":{\"kind\":\"P\",\"series_id\":\"ld5794d5629130d063ff39bbd\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"3227049c67d4166d2369208981955ea6664af5a4cb8be812e3f760ce32962a60\"]}]}"
+          ]
+        },
+        {
+          "id": "GXbDuZNKURgALW6PpWiDvMEUFHMiJv6481AUbVFLiC7w",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "4df059a1ce3fb560d711659b35548e18a35c9543d7ad44a91c6d0e2820faeb78",
+      "hash": "ARDAX8aLLfivu12XL1sJdLVb5tfhHkL1qERLxbcqi24x",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "A9ymupdikM2TjQn3obbbfzT3JcwDZmLh8D37xDnSuKXx",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4223241255652,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"6\",\"state_hash\":\"30c9e715f379e4d28f26ca486e4fe4ed176dbc4d3f515174a70ee68843449cd7\"}]}"
+          ]
+        },
+        {
+          "id": "79frCmT7kHxLrDiw4x7B4LB179SAs1oC7Gpy4sWYp2T5",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "cafdf6a41800de9227a066115588301e6982cd83450dc7651cf5930e4c89670a",
+      "hash": "mH4RE8imcsR6wZWPpNzJBJxtaK4SHqVFgttQHjVdmPY",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "A8L9EGpp4mp4oXwa37ZyL5xb9YCzJbuvsabM2TGWEBja",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5189301474801,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"55b71c61754f63c1bce8eaf7e60f6fd880bfa059d53ae031fc2da1d716b4781a\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"8aca1bd5fc4b1d80dc6f7f435f91ed0a7c6665cdc40b5e3afbcb225142264eda\"]}]}"
+          ]
+        },
+        {
+          "id": "7bmvthejLFK2vtzm5hJ6y9nYa7eeHpJtBcJ8LDTARgV1",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "e7286fc3bbd88412d05e0626809db9f2b42401c4788e8e9e33b054dfd0548661",
+      "hash": "BuoFUAvBG3DD1i9odLYjNgc7HoaTYWwzBWTrGXfKTeQ8",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "CQRH4cxtcRmcYS2HZFM9YFFAo5D1ARifhjPzoKoGGUtD",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6070391090501,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"3989bff3f0e18e25b1f7743d7022d620c0a45f0b07c91c1279754adb4125cb96\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"0c2f49f621edbd63437635d1ecfbb456cb423b904af44410530467c5c26a63c8\"]}]}"
+          ]
+        },
+        {
+          "id": "4FuMZZMHvaxGrtMSTFjeLJwjZ42x7BHLz5kPisBmFXiX",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "39715e343425dd4c8b0ab33f0b40de80e233468617f55fdceb589a0586bfeb63",
+      "hash": "FhtDzpX23ht2qSD13vEwquzaAn3T4ZWLHCF3ya2qTFjn",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HQG2x5j4Boz8urADAKHxwxE4QSKt7tSVjjTVdEZAvyDC",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6198047443193,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"a503e0ccffe4d1199845ad418f44b0c2b51b7fb6846a90c625eba0ea16864f79\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l221cf82facb4145d3c3f3e39\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l221cf82facb4145d3c3f3e39\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"eaf6be6ea07b21cc8b71308d4594c3c314d6cc3e6bfa7100b4cb59f3e26ea9c7\"]}]}"
+          ]
+        },
+        {
+          "id": "8TAwJmLecGMCgJdhEUJG1mc8uPKaXU36mJ9o9ZPj2kqc",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "1b9e704ffc87ea88ab6bc5f8464273319b2dabf4400c4da21eb2df6dec8c58af",
+      "hash": "DpvqBeYj6zThGEpevqk7TMGqrTbznYb43etG8WntySdi",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "7fU8a3HCMsUUf9ZWi4AqLUi3ECZqhTxJ36VMjA5qhjAd",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4561311994719,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"7\",\"state_hash\":\"907b06d2080e20d3fb0ad67edfbe16fbe2c63d330b94ee627122d9703f755005\"}]}"
+          ]
+        },
+        {
+          "id": "HUWmajGBSg7wr3TjWhdr9GtwqGbfdM4nUbdzwt7ubRxr",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "dfb470a3cfe7ce3e481084cfc416e21f80af180474d2f1ea35843e511063f617",
+      "hash": "Gz3vv11kz3HtAN2KF1u78Ko7zxAV5iN7fM6J4KDX7B7x",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "88pYmmPLr3AmNC7zEsdqc2yerW3CdC82HgAig6piTxBW",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5617637092443,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"efc5eb0c3618813164c0ca10078a8bc1cbc670e3b62e4b5dc39f459a66bc4ee3\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"bad1f6e176c54fbc2c57d4b9af09ba67fae10e1f1f3acd0ee50a72c24306b86a\"]}]}"
+          ]
+        },
+        {
+          "id": "ARJGCUgho1ZNuDNYCYx65m9A2vCAXczL2e54DptM8BWD",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c7cd50a0f00329de56582ae5da969a14bbe5845b0987ea35fd8c77a9fbf69c42",
+      "hash": "D3LRm7YL4gqQziDfxZDBbJJ2Av3bkaMNsp49ti3d5a9w",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "FCgGL3QttTgGbSR1dt7U33WppQjmLvKgS2SJA7TwgmhD",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6476438248103,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"40bbeef769a89a4e24c46e4a0d913fdadb87df4db7f7f001e495b3c102632fe0\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"49316d50e7930676d51822990500e62bf72094f9acee936170cb7d665022d4ec\"]}]}"
+          ]
+        },
+        {
+          "id": "8cnUJwadw31GJBaDhiHNRMBfnap7oj7eFCXZS3poXjMH",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "30a4825bb1045aa072f04a85af3d214497f63e8312f8684f42d3ef63d3a4a2c4",
+      "hash": "DgRmyVCi3fZq6ciYxScNrA2mJAW8WYe1a6rQocaLitsg",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6FnT9hn3w94U8gaUDd7Bkfsx9kGPFR59Qd7BBEfnS4uf",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6579158511947,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"1648550a798ff2421d334400768e442340dc021aadf78b49efcdbb149d70260e\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l2fef1ba5c66cb55edfb860f4\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l2fef1ba5c66cb55edfb860f4\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"fbcb1b22fb854721f0af9119f04d55f97832f026e57a825c9c3865374a968e60\"]}]}"
+          ]
+        },
+        {
+          "id": "CgwmFgnMRpMnrqCvLaFcvFGAPMYexeDeWF5NmBYaCaLB",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "1a0782911a1dbcdd764092eb2a1b90f615c31450d9d115ec9bcf9905b589786a",
+      "hash": "AHggiDdAnVpaS5nDBJQHBirKq4zVGJcFRJfBeezZTnWU",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GahtceLqyy6MmEd2ZY63QXcNEnh2zTF2sn81Senxpfww",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 4899831958562,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"8\",\"state_hash\":\"bd92a1932ec86c82b668778828f4131c9ccf666913c1b242e43cae106d1f11b7\"}]}"
+          ]
+        },
+        {
+          "id": "F6Ft7DEbva16gE5HGqyUQ5DYUQuWT1iZfb6KvzHNChop",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "091a27a7a61cc9212ec1028232494828e51f52fd28c55094ff8a7442cc220801",
+      "hash": "5q3DcMKoTCekqqEtCyx7UFiZ8KpnTpvwv86F3BZnL6j6",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4eTPfbA7xqypU2bFXBPfSBM2cV9ewPmYmuXJvUESYcFs",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6017583514305,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"7e9e1ff32f43e26672bb4e5caedb9f6c6f980502af4912825ef297e637a8f32c\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"732a8fce91aa49b6b09cdae01f91dec72b8a2eb2e5aa881a807eeb4289c99c14\"]}]}"
+          ]
+        },
+        {
+          "id": "AdYz8KkgJcxW4rXL534Smvxxw8g7Y43J69MdFy54iaCf",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "fcb4835fc588228a932ae8c21249e4c53d7c1632d5515152d3e874f326125623",
+      "hash": "EKP5i8L5UGmRrx54FBU7vMZPEEbLgEZWXvLqHfQtU5pJ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "D5sr1H1WY6wX4zJgesZbe3onDpP1raLF9h8RTRaFwDPZ",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6882849063857,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"43c79370cd2dcec5307976773e71825f61bb5e895de4e6d1e5be4de5bea85d04\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"9e13d3dd0fb23e6edf6f88c8adca4d2eaf76b1e45a6c13ffcd827a2019a893be\"]}]}"
+          ]
+        },
+        {
+          "id": "5jxHoJUsngChFgCfJvkAHJvjgRjFh6fSRY4fTxGjAuuG",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "582e122032133b2e62cf96a75ddd4e4c88fdcbe2a9a983f0be475d17e419e098",
+      "hash": "2C77AYXLevLapqY4LnDrQhDsgGzRmP5H83Reddm3k6qx",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9C8Lh7ZnM1AH4w2x3RDTY1qxj8aEtZXu31k28dbkiMdk",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7013205701741,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"beaf84e24c22a50331b9e4965f54653022c17b31e9d03c8e7d55cd5f7298b852\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l04003855dc0ecf8af6ef7052\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l04003855dc0ecf8af6ef7052\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"a29c6972813042f3fa456678d0e5f2b9d1da07f22e6a2eae7aa1c0639451136a\"]}]}"
+          ]
+        },
+        {
+          "id": "6LvxJv1NXypL4fxSqoPBi5embbFozEbWzdkPZHFYnZPR",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "64d96b9dda85eafc2fceb8c49c7bd9ff0ec3bae5e8f6c84c345fdac7e2496609",
+      "hash": "5opdDXw4y6toma4qa8sEW7PjiusMPEUhPHPTLm5ScWxq",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "F1XvgTT1a8XnNSRHGskXxiaTjo5pGYReNchodbZFBCJa",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5246915166853,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"9\",\"state_hash\":\"ef788593fd904f7755a06a6cfeb1bd515cc19609e6ae2ed5d733ef244838f39e\"}]}"
+          ]
+        },
+        {
+          "id": "E2JUFHV5B8M2jDCCb2yEWn2ryko2LN4jQJ2CrBsbawxS",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "c6ee31b7ace341c0e082ff72f1a061041f16995802d25d369984dd0bef01ad84",
+      "hash": "A3PJDiHcv66LoKU3MNrjutUr8RKYAeXMpJSGzy2Eh2jU",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "8wby9WKc7WT7d32T3ssXUGJono3tpmuQVNAJCoHajuZw",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6449435591091,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"32254521f79395e230f2096d57024bab2fcf3a566c8d06b16dd7242ec1b61c5f\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"8e1390a01ec641bab85ce9e88b66f22a8f657a0595f0d1ba825551686ace94bf\"]}]}"
+          ]
+        },
+        {
+          "id": "Agd2jEE79bWWJATdsHvAXKv7ySDVro76GTqaiBWsABH4",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "ce146d75b08dbe3dee66b123a47631bae52afb06de41646d2ae43bb8fa145c66",
+      "hash": "39VWmv4SHfgTEGfU7BRuWhzWQFzVavgEiALuuMBB12TZ",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BijPfafezYkHuh45azjpWYrU9iByTkZL86tgbN6akUtE",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7327794479627,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"9830abdadba768137414ad33413d588e8ceeebbf5ddc8763372d63f1e8359453\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"3d40613d536ed09ca6a649b1fe1ffcfc1b31e138327db342acaa2930f76d4845\"]}]}"
+          ]
+        },
+        {
+          "id": "8kWgMihhdra4Krd4JYN6aNwsWgaipEtAYzvSFPsXob7r",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "e6ea4ac9c22a02b4dd9e9e88ec69f969cc41f6445d1c15e05745235ec767bb8a",
+      "hash": "4QGBHHSRmKJcRmAsCeZF388N5scEik8h2frwMFtGYubK",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "4FitJeQC4yF3jWC6YnUsXvpuqydh3TNg51gMaJTMx2Lz",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7462438499027,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"dc2306bccbc8d29ec4053f27fd4bdb67a04c9afa3b43505d5d084ce66bf50d70\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l93d8292156771575797eb08d\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l93d8292156771575797eb08d\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"83fb96b20169c70452c6c4553988d7e6f9367316fe699e74fe948b0021a1df1f\"]}]}"
+          ]
+        },
+        {
+          "id": "3xZa6Xb5Vig6AAsXw9TsYkH5aExAmov3ZJw9JpNAcA3S",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "86e5bfc5f2c28f626afdcc775f7217c53804f3caaaeef3b9b7aedd2725cd0bac",
+      "hash": "6DvFQRXGzQTuDwPwGsmjzskG7tu9S9RCtvNUKUVuh439",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "HirFjaQ5J6vt8BVCbiZkAJ6Hsof4ahDuaDwYrw9k3JK1",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5592605500614,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"10\",\"state_hash\":\"7f3ab4b62ea1c0035d1ed5e84dd1f0bfccf58413ccc6a77405dd8e32fc7e0988\"}]}"
+          ]
+        },
+        {
+          "id": "7Scn3FGhL3rXpaEmiDT3bzK6TVKTrqcFhfuT6RWejU5J",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "677e680f873c95a2db5f66df9962edec3acef9b4001fd156d9b4aa775eb9f64e",
+      "hash": "Dvb8NrnBpPJE3kwdndgcJ1vKboPEtZnkvmUYNQHS8795",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "AtprQWMAKRf2WdsQ7skjFzrKGupFjZWdxXDaEnUxmAh7",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 6880583388741,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"9c427d1794ae83d95ad2eb676cf93d776df10650fb6b1b6f3950a5b72164acb5\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"b1d64cd1dfa3f7ef0f779cac18efea70d7258bbd540f91441df9430e9c43a701\"]}]}"
+          ]
+        },
+        {
+          "id": "H43NVampAmJP2qb9neNuXW8BrXn5Xhm3NkSMBPmSS4fB",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "a5f88d42dcdee35221ad783021faa7650f8caa06322aa162ea7a32cad9aedf75",
+      "hash": "EBB8FzByujVjdrqGQrkJhkhECVMfKUeBp8GZbJ9Sp8MY",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "BSp4N7zdjvgJXzYDJPNAM3svtNSd6miTMigXdgqTGPmw",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7750952493761,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"faa98a1593259159fd5e8a09dd3f617c125410fc531cd7b3153a1259dd5a1161\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"d7b79e71278c996c976f8e7751b14c90c437c5b01abc159577b025768f5ec0d8\"]}]}"
+          ]
+        },
+        {
+          "id": "4CgSTW9wuAjz9H8A6fEFc5DtUjYufu9eA4VgEJa1goe2",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "fde3be82ea1affd11a6eddc765a0c4754d229a9ea07001e1b982e0b736d1d674",
+      "hash": "BCHdW3C1hyN1XQnm6a4UtkSjH9M55qPUWvmK3V2Fw6zU",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9sCt6G5paiPvyLLi17wmV2e67FD8J62QpEqGdeHkQz8X",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7873986603245,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"dad5a59c7ef24fa7bc09c366883faa75016a1dda29fb118ca31d6d89c12ac98f\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"N\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"l117f8e883d19ba14444b0eaf\",\"asset\":{\"kind\":\"P\",\"series_id\":\"l117f8e883d19ba14444b0eaf\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"6854fd1bb037c796452771734ae931fba6b0b61bbb5c452c8aa337c4395e2df1\"]}]}"
+          ]
+        },
+        {
+          "id": "8jvy24YHahUyYnNdyAQTjm8DAD4imwyJjpvYaXvdtdro",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "fcd7c2f7041fa8ff6883d11c0bcf92a3db4a21a26ca09b0eadcd4942e999b676",
+      "hash": "93dRCmh8Zp8vf3QiDQ2TNiQ37reAoaC8iHodZTDuH27h",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "GR42EkU1P6r1UGtse1c1RoSvMY4RSV2De2mFvL5FD8DL",
+          "executor": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 5931252992136,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"SERIES_REGISTERED\",\"data\":[{\"network\":\"sandbox\",\"contract_id\":\"55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa\",\"sequence\":\"11\",\"state_hash\":\"ff003633ce69708768d83a84fde420aaed2c9a93097a3d7837ddb759c0b67827\"}]}"
+          ]
+        },
+        {
+          "id": "DHJqj3jncCkKtB7dzcVMkVxsmY4xt4ywcRr2Y6qQnmjn",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "fd132137fc3febd33a93bc7bd460a35f1513576850b4e8429683bf6724bcdeeb",
+      "hash": "6oVuus4jfj2ZPKA7XQhHwAQfui41MEktTgCCBrBYdS9E",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "9HAPQZVNpV5kRXfoLr4fbCJ7qmXAQXYRtqQn3pLDQzWy",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7296582602919,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"cabf3cca8f9de3d483e78877c679bee59bc15a9c8543f08b4e67c4186ed4bd89\",\"actor\":\"2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2\",\"event\":\"SERIES_CREATED\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"STORAGE\",\"ledger_id\":\"series\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"40960000000000000000000\"}],\"fee_amount\":\"1000000000000000000000\",\"state_references\":[\"15b925535b68f538c92f5a5fd2e8fbb48e337ce61d3724f5c6d00712c62c1911\"]}]}"
+          ]
+        },
+        {
+          "id": "2yMcVRGNf9cwkXcJH7RPVwUPsUrcYcWADZSwQuDkBFXP",
+          "executor": "2059d89df1fa2fa19af4a9b5340246bdc80c8fb6062c3f7315fe7c40d3b271d2",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "959c8e13222e729250b52900af94e88ce7b51898cdac33157c19bc065fe92836",
+      "hash": "sDgi33zpYYvLnzgwoagfACWRmurP2CzvDzF37jTxYbr",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6ZPaanpWW4v9MtD72a792fjwEEX3J65nx7UYfEtifgoQ",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 8168575828283,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"69ae2ea0ca5289fd8e980be6e99e292e3faf5be4d4cc66f42aff8c6c68ffa871\",\"actor\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"N\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"P\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"N\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02\",\"bucket\":\"FREE\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"P\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"6bf76fbf2e4a1c5bc5aa4c8188612f62158a9d8a97235ad72451b911b158d706\"]}]}"
+          ]
+        },
+        {
+          "id": "G681Fxr9iPaDgd6CZBSTsth72Pzf27AepWwCVQvMxujQ",
+          "executor": "ea9d52861d09861ea3c51cb43ed80895c8fe364ee52d0cfb9e7c2d235148de02",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    },
+    {
+      "operation_id": "1bfbe57ea7d84002cd12277b5b86ed1cbf33a630b4283a74a9c328b444237b70",
+      "hash": "3DFXKYapwVkydKmcnfevUZCLJ9JEsYbwiACpYYghoc6L",
+      "status": {
+        "SuccessValue": ""
+      },
+      "receipts": [
+        {
+          "id": "6ignraTBr2YpzeNYGgfoCwK3sqByJjdcKjEUMfBUxhtf",
+          "executor": "3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 8296166360495,
+          "logs": [
+            "EVENT_JSON:{\"standard\":\"hedgeveil\",\"version\":\"0.2.0\",\"event\":\"ledger\",\"data\":[{\"kind\":\"event\",\"schema_version\":\"0.2.0\",\"domain\":{\"protocol_version\":\"1\",\"network\":\"sandbox\",\"contract_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\"},\"operation_id\":\"270aa312f347442623ec875b57803c7f484fa0146097b6b46258fc3b0d5710db\",\"actor\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"event\":\"SPLIT\",\"deltas\":[{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"FEE\",\"ledger_id\":\"protocol\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"1\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SERIES_RESERVE\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"N\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"3da026770c0108e9da835f5d0c7dba46088070933d4f4ab0b629eb8cb461ec36\",\"bucket\":\"SUPPLY\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"P\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"account\",\"asset\":{\"kind\":\"COLLATERAL\"},\"direction\":\"DEBIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"N\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"},{\"account_id\":\"fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447\",\"bucket\":\"FREE\",\"ledger_id\":\"lff5e2e351588da2dbe3539f2\",\"asset\":{\"kind\":\"P\",\"series_id\":\"lff5e2e351588da2dbe3539f2\"},\"direction\":\"CREDIT\",\"amount\":\"100000000000000000000000\"}],\"fee_amount\":\"1\",\"state_references\":[\"5d8fd8bef9ebc5f110bdea8ca807aae97e82961d2379819ce583acce868d6f6b\"]}]}"
+          ]
+        },
+        {
+          "id": "6ndcxMxhWZnQwNhUsP7aE7ZewgtW4WT62EU6tGEkiWtZ",
+          "executor": "fa14a615f61d5f76918cd7037d6ede8c6d83d26636e80bcbb8cfa04f211d4447",
+          "status": {
+            "SuccessValue": ""
+          },
+          "gas_burnt": 7524947687500,
+          "logs": []
+        }
+      ]
+    }
+  ],
+  "remaining_service_balance": "500139926694201100000000",
+  "artifacts": {
+    "core": {
+      "path": "target/core-artifacts/clearinghouse.wasm",
+      "sha256": "d7d16e53dceaaaa7681ac8d7a147b3ce14bc81eb891b4f069b9506882c265888",
+      "code_hash": "FXTsrec9F2afbXmRz94qaMLnD8pFGVCvEoKdieu2h9kT",
+      "bytes": 648783
+    },
+    "expiry_oracle": {
+      "path": "target/expiry-oracle-artifacts/expiry_settlement.wasm",
+      "sha256": "4fa7994d36bff57ba944d55db5399689eaae4e19808ad4dcebc91878b55af5b5",
+      "code_hash": "6MwS8u1zBbFNYfyyAkXjiM3HiQ2YDP8XrBnJfNZJxYeG",
+      "bytes": 340501
+    }
+  },
+  "series": [
+    {
+      "series_id": "l04003855dc0ecf8af6ef7052",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3325000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l117f8e883d19ba14444b0eaf",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3675000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l20b63986795167c2e7d477c9",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3325000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l221cf82facb4145d3c3f3e39",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3850000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l2fef1ba5c66cb55edfb860f4",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3150000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l5b6afa68eaa43bd71237ea5f",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3500000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l76a1071cacb9658b5b413f98",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3150000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l93d8292156771575797eb08d",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3500000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "ld5794d5629130d063ff39bbd",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3675000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "lff5e2e351588da2dbe3539f2",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3850000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "55c4050b545637eb00bfc7b9f7f966c669e820e8e449adeb919c78e6bbe5b3aa",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "dd714f306d947df088ef4981df774d26778a07bfda849d79f81b76f20d6f3a1f",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    }
+  ],
+  "funding_test_near": "32",
+  "funding_mode": "implicit-transfer-v2",
+  "reviewer": "implementation-agent checks only; independent review pending"
+}

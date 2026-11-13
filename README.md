@@ -435,3 +435,29 @@ node tests/sandbox/transfer-setup.mjs
 # Existing prepared workspace; no automatic funding or wallet signing:
 node services/testnet/cli.mjs bootstrap --name native-transfer --port 8793
 ```
+## Backend resume: separate expiry deployment
+
+The current implementation and remaining public acceptance are recorded in
+[the backend resume report](research/reports/BACKEND_RESUME_2026-11-13.md).
+The layout-2 contracts require fresh deployment accounts; never overwrite the
+funded historical core. The prepared `expiry` workspace uses a fresh service
+signer and a single user-reviewed 32-test-NEAR transfer. No owner access key is
+requested. Old positions and uncertain operations remain in the old workspace.
+
+```sh
+# Prepare once; refuses to overwrite a workspace. Read-only public RPC checks.
+node services/testnet/cli.mjs prepare-expiry --name expiry
+# Review the public deploy/testnet/expiry-plan.json, then sign in your wallet.
+node services/testnet/cli.mjs bootstrap --name expiry --port 8795
+# Only after the matching funding receipt succeeds:
+node services/testnet/cli.mjs deploy --name expiry
+node services/testnet/cli.mjs serve --name expiry --port 8796
+```
+
+Do not run two owners of the same workspace. An interrupted lock requires
+inspection and receipt recovery, not deletion as a retry mechanism. The initial
+ten-market provisioner is restart-idempotent; periodic renewal and budget
+recycling remain pending. The keeper supports the new expiry profile; unavailable
+or oversized authenticated history delays settlement. TWAP maker quotes use an
+explicit moment approximation and stop at window start. No fixture source or
+mock receipt is permitted in public operation.

@@ -40,29 +40,57 @@ export function binding(config) {
     return identity;
 }
 export class Rpc {
-    constructor(config, {fetchImpl = globalThis.fetch, timeout_ms = 15000} = {}) {
+    constructor(config, {fetchImpl = globalThis.fetch, timeout_ms = 15000, fallback_urls = [], now = Date.now} = {}) {
         this.config = configuration(config);
         this.fetch = fetchImpl;
         this.timeout = timeout_ms;
+        if(!Array.isArray(fallback_urls)||fallback_urls.length>3)fail('INVALID_RPC_URL');
+        this.urls=[...new Set([config.rpc_url,...fallback_urls.map(rpc_url=>configuration({...config,rpc_url}).rpc_url)])];
+        this.now=now;this.cooldowns=new Map();this.identityChecks=new Map();
     }
-    async request(method, params = {}) {
+    async raw(url,method,params) {
         try {
-            const response = await this.fetch(this.config.rpc_url, {
+            if((this.cooldowns.get(url)??0)>this.now())fail('RPC_UNAVAILABLE');
+            const response = await this.fetch(url, {
                 method:'POST', headers:{'content-type':'application/json'},
                 body:JSON.stringify({jsonrpc:'2.0', id:'hedgeveil', method, params}),
                 signal:AbortSignal.timeout(this.timeout)
             });
+            if(response.status===429){
+                const retry=response.headers?.get('retry-after'),delay=retry&&/^\d+(\.\d+)?$/.test(retry)?Number(retry)*1000:Date.parse(retry??'')-this.now();
+                this.cooldowns.set(url,this.now()+(Number.isFinite(delay)?Math.max(60000,delay):60000));
+                await response.body?.cancel();fail('RPC_UNAVAILABLE');
+            }
             if (!response.ok) fail('RPC_UNAVAILABLE');
             const data = await response.json();
+            if(data.error?.code===-429||data.error?.code===429)this.cooldowns.set(url,this.now()+60000);
             if (data.error || !Object.hasOwn(data, 'result')) fail('RPC_UNAVAILABLE');
             return data.result;
         } catch { fail('RPC_UNAVAILABLE'); }
     }
-    async view(method, args = {}) {
+    async request(method, params = {}) {
+        // Failover is strictly read-only. Wallet submission and UNKNOWN handling
+        // never acquire retry permission from a transport error.
+        const urls=['status','block','chunk','query','gas_price','tx'].includes(method)?this.urls:[this.config.rpc_url];
+        for(const [i,url]of urls.entries()){
+            try{
+                if(i>0){
+                    if(!this.identityChecks.has(url))this.identityChecks.set(url,this.raw(url,'status',{}).finally(()=>this.identityChecks.delete(url)));
+                    const s=await this.identityChecks.get(url);
+                    if(s.chain_id!==this.config.chain_id||s.genesis_hash!==this.config.genesis_hash)fail('DEPLOYMENT_MISMATCH');
+                    if(method==='status')return s;
+                }
+                return await this.raw(url,method,params);
+            }catch{ /* Another configured read provider may be available. */ }
+        }
+        fail('RPC_UNAVAILABLE');
+    }
+    async view(method, args = {}, blockHash) {
         const raw = await this.request('query', {
-            request_type:'call_function', finality:'final', account_id:this.config.contract_id,
+            request_type:'call_function', ...(blockHash ? {block_id:blockHash} : {finality:'final'}), account_id:this.config.contract_id,
             method_name:method, args_base64:Buffer.from(JSON.stringify(args)).toString('base64')
         });
+        if (blockHash && raw.block_hash !== blockHash) fail('VIEW_BLOCK_MISMATCH');
         try { return JSON.parse(Buffer.from(raw.result).toString()); }
         catch { fail('INVALID_RPC_VIEW'); }
     }

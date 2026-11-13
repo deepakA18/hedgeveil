@@ -63,6 +63,8 @@ def validate(data):
 
     if data['kind'] == 'transaction':
         method, args = data['method'], data['args']
+        if 'storage_deposit' in data and int(data['storage_deposit']) >= int(data['attached_deposit']):
+            raise ValueError('storage must leave positive collateral')
         if method == 'deposit_collateral' and int(data['attached_deposit']) == 0:
             raise ValueError('collateral deposit must be positive')
         if method in ('fill_quote', 'match_pair', 'execute_vault_roll') and args['quote'] is not None and args['quote']['domain'] != data['domain']:

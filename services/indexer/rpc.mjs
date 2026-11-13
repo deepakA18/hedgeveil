@@ -1,6 +1,7 @@
 import {account, fields, fail} from '../../packages/sdk/intent.mjs';
 import {hash32} from '../../packages/sdk/rpc.mjs';
 import {NeardataHeaders} from './neardata.mjs';
+import {retainedSeries} from '../../packages/sdk/series.mjs';
 
 export function configuration(input) {
     const c=structuredClone(input);
@@ -24,12 +25,12 @@ export function configuration(input) {
     const ids=new Set();
     for(const x of c.contracts) {
         account(x.account_id);hash32(x.code_hash);
-        if(!['core','oracle','external_oracle'].includes(x.kind)||ids.has(x.account_id))fail('CONTRACT_CONFIGURATION');ids.add(x.account_id);
+        if(!['core','oracle','external_oracle','expiry_oracle'].includes(x.kind)||ids.has(x.account_id))fail('CONTRACT_CONFIGURATION');ids.add(x.account_id);
     }
     fields(c.postgres,['host','port','user','password','database']);
     if(c.postgres?.host!=='127.0.0.1'||!Number.isInteger(c.postgres.port)||c.postgres.port<1||c.postgres.port>65535||typeof c.postgres.database!=='string'||typeof c.postgres.user!=='string'||typeof c.postgres.password!=='string')fail('LOCAL_POSTGRES_ONLY');
     c.schema??='hv_indexer';if(!/^hv_[a-z0-9_]{1,40}$/.test(c.schema))fail('SCHEMA_NAME');
-    for(const [k,def,min,max] of [['request_interval_ms',c.network==='testnet'?250:0,0,60000],['read_concurrency',4,1,16],['max_blocks',2000,1,10000],['max_events',20000,1,100000],['max_lag_blocks',64,0,10000],['timeout_ms',15000,100,60000],['stale_after_ms',30000,100,300000],['poll_ms',1000,100,60000],['api_port',8787,0,65535]]) {
+    for(const [k,def,min,max] of [['discovery_interval_ms',2500,400,60000],['request_interval_ms',c.network==='testnet'?250:0,0,60000],['read_concurrency',4,1,16],['max_blocks',2000,1,10000],['max_events',20000,1,100000],['max_lag_blocks',64,0,10000],['timeout_ms',15000,100,60000],['stale_after_ms',30000,100,300000],['poll_ms',1000,100,60000],['api_port',8787,0,65535]]) {
         c[k]??=def;if(!Number.isSafeInteger(c[k])||c[k]<min||c[k]>max)fail('CONFIGURATION_BOUNDS');
     }
     return c;
@@ -45,7 +46,7 @@ export class ReadRpc {
     }
     async batch(work){
         if(this.batchStatus)fail('RPC_BATCH_ACTIVE');
-        this.batchStatus=new Map();this.batchUsed=new Set();
+        this.batchStatus=new Map();this.batchUsed=new Set();this.batchReads=new Map();
         try{
             const result=await work();
             // No projection may commit until every provider used in this read
@@ -55,9 +56,10 @@ export class ReadRpc {
                 if(s.chain_id!==this.config.chain_id||s.genesis_hash!==this.config.genesis_hash)fail('RPC_IDENTITY');
             }
             return result;
-        }finally{this.batchStatus=null;this.batchUsed=null;}
+        }finally{this.batchStatus=null;this.batchUsed=null;this.batchReads=null;}
     }
     async raw(url,method,params) {
+        let httpStatus,rpcCode,rpcCause;
         try {
             if((this.cooldowns.get(url)??0)>this.now())fail('RPC_COOLDOWN');
             const start=Math.max(this.now(),this.nextStart);
@@ -66,6 +68,7 @@ export class ReadRpc {
             // A concurrent request may have received 429 while this one waited.
             if((this.cooldowns.get(url)??0)>this.now())fail('RPC_COOLDOWN');
             const r=await this.fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:'indexer',method,params}),signal:AbortSignal.timeout(this.config.timeout_ms)});
+            httpStatus=r.status;
             if(r.status===429){
                 const retry=r.headers?.get('retry-after');
                 const delay=retry&&/^\d+(\.\d+)?$/.test(retry)?Number(retry)*1000:Date.parse(retry??'')-this.now();
@@ -73,10 +76,35 @@ export class ReadRpc {
                 this.cooldowns.set(url,Math.max(this.cooldowns.get(url)??0,until));
                 await r.body?.cancel();fail('RPC_RATE_LIMITED');
             }
-            const data=await r.json();if(data.error?.code===-429||data.error?.code===429){this.cooldowns.set(url,Math.max(this.cooldowns.get(url)??0,this.now()+60000));fail('RPC_RATE_LIMITED');}if(r.ok&&method==='tx'&&data.error?.cause?.name==='UNKNOWN_TRANSACTION'&&data.error.cause.info?.requested_transaction_hash===params.tx_hash)fail('RPC_TRANSACTION_UNKNOWN');if(!r.ok||data.error||!Object.hasOwn(data,'result'))fail('RPC_UNAVAILABLE');return data.result;
-        }catch(e){if(e.code==='RPC_TRANSACTION_UNKNOWN')throw e;fail('RPC_UNAVAILABLE');}
+            const data=await r.json();rpcCode=data.error?.code;rpcCause=data.error?.cause?.name;
+            if(data.error?.code===-429||data.error?.code===429){this.cooldowns.set(url,Math.max(this.cooldowns.get(url)??0,this.now()+60000));fail('RPC_RATE_LIMITED');}if(r.ok&&method==='tx'&&data.error?.cause?.name==='UNKNOWN_TRANSACTION'&&data.error.cause.info?.requested_transaction_hash===params.tx_hash)fail('RPC_TRANSACTION_UNKNOWN');if(!r.ok||data.error||!Object.hasOwn(data,'result'))fail('RPC_UNAVAILABLE');return data.result;
+        }catch(e){
+            // Keep transport diagnostics, never arbitrary upstream messages,
+            // request arguments or response bodies (which may contain secrets).
+            this.lastTransportFailure={url,method,at_ms:this.now(),
+                ...(Number.isInteger(httpStatus)?{http_status:httpStatus}:{}),
+                ...(Number.isInteger(rpcCode)?{rpc_code:rpcCode}:{}),
+                ...(/^[A-Z_]{1,80}$/.test(rpcCause??'')?{rpc_cause:rpcCause}:{}),
+                reason:/^[A-Z_]{1,80}$/.test(e.code??'')?e.code:e.name==='TimeoutError'?'RPC_TIMEOUT':'RPC_TRANSPORT_ERROR'};
+            if(e.code==='RPC_TRANSACTION_UNKNOWN')throw e;fail('RPC_UNAVAILABLE');
+        }
     }
     async request(method,params={}, {canonical=false}={}) {
+        // Core and resolver snapshots can request the same view concurrently.
+        // Share only reads pinned to the exact same block within this batch;
+        // never reuse state across checkpoints or cache an unpinned live view.
+        const memo=this.batchReads;
+        if(memo&&method==='query'&&typeof params.block_id==='string'){
+            const key=JSON.stringify([method,params]);
+            if(!memo.has(key)){
+                const pending=this.read(method,params,{canonical}).catch(e=>{if(memo.get(key)===pending)memo.delete(key);throw e;});
+                memo.set(key,pending);
+            }
+            return structuredClone(await memo.get(key));
+        }
+        return this.read(method,params,{canonical});
+    }
+    async read(method,params={}, {canonical=false}={}) {
         if(!['status','block','chunk','tx','query'].includes(method))fail('READ_ONLY_RPC');
         const immutable=method==='block'&&params.block_id!==undefined||method==='chunk'||method==='tx';
         const key=JSON.stringify([canonical?'canonical-'+method:method,params]);
@@ -126,19 +154,42 @@ export class ReadRpc {
         if(contract.kind==='core'&&identity.protocol_version!=='1')fail('DEPLOYMENT_MISMATCH');
         const base={contract:id,kind:contract.kind,block_hash:hash,identity,native};
         if(contract.kind==='core') {
-            const [ids,series,vault,roll,custody,pauses]=await Promise.all([view('list_accounts',{from_index:0,limit:16}),view('list_series',{from_index:0,limit:16}),view('get_vault'),view('get_vault_roll'),view('custody_snapshot'),view('get_pauses')]);
-            const [accountRows,ticketRows,marketRows]=await Promise.all([
+            const [ids,series,vault,roll,custody,pauses]=await Promise.all([view('list_accounts',{from_index:0,limit:16}),retainedSeries(view),view('get_vault'),view('get_vault_roll'),view('custody_snapshot'),view('get_pauses')]);
+            const [accountRows,marketRows]=await Promise.all([
                 Promise.all(ids.map(async account_id=>[account_id,await view('get_account',{account_id})])),
-                Promise.all(ids.map(account_id=>view('list_tickets',{account_id,from_index:0,limit:16}))),
                 Promise.all(makers.map(async maker=>[maker,await view('get_market',{maker})]))
             ]);
+            // The count and ticket list are pinned to this same finalized block.
+            // A zero retained count proves an empty list, avoiding one RPC per
+            // inactive user without weakening receipt or balance reconciliation.
+            const ticketRows=await Promise.all(accountRows.map(async([account_id,a])=>{
+                const count=a?.retained_tickets;
+                if(count!==undefined&&(!Number.isInteger(count)||count<0||count>4))fail('TICKET_COUNT_INVALID');
+                if(count===0)return [];
+                const rows=await view('list_tickets',{account_id,from_index:0,limit:16});
+                if(count!==undefined&&rows.length!==count)fail('TICKET_COUNT_MISMATCH');
+                return rows;
+            }));
             const accounts=Object.fromEntries(accountRows),tickets=ticketRows.flat(),markets=Object.fromEntries(marketRows);
             return {...base,accounts,series,vault,roll,custody,pauses,tickets,markets};
         }
-        if(contract.kind==='external_oracle'){
+        if(['external_oracle','expiry_oracle'].includes(contract.kind)){
             const state=await view('get_snapshot');
-            const cases=Object.values(state.cases).map(c=>({...c,state:c.price!==null?'FINALIZED':BigInt(block.header.timestamp_nanosec)>=BigInt(c.config.maturity_ns)?'RESOLUTION_DELAYED':'OPEN'}));
-            return {...base,state,cases,tickets:[],accounts:{}};
+            const historical_cases=[],core_terms={};
+            if(contract.kind==='expiry_oracle'&&state.layout_version===2){
+                for(const core of this.config.contracts.filter(x=>x.kind==='core')){
+                    const code=await this.request('query',{request_type:'view_account',block_id:hash,account_id:core.account_id});
+                    if(code.block_hash!==hash||code.code_hash!==core.code_hash)fail('DEPLOYMENT_MISMATCH');
+                    const rows=await retainedSeries((m,a)=>this.view(core.account_id,m,a,hash));
+                    for(const {config} of rows.filter(s=>s.config.oracle_account_id===id)){
+                        if(Object.hasOwn(core_terms,config.series_id))fail('EXPIRY_CORE_SERIES_CONFLICT');
+                        core_terms[config.series_id]=config;
+                        if(!Object.hasOwn(state.cases,config.series_id))historical_cases.push(await view('get_case',{series_id:config.series_id}));
+                    }
+                }
+            }
+            const cases=[...Object.values(state.cases),...historical_cases].map(c=>({...c,state:c.price!==null?'FINALIZED':BigInt(block.header.timestamp_nanosec)>=BigInt(c.config.maturity_ns)?'RESOLUTION_DELAYED':'OPEN'}));
+            return {...base,state,cases,...(contract.kind==='expiry_oracle'?{historical_cases,core_terms}:{}),tickets:[],accounts:{}};
         }
         const [ids,series,tickets,custody]=await Promise.all([view('list_accounts'),view('list_series'),view('list_tickets'),view('custody')]);
         const accounts=Object.fromEntries(await Promise.all(ids.map(async account_id=>[account_id,await view('get_account',{account_id})])));

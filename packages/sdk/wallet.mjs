@@ -1,5 +1,5 @@
 // Browser-portable Wallet Selector v10 boundary. No key loading or success inference.
-import {buildIntent, fields, fail} from './intent.mjs';
+import {buildIntent, fields, fail, canonical, intentActions} from './intent.mjs';
 import {hash32} from './rpc.mjs';
 
 export function walletSelectorSigner({selector, actionCreators, returnUrl}) {
@@ -8,13 +8,15 @@ export function walletSelectorSigner({selector, actionCreators, returnUrl}) {
             // Copy before awaiting a wallet so callers cannot change an open prompt's intent.
             const r = structuredClone(request);
             fields(r, ['signerId','receiverId','network','operationId','actions']);
-            if (!Array.isArray(r.actions) || r.actions.length !== 1) fail('WALLET_ACTIONS');
-            const a = r.actions[0];
-            fields(a, ['type','methodName','args','deposit','gas']);
-            if (a.type !== 'FunctionCall') fail('WALLET_ACTIONS');
-            const intent = buildIntent({network:r.network, contract_id:r.receiverId, signer_id:r.signerId,
-                operation_id:r.operationId, method:a.methodName, args:a.args, attached_deposit:a.deposit});
-            if (a.gas !== intent.gas) fail('WALLET_GAS');
+            if (!Array.isArray(r.actions) || ![1,2].includes(r.actions.length)) fail('WALLET_ACTIONS');
+            for(const a of r.actions) {fields(a,['type','methodName','args','deposit','gas']);if(a.type!=='FunctionCall')fail('WALLET_ACTIONS');}
+            const batch=r.actions.length===2,a=r.actions[batch?1:0];
+            if(batch&&(r.actions[0].methodName!=='storage_deposit'||a.methodName!=='deposit_collateral'))fail('WALLET_ACTIONS');
+            const intent=buildIntent({network:r.network,contract_id:r.receiverId,signer_id:r.signerId,operation_id:r.operationId,
+                method:a.methodName,args:a.args,attached_deposit:batch?String(BigInt(a.deposit)+BigInt(r.actions[0].deposit)):a.deposit,
+                ...(batch?{storage_deposit:r.actions[0].deposit}:{})});
+            if(!batch && a.gas!==intent.gas)fail('WALLET_GAS');
+            if(canonical(r.actions)!==canonical(intentActions(intent)))fail('WALLET_ACTIONS');
             const state = () => {
                 if (selector.options.network.networkId !== r.network) fail('WALLET_NETWORK');
                 const s = selector.store.getState();
@@ -28,7 +30,7 @@ export function walletSelectorSigner({selector, actionCreators, returnUrl}) {
             const params = {signerId:r.signerId, receiverId:r.receiverId,
                 // The official factory accepts bytes; encode with web APIs instead of
                 // its object overload, which requires a global Node Buffer polyfill.
-                actions:[actionCreators.functionCall(a.methodName, new TextEncoder().encode(JSON.stringify(a.args)), BigInt(a.gas), BigInt(a.deposit))]};
+                actions:r.actions.map(a=>actionCreators.functionCall(a.methodName, new TextEncoder().encode(JSON.stringify(a.args)), BigInt(a.gas), BigInt(a.deposit)))};
             if (returnUrl !== undefined) {
                 const url = new URL(returnUrl), here = globalThis.location;
                 if (!here || url.origin !== here.origin || url.username || url.password ||

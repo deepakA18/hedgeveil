@@ -504,6 +504,7 @@
             "unregister",
             "close_ticket",
             "release_dust",
+            "archive_series",
             "set_pauses",
             "create_series",
             "split",
@@ -528,8 +529,27 @@
         },
         "args": {
           "type": "object"
+        },
+        "storage_deposit": {
+          "$ref": "#/$defs/positive"
         }
       },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "storage_deposit"
+            ]
+          },
+          "then": {
+            "properties": {
+              "method": {
+                "const": "deposit_collateral"
+              }
+            }
+          }
+        }
+      ],
       "oneOf": [
         {
           "properties": {
@@ -784,6 +804,25 @@
           "properties": {
             "method": {
               "const": "release_dust"
+            },
+            "args": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "series_id"
+              ],
+              "properties": {
+                "series_id": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "method": {
+              "const": "archive_series"
             },
             "args": {
               "type": "object",
@@ -1314,6 +1353,7 @@
           "enum": [
             "DEPOSIT",
             "SERIES_CREATED",
+            "SERIES_ARCHIVED",
             "SPLIT",
             "TRANSFER",
             "MERGE",

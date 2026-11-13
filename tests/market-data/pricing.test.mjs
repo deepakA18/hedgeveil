@@ -58,7 +58,7 @@ test('series-specific marks vary with strike/time; unresolved mature holdings bl
  const r=marketReference(o,[{config,final_price:null}],now);assert.equal(BigInt(r.marks['P:one'])+BigInt(r.marks['N:one']),Q);assert.notEqual(r.marks['P:one'],String(Q/2n));
  assert.throws(()=>marketReference(o,[{config:{...config,maturity_ns:now},final_price:null}],now),/UNRESOLVED/);
  const final=marketReference(o,[{config,final_price:'7000000000000'}],now);assert.equal(final.marks['P:one'],String(Q/2n));
- assert.throws(()=>marketReference(o,[{config:{...config,oracle_version:'native-trade-twap-v1'},final_price:null}],now),/MODEL_TWAP_NOT_READY/);
+ assert.throws(()=>marketReference(o,[{config:{...config,oracle_version:'native-trade-twap-v1'},final_price:null}],now),/MODEL_TWAP_INPUT/);
  const settledTwap=marketReference(o,[{config:{...config,oracle_version:'native-trade-twap-v1'},final_price:'7000000000000'}],now);assert.equal(settledTwap.marks['P:one'],String(Q/2n));
 });
 test('HTTP errors do not retry or fall back; only fixed public endpoints are accessible',async()=>{

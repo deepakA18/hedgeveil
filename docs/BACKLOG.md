@@ -1,5 +1,7 @@
 # Open Innovation backlog
 
+**Backend resumed (13 November 2026):** the separate layout-2 core/resolver and ten-market ladder are now deployed on public testnet. The exact 32-test-NEAR funding transfer and all 54 setup operations have confirmed receipts. Both makers have funded inventory. Indexer catch-up, actual quote/fill acceptance, periodic renewal and the new settlement/wallet lifecycle remain open. Old deployments remain separate. [Current evidence and remaining work](../research/reports/BACKEND_RESUME_2026-11-13.md). Independent review pending.
+
 **Deferred backend resume checklist (13 November 2026):** [DEFERRED_BACKEND.md](DEFERRED_BACKEND.md) consolidates the live-market ladder, TWAP integration, pricing, indexing, wallet acceptance and release work postponed while frontend work continues. These items remain open; UI completion is not backend acceptance.
 
 ## ORC-04 / MKT-04 — expiry reference and aligned pricing (implementation in progress)
@@ -17,9 +19,10 @@ payout and complementary P. SPEC now fixes a Coinbase last-trade-hold candidate.
 Two real Outlayer historical executions replay exactly; the isolated resolver
 pins worker/source/window, verifies raw evidence, and supports the existing
 core resolution callback. Generated schema and Sandbox lifecycle/failure tests
-are available. New-profile maker valuation, indexing/collector/UI integration,
-live availability under the three-page callback limit and public deployment/full
-lifecycle remain open. The terminal model rejects unresolved new-profile series.
+are available. New-profile pre-window valuation, keeper and indexer integration
+now have local evidence. Partial-window pricing, UI acceptance, live availability
+under the three-page callback limit and public deployment/full lifecycle remain
+open. Quotes close at window start instead of inventing partial history.
 Independent oracle/contracts/economics/security reviewer: pending. This ticket
 is not complete and the new profile is not activated.
 
@@ -1067,3 +1070,274 @@ status remains visible. Evidence: production build/types, format/diff checks,
 real-browser checks at 390/1440px for all three requested surfaces, picker open/
 Escape/focus return, centering, overflow and zero POSTs passed. Screenshots
 self-reviewed; independent review pending.
+
+### INF / APP-02 / MKT-05 public follow-up — 13 November 2026
+
+Separate layout-2 deployment has ten funded open markets. Both makers' actual P/N
+offers and retained Coinbase input replay are verified; Next.js is connected.
+User approved strict receipt-based reconciliation with additive FASTNEAR auditing.
+Owner storage setup has a final success receipt. Deposit failed before wallet
+handoff; read-only RPC fallback is now active and the retained preview passes.
+Preparation errors distinguish no-send review failures from ambiguous submitted
+operations. Dependencies: SDK/RPC identity, durable journals, INF same-block
+reconciliation. Invariant: no broadcast retry, no mock data, no weakened freshness
+or receipt gates. Failure: both RPCs unavailable blocks review, UNKNOWN remains
+quarantined. Evidence: 27 focused SDK/API tests, production frontend build/types,
+actual unsigned preview and receipt records in [backend resume](../research/reports/BACKEND_RESUME_2026-11-13.md).
+Periodic renewal, deposit/fill acceptance, full new settlement lifecycle and
+sustained infrastructure acceptance remain open. Reviewer: implementation-agent
+self-review; independent review pending.
+
+### APP-02 Activity table and homepage tweet — 13 November 2026
+
+Activity now has a navigation entry and a compact Coss UI table with action,
+exact formatted amount, receipt state, explorer link and a Details dialog.
+Submitted transactions, unresolved actions and unsubmitted drafts have separate
+filters; the account-dock shortcut remains. Existing receipt polling/recovery
+and withdrawal-ticket controls are retained. UNKNOWN remains quarantined with
+an explicit do-not-resend message. Recovery checks receipts only; draft resume
+returns to review and does not submit automatically.
+
+The homepage uses Cult UI's tweet-grid layout with real react-tweet syndication
+data for Vitalik's specified post. Upstream placeholder content was replaced,
+not shipped. The fixed-ID server endpoint validates the author/ID, coalesces
+requests, caches successful reads for five minutes and bounds requests to eight
+seconds. Unavailable data shows an original-post link, without fabricated text
+or engagement. CSP permits avatar images from pbs.twimg.com; no X script/frame
+permission was added. Both components use existing light/dark design tokens;
+upstream MIT notices and source attribution are retained.
+
+Dependencies: APP-02 journal/provider and modal, Coss Table/Base UI, Cult grid,
+react-tweet 3.3.1 and class-variance-authority 0.7.1. Invariant: financial behavior,
+receipt completion and transaction authorization are unchanged; no wallet or
+receipt success is simulated in the product. Failure paths: disconnected wallet
+shows the existing gate, empty activity is explicit, unknown operations stay
+quarantined, unavailable tweet data falls back to its original link.
+Evidence: production webpack build/types, diff check, and
+`node tests/e2e/next-activity-live.mjs` passed. The read-only browser check used
+four real journal records (two submitted, two drafts) in an isolated table
+harness; checked filtering, modal Escape/focus return, 375/768/1440px overflow,
+light/dark screenshots, real post rendering, unavailable-post fallback, invalid
+post-ID rejection, and no page errors. The actual disconnected Activity route
+was also checked. No wallet transaction was signed by these checks. Reviewer:
+implementation-agent visual self-review; independent review pending. Existing
+backend release gates remain open.
+
+### APP-02 single first deposit / retired testnet funds — 13 November 2026
+
+Implemented the first-deposit composition in SPEC, schema, SDK, wallet boundary,
+backend preview and Next.js Funds/review/Activity. The user enters trading funds;
+new-account storage is an additional explicit charge, sent as two ordered calls
+in one transaction. Registered users do not pay setup again. Max reserves setup,
+native storage and conservative gas. Existing single-action journals remain valid.
+Dependencies: existing storage/deposit ABI, finalized receipt tree, pinned deployment,
+wallet handoff journal. Invariant: storage never becomes trading collateral; both
+credits must match the exact signed amounts. Failure: changed registration blocks
+handoff; second-call failure rolls back registration; UNKNOWN is never resent.
+Evidence: 33 SDK/wallet tests, two preview tests, 17 schema tests and reproducible
+schema, TypeScript and Webpack production build, isolated browser form checks at
+1440/768/375px, `research/reports/first-deposit-sandbox.json`. Turbopack could not
+bind its local worker port; supported Webpack mode passed. Real first-time browser
+wallet approval remains pending. Reviewer: implementation-agent self-review;
+independent review pending.
+
+Retired native-transfer recovery used the existing admin journal and strict final
+receipts. Four finalized maker-leg redemptions, normal withdrawals to the owner,
+three account-storage refunds and five surplus transfers returned exactly
+22.186305711682354042994213 test NEAR. Old incoming funding/listing/splits are paused;
+exits remain available. Active expiry accounts are explicitly excluded. Core
+retains all categories plus a gas buffer; oracle retains 5 NEAR; service accounts
+retain storage plus 0.1 NEAR. No contract/account deletion. Pending/UNKNOWN payouts
+block recovery, reads are paced/bounded, signed transactions are never rebroadcast.
+Evidence: recovery-policy test, `research/reports/testnet-recovery-audit.json`,
+`research/reports/legacy-fund-recovery.json`. Owner subsequently signed 0.07966 NEAR withdrawal in transaction
+`BYP7owSgzB5nAvEkK4p8MYPWXsqmxw8KeeRbLFT8iMzt`. SDK matched the exact signed
+intent and complete finalized transfer/callback receipts: WITHDRAWAL_SUCCEEDED,
+ticket 7. Same-final-block reads show 0.000002349869425157005740 NEAR dust,
+0.04096 NEAR storage, no in-flight/UNKNOWN payouts and full retained-category
+coverage. Evidence: `research/reports/legacy-owner-withdrawal-confirmed.json`.
+Dependencies: stored service signers, legacy verified code/chain, finalized series,
+no external ledger holders beyond the owner and project services. Independent
+review remains pending.
+
+### Backend renewal, ten-user tests and live quote recovery — 13 November 2026
+
+The expiry runtime now schedules bounded, journaled ladder renewal on startup,
+every 60 seconds and after settlement. Maintenance drains maker requests, shares
+the settlement ownership lock and resumes the persisted cohort after interruption.
+Only project-maker inventory is recycled; user holdings and historical terms stay
+unchanged. The confirmed 2-test-NEAR top-up is recorded in
+`research/reports/renewal-funding-confirmed.json`; it is a finite operating budget.
+
+The owner’s “No funded offer” report exposed RPC timeouts/rate pressure, not an
+invalid 0.05 quantity. Maker reads now use identity-checked read-only RPC failover
+and share successful snapshots for at most two seconds. Display sessions share
+common same-block reads; wallet previews and handoff still obtain fresh verified
+state. Empty ticket lists are skipped only when the on-chain retained count is
+zero. Maker queues remain bounded/serialized; signatures and nonce persistence
+remain request-specific. UI reasons distinguish unavailable market data, busy
+makers, provider failures and actual inventory limits. TWAP series stop appearing
+as open when their observation window begins.
+
+Dependencies: CORE layout 2, ORC-04 immutable windows, MKT-04 market inputs,
+INF same-block reconciliation and APP-02 receipt journals. Invariant: no fixture
+prices in public operation, no stale-on-error fallback, no changed freshness
+threshold, no broadcast failover/retry, no timeout-based UNKNOWN release.
+Failure: exhausted funds/capacity, missing data or unresolved receipts blocks the
+affected action. Queue overload returns a retryable availability reason, not a
+fabricated quote or a claim that the user must lower quantity.
+
+Evidence: `renewal-sandbox.json` passes interrupted renewal/resume, preserved terms
+and duplicate prevention; `ten-users-sandbox.json` passes ten distinct accounts’
+funding, both-leg fills, transfers, merges, redemption and withdrawal callbacks
+with exact event reconciliation (94 transactions). These are local Sandbox tests,
+not ten funded public users. `backend-renewal-maker-regression.json` passes G5
+(29 checks, 97 transactions). `backend-public-concurrency.json` records ten real
+concurrent sessions for one existing public account: every request received both
+makers’ signed offers in 7.8 seconds; canonical reconciliation remained healthy.
+The earlier failed burst is retained separately. Focused cache/API/failover,
+indexer, frontend gate/cutoff, schema, reference/vector and locked Rust/Clippy
+checks passed. Reports are under `research/reports/`.
+
+Remaining: owner wallet P/N fills, live acceptance-series source callback/import
+and redemption, actual subsequent public cohort renewal, wider lifecycle load
+observations, public-origin wallet acceptance and release review. A separate real
+30-minute acceptance series is registered and funded; its creation is not proof
+of settlement. Production and vault remain disabled. Reviewer: implementation
+agent checks; independent reviewer unassigned/pending.
+
+Follow-up validation: frontend production Webpack build/typecheck and diff check
+passed. The five-minute `backend-public-health-observation.json` contains 61/61
+healthy canonical reconciliation samples, with maximum observed age 48.785 seconds
+under the unchanged 60-second gate. RPC failures did occur and read fallback
+recovered them; this does not claim an error-free provider or long-term uptime.
+The live frontend returned HTTP 200 and the reconciler remained risk-allowed.
+
+
+### APP-02 / INF-01 system status page — 13 November 2026
+
+Implemented `/status` and a live Status indicator in the shared platform/homepage
+footer. Eleven service rows cover the web application, API, receipt reconciliation,
+RPC reads, contracts, FASTNEAR audit, two makers, Coinbase spot, Outlayer settlement
+and market renewal. Diagnostics use real retained observations, not synthetic
+probes or new quote requests. RPC/contract status is derived from reconciliation;
+keeper health is not a guarantee that a future external request will succeed.
+
+Dependencies: APP-02 frontend/bridge/spot reader, INF-01 reconciliation and live
+maker/keeper/renewal telemetry. Invariant: status is read-only, exposes only
+allowlisted fields, never authorizes execution and never claims unmeasured uptime.
+Failure path: stale/missing observations become unknown; failed backend requests
+replace previous healthy results. Idle makers without a recent offer result are
+unverified. FASTNEAR audit lag is distinguished from canonical reconciliation.
+
+Evidence: production frontend build/typecheck passed; eight focused status,
+preview-RPC and expiry-runtime tests passed. `tests/e2e/status-live.mjs` passed
+against the running application: 11 rows, light/dark themes, 375/768/1440px layouts
+without horizontal overflow, footer navigation, keyboard refresh, failure/recovery,
+zero browser errors and zero POST requests. History contains up to 30 measured
+checks in server memory, collected on request and reset on restart; no 30-day
+uptime percentage is claimed. No contract or financial behavior changed. Existing
+backend acceptance tasks remain open. Reviewer: implementation-agent checks;
+independent review pending.
+
+
+### APP-02 compact positions table — 13 November 2026
+
+Replaced stacked position cards with the existing Coss Table in the trade dock
+and Portfolio: position/set price, expiry, status, units, payout, matched pairs,
+optional exposure and inline Sell/Merge/Claim actions. Settlement details remain
+expandable inside the payout cell. Existing review requests, exact quantities,
+stale-spot handling and wallet/empty/error states are preserved. Narrow screens
+scroll the table internally instead of overflowing the page.
+
+Dependencies: APP-02 account state, Coss table and existing action reviews.
+Invariant: presentation does not create quotes, authorize signatures or change
+payoff calculations. Failure path: unavailable data retains its existing gate;
+merge/claim stay disabled until their existing conditions pass.
+Evidence: production build/typecheck passed. Read-only browser review used the
+actual owner account balance; one 0.05 Upside row rendered with the correct sell
+deep link and disabled merge/claim, both themes and 375/768/1440px widths passed.
+No wallet was impersonated or transaction submitted. Independent review pending.
+
+Owner transaction `4tQKiNzMtgRr8qn56hmd8YY26NBqWm58juceGft5cYa3` was verified
+through public RPC as FINAL/SuccessValue with a QUOTE_FILLED ledger event crediting
+0.05 N units for `l5b6afa68eaa43bd71237ea5f` to `0xdeepak18.testnet` on the current
+`ef5328f9` core. This verifies that purchase only; it does not close remaining
+both-leg, settlement, renewal or release acceptance work.
+
+
+### Owner sell acceptance — 13 November 2026
+
+Verified `VmKTQNe9xzfsLxewh1f1XYjBpRUAgRu3kg8JuVBvF8B` via public RPC:
+FINAL, successful receipt outcomes and QUOTE_FILLED on the current `ef5328f9`
+core. Owner `0xdeepak18.testnet` sold 0.05 N units of
+`l5b6afa68eaa43bd71237ea5f`; the ledger credited exactly
+0.0008124095356277152425 NEAR to free collateral. A subsequent live state read
+shows P=0, N=0 and free collateral 0.0998997409324711111675 NEAR.
+Evidence: `research/reports/owner-sell-confirmed.json`. The existing N buy and
+this sell establish the owner's N round trip; other-leg and settlement acceptance
+remain separate. Dependencies: funded RFQ, wallet signature, finalized receipt,
+canonical ledger. Invariant: only confirmed receipt deltas establish completion;
+UNKNOWN would remain quarantined without resend. Reviewer: implementation-agent
+verification; independent review pending. No transaction submitted by the agent.
+
+
+### Owner current-deployment withdrawal — 13 November 2026
+
+`HU858PeWXoYWc59yuWybr1YahsUS9LQVNB2pXRsnuq1y` is FINAL with successful
+transfer and callback outcomes. The `ef5328f9` core emitted WITHDRAWAL_REQUESTED
+and WITHDRAWAL_SUCCEEDED for 0.02 NEAR to `0xdeepak18.testnet`. Retained ticket 0
+is SUCCEEDED, not pending/UNKNOWN; no balance restoration occurred. Subsequent
+live state shows free collateral 0.0798997409324711111675 NEAR and no positions.
+Evidence: `research/reports/owner-withdrawal-current-confirmed.json`.
+Dependencies: current core withdrawal callback, external wallet and finalized RPC
+receipts. Invariant: transfer plus callback completion is verified; timeout never
+permits resend/refund. Failure path: UNKNOWN remains quarantined. Reviewer:
+implementation-agent verification; independent review pending. This closes this
+owner's tested deposit/buy-N/sell-N/withdraw round trip, not both-leg settlement
+or complete release acceptance. No transaction was submitted by the agent.
+
+
+### APP-02 interaction feedback follow-up — 13 November 2026
+
+Implemented Activity intro/banner removal, aligned market header, ticket-local
+exposure/Buy/Sell controls, persistent empty chart for zero quantity and processing
+loaders. Wallet actions remain on the initiating page; receipt-derived Base UI
+toasts provide transaction links and UNKNOWN recovery without automatic resend.
+Dependencies/invariants/failure paths and complete evidence are recorded in
+`docs/STATUS.md` under “APP-02 follow-up: transaction feedback and trade controls”.
+Validation: production build/typecheck, 19 targeted unit tests, and read-only
+responsive/browser toast checks passed. External-wallet re-signing was not part
+of this UI check; independent review and backend release acceptance remain pending.
+
+
+APP-02 layout follow-up (13 November 2026): desktop account dock ends at the
+payoff column; trade ticket extends to footer. Drag resizing and mobile drawer
+verified; build/typecheck pass. Dependencies, invariant, failure behavior and
+evidence recorded in `docs/STATUS.md` (panel extent follow-up). Independent review
+pending; no change to backend acceptance status.
+
+
+APP-02 payoff density (13 November 2026): larger graph, smaller currency controls
+and compact outcome details implemented. Build and read-only desktop/mobile checks
+pass; dependencies/invariant/evidence in `docs/STATUS.md`. Independent review pending.
+
+Owner pair acceptance (13 November 2026): real 0.01 NEAR split verified; matching P/N and reserve agree. Merge confirmed FINAL in `Fy8fhSoYEmPhx2L4gBsFRoUK4uHCTcUDY6jdHiBbpt5T`; the 0.01 NEAR round trip is verified, both owner claims are zero and original free collateral is restored. Independent review remains pending. Evidence and invariants: `docs/STATUS.md`, “Owner pair round-trip acceptance”.
+
+APP-02 hashless quote recovery (13 November 2026): owner RFQ resolved as expired without fill from finalized unused-nonce evidence. Strict same-epoch/code checks preserve UNKNOWN on missing proof; no automatic resend. See `docs/STATUS.md` and `research/reports/owner-expired-quote-recovery.json`. Wallet-prompt cause and independent review remain pending.
+
+
+Owner P purchase verified (13 November 2026): 0.01 Capped value at K $3.536; FINAL receipt and exact balance reconciliation in `research/reports/owner-capped-buy-confirmed.json`. Both P/N purchases now have owner-wallet evidence. P sell and new-profile settlement/redemption remain pending; independent review pending. See STATUS, “Owner Capped value purchase”.
+
+
+### Capped value sale and combined trade review — 13 November 2026
+
+Owner sale `2L3z6FvM6yqNTaeuC4rYL52kaYxxNpffmba7tiMTp8tX` is FINAL with successful receipts: 0.01 P sold from `l5b6afa68eaa43bd71237ea5f`, net trading credit 0.0097738867012440226665 NEAR, finalized free balance 0.079735591721855544332 NEAR, P/N holdings both zero. Evidence: `research/reports/owner-capped-sell-confirmed.json`. Both owner P and N buy/sell round trips now have receipt evidence; new-profile settlement/redemption and subsequent public renewal remain pending.
+
+APP-02 now combines offer discovery and preview behind **Review trade**. It fetches fresh exact-size offers, selects the lowest fee-inclusive buy cost or highest net sell proceeds, and opens the existing exact-action review. Wallet approval stays explicit. One automatic retry is limited to quote discovery for busy/maintenance responses; no prepare, sign or send is retried. Account/selection changes discard late responses. Loading locks duplicate requests. Queue saturation and inventory maintenance have distinct messages.
+
+The expiry scheduler previously paused makers before renewal discovered an existing unresolved signer operation. It now skips maintenance/renewal when the settlement sweep already reports HALTED_SIGNER or interrupted execution. The unresolved transaction stays quarantined; recovery checks continue and renewal can resume after resolution. This removes an avoidable quote interruption, not all possible queue/RPC failures. After restart both live makers returned real P offers for 0.01 units; no transaction was submitted during that check.
+
+Dependencies: current funded makers, finalized account state, server preview/signature checks, immutable operation journals and server-derived quote time. Invariant: only a fresh matching offer reaches exact review; discovery never authorizes a fill, and unresolved signer state never permits renewal. Failure paths: no offer shows a specific gate; expired/malformed/mismatched offers cannot be selected; sustained busy fails after one retry; missing receipt evidence stays unresolved.
+
+Validation: 21 focused trade-review, terminal-data, expiry-runtime and renewal tests pass; Next.js production build passes. The actual Trade component in an isolated fixture harness passes single-click review, best-price selection, bounded retry, stale-response rejection and loading checks. Read-only live browser checks pass controls, zero-quantity chart, Activity, receipt-toast transitions and six responsive/theme views. Fixture offers were confined to the isolated test route; live quote checks used actual makers. Reviewer: implementation-agent verification; independent review pending. Existing release/settlement acceptance blockers remain open.

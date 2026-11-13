@@ -1865,3 +1865,389 @@
   font-size: 12px;
   margin-bottom: 12px;
 }
+
+/* Shared compact position table for the trade dock and Portfolio. */
+.positions-compact {
+  min-width: 0;
+}
+.positions-compact [data-slot="table-container"] {
+  width: 100%;
+  overflow-x: auto;
+}
+.positions-table {
+  width: 100%;
+  min-width: 960px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.positions-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.positions-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.positions-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.positions-table tbody tr:hover {
+  background: var(--panel);
+}
+.positions-table .position-number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.positions-table small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.positions-table .position-market {
+  display: inline-block;
+  text-decoration: none;
+}
+.positions-table .position-market:hover strong {
+  text-decoration: underline;
+}
+.positions-table .position-action-head {
+  text-align: right;
+}
+.positions-table .position-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.positions-table .position-actions > a,
+.positions-table .position-actions > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  text-decoration: none;
+}
+.positions-table .position-actions > button:disabled {
+  color: var(--muted);
+  opacity: 0.6;
+}
+.positions-table .position-evidence {
+  margin: 6px 0 0;
+  padding: 0;
+  border: 0;
+  text-align: right;
+}
+.positions-table .position-evidence summary {
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.positions-table .locked-payout {
+  text-align: left;
+  white-space: normal;
+  max-width: 280px;
+}
+@media (max-width: 1023px) {
+  .positions-table .position-actions > a,
+  .positions-table .position-actions > button {
+    min-height: 40px;
+    min-width: 40px;
+  }
+}
+
+/* Compact market controls and shared transaction feedback. */
+.terminal-workspace .series-rail .region-heading {
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.terminal-workspace .series-rail .region-heading h2 {
+  white-space: nowrap;
+}
+.terminal-workspace .series-rail .expert-toggle {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  white-space: nowrap;
+  gap: 5px;
+}
+.terminal-workspace .series-rail .expert-toggle input {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+.terminal-workspace .market-list-options {
+  display: block;
+  padding: 0;
+}
+.terminal-workspace .series-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  gap: 0;
+}
+.terminal-ticket .trade-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: stretch;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.terminal-ticket .trade-controls .desk-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: 100%;
+}
+.terminal-ticket .trade-controls button {
+  padding: 8px 4px;
+  min-height: 36px;
+  font-size: 13px;
+}
+.desk-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: desk-spin 0.8s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+@keyframes desk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.desk-processing {
+  position: fixed;
+  right: 16px;
+  bottom: 12px;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  background: var(--paper);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  font-size: 12px;
+  pointer-events: none;
+}
+.desk-toasts {
+  position: fixed;
+  right: 16px;
+  bottom: 54px;
+  width: min(380px, calc(100vw - 32px));
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  outline: none;
+}
+.desk-toast {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--muted);
+  padding: 14px 36px 14px 16px;
+  font-size: 13px;
+}
+.desk-toast[data-limited] {
+  display: none;
+}
+.desk-toast[data-kind="success"] {
+  border-left-color: var(--olive);
+}
+.desk-toast[data-kind="error"],
+.desk-toast[data-kind="warning"] {
+  border-left-color: var(--danger);
+}
+.desk-toast-title {
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: normal;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.desk-toast-description {
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.desk-toast-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.desk-toast-links a {
+  margin-top: 10px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.desk-toast-close {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .desk-spinner {
+    animation: none;
+  }
+}
+
+/* The account dock ends at the chart; the ticket spans down to the footer. */
+@media (min-width: 1024px) {
+  .terminal-workspace .terminal-grid.resizable-grid {
+    height: 100%;
+    min-height: 0;
+    grid-template-rows: var(--workspace-height) 10px minmax(0, 1fr);
+    grid-template-areas:
+      "markets left chart right ticket"
+      "resize resize resize right ticket"
+      "dock dock dock right ticket";
+    border-bottom: 0;
+  }
+  .resizable-grid > .series-rail {
+    grid-area: markets;
+  }
+  .resizable-grid > .terminal-center {
+    grid-area: chart;
+  }
+  .resizable-grid > .terminal-ticket {
+    grid-area: ticket;
+    min-height: 0;
+  }
+  .resizable-grid > [aria-label="Resize markets panel"] {
+    grid-area: left;
+  }
+  .resizable-grid > [aria-label="Resize trade ticket"] {
+    grid-area: right;
+  }
+  .resizable-grid > [aria-orientation="horizontal"] {
+    grid-area: resize;
+  }
+  .resizable-grid > .trading-dock {
+    grid-area: dock;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .resizable-grid > .trading-dock > [data-slot="halo-tabs"] {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Give the payoff plot the space, with compact controls and outcome details. */
+.terminal-workspace .terminal-center .scenario-chart {
+  padding: 8px 12px;
+}
+.terminal-workspace .scenario-chart > .panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+}
+.terminal-workspace .scenario-chart .panel-top h2 {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.terminal-workspace .scenario-chart .panel-top .desk-tabs {
+  flex: none;
+  padding: 2px;
+  gap: 2px;
+}
+.terminal-workspace .terminal-center .scenario-chart .desk-tabs button {
+  min-height: 28px;
+  padding: 3px 10px;
+  font: 11px var(--mono);
+}
+.terminal-workspace .terminal-center .scenario-chart svg {
+  height: auto;
+  max-height: none;
+  width: 100%;
+}
+.terminal-workspace .terminal-center .settled-outcome svg {
+  max-height: 260px;
+}
+.terminal-workspace .terminal-center .scenario-chart figcaption {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 12px;
+  margin: 0;
+  padding: 4px 0;
+  line-height: 1.4;
+}
+.terminal-workspace .scenario-chart .scenario-reference {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  font-size: 12px;
+}
+.terminal-workspace .scenario-chart .scenario-result-label {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  font-size: 11px;
+}
+.terminal-workspace .terminal-center .scenario-chart figcaption > strong {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  font: 16px var(--mono);
+  text-align: right;
+}
+.terminal-workspace .terminal-center .scenario-chart figcaption > p {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.terminal-workspace .terminal-center .selected-market-line {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+@media (max-width: 600px) {
+  .terminal-workspace .terminal-center .scenario-chart .desk-tabs button {
+    min-height: 36px;
+  }
+  .terminal-workspace .terminal-center .scenario-chart figcaption > strong {
+    font-size: 13px;
+  }
+}

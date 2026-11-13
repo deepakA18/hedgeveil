@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { Feedback } from "./Feedback";
 import { ThemeToggle } from "../ThemeProvider";
 import { SiteFooter } from "../home/SiteFooter";
 import { usePathname } from "next/navigation";
@@ -14,6 +15,7 @@ const links = [
   ["/trade", "Trade"],
   ["/portfolio", "Portfolio"],
   ["/funds", "Funds"],
+  ["/activity", "Activity"],
 ];
 export function DeskShell({ children }: { children: ReactNode }) {
   const d = useDesk(),
@@ -165,23 +167,23 @@ export function DeskShell({ children }: { children: ReactNode }) {
         )}
         <div className="desk-frame">
           <main id="desk-main" className="desk-main">
-            {d.error && (
-              <div role="alert" className="desk-alert">
-                {d.error}
-                {!d.session && (
-                  <button onClick={() => location.reload()}>Reload</button>
-                )}
-              </div>
-            )}
-            {d.notice && (
-              <div className="desk-notice" role="status">
-                {d.notice}
-              </div>
-            )}
             {children}
           </main>
         </div>
       </div>
+      <Feedback
+        error={d.error}
+        notice={d.notice}
+        processing={
+          d.connecting
+            ? `Connecting to ${d.connecting}…`
+            : d.busy
+              ? "Processing…"
+              : d.loading
+                ? "Refreshing…"
+                : ""
+        }
+      />
       <SiteFooter workspace />
     </div>
   );

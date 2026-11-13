@@ -1,0 +1,94 @@
+{
+  "captured_at": "2026-11-13T13:07:59.293Z",
+  "scope": "Actual unsigned review only. No wallet handoff, deposit submission or funding completion claimed.",
+  "http_status": 200,
+  "preview": {
+    "intent": {
+      "args": {},
+      "attached_deposit": "100000000000000000000000",
+      "domain": {
+        "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+        "network": "testnet",
+        "protocol_version": "1"
+      },
+      "gas": "250000000000000",
+      "kind": "transaction",
+      "method": "deposit_collateral",
+      "operation_id": "d660d8fa133892aa1ff7fe16a54018df7e89c0e212a5dad004048891f3347a2a",
+      "schema_version": "0.2.0",
+      "signer_id": "0xdeepak18.testnet"
+    },
+    "block_hash": "FuorPgrX85khHa6NXDdm868yNzTaH3fG8jBtKvXz9SHV",
+    "now_ns": "1794575276375920066",
+    "required": [],
+    "outputs": [
+      {
+        "asset": {
+          "kind": "COLLATERAL"
+        },
+        "amount": "100000000000000000000000"
+      }
+    ],
+    "blockers": [],
+    "gas_allowance": "50000000000000000000000",
+    "custody": "Internal ledger; storage and gas are paid separately",
+    "share_quantity": null
+  },
+  "health": {
+    "state": "RECONCILED",
+    "height": "277513920",
+    "block_hash": "Hk7KLTGqt8fRh8P59wwxLGEXqxeESf7dLDnkjmkrmSDy",
+    "lag_blocks": "37",
+    "reconciled": true,
+    "risk_allowed": true,
+    "rpc_failures": 0,
+    "rpc_failovers": 0,
+    "unresolved_transactions": [],
+    "stale": false,
+    "age_ms": 28918,
+    "cursor_hash": "Hk7KLTGqt8fRh8P59wwxLGEXqxeESf7dLDnkjmkrmSDy",
+    "generation": "83",
+    "discovery": {
+      "source": "neardata-testnet",
+      "required": false,
+      "baseline_height": "277508185",
+      "height": "277508883",
+      "scanned_height": "277508883",
+      "observed_height": "277513727",
+      "lag_blocks": 5037,
+      "state": "SCANNING",
+      "fresh": false,
+      "retry_at_ms": "1794573858977"
+    }
+  },
+  "operations": [
+    {
+      "operation_id": "90dafb6aa700d862e0b7713e21dd508f12dd433feb9e490d996a7c5703e9bab5",
+      "method": "storage_deposit",
+      "attempted": true,
+      "hash": "CyW4SipfAd8XN6FBLeA9Xhkbsc8tvvMmpYexZ2VDecTe",
+      "result": {
+        "hash": "CyW4SipfAd8XN6FBLeA9Xhkbsc8tvvMmpYexZ2VDecTe",
+        "operation_id": "90dafb6aa700d862e0b7713e21dd508f12dd433feb9e490d996a7c5703e9bab5",
+        "warnings": [],
+        "receipt_id": "8ACW2SrEpatnXsLqhPwCTAJJoECwNjctUddu7zPyCvXY",
+        "ledger_operation_id": "29cad8a5a9dcd42307a125b8cf581ee335b50b146190de3b1cdc09b16d48c864",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "operation_id": "d660d8fa133892aa1ff7fe16a54018df7e89c0e212a5dad004048891f3347a2a",
+      "method": "deposit_collateral",
+      "attempted": false,
+      "hash": null,
+      "result": null
+    },
+    {
+      "operation_id": "e36f19346db3ddf0ef671b3e325f66b2944b10cc36607240280ce4bd73793ac1",
+      "method": "deposit_collateral",
+      "attempted": false,
+      "hash": null,
+      "result": null
+    }
+  ]
+}

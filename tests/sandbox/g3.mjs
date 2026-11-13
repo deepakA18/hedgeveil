@@ -8,6 +8,7 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {Sandbox,GenesisAccount} from 'near-sandbox';
 import {Account,JsonRpcProvider,KeyPair,actions} from 'near-api-js';
+import {retainedSeries} from '../../packages/sdk/series.mjs';
 const ROOT=fileURLToPath(new URL('../../',import.meta.url)), Q=10n**24n,GAS=250n*10n**12n;
 const {values:options}=parseArgs({options:{report:{type:'string',default:'research/reports/g3-sandbox.json'},seed:{type:'string',default:'20903'},steps:{type:'string',default:'40'},trades:{type:'boolean',default:false}}});
 assert(/^[0-9]+$/.test(options.seed)&&BigInt(options.seed)>0n&&BigInt(options.seed)<=0xffffffffn,'nonzero u32 seed');
@@ -50,7 +51,7 @@ async function now(){return BigInt((await provider.sendJsonRpc('block',{finality
 async function advancePast(t){for(let i=0;i<150;i++){if(await now()>=t)return;await provider.sendJsonRpc('sandbox_fast_forward',{delta_height:1000});}throw Error('clock deadline not reached');}
 function config(id,end,oracle){return {series_id:id,version:'1',collateral_kind:'NATIVE_NEAR',index_definition_hash:'1'.repeat(64),payoff_kind:'CAPPED_USD_COMPLEMENT',strike:'2000000000000',price_scale:'1000000000000',maturity_ns:String(end),mint_cutoff_ns:String(end-60_000_000_000n),observation_window:{start_ns:String(end-300_000_000_000n),end_ns:String(end)},oracle_account_id:oracle.accountId,oracle_version:'fixture-v1',oracle_config_hash:'2'.repeat(64),finalization_policy_hash:'3'.repeat(64),max_supply:String(100n*Q)};}
 async function replayMatches(c){
- const snapshot=await view(c,'custody_snapshot'),ids=await view(c,'list_accounts',{from_index:0,limit:16}),series=await view(c,'list_series',{from_index:0,limit:16});
+ const snapshot=await view(c,'custody_snapshot'),ids=await view(c,'list_accounts',{from_index:0,limit:16}),series=await retainedSeries((method,args)=>view(c,method,args));
  const expected=new Map();const put=(owner,bucket,id,asset,amount)=>{if(BigInt(amount)>0n)expected.set(JSON.stringify([c.accountId,owner,bucket,id,asset]),BigInt(amount));};
  for(const id of ids){const a=await view(c,'get_account',{account_id:id});put(id,'FREE','account','COLLATERAL',a.free);put(id,'STORAGE','account','COLLATERAL',a.storage_paid);for(const s of series){const p=a.positions[s.slot];put(id,'FREE',s.config.series_id,`P:${s.config.series_id}`,p.p);put(id,'FREE',s.config.series_id,`N:${s.config.series_id}`,p.n);}for(const t of await view(c,'list_tickets',{account_id:id,from_index:0,limit:16})){if(['PENDING','UNKNOWN'].includes(t.state))put(id,'WITHDRAWAL',`w-${t.id}`,'COLLATERAL',t.amount);}}
  for(const s of series){put(c.accountId,'SERIES_RESERVE',s.config.series_id,'COLLATERAL',s.reserve);put(c.accountId,'SUPPLY',s.config.series_id,`P:${s.config.series_id}`,s.outstanding_p);put(c.accountId,'SUPPLY',s.config.series_id,`N:${s.config.series_id}`,s.outstanding_n);}
@@ -168,6 +169,8 @@ try{
  // Delete a fixture sender before its queued unregister request; actual native refund fails.
  const doomed=await deploy(root,'doomed','account-fixture.wasm',{owner:root.accountId,core:core.accountId});await call(root,doomed,'register',{amount:String(minimum)});
  await call(root,doomed,'close_and_delete',{},0n,'mixed');const restored=await view(core,'get_account',{account_id:doomed.accountId});
+ const refundTickets=await view(core,'list_tickets',{account_id:doomed.accountId,from_index:0,limit:16});
+ assert.equal(refundTickets.length,1,'unregister must execute and retain its failed refund receipt');assert.equal(refundTickets[0].state,'FAILED_CONFIRMED');
  check('failed storage refund restores storage, not collateral',[restored.storage_paid,restored.free,restored.closing],[String(minimum),'0',false]);
  // Recreate the same local account to close its failure ticket and safely unregister.
  const recreated=await create(root,'doomed');const restoredTickets=await view(core,'list_tickets',{account_id:recreated.accountId,from_index:0,limit:16});assert.equal(restoredTickets[0].state,'FAILED_CONFIRMED');
@@ -183,22 +186,33 @@ try{
  await call(alice,fault,'request_withdrawal',{amount:'100',receiver:'missing.sandbox'},1n,'mixed');const refunded=(await view(fault,'get_account',{account_id:alice.accountId})).free;
  await call(alice,fault,'fault_replay',{ticket_id:'2',malformed:false});check('duplicate result cannot refund twice',(await view(fault,'get_account',{account_id:alice.accountId})).free,refunded);
  // Exercise all configured storage limits, not just a small ledger.
- const future=(await now())+1_800_000_000_000n;for(let i=0;i<5;i++)await call(alice,core,'create_series',{config:config(`extra-${i}`,future,oracle)},seriesPayment);
+ const extra=quote.max_series-3;
+ const future=(await now())+7_200_000_000_000n;for(let i=0;i<extra;i++)await call(alice,core,'create_series',{config:config(`extra-${i}`,future,oracle)},seriesPayment);
  await call(alice,core,'create_series',{config:config('extra-over',future,oracle)},seriesPayment,'failure');
  const registered=[alice];for(let i=0;i<15;i++){const a=await create(root,`capacity-${i}`);await call(a,core,'storage_deposit',{},minimum);registered.push(a);}
  await call(bob,core,'storage_deposit',{},minimum,'failure');
- for(const a of registered){await call(a,core,'deposit_collateral',{},9n);for(let j=0;j<5;j++)await call(a,core,'split',{series_id:`extra-${j}`,amount:'1'},1n);for(let j=0;j<4;j++)await call(a,core,'request_withdrawal',{amount:'1',receiver:sink.accountId},1n);}
+ for(const a of registered){await call(a,core,'deposit_collateral',{},BigInt(extra+4));for(let j=0;j<extra;j++)await call(a,core,'split',{series_id:`extra-${j}`,amount:'1'},1n);for(let j=0;j<4;j++)await call(a,core,'request_withdrawal',{amount:'1',receiver:sink.accountId},1n);}
  const capped=(await view(core,'get_account',{account_id:alice.accountId})).free;await call(alice,core,'request_withdrawal',{amount:'1',receiver:sink.accountId},1n,'failure');check('full ticket cap rolls back debit',(await view(core,'get_account',{account_id:alice.accountId})).free,capped);
  check('all 64 tickets terminate at full storage capacity',(await Promise.all(registered.map(a=>view(core,'list_tickets',{account_id:a.accountId,from_index:0,limit:16})))).flat().filter(t=>t.state==='SUCCEEDED').length,64);
+ const finishedTicket=(await view(core,'list_tickets',{account_id:alice.accountId,from_index:0,limit:16}))[0];
+ await call(alice,core,'close_ticket',{ticket_id:finishedTicket.id},1n);
+ await call(alice,core,'deposit_collateral',{},1n);
+ const fullFree=(await view(core,'get_account',{account_id:alice.accountId})).free;
+ await call(alice,core,'request_withdrawal',{amount:'1',receiver:'full-capacity-missing.sandbox'},1n,'mixed');
+ check('failed native transfer restores credit at full account/series capacity',(await view(core,'get_account',{account_id:alice.accountId})).free,fullFree);
+ await advancePast(future+1n);
+ await call(root,oracle,'set_report',{series_id:'extra-0',report:{config:config('extra-0',future,oracle),state:'FINALIZED',price:'3000000000000'}});
+ await call(alice,core,'request_resolution',{series_id:'extra-0'});
+ check('resolution callback completes at full account/series capacity',(await view(core,'get_series',{series_id:'extra-0'})).final_price,'3000000000000');
  check('account pagination bounded',(await view(core,'list_accounts',{from_index:0,limit:16})).length,16);
  evidence.custody={normal:await replayMatches(core),fault:await replayMatches(fault)};
  check('event replay reconciles every balance, reserve, supply and ticket',true,true);
  check('retained custody categories covered',evidence.custody.normal.retained_categories_covered,true);
- evidence.limits={accounts:16,series:8,terminal_tickets:64,storage_bytes:evidence.custody.normal.storage_bytes,max_transaction_gas:evidence.transactions.reduce((n,t)=>BigInt(t.gas_burnt)>n?BigInt(t.gas_burnt):n,0n).toString(),max_receipt_gas:evidence.transactions.flatMap(t=>t.receipts).reduce((n,r)=>BigInt(r.gas_burnt)>n?BigInt(r.gas_burnt):n,0n).toString()};
+ evidence.limits={accounts:16,series:quote.max_series,terminal_tickets:64,storage_bytes:evidence.custody.normal.storage_bytes,max_transaction_gas:evidence.transactions.reduce((n,t)=>BigInt(t.gas_burnt)>n?BigInt(t.gas_burnt):n,0n).toString(),max_receipt_gas:evidence.transactions.flatMap(t=>t.receipts).reduce((n,r)=>BigInt(r.gas_burnt)>n?BigInt(r.gas_burnt):n,0n).toString()};
  evidence.runtime=await provider.viewNodeStatus();check('pinned node version',evidence.runtime.version.version,'2.14.0');
  // Validate actual emitted event records with the same public shared schema.
  await writeFile(path.join(ROOT,'target/g3-events.json'),JSON.stringify(evidence.events.map(x=>x.event)));
- execFileSync('uv',['run','--offline','--with','jsonschema==4.23.0','python','-c',"import sys,json;sys.path.insert(0,'packages/shared-schemas');from validate import validate;[validate(e) for e in json.load(open('target/g3-events.json'))]"],{cwd:ROOT,env:{...process.env,UV_CACHE_DIR:'/private/tmp/hedgeveil-uv-cache'},stdio:'pipe'});
+ execFileSync(process.env.HEDGEVEIL_SCHEMA_PYTHON??'uv',[...(process.env.HEDGEVEIL_SCHEMA_PYTHON?[]:['run','--offline','--with','jsonschema==4.23.0','python']),'-c',"import sys,json;sys.path.insert(0,'packages/shared-schemas');from validate import validate;[validate(e) for e in json.load(open('target/g3-events.json'))]"],{cwd:ROOT,env:{...process.env,UV_CACHE_DIR:'/private/tmp/hedgeveil-uv-cache'},stdio:'pipe'});
  check('all emitted events validate against shared schema',true,true);evidence.passed=true;
  await writeFile(path.join(ROOT,reportFile),JSON.stringify(evidence,(_,v)=>typeof v==='bigint'?v.toString():v,2)+'\n');
  console.log(`G3: ${evidence.checks.length} named checks, ${evidence.transactions.length} transactions, ${evidence.events.length} events.`);

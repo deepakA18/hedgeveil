@@ -81,6 +81,7 @@ def build():
         'unregister': obj({}),
         'close_ticket': obj({'ticket_id': ref('uint64')}),
         'release_dust': obj({'series_id': ref('id')}),
+        'archive_series': obj({'series_id': ref('id')}),
         'set_pauses': obj({'pauses': obj({'deposits': {'type': 'boolean'}, 'series': {'type': 'boolean'}, 'splits': {'type': 'boolean'}})}),
         'create_series': obj({'config': ref('series_terms')}),
         'split': series_amount,
@@ -105,11 +106,13 @@ def build():
     transaction = obj({'kind': const('transaction'), 'schema_version': const('0.2.0'), 'domain': ref('domain'),
                        'operation_id': ref('hash256'), 'attached_deposit': ref('uint128'),
                        'method': {'enum': list(methods)}, 'args': {'type': 'object'}})
+    transaction['properties']['storage_deposit'] = ref('positive')
+    transaction['allOf'] = [{'if': {'required': ['storage_deposit']}, 'then': {'properties': {'method': const('deposit_collateral')}}}]
     transaction['oneOf'] = [{'properties': {'method': const(method), 'args': args}}
                             for method, args in methods.items()]
     event = obj({'kind': const('event'), 'schema_version': const('0.2.0'), 'domain': ref('domain'),
                  'operation_id': ref('hash256'), 'actor': ref('account'),
-                 'event': {'enum': ['DEPOSIT', 'SERIES_CREATED', 'SPLIT', 'TRANSFER', 'MERGE', 'QUOTE_FILLED',
+                 'event': {'enum': ['DEPOSIT', 'SERIES_CREATED', 'SERIES_ARCHIVED', 'SPLIT', 'TRANSFER', 'MERGE', 'QUOTE_FILLED',
                                     'QUOTE_CANCELLED', 'SIGNING_KEY_REGISTERED', 'SIGNING_KEY_REVOKED', 'QUOTE_EPOCH_ADVANCED', 'MARKET_PAUSE_CHANGED', 'PAIR_MATCHED', 'FINALIZED', 'REDEEMED', 'VAULT_MINTED', 'VAULT_EXITED', 'VAULT_CREATED', 'VAULT_POLICY_CONFIGURED', 'VAULT_REFERENCE_PUBLISHED', 'VAULT_PAUSE_CHANGED', 'VAULT_SHARES_TRANSFERRED',
                                     'ROLL_EXECUTED', 'ROLL_DEFERRED', 'WITHDRAWAL_REQUESTED', 'WITHDRAWAL_SUCCEEDED',
                                     'WITHDRAWAL_FAILED_CONFIRMED', 'WITHDRAWAL_UNKNOWN', 'DUST_RELEASED', 'INITIALIZED', 'STORAGE_DEPOSIT', 'STORAGE_RELEASED', 'STORAGE_REFUND_REQUESTED', 'TICKET_CLOSED', 'PAUSE_CHANGED', 'RESOLUTION_REQUESTED', 'RESOLUTION_REJECTED']},

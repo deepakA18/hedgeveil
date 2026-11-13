@@ -184,3 +184,18 @@ test('maker controls retain exact bounded nonces, increasing epoch candidates an
     for (const epoch of ['0','18446744073709551616',1])assert.throws(()=>buildIntent({...input,method:'advance_quote_epoch',args:{epoch}}));
     assert.throws(()=>buildIntent({...input,method:'revoke_signing_key',args:{key_id:'../key'}}));
 });
+
+test('first-deposit receipts bind both amounts and events, never just registration',async()=>{
+ const {intentActions}=await import('../../packages/sdk/intent.mjs');
+ const i=buildIntent({...input,method:'deposit_collateral',args:{},attached_deposit:'110',storage_deposit:'10'});
+ for(const patch of [{storage_deposit:'0'},{storage_deposit:'110'},{storage_deposit:'111'},{method:'storage_deposit'}])assert.throws(()=>buildIntent({...i,contract_id:config.contract_id,...patch}));
+ const raw=fixture(i);raw.transaction.actions=intentActions(i).map(a=>({FunctionCall:{method_name:a.methodName,args:Buffer.from('{}').toString('base64'),gas:a.gas,deposit:a.deposit}}));
+ const e=(name,bucket,amount)=>({...event(i),event:name,deltas:[{account_id:i.signer_id,bucket,asset:{kind:'COLLATERAL'},direction:'CREDIT',amount}]});
+ const events=[e('STORAGE_DEPOSIT','STORAGE','10'),e('DEPOSIT','FREE','100')];
+ const set=items=>raw.receipts_outcome[0].outcome.logs=['EVENT_JSON:'+JSON.stringify({standard:'hedgeveil',version:'0.2.0',event:'ledger',data:items})];
+ set(events);assert.equal((await assess({},raw,i,h(3))).state,'SUCCEEDED');
+ for(const items of [[events[0]],[events[1]],[...events].reverse(),[events[0],e('DEPOSIT','FREE','110')]]){
+  set(items);assert.equal((await assess({},raw,i,h(3))).state,'PENDING');
+ }
+ set(events);raw.transaction.actions.reverse();await assert.rejects(assess({},raw,i,h(3)),/TRANSACTION_MISMATCH/);
+});

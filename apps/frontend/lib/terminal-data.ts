@@ -1,10 +1,20 @@
-import type { Series, IndexState, OracleCase, Claim } from "./desk-types.ts";
+import type {
+  Series,
+  IndexState,
+  OracleCase,
+  ExpiryCase,
+  Claim,
+} from "./desk-types.ts";
 import { Q, scenarioPayout } from "./market-display.ts";
 export type GateReason =
   | "STALE_SPOT"
   | "INDEXER_LAG"
   | "NO_OPEN_SERIES"
   | "MAKER_DOWN"
+  | "MAKER_BUSY"
+  | "MAKER_MAINTENANCE"
+  | "MAKER_DATA"
+  | "MAKER_LIMIT"
   | "NO_QUOTE"
   | "QUOTE_EXPIRED"
   | "INSUFFICIENT_FREE"
@@ -24,6 +34,22 @@ export const gateCopy: Record<GateReason, [string, string]> = {
   ],
   NO_OPEN_SERIES: ["This market is closed to new trades.", "View history"],
   MAKER_DOWN: ["The maker could not be reached.", "Request again"],
+  MAKER_BUSY: [
+    "The quote queue is busy. Try reviewing again shortly.",
+    "Try again",
+  ],
+  MAKER_MAINTENANCE: [
+    "Offers are briefly paused while maker inventory is updated. Try again shortly.",
+    "Try again",
+  ],
+  MAKER_DATA: [
+    "Makers could not verify fresh pricing data. Request offers again shortly.",
+    "Refresh offers",
+  ],
+  MAKER_LIMIT: [
+    "Makers are not offering this trade under their current limits.",
+    "Refresh offers",
+  ],
   NO_QUOTE: ["No funded offer for this quantity.", "Change quantity"],
   QUOTE_EXPIRED: ["This offer has expired.", "Refresh offers"],
   INSUFFICIENT_FREE: ["Available funds do not cover this trade.", "Add funds"],
@@ -42,6 +68,42 @@ export const gateCopy: Record<GateReason, [string, string]> = {
   ],
   BUSY: ["Finish the current wallet action first.", "Check wallet"],
 };
+export function offerGate(
+  reasons: Array<string | null | undefined>,
+): GateReason {
+  if (
+    reasons.some((r) =>
+      ["MAKER_UNAVAILABLE", "MAKER_RPC_UNAVAILABLE", "MAKER_TIMEOUT"].includes(
+        r ?? "",
+      ),
+    )
+  )
+    return "MAKER_DOWN";
+  if (reasons.some((r) => r === "MAKER_BUSY")) return "MAKER_BUSY";
+  if (reasons.some((r) => r === "MAKER_MAINTENANCE"))
+    return "MAKER_MAINTENANCE";
+  if (
+    reasons.some((r) =>
+      [
+        "MARKET_DATA_UNAVAILABLE",
+        "STALE_REFERENCE",
+        "INVALID_REFERENCE",
+        "MISSING_MARK",
+      ].includes(r ?? ""),
+    )
+  )
+    return "MAKER_DATA";
+  if (reasons.some((r) => r === "SERIES_UNAVAILABLE")) return "NO_OPEN_SERIES";
+  if (
+    reasons.some(
+      (r) =>
+        r &&
+        !["INVENTORY_LIMIT", "ZERO_AMOUNT", "DUST_OR_FEE_LIMIT"].includes(r),
+    )
+  )
+    return "MAKER_LIMIT";
+  return "NO_QUOTE";
+}
 export function percent(n: bigint, d: bigint, signed = false) {
   if (d <= 0n) return "—";
   const b = (n * 10000n) / d,
@@ -63,12 +125,34 @@ export function oracleCase(
       x.contract === s.config.oracle_account_id && x.kind === "external_oracle",
   );
   return source?.body.cases?.find(
-    (c) =>
+    (c): c is OracleCase =>
+      "samples" in c &&
       c.config.series_id === s.config.series_id &&
       c.config.oracle_config_hash === s.config.oracle_config_hash,
   );
 }
-export function lifecycle(s: Series, now: number, evidence?: OracleCase) {
+export function expiryCase(
+  state: IndexState | null,
+  s: Series,
+): ExpiryCase | undefined {
+  if (s.config.oracle_version !== "native-trade-twap-v1") return undefined;
+  return state?.items
+    .find(
+      (x) =>
+        x.contract === s.config.oracle_account_id && x.kind === "expiry_oracle",
+    )
+    ?.body.cases?.find(
+      (c): c is ExpiryCase =>
+        "pending" in c &&
+        c.config.series_id === s.config.series_id &&
+        c.config.oracle_config_hash === s.config.oracle_config_hash,
+    );
+}
+export function lifecycle(
+  s: Series,
+  now: number,
+  evidence?: Pick<OracleCase, "state">,
+) {
   if (s.final_price !== null) return "FINALIZED";
   if (!now) return "UNAVAILABLE";
   if (BigInt(s.config.maturity_ns) > BigInt(Math.floor(now)) * 1000000n)
@@ -171,6 +255,10 @@ export const gateLabel: Record<GateReason, string> = {
   INDEXER_LAG: "Account checks pending",
   NO_OPEN_SERIES: "Market closed",
   MAKER_DOWN: "Maker unavailable",
+  MAKER_MAINTENANCE: "Updating maker inventory",
+  MAKER_BUSY: "Quote queue busy",
+  MAKER_DATA: "Pricing unavailable",
+  MAKER_LIMIT: "Maker limit",
   NO_QUOTE: "No quote",
   QUOTE_EXPIRED: "Quote expired",
   INSUFFICIENT_FREE: "Insufficient funds",

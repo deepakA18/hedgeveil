@@ -1,12 +1,18 @@
 # Deferred backend and live-flow work
 
+**Resume update:** [13 November implementation evidence](../research/reports/BACKEND_RESUME_2026-11-13.md)
+records layout-2 capacity/archive, keeper/indexer integration, a pre-window TWAP
+valuation candidate and both a ten-market deployment rehearsal and confirmed public setup (54 successful operations). The checklist below
+remains unchecked where combined public acceptance is still missing. The baseline
+below describes the retained public deployment, not the new separate layout-2 deployment. The new deployment has ten open markets, verified real offers and a connected Next.js frontend. User-approved receipt-based reconciliation gates new risk; full-block discovery is an additive audit, not a completed coverage claim. Owner setup is confirmed; deposit, fills, renewal and the complete new settlement lifecycle remain pending.
+
 Recorded 13 November 2026 at the user's request while frontend work continues.
 This is the resume checklist, not completion evidence. The root
 [implementation plan](../IMPLEMENTATION_PLAN.md) remains authoritative. Items
 below are unchecked until their stated acceptance evidence is recorded.
 Historical deployments and receipts must remain separate from the new profile.
 
-## Current baseline
+## Historical baseline before the separate deployment
 
 - The observed desk has **zero open markets** and five historical series.
 - The deployed core has **eight lifetime series slots**, with fixed-size account
@@ -181,8 +187,8 @@ receipts; neither UI polish nor a published frontend closes backend readiness.
   independent makers is not completed by deploying two project processes.
 - **Automated intent selection/rolling:** not activated. Requires tested quote
   quality, explicit costs, supported atomic roll semantics and wallet acceptance.
-  Batched first-deposit/storage convenience is also unfinished; separate actions
-  remain supported. [Retail-flow limits](../research/reports/APP02_RETAIL_FLOW.md).
+  Batched first-deposit/storage is now implemented and locally verified; a first-time
+  external-wallet approval remains unverified. Existing registered accounts use a normal deposit. [Retail-flow limits](../research/reports/APP02_RETAIL_FLOW.md).
 - **G10 production / G11 expansions:** separate from hackathon G9; not silently
   added to the immediate backlog or declared complete by finishing the demo.
 
@@ -192,3 +198,25 @@ Start with items 1–3 and item 5's schema integration; then activate the ladder
 prove the wallet lifecycle and finish the release. Link evidence here and update
 STATUS/BACKLOG as each checkbox closes. No new deployment, funding or transaction
 was performed to write this checklist. Independent review remains pending.
+
+## 13 November renewal and quote-reliability follow-up
+
+Renewal implementation and interrupted-restart/duplicate tests now pass locally;
+a subsequent public cohort is still required to close item 4. Ten distinct Sandbox
+accounts completed the monetary lifecycle with exact reconciliation. Ten concurrent
+public sessions for one account received real signed offers from both makers after
+RPC read-sharing/failover fixes; this is not ten distinct funded public users.
+See [updated backend evidence](../research/reports/BACKEND_RESUME_2026-11-13.md)
+and `research/reports/backend-public-concurrency.json`. The earlier failed burst
+is preserved as `backend-public-concurrency-before-read-sharing.json`.
+
+A real, separately labelled acceptance series has a complete future 30-minute
+window and funded service-owned claims. Callback/import/redemption remain pending;
+registration must not close ORC-04. Owner wallet fills remain pending. The checklist
+above tracks combined acceptance and independent review, not only implementation.
+
+
+Owner P purchase verified (13 November 2026): 0.01 Capped value at K $3.536; FINAL receipt and exact balance reconciliation in `research/reports/owner-capped-buy-confirmed.json`. Both P/N purchases now have owner-wallet evidence. P sell and new-profile settlement/redemption remain pending; independent review pending. See STATUS, “Owner Capped value purchase”.
+
+
+13 November follow-up: owner P sale is now FINAL and reconciled in `research/reports/owner-capped-sell-confirmed.json`; both owner P/N buy and sell flows are verified. Review trade now fetches a fresh offer and opens exact review in one action. Scheduler skips unnecessary maker pauses while settlement reports an unresolved signer; it does not clear that unresolved transaction. Current-profile settlement/redemption, later public renewal, first-time combined deposit wallet acceptance and independent review remain open. See STATUS, “Capped value sale and combined trade review”.

@@ -109,6 +109,17 @@ See [the accounting assumptions](../verification/assumptions.md).
 
 ## State machines and asynchronous boundaries
 
+Hashless `fill_quote` recovery may resolve to `QUOTE_EXPIRED_UNFILLED` only with
+a finalized block at or after quote expiry and a same-block maker registry whose
+epoch still equals the signed quote epoch and whose consumed nonce bit is clear.
+The deployment code must match the journal binding at that block. This proves
+the quote did not fill and cannot fill later; it does not prove no transaction
+was submitted or no gas was spent. Preserve the original attempted journal and
+evidence. A fresh quote requires a new explicit review/signature; never resend
+the old operation. Consumed nonces, changed epochs, malformed data, RPC failure,
+and other methods remain unresolved. A subsequently supplied matching receipt
+can refine transaction/gas status. No refund or ledger mutation follows recovery.
+
 Series: OPEN → MATURED_PENDING → PROPOSED → FINALIZED → CLOSED, with DISPUTED
 and RESOLUTION_DELAYED branches. Enforce maturity from block time even if a keeper
 has not advanced the label. Pause is separate and scoped. No closing can strand
@@ -244,6 +255,28 @@ evidence holds settlement; it never authorizes a fabricated price or refund.
 Valuation must use the same averaging rule and account for its fixed portion,
 native payout denomination and model assumptions. The existing terminal-price
 model is not accepted as an aligned TWAP model.
+
+MKT-04 candidate maker valuation (`ARITHMETIC_TWAP_NEAR_MOMENTS_V1`) prices
+the native payoff `max(1-K/A,0)`, with P defined as its exact complement. Before
+the 30-minute window begins it matches the first two moments of the arithmetic
+average under a zero-carry NEAR numeraire GBM model to a lognormal distribution.
+For years until window start `a`, window length `w`, and `v=sigma²`, its moments
+are `E[A]=spot*exp(v*a)*expm1(v*w)/(v*w)` and
+`E[A²]=spot²*exp(3*v*a)*(expm1(3*v*w)/3-expm1(v*w))/(v*w)²`.
+The inverse-payoff expectation uses that fitted distribution, rather than
+substituting the terminal spot price or dividing a USD Asian call by spot.
+The model uses observed realized volatility, not implied volatility. Continuous
+averaging and lognormal moment matching are explicit pricing approximations;
+neither changes the exact last-trade-hold settlement calculation. Simulation and
+formula checks are model evidence, not external price observations or review.
+
+This initial candidate deliberately refuses new quotes once the averaging window
+starts: authenticated partial history is not yet connected to maker valuation.
+Quotes expire before that boundary. It must not silently assume that the already
+observed part of the window equals current spot. Missing/stale inputs, unsupported
+windows, or unresolved mature inventory keep the maker unavailable. A finalized
+series uses the exact on-chain coefficient. Public activation and independent
+economics review remain separate gates.
 
 Existing native-sampled-v1 series retain their original rules. New-profile
 activation requires source feasibility, schema/version isolation, rational/Rust
@@ -503,7 +536,11 @@ cost and its disclosed liveness coverage, not financial behavior or terms.
 
 
 The optional testnet Neardata header transport supplies numeric-height prefetch
-hints. Final head and deployment anchor remain chain/genesis-pinned RPC reads;
+hints. Final head remains a chain/genesis-pinned RPC read. The deployment anchor
+can reuse its retained original RPC response after providers prune that block;
+its hash must match the immutable configured anchor, and restart verifies live
+chain/genesis identity before opening the bound database. This never changes the
+cursor, skips missing receipts or substitutes for current reconciliation;
 every intervening parent link must match. Missing/null/wrong-height data cannot
 skip an ancestor. Contract snapshots and complete FINAL receipt trees still come
 from pinned RPC reads. No alternate price source or financial term is introduced.
@@ -595,7 +632,7 @@ for finalized chain time to reach its timestamp. Failure yields no quote. No
 timestamp is rewritten, price interpolated or freshness bound widened.
 
 
-### MKT-05 rolling listing target (13 November 2026; not activated)
+### MKT-05 rolling listing target (13 November 2026; initial cohort deployed)
 
 The user-selected target is two distinct expiries: next daily and next Friday,
 both 08:00 UTC, with 90/95/100/105/110% strikes from one fresh source snapshot per
@@ -604,18 +641,126 @@ The read-only planner uses at least one hour of lead, preserves each expiry's
 initial seed and never modifies existing series. This is a planned provisioning
 policy, not authorization to reuse old oracle terms or bypass capacity/data gates.
 
-Activation requires scalable versioned series/position storage (current core has
-8 lifetime slots), storage pricing and migration tests, aligned TWAP maker pricing,
+Activation requires scalable versioned series/position storage (legacy core has
+8 lifetime slots), storage pricing and coexistence tests, aligned TWAP maker pricing,
 accepted oracle/runtime integration, actual funded inventory and receipt-journal
 recovery. Unknown writes cannot be resent; unavailable inputs may leave no open
 markets. Startup/periodic/event reconciliation must be idempotent. No automatic
 listing transaction or new series is implemented by the read-only planner.
+The separate layout-2 provisioner below has now deployed the first ten funded
+markets with confirmed receipts; periodic renewal remains pending acceptance.
 
 Public model marks are display estimates only, never executable RFQs. The existing
 legacy terminal model remains limited to its disclosed old-profile approximation;
 new TWAP marks refuse that model. Finalized historical rows use actual coefficients.
 No change to payoff, custody, settlement or withdrawal semantics is introduced.
 
+
+### MKT-05 core layout 2 — reusable market slots (13 November 2026)
+
+This is a separate-deployment layout, never an in-place upgrade of layout 1.
+The hot ledger retains at most 32 series and 16 accounts. Each account reserves
+32 position slots within its separately paid 4,096-byte storage allowance. This
+supports ten current markets and retained earlier cohorts without unbounded
+per-transaction account/series scans. Capacity exhaustion remains a real gate;
+no position may be evicted to keep ten markets visible.
+
+Permissionless `archive_series` may retire only a CLOSED series after maturity,
+with no outstanding P/N, no reserve and no pending resolution callback. Closure
+still requires finalization, burning all claims and releasing dust. A delayed
+series with claims cannot be archived. The finalized series record is preserved
+in append-only on-chain storage, addressable by immutable series ID and paginated
+archive index. IDs can never be reused. Only its now-empty physical position slot
+can be reused, and account slots must be verified zero before reuse. Vault/roll
+instances block retirement in this layout; the public options-only profile has
+neither enabled. No collateral or storage refund is created by archival.
+
+Every creation pays the existing separate series-storage allowance and fee,
+including replacement cohorts. The allowance is retained to fund its historical
+record permanently; archive storage is flushed and included in coverage checks.
+The event state commitment includes a chained digest of archived records. Existing
+ledger delta semantics and protocol version 1 remain unchanged, with an added
+`SERIES_ARCHIVED` event. `storage_quote` identifies layout 2 and reports hot and
+archived counts. `list_series` paginates retained series (limit 16); clients must
+read all pages at one finalized block. `list_archived_series` paginates immutable
+zero-balance records; `get_series` and `series_state` resolve both sets. Archive
+records are not position-slot mappings for a current account snapshot.
+
+Old deployment configuration, receipts, accounts, holdings and exits remain
+available separately. No balances or signing authority are copied to a new
+deployment. New funding, oracle binding and activation require their own receipts.
+Independent review and public deployment acceptance remain pending.
+
+Layout-2 payout and resolution callbacks reserve 120 Tgas because their invariant
+and event checks cover up to 16 accounts and 32 retained markets. Client calls
+remain bounded at 250 Tgas. Event deltas retain the same sorted order and exact
+amounts; merging the two already sorted ledger snapshots avoids building a third
+full map. Full-capacity receipt checks must establish headroom before deployment.
+A callback failure still leaves the original ticket quarantined; gas exhaustion
+never authorizes a second transfer or a refund.
+
+### ORC-04 resolver layout 2 — retained cases and immutable history
+
+The separate layout-2 TWAP resolver uses 32 retained cases, matching the new
+core's hot-market capacity. A finalized case with no pending request can be
+archived permissionlessly for one yoctoNEAR. Its terms, accepted evidence hashes
+and final price remain immutable and available through `get_case` and
+`get_resolution`; archiving never changes payout selection or authorizes a retry.
+Non-finalized cases cannot be archived. A pending or delayed case therefore
+continues to consume capacity, rather than silently abandoning obligations.
+
+Each registration still pays the exact nonrefundable 0.1 NEAR storage fee.
+Archives are append-only, their IDs can never be registered again, and their
+count and chained commitment are part of each event's snapshot hash. Storage
+collections are flushed before checking byte coverage and the separate operating
+reserve. Historical case pages are capped at 16. The storage layout is not an
+upgrade path for existing funded resolvers.
+
+The canonical indexer reads the retained snapshot at a finalized block. For any
+retained core market whose finalized oracle case has been archived, it also
+reads `get_case` at that same block and validates the exact immutable core terms,
+final price, accepted price and source binding. These supplemental cases remain
+separate from the event-hashed hot snapshot. Missing or inconsistent historical
+cases fail reconciliation; archiving cannot erase a still-held claim's resolution.
+
+The expiry keeper uses a durable, deployment-bound journal and a cross-process
+lock. It permits at most one automatic 0.02 NEAR historical request per series,
+followed by receipt-confirmed finalization and core import. Before any due-series action the coordinator checks the chain, all three code
+hashes, exact terms, source and policy at one finalized block. Local wall time
+only suppresses unnecessary polling before expiry; it never authorizes a request. UNKNOWN or failed operations halt progression. A rejected historical
+result requires explicit operator review; elapsed time cannot fund a retry.
+Actual receipt trees (including source response bytes) remain in the journal.
+Keeper completion requires the core and resolver to expose the same final price.
+
+### MKT-05 separate deployment budget and provisioning
+
+The layout-2 setup uses a new core, resolver and two maker accounts. A single
+32 test NEAR owner transfer funds a fresh service administrator, which then
+funds the new core with 21 NEAR, resolver with 6 NEAR and each maker with 1.5 NEAR.
+The core's 20 NEAR operating reserve and code/state storage are separate from
+collateral. The resolver's 1 NEAR operating reserve and code/state storage are
+also separate. These account budgets are not deposits into the trading ledger.
+The administrator retains 2 NEAR for registration fees, source requests and gas;
+none is taken from old core reserves or user claims. The owner retains at least
+1 NEAR. No access key is added to the owner's wallet.
+
+Each new maker deposits 1.1 NEAR collateral, splits 0.1 NEAR per initial market
+across ten markets, and retains 0.1 NEAR free collateral. Its remaining native
+balance pays account/key storage and gas. Inventory is limited; listing does not
+promise liquidity. This budget covers the initial cohort, not indefinite service.
+Old service keys for old contracts and makers are not copied to the new workspace;
+the administrator signer is also new. Old claims and exits remain on
+their original deployment. Historical UNKNOWN operations stay quarantined in
+their original workspace; the new deployment cannot resend or replace them.
+
+Provisioning persists the first fresh Coinbase observation per expiry and exact
+terms before registration. Every funding, deployment, registration and inventory
+operation has an immutable journal identity and must resolve before progression.
+Restarts recover receipts and cannot repeat deposits, reprice issued cohorts or
+resend UNKNOWN operations. The keeper and provisioner share an exclusive lock.
+Fresh source, code pins, funds and capacity remain prerequisites. Periodic renewal
+and recycling require their own acceptance; the initial deployment test does not
+establish them.
 
 ### Trading display clarification — 13 November 2026
 
@@ -629,3 +774,75 @@ NEAR-cost breakeven and entry-USD-cost breakeven are different bases and must be
 labelled; fees are included in quoted cost, gas excluded. Intrinsic payoff slope
 is not model delta. Historical native-sampled series retain their own immutable
 windows; this UI change introduces no settlement-profile migration.
+
+On 13 November 2026 the user approved canonical receipt/journal discovery with
+strict same-block reconciliation for the separate layout-2 demo. FASTNEAR remains
+an additive audit (`discovery_required: false`) because its observed free quota
+is 30 blocks/minute. This does not claim continuous full-network discovery.
+Missing outside receipts, event gaps, custody/state disagreement, stale canonical
+snapshots and UNKNOWN payouts retain their existing gates and quarantine rules.
+
+### APP-02 first-deposit transaction composition (13 November 2026)
+
+A `deposit_collateral` review intent may include an optional positive
+`storage_deposit` amount. `attached_deposit` is the total wallet debit; trading
+collateral is total minus storage, which must be positive. This is an SDK
+composition, not a new contract entry point or payoff change. It expands only
+to two ordered FunctionCall actions on the same core: `storage_deposit({})`
+with 50 Tgas, then `deposit_collateral({})` with 200 Tgas. Both attached amounts
+and the 250 Tgas total are bound to one durable operation and one wallet signature.
+No generic arbitrary batching is allowed. Without the optional field, existing
+single-action intents remain byte-for-byte compatible.
+
+Preview requires an unregistered account, exact current storage minimum, fresh
+reconciliation, deposits enabled, and sufficient wallet funds for the total plus
+gas/storage. If registration appears before handoff, the old review is blocked
+and a new plain deposit must be reviewed. The atomic action receipt must contain
+both successful, ordered ledger events with the exact actor and storage/free
+credits before success is reported. Failure of either action rolls back both
+state changes; gas is still charged. Missing receipts or a lost wallet response
+remain unresolved and cannot trigger automatic resend.
+
+### Backend renewal and ten-user acceptance (13 November 2026)
+
+The layout-2 release target is ten distinct retail accounts plus the administrator
+and two makers (13 of 16 account slots). Capacity is bounded; overflow rejects
+without reallocating another user's state. Ten concurrent sessions require actual
+load evidence, not just the account constant.
+
+The service reconciles the listing policy on startup, every 60 seconds and after
+settlement. It shares the settlement ownership lock and pauses/drains maker quote
+queues before maintenance; wallet transactions remain independently authorized.
+Only project-maker matched pairs may be merged after their trading window closes;
+finalized maker claims may be redeemed. User balances are never harvested.
+Archival requires the existing zero-claims/zero-reserve/finalization predicates.
+Fresh observed prices seed new dates once. The complete renewal plan is durable
+before its first write; recovery completes that exact plan before planning again.
+Every write has a deterministic journal identity and is broadcast at most once.
+Unresolved receipts halt maintenance, without timeout-based resend permission.
+
+Listing preflight retains native storage plus a 0.1 NEAR gas buffer per service
+signer, and 0.02 NEAR request sponsorship per unresolved resolver case. A renewal
+may spend only available service-wallet funds and free maker ledger collateral;
+core/resolver operating reserves and user funds are never funding sources.
+Insufficient funds/capacity produces a blocked renewal status, not partial fake
+liquidity. Quotes remain subject to fresh inputs, inventory and actual execution.
+
+A separately labelled acceptance series may use a nearer fixed expiry with the
+same complete 30-minute future observation window, source and payout rules. It is
+not a ladder cohort and does not change the daily/Friday 08:00 UTC schedule or any
+existing terms. This lets real source/callback/import/redemption acceptance execute
+without pretending a historical/fixture window was a newly traded market.
+
+### Bounded read sharing (13 November 2026)
+
+Successful immutable maker/display read snapshots may be shared for two seconds
+from completion. In-flight identical loads coalesce; failures are never retained
+as usable data, and maintenance/reset invalidates the cache generation. Snapshot
+reuse does not extend quote expiry, change source freshness, or reserve inventory.
+Public maker source observations must also be no older than 60 seconds at wall
+clock evaluation. Wallet preview and handoff do not use the display cache and
+obtain fresh verified state. Read-only provider fallback validates chain identity
+and view-block binding; signed broadcasts are never retried through fallback.
+An on-chain zero retained-ticket count permits skipping an empty list query;
+positive/missing counts still require the list and consistency checks.

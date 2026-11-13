@@ -20,11 +20,19 @@ test('malformed or incomplete full blocks cannot be treated as no activity',()=>
 });
 test('free transport rate budget and cooldown apply to all request paths',async()=>{
  let time=0,calls=0;const feed=new NeardataFeed({now:()=>time,sleep:async ms=>{time+=ms;},fetchImpl:async()=>{calls++;return {ok:true,json:async()=>({})};}});
- await feed.get('last_block/final');await feed.get('block/2');assert.equal(time,400);
+ await feed.get('last_block/final');await feed.get('block/2');assert.equal(time,2500);
  feed.fetch=async()=>({status:429,headers:{get:()=> '90'}});
  await assert.rejects(feed.get('block/3'),/FEED_RATE_LIMITED/);await assert.rejects(feed.get('block/4'),/FEED_COOLDOWN/);assert.equal(calls,2);
  const zero=new NeardataFeed({now:()=>0,fetchImpl:async()=>({status:429,headers:{get:()=> '0'}})});
  await assert.rejects(zero.get('last_block/final'),/FEED_RATE_LIMITED/);assert.equal(zero.cooldown,60000);
+});
+test('separate desks can slow feed pacing without weakening retry cooldown',async()=>{
+ let time=0;const starts=[];
+ const feed=new NeardataFeed({intervalMs:6000,now:()=>time,sleep:async ms=>{time+=ms;},fetchImpl:async()=>{starts.push(time);return {ok:true,json:async()=>({})};}});
+ await feed.get('last_block/final');await feed.get('block/2');await feed.get('block/3');
+ assert.deepEqual(starts,[0,6000,12000]);
+ for(const intervalMs of [0,399,60001,NaN,500.5])assert.throws(()=>new NeardataFeed({intervalMs}),/FEED_INTERVAL/);
+ feed.cooldown=time+90000;await assert.rejects(feed.get('block/4'),/FEED_COOLDOWN/);assert.equal(starts.length,3);
 });
 test('prefetch failure commits only preceding heights and can resume',async()=>{
  let height=1,broken=true;const committed=[];

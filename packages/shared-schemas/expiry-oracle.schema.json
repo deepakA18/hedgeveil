@@ -299,7 +299,8 @@
             "EVIDENCE_ACCEPTED",
             "EVIDENCE_REJECTED",
             "FINALIZED",
-            "PAUSE_CHANGED"
+            "PAUSE_CHANGED",
+            "CASE_ARCHIVED"
           ]
         },
         "data": {
@@ -388,15 +389,56 @@
         },
         "cases": {
           "type": "object",
-          "maxProperties": 16,
+          "maxProperties": 32,
           "propertyNames": {
             "$ref": "#/$defs/id"
           },
           "additionalProperties": {
             "$ref": "#/$defs/case"
           }
+        },
+        "layout_version": {
+          "const": 2
+        },
+        "archived_count": {
+          "$ref": "#/$defs/uint64"
+        },
+        "archive_commitment": {
+          "$ref": "#/$defs/hash256"
         }
-      }
+      },
+      "dependentRequired": {
+        "layout_version": [
+          "archived_count",
+          "archive_commitment"
+        ],
+        "archived_count": [
+          "layout_version",
+          "archive_commitment"
+        ],
+        "archive_commitment": [
+          "layout_version",
+          "archived_count"
+        ]
+      },
+      "allOf": [
+        {
+          "if": {
+            "not": {
+              "required": [
+                "layout_version"
+              ]
+            }
+          },
+          "then": {
+            "properties": {
+              "cases": {
+                "maxProperties": 16
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

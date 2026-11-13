@@ -13,6 +13,7 @@ import {
   percent,
   lifecycle,
   oracleCase,
+  expiryCase,
   missedSampleSlots,
 } from "../../lib/terminal-data";
 import type { Series, Claim, Offer } from "../../lib/desk-types";
@@ -57,6 +58,14 @@ export function SeriesList({
     >
       <div className="region-heading">
         <h2>NEAR markets</h2>
+        <label className="expert-toggle">
+          <input
+            type="checkbox"
+            checked={expert}
+            onChange={(e) => onExpertChange(e.target.checked)}
+          />
+          Details
+        </label>
       </div>
       <div className="market-list-options">
         <div className="desk-tabs series-tabs">
@@ -67,14 +76,6 @@ export function SeriesList({
             History
           </button>
         </div>
-        <label className="expert-toggle">
-          <input
-            type="checkbox"
-            checked={expert}
-            onChange={(e) => onExpertChange(e.target.checked)}
-          />
-          More detail
-        </label>
       </div>
       {!open.length && !history && (
         <p className="rail-note">No open series. Showing history.</p>
@@ -101,7 +102,7 @@ export function SeriesList({
                     ? BigInt(d.spot.price)
                     : null,
                   evidence = oracleCase(d.state, s),
-                  state = lifecycle(s, now, evidence),
+                  state = lifecycle(s, now, expiryCase(d.state, s) ?? evidence),
                   missed = missedSampleSlots(s, evidence, now);
                 const quotes =
                   s.config.series_id === selected

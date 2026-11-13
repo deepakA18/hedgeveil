@@ -2,6 +2,11 @@
 
 ## FASTNEAR full-block discovery
 
+`discovery_interval_ms` sets the minimum spacing between full-block feed requests
+(default 2500 ms, allowed 400–60000). Desks sharing one IP share the provider's
+rate budget; pace legacy and active desks together. HTTP 429 cooldown remains
+durable across restarts. Slower polling does not relax freshness or reconciliation.
+
 For `network: "testnet"`, `transaction_filter: "canonical-journal"`, set
 `discovery_source: "neardata-testnet"` in the indexer configuration. Do not combine
 this with `header_source`: both would spend the same free per-IP budget. No API
@@ -128,3 +133,16 @@ Unknown hints are retried, never removed or marked successful. Same-block event
 sequence, custody and resolver commitment reconciliation still gates publishing;
 a missing executed operation blocks risk. RPC outages and identity mismatches
 are not treated as unknown hints.
+
+Runtime restart may reuse the original retained deployment block response when
+RPC providers have pruned it. Its hash must equal the configured anchor; live
+chain/genesis identity and database binding are checked, and no cursor or receipt
+evidence is discarded. Current-state reconciliation remains mandatory.
+
+On 13 November 2026 the live testnet feed returned HTTP 429 with
+`rate-limit exceeded of 30 blocks per minute`, despite the repository README
+listing 180 requests/minute. Full-block coverage cannot keep up with the chain
+at that observed free quota. Legacy/new desks sharing one IP are paced at
+15000/2500 ms respectively. The user approved the already-supported additive mode for the new demo on
+13 November. Canonical receipt/state reconciliation remains required; full-network
+continuous-discovery acceptance is not claimed.

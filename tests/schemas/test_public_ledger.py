@@ -48,6 +48,7 @@ def transaction(method='transfer'):
         'deposit_collateral': {}, 'create_series': {'config': terms()},
         'storage_deposit': {}, 'release_storage_excess': {'amount': '100'}, 'unregister': {},
         'close_ticket': {'ticket_id': '0'}, 'release_dust': {'series_id': 's1'},
+        'archive_series': {'series_id': 's1'},
         'set_pauses': {'pauses': {'deposits': True, 'series': False, 'splits': False}},
         'split': dict(series_id='s1', amount='100'), 'merge': dict(series_id='s1', amount='100'),
         'transfer': dict(asset=leg()['asset'], amount='100', receiver='alice.testnet'),
@@ -78,6 +79,15 @@ class PublicLedgerTests(unittest.TestCase):
     def reject(self, value):
         with self.assertRaises((ValidationError, ValueError)):
             validate(value)
+
+    def test_first_deposit_batch(self):
+        good = transaction('deposit_collateral')
+        good['attached_deposit'] = '110'
+        good['storage_deposit'] = '10'
+        validate(good)
+        for amount in ['0', '110', '111']:
+            bad = copy.deepcopy(good); bad['storage_deposit'] = amount; self.reject(bad)
+        bad = copy.deepcopy(good); bad['method'] = 'storage_deposit'; self.reject(bad)
 
     def test_schema_reproducible_and_all_client_intents(self):
         Draft202012Validator.check_schema(SCHEMA)

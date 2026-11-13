@@ -1,3 +1,4 @@
+import { TweetGrid } from "../ui/tweet-grid";
 export function Problem() {
   return (
     <section
@@ -40,25 +41,16 @@ export function Problem() {
         </article>
       </div>
       <aside
-        className="post-preview"
+        className="home-tweet"
         aria-label="Related reading from Vitalik Buterin"
       >
-        <div className="post-author">
-          <span className="author-initials" aria-hidden="true">
-            VB
-          </span>
-          <div>
-            <strong>Vitalik Buterin</strong>
-            <span>@VitalikButerin, June 1, 2026</span>
-          </div>
-          <span className="post-platform" aria-hidden="true">
-            X
-          </span>
-        </div>
-        <blockquote>
-          “Building index-tracking assets on top of options instead of debt”
-        </blockquote>
-        <div className="post-footer">
+        <div className="home-tweet-intro">
+          <p className="section-label">The idea behind it</p>
+          <h3>Options as a foundation.</h3>
+          <p>
+            Vitalik’s post explores building index-tracking assets with options
+            instead of debt.
+          </p>
           <a
             href="https://x.com/VitalikButerin/status/2061469961416032653"
             target="_blank"
@@ -66,8 +58,9 @@ export function Problem() {
           >
             Read the original post
           </a>
-          <span>Related reading, not an endorsement of Hedgeveil</span>
+          <small>Related reading, not an endorsement of Hedgeveil.</small>
         </div>
+        <TweetGrid tweets={["2061469961416032653"]} columns={1} spacing="sm" />
       </aside>
     </section>
   );

@@ -25,6 +25,9 @@ pub struct Clearinghouse {
     storage_byte_cost: u128,
     accounts: BTreeMap<AccountId, LedgerAccount>,
     series: BTreeMap<String, Series>,
+    archived_series: near_sdk::store::Vector<Series>,
+    archived_ids: near_sdk::store::LookupMap<String, u32>,
+    archive_commitment: [u8; 32],
     tickets: BTreeMap<u64, Ticket>,
     next_ticket: u64,
     operation: u64,
@@ -75,6 +78,9 @@ impl Clearinghouse {
             storage_byte_cost: storage_byte_cost.0,
             accounts: BTreeMap::new(),
             series: BTreeMap::new(),
+            archived_series: near_sdk::store::Vector::new(b"r"),
+            archived_ids: near_sdk::store::LookupMap::new(b"i"),
+            archive_commitment: [0; 32],
             tickets: BTreeMap::new(),
             next_ticket: 0,
             operation: 0,
@@ -95,7 +101,15 @@ impl Clearinghouse {
         self.accounts.get(&account_id).cloned()
     }
     pub fn get_series(&self, series_id: String) -> Series {
-        self.series.get(&series_id).expect("unknown series").clone()
+        self.series
+            .get(&series_id)
+            .or_else(|| {
+                self.archived_ids
+                    .get(&series_id)
+                    .and_then(|i| self.archived_series.get(*i))
+            })
+            .expect("unknown series")
+            .clone()
     }
     pub fn get_ticket(&self, ticket_id: Num64) -> Option<Ticket> {
         self.tickets.get(&ticket_id.0).cloned()
@@ -118,6 +132,15 @@ impl Clearinghouse {
             .cloned()
             .collect()
     }
+    pub fn list_archived_series(&self, from_index: u32, limit: u32) -> Vec<Series> {
+        page(limit);
+        let end = from_index
+            .saturating_add(limit)
+            .min(self.archived_series.len());
+        (from_index..end)
+            .map(|i| self.archived_series.get(i).expect("archive index").clone())
+            .collect()
+    }
     pub fn list_tickets(&self, account_id: AccountId, from_index: u32, limit: u32) -> Vec<Ticket> {
         page(limit);
         self.tickets
@@ -132,7 +155,7 @@ impl Clearinghouse {
         self.pauses.clone()
     }
     pub fn series_state(&self, series_id: String) -> String {
-        let s = self.series.get(&series_id).expect("unknown series");
+        let s = self.get_series(series_id);
         if s.closed {
             "CLOSED"
         } else if s.final_price.is_some() {

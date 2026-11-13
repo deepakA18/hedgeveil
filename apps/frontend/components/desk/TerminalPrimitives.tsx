@@ -77,6 +77,7 @@ const labels: Record<string, string> = {
   WITHDRAWAL_UNKNOWN: "Unknown, quarantined",
   PREPARED: "Ready to review",
   CANCELLED: "Cancelled",
+  QUOTE_EXPIRED_UNFILLED: "Expired without a fill",
 };
 export function StateBadge({ state }: { state: string }) {
   return (

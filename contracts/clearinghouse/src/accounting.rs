@@ -7,7 +7,7 @@ use near_sdk::{
 #[near]
 impl Clearinghouse {
     pub fn storage_quote(&self) -> Value {
-        json!({"account_minimum":Amount(self.minimum_storage()),"series_storage":Amount(self.minimum_storage()),"creation_fee":Amount(CREATION_FEE),"storage_byte_cost":Amount(self.storage_byte_cost),"account_bytes":4096,"max_accounts":MAX_ACCOUNTS,"max_series":MAX_SERIES,"tickets_per_account":MAX_TICKETS_PER_ACCOUNT})
+        json!({"layout_version":2,"retained_series":self.series.len(),"archived_series":self.archived_series.len(),"account_minimum":Amount(self.minimum_storage()),"series_storage":Amount(self.minimum_storage()),"creation_fee":Amount(CREATION_FEE),"storage_byte_cost":Amount(self.storage_byte_cost),"account_bytes":STORAGE_BYTES,"max_accounts":MAX_ACCOUNTS,"max_series":MAX_SERIES,"tickets_per_account":MAX_TICKETS_PER_ACCOUNT})
     }
     #[payable]
     pub fn storage_deposit(&mut self) {

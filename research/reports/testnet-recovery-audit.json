@@ -1,0 +1,2079 @@
+{
+  "at": "2026-11-13T13:45:51.708Z",
+  "network": "testnet",
+  "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+  "block_height": 277517848,
+  "beneficiary": "0xdeepak18.testnet",
+  "read_only": true,
+  "accounts": [
+    {
+      "workspace": "open",
+      "role": "administrator",
+      "id": "hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "core",
+      "id": "core.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "oracle",
+      "id": "oracle.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "maker",
+      "id": "maker-a.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "maker",
+      "id": "maker-b.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "arbitrator",
+      "id": "judge.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "publisher",
+      "id": "publisher-0.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "publisher",
+      "id": "publisher-1.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "publisher",
+      "id": "publisher-2.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "publisher",
+      "id": "publisher-3.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "publisher",
+      "id": "publisher-4.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "open",
+      "role": "publisher",
+      "id": "publisher-5.hv-open.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "native",
+      "role": "administrator",
+      "id": "hv-native.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "native",
+      "role": "core",
+      "id": "core.hv-native.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "native",
+      "role": "oracle",
+      "id": "oracle.hv-native.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "native",
+      "role": "maker",
+      "id": "maker-a.hv-native.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "native",
+      "role": "maker",
+      "id": "maker-b.hv-native.0xdeepak18.testnet",
+      "read_error": "UNKNOWN_ACCOUNT"
+    },
+    {
+      "workspace": "native-transfer",
+      "role": "administrator",
+      "id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "amount": "2168769943103925900000000",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "11111111111111111111111111111111",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 182
+    },
+    {
+      "workspace": "native-transfer",
+      "role": "core",
+      "id": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "amount": "38510866598839267400000034",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "4jtGdgnCcaR5TFVWM8MrvwECcqGjuEW1ZoNtFH4JTpsQ",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 620217,
+      "custody": {
+        "native_balance": "38510866598839267400000034",
+        "free_collateral": "4164545888779752694393239",
+        "vault_collateral": "0",
+        "vault_storage_fund": "0",
+        "roll_storage_fund": "0",
+        "series_reserves": "3895454111220247305606761",
+        "refundable_storage": "163840000000000000000000",
+        "fees": "5000000000000000000034",
+        "series_storage_fund": "204800000000000000000000",
+        "market_storage_fund": "81920000000000000000000",
+        "operating_allocation": "20000000000000000000000000",
+        "pending_in_flight": "0",
+        "unknown_in_flight": "0",
+        "tracked_user_collateral": "8060000000000000000000000",
+        "retained_categories": "28515560000000000000000034",
+        "retained_categories_covered": true,
+        "unallocated_or_in_flight_return": "9995306598839267400000000",
+        "storage_bytes": "620217",
+        "storage_byte_cost": "10000000000000000000",
+        "next_ticket_id": "2",
+        "operation_sequence": "51"
+      },
+      "accounts": [
+        {
+          "id": "0xdeepak18.testnet",
+          "balance": {
+            "free": "79662349869425157005740",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 1,
+            "closing": false
+          },
+          "tickets": [
+            {
+              "id": "1",
+              "owner": "0xdeepak18.testnet",
+              "receiver": "0xdeepak18.testnet",
+              "amount": "20000000000000000000000",
+              "state": "SUCCEEDED",
+              "kind": "COLLATERAL",
+              "created_ns": "1794368280548283959",
+              "version": 1,
+              "balance_restored": false
+            }
+          ]
+        },
+        {
+          "id": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+          "balance": {
+            "free": "0",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 0,
+            "closing": false
+          },
+          "tickets": []
+        },
+        {
+          "id": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+          "balance": {
+            "free": "2040528628832087307425000",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "1960000000000000000000000",
+                "n": "1950000000000000000000000"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 0,
+            "closing": false
+          },
+          "tickets": []
+        },
+        {
+          "id": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+          "balance": {
+            "free": "2044354910078240229962499",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "1935000000000000000000000",
+                "n": "1995000000000000000000000"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 1,
+            "closing": false
+          },
+          "tickets": [
+            {
+              "id": "0",
+              "owner": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+              "receiver": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+              "amount": "20000000000000000000000",
+              "state": "SUCCEEDED",
+              "kind": "COLLATERAL",
+              "created_ns": "1794367992989764548",
+              "version": 1,
+              "balance_restored": false
+            }
+          ]
+        }
+      ],
+      "series": [
+        {
+          "config": {
+            "series_id": "alpha",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3590400000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794282859230340903",
+            "mint_cutoff_ns": "1794282319230340903",
+            "observation_window": {
+              "start_ns": "1794282319230340903",
+              "end_ns": "1794282859230340903"
+            },
+            "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+            "oracle_version": "native-sampled-v1",
+            "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 0,
+          "outstanding_p": "0",
+          "outstanding_n": "0",
+          "reserve": "0",
+          "total_split": "4000000000000000000000000",
+          "total_merged": "4000000000000000000000000",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "beta",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3627800000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794295894923792694",
+            "mint_cutoff_ns": "1794295354923792694",
+            "observation_window": {
+              "start_ns": "1794295354923792694",
+              "end_ns": "1794295894923792694"
+            },
+            "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+            "oracle_version": "native-sampled-v1",
+            "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 1,
+          "outstanding_p": "0",
+          "outstanding_n": "0",
+          "reserve": "0",
+          "total_split": "4000000000000000000000000",
+          "total_merged": "4000000000000000000000000",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "delta",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3632700000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794298306796622620",
+            "mint_cutoff_ns": "1794297766796622620",
+            "observation_window": {
+              "start_ns": "1794297766796622620",
+              "end_ns": "1794298306796622620"
+            },
+            "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+            "oracle_version": "native-sampled-v1",
+            "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 3,
+          "outstanding_p": "0",
+          "outstanding_n": "0",
+          "reserve": "0",
+          "total_split": "4000000000000000000000000",
+          "total_merged": "4000000000000000000000000",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "eta",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3682300000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794367864230209934",
+            "mint_cutoff_ns": "1794366784230209934",
+            "observation_window": {
+              "start_ns": "1794366784230209934",
+              "end_ns": "1794367864230209934"
+            },
+            "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+            "oracle_version": "native-sampled-v1",
+            "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 4,
+          "outstanding_p": "3895000000000000000000000",
+          "outstanding_n": "3945000000000000000000000",
+          "reserve": "3895454111220247305606761",
+          "total_split": "4000000000000000000000000",
+          "total_merged": "5000000000000000000000",
+          "total_paid": "99545888779752694393239",
+          "dust_released": "0",
+          "final_price": "3716050000000",
+          "p_coefficient": "990917775595053887864802",
+          "n_coefficient": "9082224404946112135198",
+          "closed": false,
+          "request": null,
+          "requested_at": "1794367935486222773"
+        },
+        {
+          "config": {
+            "series_id": "gamma",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3638850000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794297294828667246",
+            "mint_cutoff_ns": "1794296754828667246",
+            "observation_window": {
+              "start_ns": "1794296754828667246",
+              "end_ns": "1794297294828667246"
+            },
+            "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+            "oracle_version": "native-sampled-v1",
+            "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+            "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 2,
+          "outstanding_p": "0",
+          "outstanding_n": "0",
+          "reserve": "0",
+          "total_split": "4000000000000000000000000",
+          "total_merged": "4000000000000000000000000",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        }
+      ]
+    },
+    {
+      "workspace": "native-transfer",
+      "role": "oracle",
+      "id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+      "amount": "6497067644588503900000000",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "DHp4HKqu4JY8EwP7yQL8Dbh7BjTQRW3LmaB6Kusv8GaT",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 264244,
+      "snapshot": {
+        "network": "testnet",
+        "contract_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+        "sequence": "15",
+        "version": "native-sampled-v1",
+        "registrar": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+        "guardian": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+        "request_sequence": "4",
+        "paused": false,
+        "cases": {
+          "alpha": {
+            "config": {
+              "series_id": "alpha",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3590400000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794282859230340903",
+              "mint_cutoff_ns": "1794282319230340903",
+              "observation_window": {
+                "start_ns": "1794282319230340903",
+                "end_ns": "1794282859230340903"
+              },
+              "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+              "oracle_version": "native-sampled-v1",
+              "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+              "max_supply": "100000000000000000000000000"
+            },
+            "source": {
+              "account": "price-oracle.testnet",
+              "reporter": "price-oracle.testnet",
+              "asset": "wrap.near",
+              "min_price": "10000000000",
+              "max_price": "1000000000000000"
+            },
+            "samples": [
+              null,
+              null,
+              null
+            ],
+            "pending": null,
+            "price": null
+          },
+          "beta": {
+            "config": {
+              "series_id": "beta",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3627800000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794295894923792694",
+              "mint_cutoff_ns": "1794295354923792694",
+              "observation_window": {
+                "start_ns": "1794295354923792694",
+                "end_ns": "1794295894923792694"
+              },
+              "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+              "oracle_version": "native-sampled-v1",
+              "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+              "max_supply": "100000000000000000000000000"
+            },
+            "source": {
+              "account": "price-oracle.testnet",
+              "reporter": "price-oracle.testnet",
+              "asset": "wrap.near",
+              "min_price": "10000000000",
+              "max_price": "1000000000000000"
+            },
+            "samples": [
+              null,
+              null,
+              null
+            ],
+            "pending": null,
+            "price": null
+          },
+          "delta": {
+            "config": {
+              "series_id": "delta",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3632700000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794298306796622620",
+              "mint_cutoff_ns": "1794297766796622620",
+              "observation_window": {
+                "start_ns": "1794297766796622620",
+                "end_ns": "1794298306796622620"
+              },
+              "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+              "oracle_version": "native-sampled-v1",
+              "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+              "max_supply": "100000000000000000000000000"
+            },
+            "source": {
+              "account": "price-oracle.testnet",
+              "reporter": "price-oracle.testnet",
+              "asset": "wrap.near",
+              "min_price": "10000000000",
+              "max_price": "1000000000000000"
+            },
+            "samples": [
+              {
+                "report_ns": "1794297785591631204",
+                "request_ns": "1794297791119556030",
+                "accepted_ns": "1794297792251667847",
+                "price": "3639733330000",
+                "response_hash": "f40f3407d8632c244fb78bd1147222fac37577b81a53377f61e73d5eb3eb6e78"
+              },
+              null,
+              null
+            ],
+            "pending": null,
+            "price": null
+          },
+          "eta": {
+            "config": {
+              "series_id": "eta",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3682300000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794367864230209934",
+              "mint_cutoff_ns": "1794366784230209934",
+              "observation_window": {
+                "start_ns": "1794366784230209934",
+                "end_ns": "1794367864230209934"
+              },
+              "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+              "oracle_version": "native-sampled-v1",
+              "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+              "max_supply": "100000000000000000000000000"
+            },
+            "source": {
+              "account": "price-oracle.testnet",
+              "reporter": "price-oracle.testnet",
+              "asset": "wrap.near",
+              "min_price": "10000000000",
+              "max_price": "1000000000000000"
+            },
+            "samples": [
+              {
+                "report_ns": "1794366803587793245",
+                "request_ns": "1794366809621332248",
+                "accepted_ns": "1794366810894670929",
+                "price": "3718450000000",
+                "response_hash": "53ef2f2922ad8a189bd8af934fe11847ca862085967ebc08a6a70485e01a788f"
+              },
+              {
+                "report_ns": "1794367161970070384",
+                "request_ns": "1794367168696717441",
+                "accepted_ns": "1794367169838344783",
+                "price": "3715800000000",
+                "response_hash": "77b5c7e70fc367d51ddad171f3c330fe00e3e22e801a137f77670124878a238f"
+              },
+              {
+                "report_ns": "1794367521462066586",
+                "request_ns": "1794367527452841419",
+                "accepted_ns": "1794367528828501121",
+                "price": "3713900000000",
+                "response_hash": "53918f755fa4a87ffd2605a77eaa507ea9ee9cf895e7dbd115674146ce281f38"
+              }
+            ],
+            "pending": null,
+            "price": "3716050000000"
+          },
+          "gamma": {
+            "config": {
+              "series_id": "gamma",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "2f5107525004131492884e64a9b15fbebe26119605a431c9f67f083877f07af4",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3638850000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794297294828667246",
+              "mint_cutoff_ns": "1794296754828667246",
+              "observation_window": {
+                "start_ns": "1794296754828667246",
+                "end_ns": "1794297294828667246"
+              },
+              "oracle_account_id": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+              "oracle_version": "native-sampled-v1",
+              "oracle_config_hash": "f0c0471cf0341f039e2f6dead55e2b4e72071c7a696eb64c7bbae598e00bc586",
+              "finalization_policy_hash": "01bbb734169289809fe35f600303039b6b5cc64747da89babf0891446917d245",
+              "max_supply": "100000000000000000000000000"
+            },
+            "source": {
+              "account": "price-oracle.testnet",
+              "reporter": "price-oracle.testnet",
+              "asset": "wrap.near",
+              "min_price": "10000000000",
+              "max_price": "1000000000000000"
+            },
+            "samples": [
+              null,
+              null,
+              null
+            ],
+            "pending": null,
+            "price": null
+          }
+        }
+      }
+    },
+    {
+      "workspace": "native-transfer",
+      "role": "maker",
+      "id": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "amount": "426505990736632799999981",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "11111111111111111111111111111111",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 182
+    },
+    {
+      "workspace": "native-transfer",
+      "role": "maker",
+      "id": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "amount": "411643646236134699999988",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "11111111111111111111111111111111",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 182
+    },
+    {
+      "workspace": "expiry",
+      "role": "administrator",
+      "id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "amount": "500046667492853500000000",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "11111111111111111111111111111111",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 182
+    },
+    {
+      "workspace": "expiry",
+      "role": "core",
+      "id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "amount": "23960417946051301000000022",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "FXTsrec9F2afbXmRz94qaMLnD8pFGVCvEoKdieu2h9kT",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 660603,
+      "custody": {
+        "native_balance": "23960417946051301000000022",
+        "free_collateral": "300000000000000000000000",
+        "vault_collateral": "0",
+        "vault_storage_fund": "0",
+        "roll_storage_fund": "0",
+        "series_reserves": "2000000000000000000000000",
+        "refundable_storage": "163840000000000000000000",
+        "fees": "10000000000000000000022",
+        "series_storage_fund": "409600000000000000000000",
+        "market_storage_fund": "81920000000000000000000",
+        "operating_allocation": "20000000000000000000000000",
+        "pending_in_flight": "0",
+        "unknown_in_flight": "0",
+        "tracked_user_collateral": "2300000000000000000000000",
+        "retained_categories": "22965360000000000000000022",
+        "retained_categories_covered": true,
+        "unallocated_or_in_flight_return": "995057946051301000000000",
+        "storage_bytes": "660603",
+        "storage_byte_cost": "10000000000000000000",
+        "next_ticket_id": "0",
+        "operation_sequence": "40"
+      },
+      "accounts": [
+        {
+          "id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+          "balance": {
+            "free": "0",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 0,
+            "closing": false
+          },
+          "tickets": []
+        },
+        {
+          "id": "0xdeepak18.testnet",
+          "balance": {
+            "free": "100000000000000000000000",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 0,
+            "closing": false
+          },
+          "tickets": []
+        },
+        {
+          "id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+          "balance": {
+            "free": "100000000000000000000000",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 0,
+            "closing": false
+          },
+          "tickets": []
+        },
+        {
+          "id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+          "balance": {
+            "free": "100000000000000000000000",
+            "storage_paid": "40960000000000000000000",
+            "positions": [
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "100000000000000000000000",
+                "n": "100000000000000000000000"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              },
+              {
+                "p": "0",
+                "n": "0"
+              }
+            ],
+            "retained_tickets": 0,
+            "closing": false
+          },
+          "tickets": []
+        }
+      ],
+      "series": [
+        {
+          "config": {
+            "series_id": "l04003855dc0ecf8af6ef7052",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3359200000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1795161600000000000",
+            "mint_cutoff_ns": "1795159800000000000",
+            "observation_window": {
+              "start_ns": "1795159800000000000",
+              "end_ns": "1795161600000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 6,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l117f8e883d19ba14444b0eaf",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3712800000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1795161600000000000",
+            "mint_cutoff_ns": "1795159800000000000",
+            "observation_window": {
+              "start_ns": "1795159800000000000",
+              "end_ns": "1795161600000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 8,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l20b63986795167c2e7d477c9",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3359200000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794643200000000000",
+            "mint_cutoff_ns": "1794641400000000000",
+            "observation_window": {
+              "start_ns": "1794641400000000000",
+              "end_ns": "1794643200000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 1,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l221cf82facb4145d3c3f3e39",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3889600000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794643200000000000",
+            "mint_cutoff_ns": "1794641400000000000",
+            "observation_window": {
+              "start_ns": "1794641400000000000",
+              "end_ns": "1794643200000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 4,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l2fef1ba5c66cb55edfb860f4",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3182400000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1795161600000000000",
+            "mint_cutoff_ns": "1795159800000000000",
+            "observation_window": {
+              "start_ns": "1795159800000000000",
+              "end_ns": "1795161600000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 5,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l5b6afa68eaa43bd71237ea5f",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3536000000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794643200000000000",
+            "mint_cutoff_ns": "1794641400000000000",
+            "observation_window": {
+              "start_ns": "1794641400000000000",
+              "end_ns": "1794643200000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 2,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l76a1071cacb9658b5b413f98",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3182400000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794643200000000000",
+            "mint_cutoff_ns": "1794641400000000000",
+            "observation_window": {
+              "start_ns": "1794641400000000000",
+              "end_ns": "1794643200000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 0,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "l93d8292156771575797eb08d",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3536000000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1795161600000000000",
+            "mint_cutoff_ns": "1795159800000000000",
+            "observation_window": {
+              "start_ns": "1795159800000000000",
+              "end_ns": "1795161600000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 7,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "ld5794d5629130d063ff39bbd",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3712800000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1794643200000000000",
+            "mint_cutoff_ns": "1794641400000000000",
+            "observation_window": {
+              "start_ns": "1794641400000000000",
+              "end_ns": "1794643200000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 3,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        },
+        {
+          "config": {
+            "series_id": "lff5e2e351588da2dbe3539f2",
+            "version": "1",
+            "collateral_kind": "NATIVE_NEAR",
+            "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "payoff_kind": "CAPPED_USD_COMPLEMENT",
+            "strike": "3889600000000",
+            "price_scale": "1000000000000",
+            "maturity_ns": "1795161600000000000",
+            "mint_cutoff_ns": "1795159800000000000",
+            "observation_window": {
+              "start_ns": "1795159800000000000",
+              "end_ns": "1795161600000000000"
+            },
+            "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+            "oracle_version": "native-trade-twap-v1",
+            "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+            "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+            "max_supply": "100000000000000000000000000"
+          },
+          "slot": 9,
+          "outstanding_p": "200000000000000000000000",
+          "outstanding_n": "200000000000000000000000",
+          "reserve": "200000000000000000000000",
+          "total_split": "200000000000000000000000",
+          "total_merged": "0",
+          "total_paid": "0",
+          "dust_released": "0",
+          "final_price": null,
+          "p_coefficient": "0",
+          "n_coefficient": "0",
+          "closed": false,
+          "request": null,
+          "requested_at": "0"
+        }
+      ]
+    },
+    {
+      "workspace": "expiry",
+      "role": "oracle",
+      "id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "amount": "6997312394542423300000000",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "6MwS8u1zBbFNYfyyAkXjiM3HiQ2YDP8XrBnJfNZJxYeG",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 345952,
+      "snapshot": {
+        "network": "testnet",
+        "contract_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+        "sequence": "11",
+        "version": "native-trade-twap-v1",
+        "registrar": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+        "guardian": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+        "source": "outlayer.testnet",
+        "worker_sha256": "86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43",
+        "request_sequence": "0",
+        "paused": false,
+        "cases": {
+          "l04003855dc0ecf8af6ef7052": {
+            "config": {
+              "series_id": "l04003855dc0ecf8af6ef7052",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3359200000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1795161600000000000",
+              "mint_cutoff_ns": "1795159800000000000",
+              "observation_window": {
+                "start_ns": "1795159800000000000",
+                "end_ns": "1795161600000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l117f8e883d19ba14444b0eaf": {
+            "config": {
+              "series_id": "l117f8e883d19ba14444b0eaf",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3712800000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1795161600000000000",
+              "mint_cutoff_ns": "1795159800000000000",
+              "observation_window": {
+                "start_ns": "1795159800000000000",
+                "end_ns": "1795161600000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l20b63986795167c2e7d477c9": {
+            "config": {
+              "series_id": "l20b63986795167c2e7d477c9",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3359200000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794643200000000000",
+              "mint_cutoff_ns": "1794641400000000000",
+              "observation_window": {
+                "start_ns": "1794641400000000000",
+                "end_ns": "1794643200000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l221cf82facb4145d3c3f3e39": {
+            "config": {
+              "series_id": "l221cf82facb4145d3c3f3e39",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3889600000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794643200000000000",
+              "mint_cutoff_ns": "1794641400000000000",
+              "observation_window": {
+                "start_ns": "1794641400000000000",
+                "end_ns": "1794643200000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l2fef1ba5c66cb55edfb860f4": {
+            "config": {
+              "series_id": "l2fef1ba5c66cb55edfb860f4",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3182400000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1795161600000000000",
+              "mint_cutoff_ns": "1795159800000000000",
+              "observation_window": {
+                "start_ns": "1795159800000000000",
+                "end_ns": "1795161600000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l5b6afa68eaa43bd71237ea5f": {
+            "config": {
+              "series_id": "l5b6afa68eaa43bd71237ea5f",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3536000000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794643200000000000",
+              "mint_cutoff_ns": "1794641400000000000",
+              "observation_window": {
+                "start_ns": "1794641400000000000",
+                "end_ns": "1794643200000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l76a1071cacb9658b5b413f98": {
+            "config": {
+              "series_id": "l76a1071cacb9658b5b413f98",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3182400000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794643200000000000",
+              "mint_cutoff_ns": "1794641400000000000",
+              "observation_window": {
+                "start_ns": "1794641400000000000",
+                "end_ns": "1794643200000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "l93d8292156771575797eb08d": {
+            "config": {
+              "series_id": "l93d8292156771575797eb08d",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3536000000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1795161600000000000",
+              "mint_cutoff_ns": "1795159800000000000",
+              "observation_window": {
+                "start_ns": "1795159800000000000",
+                "end_ns": "1795161600000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "ld5794d5629130d063ff39bbd": {
+            "config": {
+              "series_id": "ld5794d5629130d063ff39bbd",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3712800000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1794643200000000000",
+              "mint_cutoff_ns": "1794641400000000000",
+              "observation_window": {
+                "start_ns": "1794641400000000000",
+                "end_ns": "1794643200000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          },
+          "lff5e2e351588da2dbe3539f2": {
+            "config": {
+              "series_id": "lff5e2e351588da2dbe3539f2",
+              "version": "1",
+              "collateral_kind": "NATIVE_NEAR",
+              "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "payoff_kind": "CAPPED_USD_COMPLEMENT",
+              "strike": "3889600000000",
+              "price_scale": "1000000000000",
+              "maturity_ns": "1795161600000000000",
+              "mint_cutoff_ns": "1795159800000000000",
+              "observation_window": {
+                "start_ns": "1795159800000000000",
+                "end_ns": "1795161600000000000"
+              },
+              "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+              "oracle_version": "native-trade-twap-v1",
+              "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+              "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+              "max_supply": "100000000000000000000000000"
+            },
+            "pending": null,
+            "accepted": null,
+            "price": null,
+            "last_result": "NOT_REQUESTED"
+          }
+        },
+        "layout_version": 2,
+        "archived_count": "0",
+        "archive_commitment": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "workspace": "expiry",
+      "role": "maker",
+      "id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "amount": "310282010233777099999989",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "11111111111111111111111111111111",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 182
+    },
+    {
+      "workspace": "expiry",
+      "role": "maker",
+      "id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "amount": "310116018049503899999989",
+      "block_hash": "GhL1Dyk91b3Vua5fc7QAHBquQ5FivGuCjy73Gm8FXw3g",
+      "block_height": 277517848,
+      "code_hash": "11111111111111111111111111111111",
+      "locked": "0",
+      "storage_paid_at": 0,
+      "storage_usage": 182
+    }
+  ]
+}

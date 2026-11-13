@@ -44,7 +44,7 @@ export interface Snapshot {
   kind: string;
   body: {
     series?: Series[];
-    cases?: OracleCase[];
+    cases?: (OracleCase | ExpiryCase)[];
     accounts?: Record<string, Balance>;
     markets?: Record<string, Market>;
     [key: string]: unknown;
@@ -92,6 +92,7 @@ export interface Intent {
   method: string;
   args: Record<string, unknown>;
   attached_deposit: string;
+  storage_deposit?: string;
   gas: string;
   domain: { contract_id: string; network: string };
 }
@@ -143,4 +144,18 @@ export interface OracleCase {
     accepted_ns: string;
     response_hash: string;
   } | null)[];
+}
+
+export interface ExpiryCase {
+  config: Series["config"];
+  state: string;
+  price: string | null;
+  pending: string | null;
+  last_result: string;
+  accepted: {
+    price: string;
+    evidence_sha256: string;
+    response_sha256: string;
+    accepted_ns: string;
+  } | null;
 }

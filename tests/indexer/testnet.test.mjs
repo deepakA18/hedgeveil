@@ -5,10 +5,21 @@ import {configuration,binding,ReadRpc} from '../../services/indexer/rpc.mjs';
 import {operationId,extractEvents,replayCore} from '../../services/indexer/model.mjs';
 import {walletIndexerConfiguration,boundStore} from '../../services/indexer/profile.mjs';
 import {base58} from '../../packages/sdk/rpc.mjs';
-import {watchedRoot} from '../../services/indexer/indexer.mjs';
+import {watchedRoot,Indexer} from '../../services/indexer/indexer.mjs';
 const h=n=>base58(Buffer.alloc(32,n));
 const config={network:'testnet',chain_id:'testnet',genesis_hash:h(1),anchor_hash:h(2),rpc_urls:['https://rpc.testnet.near.org/'],contracts:[{account_id:'core.testnet',kind:'core',code_hash:h(3)},{account_id:'oracle.testnet',kind:'oracle',code_hash:h(4)}],postgres:{host:'127.0.0.1',port:5432,user:'fixture',password:'fixture',database:'fixture'}};
 const client={network:'testnet',chain_id:'testnet',genesis_hash:h(1),contract_id:'core.testnet',code_hash:h(3),rpc_url:config.rpc_urls[0]};
+test('retained deployment anchor survives RPC pruning but cannot bypass anchor or chain binding',async()=>{
+ const anchor={header:{hash:h(2),prev_hash:h(8),height:1,timestamp_nanosec:'1'},chunks:[]};
+ for(const variant of ['valid','wrong-anchor','wrong-chain']){
+  let initialized=false;const methods=[];
+  const indexer=new Indexer({...config,request_interval_ms:0},{retainedAnchor:variant==='wrong-anchor'?{...anchor,header:{...anchor.header,hash:h(9)}}:anchor,fetchImpl:async(_url,{body})=>{const q=JSON.parse(body);methods.push(q.method);return {ok:true,json:async()=>q.method==='status'?{result:{chain_id:variant==='wrong-chain'?'mainnet':'testnet',genesis_hash:h(1)}}:{error:{cause:{name:'UNKNOWN_BLOCK'}}}};}});
+  await indexer.store.close();indexer.store={init:async()=>{initialized=true;}};
+  if(variant==='valid'){await indexer.init();assert.equal(initialized,true);assert.equal(indexer.anchor.header.hash,h(2));}
+  else{await assert.rejects(indexer.init(),variant==='wrong-anchor'?/ANCHOR_MISMATCH/:/RPC_UNAVAILABLE_OR_MISMATCH/);assert.equal(initialized,false);}
+  assert.deepEqual(methods,['status']);
+ }
+});
 test('watched-root discovery is explicit and bound; complete receipt and snapshot checks remain required',()=>{
     assert(watchedRoot({receiver_id:'core.testnet'},config.contracts));
     assert(watchedRoot({receiver_id:'relay.testnet',actions:[{Delegate:{delegate_action:{receiver_id:'oracle.testnet'}}}]},config.contracts));
@@ -76,6 +87,19 @@ test('a healthy indexer cannot enable a wallet desk bound to another deployment'
     response.binding.genesis_hash=h(2);await assert.rejects(store.read('health'),/INDEXER_DEPLOYMENT_MISMATCH/);
 });
 
+test('duplicate views share one request only at the same block and within one verified batch',async()=>{
+ let reads=0,checks=0;
+ const rpc=new ReadRpc(configuration({...config,request_interval_ms:0}),{fetchImpl:async(_url,{body})=>{
+  const q=JSON.parse(body);if(q.method==='status'){checks++;return {ok:true,json:async()=>({result:{chain_id:'testnet',genesis_hash:h(1)}})};}
+  reads++;return {ok:true,json:async()=>({result:{block_hash:q.params.block_id,value:reads}})};
+ }});
+ const query={request_type:'view_account',account_id:'core.testnet',block_id:h(5)};
+ await rpc.batch(async()=>{const [a,b]=await Promise.all([rpc.request('query',query),rpc.request('query',query)]);assert.deepEqual(a,b);a.value=99;assert.notEqual(b.value,99);await rpc.request('query',{...query,block_id:h(6)});});
+ assert.equal(reads,2);assert.equal(checks,2);
+ await rpc.batch(()=>rpc.request('query',query));assert.equal(reads,3);assert.equal(checks,4);
+ await rpc.batch(async()=>{await rpc.request('query',{finality:'final'});await rpc.request('query',{finality:'final'});});assert.equal(reads,5);
+});
+
 test('rate limits honor Retry-After, fail over, and retry only after cooldown',async()=>{
  for(const retry of ['120','Thu, 01 Jan 1970 00:02:00 GMT',null]){
   let time=0,primary=0;const fallback='https://fallback.testnet.example/';
@@ -124,6 +148,17 @@ test('HTTP 200 JSON-RPC -429 responses also enter cooldown instead of hammering 
  time=60000;await assert.rejects(rpc.request('block',{finality:'final'}));assert.equal(calls,2);
 });
 
+test('transport diagnostics distinguish throttling, unavailable history and timeouts without copying payloads',async()=>{
+ const rpc=new ReadRpc(configuration({...config,request_interval_ms:0}),{fetchImpl:async()=>({ok:true,status:200,json:async()=>({error:{code:-32000,cause:{name:'UNKNOWN_BLOCK'},message:'private upstream detail'}})})});
+ await assert.rejects(rpc.request('block',{block_id:h(5)}),/RPC_UNAVAILABLE_OR_MISMATCH/);
+ assert.equal(rpc.lastTransportFailure.rpc_cause,'UNKNOWN_BLOCK');assert.equal(rpc.lastTransportFailure.http_status,200);
+ assert(!JSON.stringify(rpc.lastTransportFailure).includes('private upstream detail'));
+ rpc.fetch=async()=>{throw new DOMException('private timeout detail','TimeoutError');};
+ await assert.rejects(rpc.request('block',{finality:'final'}));assert.equal(rpc.lastTransportFailure.reason,'RPC_TIMEOUT');
+ rpc.fetch=async()=>({status:429,headers:{get:()=>null}});
+ await assert.rejects(rpc.request('block',{finality:'final'}));assert.equal(rpc.lastTransportFailure.reason,'RPC_RATE_LIMITED');
+});
+
 test('only matching explicit unknown responses from every identity-verified provider are deferred',async()=>{
  for(const mode of ['unknown','mixed','wrong-hash','wrong-chain']){
   const urls=['https://one.example/','https://two.example/'];let calls=0;
@@ -138,7 +173,7 @@ test('only matching explicit unknown responses from every identity-verified prov
  }
 });
 
-test('same-block core account, ticket and market reads run concurrently without relaxing code pins',async()=>{
+test('same-block core account and market reads run concurrently without relaxing code pins',async()=>{
  const rpc=new ReadRpc(configuration(config)),block={header:{hash:h(5)}};let identityStarted=false,nativeStarted=false;
  rpc.request=async()=>{nativeStarted=true;await Promise.resolve();assert(identityStarted);return {block_hash:h(5),code_hash:h(3)};};
  let resolveRows;const rowsReady=new Promise(r=>resolveRows=r),seen=new Set();
@@ -146,12 +181,32 @@ test('same-block core account, ticket and market reads run concurrently without 
   assert.equal(hash,h(5));
   if(method==='deployment_identity'){identityStarted=true;assert(nativeStarted);return {network:'testnet',contract_id:'core.testnet',protocol_version:'1'};}
   if(method==='list_accounts')return ['alice.testnet'];
-  if(['get_account','list_tickets','get_market'].includes(method)){
-   seen.add(method);if(seen.size===3)resolveRows();await rowsReady;
+  if(method==='list_tickets')return [];
+  if(['get_account','get_market'].includes(method)){
+   seen.add(method);if(seen.size===2)resolveRows();await rowsReady;
    return method==='list_tickets'?[]:{checked:true};
   }
   return [];
  };
  let timer;try{const snapshot=await Promise.race([rpc.snapshot(config.contracts[0],block,['maker.testnet']),new Promise((_,reject)=>timer=setTimeout(()=>reject(Error('SERIAL_SNAPSHOT_READS')),1000))]);assert(snapshot.accounts['alice.testnet'].checked);assert(snapshot.markets['maker.testnet'].checked);}finally{clearTimeout(timer);}
  rpc.request=async()=>({block_hash:h(5),code_hash:h(9)});await assert.rejects(rpc.snapshot(config.contracts[0],block),/DEPLOYMENT_MISMATCH/);
+});
+
+
+test('ten-user snapshot skips proven empty ticket lists and rejects inconsistent counts',async()=>{
+ const rpc=new ReadRpc(configuration(config)),block={header:{hash:h(5)}};
+ const ids=Array.from({length:10},(_,i)=>`user${i}.testnet`);let count=1,returned=1,queried=[];
+ rpc.request=async()=>({block_hash:h(5),code_hash:h(3)});
+ rpc.view=async(_id,method,args,hash)=>{
+  assert.equal(hash,h(5));
+  if(method==='deployment_identity')return {network:'testnet',contract_id:'core.testnet',protocol_version:'1'};
+  if(method==='list_accounts')return ids;
+  if(method==='get_account')return {retained_tickets:args.account_id===ids[0]?count:0};
+  if(method==='list_tickets'){queried.push(args.account_id);return Array.from({length:returned},()=>({state:'UNKNOWN'}));}
+  return [];
+ };
+ const result=await rpc.snapshot(config.contracts[0],block);
+ assert.deepEqual(queried,[ids[0]]);assert.equal(result.tickets[0].state,'UNKNOWN');
+ returned=0;await assert.rejects(rpc.snapshot(config.contracts[0],block),/TICKET_COUNT_MISMATCH/);
+ count=5;await assert.rejects(rpc.snapshot(config.contracts[0],block),/TICKET_COUNT_INVALID/);
 });

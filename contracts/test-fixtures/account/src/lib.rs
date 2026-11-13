@@ -37,7 +37,7 @@ impl AccountFixture {
                 "unregister",
                 b"{}".to_vec(),
                 NearToken::from_yoctonear(1),
-                Gas::from_tgas(120),
+                Gas::from_tgas(240),
             ))
     }
 }

@@ -1,0 +1,116 @@
+{
+  "recorded_at": "2026-11-13T12:58:48.148Z",
+  "scope": "Real signed quotes through rebuilt Next bridge; no fills",
+  "response": {
+    "items": [
+      {
+        "quote": {
+          "kind": "quote",
+          "schema_version": "0.2.0",
+          "domain": {
+            "protocol_version": "1",
+            "network": "testnet",
+            "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+          },
+          "maker": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+          "taker": "0xdeepak18.testnet",
+          "maker_gives": [
+            {
+              "asset": {
+                "kind": "N",
+                "series_id": "l5b6afa68eaa43bd71237ea5f"
+              },
+              "amount": "50000000000000000000000"
+            }
+          ],
+          "taker_gives": [
+            {
+              "asset": {
+                "kind": "COLLATERAL"
+              },
+              "amount": "931654695780450000000"
+            }
+          ],
+          "fee": {
+            "asset": "NATIVE_NEAR",
+            "amount": "465827347890225000",
+            "receiver": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1"
+          },
+          "fill_rule": "ALL_OR_NOTHING",
+          "rounding": "EXACT_AMOUNTS",
+          "nonce": "3",
+          "cancellation_epoch": "0",
+          "expiry_ns": "1794574815623207421",
+          "signing_key_id": "demo-key",
+          "signature_scheme": "ed25519",
+          "signature": "f3706b52495548379c45301979579e1c6dede367d3ddadb63805b31a4b321009098d5690d7271a5a9b4da0cb3453ab89d5caa9817ab1583b177b532fc18e3b0a"
+        },
+        "reason": null,
+        "diagnostics": {
+          "equity_atomic": "1100000000000000000000000",
+          "notional_atomic": "931654695780450000000",
+          "reference_timestamp_ns": "1794574697295668579",
+          "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+          "model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+          "snapshot_hash": "0b4d5d9303bb101f91d24bf120820e93817742e5e2ea36dab50909cc7323f2bf",
+          "sigma": 1.0424782368185237,
+          "history_end_ns": "1794571200000000000"
+        }
+      },
+      {
+        "quote": {
+          "kind": "quote",
+          "schema_version": "0.2.0",
+          "domain": {
+            "protocol_version": "1",
+            "network": "testnet",
+            "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+          },
+          "maker": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+          "taker": "0xdeepak18.testnet",
+          "maker_gives": [
+            {
+              "asset": {
+                "kind": "N",
+                "series_id": "l5b6afa68eaa43bd71237ea5f"
+              },
+              "amount": "50000000000000000000000"
+            }
+          ],
+          "taker_gives": [
+            {
+              "asset": {
+                "kind": "COLLATERAL"
+              },
+              "amount": "933505236441450000000"
+            }
+          ],
+          "fee": {
+            "asset": "NATIVE_NEAR",
+            "amount": "466752618220725000",
+            "receiver": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39"
+          },
+          "fill_rule": "ALL_OR_NOTHING",
+          "rounding": "EXACT_AMOUNTS",
+          "nonce": "3",
+          "cancellation_epoch": "0",
+          "expiry_ns": "1794574815623207421",
+          "signing_key_id": "demo-key",
+          "signature_scheme": "ed25519",
+          "signature": "8c1efc198b70ad880c8eb1605c37222b7ac16db4ea508e9fc8b842911ed7310fff14641ccf9770ebed1e19c3379dbca3c2da93df822684d1579785195b2ee60f"
+        },
+        "reason": null,
+        "diagnostics": {
+          "equity_atomic": "1100000000000000000000000",
+          "notional_atomic": "933505236441450000000",
+          "reference_timestamp_ns": "1794574697295668579",
+          "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+          "model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+          "snapshot_hash": "0b4d5d9303bb101f91d24bf120820e93817742e5e2ea36dab50909cc7323f2bf",
+          "sigma": 1.0424782368185237,
+          "history_end_ns": "1794571200000000000"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,808 @@
+{
+  "scope": "Short real runtime observation after RPC reorder; not uptime guarantee or full lifecycle acceptance",
+  "samples": [
+    {
+      "at": "2026-11-13T12:50:54.789Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512192",
+        "block_hash": "GWnRrZsS4jCqjdCufRrmavPgMJp1x1CnrTyScwBakVCp",
+        "lag_blocks": "18",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 21691,
+        "cursor_hash": "GWnRrZsS4jCqjdCufRrmavPgMJp1x1CnrTyScwBakVCp",
+        "generation": "44",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508633",
+          "scanned_height": "277508633",
+          "observed_height": "277512073",
+          "lag_blocks": 3559,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:50:47.064Z",
+        "discovery_transport": {
+          "requests": 11,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:51:04.832Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512215",
+        "block_hash": "2xGZy2qduffPG9XBXuYm5jhXGjRdbvwctyeAYi3wA8Mo",
+        "lag_blocks": "20",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 17765,
+        "cursor_hash": "2xGZy2qduffPG9XBXuYm5jhXGjRdbvwctyeAYi3wA8Mo",
+        "generation": "45",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508633",
+          "scanned_height": "277508633",
+          "observed_height": "277512073",
+          "lag_blocks": 3582,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:51:01.075Z",
+        "discovery_transport": {
+          "requests": 14,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:51:14.836Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512240",
+        "block_hash": "51Z5Vi2HPH2EUYygCstoMmB8kXJTEyiKCC3GrMnSBAf",
+        "lag_blocks": "21",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 13759,
+        "cursor_hash": "51Z5Vi2HPH2EUYygCstoMmB8kXJTEyiKCC3GrMnSBAf",
+        "generation": "46",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508633",
+          "scanned_height": "277508633",
+          "observed_height": "277512073",
+          "lag_blocks": 3607,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "idle",
+        "finished_at": "2026-11-13T12:51:13.157Z",
+        "discovery_transport": {
+          "requests": 17,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:51:24.866Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512240",
+        "block_hash": "51Z5Vi2HPH2EUYygCstoMmB8kXJTEyiKCC3GrMnSBAf",
+        "lag_blocks": "21",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 23789,
+        "cursor_hash": "51Z5Vi2HPH2EUYygCstoMmB8kXJTEyiKCC3GrMnSBAf",
+        "generation": "46",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508633",
+          "scanned_height": "277508633",
+          "observed_height": "277512073",
+          "lag_blocks": 3607,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:51:15.175Z",
+        "discovery_transport": {
+          "requests": 20,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:51:34.902Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512267",
+        "block_hash": "3nYPnAoMbVDj2aDYNFvzmkbQZk69oukndCyp6FXQasEV",
+        "lag_blocks": "19",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 19725,
+        "cursor_hash": "3nYPnAoMbVDj2aDYNFvzmkbQZk69oukndCyp6FXQasEV",
+        "generation": "47",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508633",
+          "scanned_height": "277508633",
+          "observed_height": "277512073",
+          "lag_blocks": 3634,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:51:29.200Z",
+        "discovery_transport": {
+          "requests": 22,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:51:44.944Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512291",
+        "block_hash": "GnUUnGRf71CEUjaNHU3xaDf6jHFiEcqAAeAtcNLs9SHd",
+        "lag_blocks": "18",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 15742,
+        "cursor_hash": "GnUUnGRf71CEUjaNHU3xaDf6jHFiEcqAAeAtcNLs9SHd",
+        "generation": "48",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3634,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:51:43.121Z",
+        "discovery_transport": {
+          "requests": 25,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:51:54.971Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512291",
+        "block_hash": "GnUUnGRf71CEUjaNHU3xaDf6jHFiEcqAAeAtcNLs9SHd",
+        "lag_blocks": "18",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 25769,
+        "cursor_hash": "GnUUnGRf71CEUjaNHU3xaDf6jHFiEcqAAeAtcNLs9SHd",
+        "generation": "48",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3634,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 2,
+        "total": 2,
+        "started_at": "2026-11-13T12:51:43.121Z",
+        "discovery_transport": {
+          "requests": 28,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:52:05.014Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512314",
+        "block_hash": "ECr8kV2cU1eEHxKSbXGNVhTTRqxRrsDph1xdiYRbKgdP",
+        "lag_blocks": "18",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 21891,
+        "cursor_hash": "ECr8kV2cU1eEHxKSbXGNVhTTRqxRrsDph1xdiYRbKgdP",
+        "generation": "49",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3657,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:51:57.150Z",
+        "discovery_transport": {
+          "requests": 31,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:52:15.041Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512338",
+        "block_hash": "B4VfLKipGbpnyzFCRH3dBBdmuBjb8co2Fj3iq2DEZCEn",
+        "lag_blocks": "20",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 17888,
+        "cursor_hash": "B4VfLKipGbpnyzFCRH3dBBdmuBjb8co2Fj3iq2DEZCEn",
+        "generation": "50",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3681,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:52:11.235Z",
+        "discovery_transport": {
+          "requests": 34,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:52:25.085Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512338",
+        "block_hash": "B4VfLKipGbpnyzFCRH3dBBdmuBjb8co2Fj3iq2DEZCEn",
+        "lag_blocks": "20",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 0,
+        "rpc_failovers": 0,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 27932,
+        "cursor_hash": "B4VfLKipGbpnyzFCRH3dBBdmuBjb8co2Fj3iq2DEZCEn",
+        "generation": "50",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3681,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 1,
+        "total": 2,
+        "started_at": "2026-11-13T12:52:11.235Z",
+        "discovery_transport": {
+          "requests": 37,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:52:35.112Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512364",
+        "block_hash": "73aBXfLbGGetWj9X9iWdx6PrnDcYfxyFkSeT3WbotKfQ",
+        "lag_blocks": "27",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 3,
+        "rpc_failovers": 3,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 23875,
+        "cursor_hash": "73aBXfLbGGetWj9X9iWdx6PrnDcYfxyFkSeT3WbotKfQ",
+        "generation": "51",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3707,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:52:31.123Z",
+        "discovery_transport": {
+          "requests": 40,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:52:45.155Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512364",
+        "block_hash": "73aBXfLbGGetWj9X9iWdx6PrnDcYfxyFkSeT3WbotKfQ",
+        "lag_blocks": "27",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 3,
+        "rpc_failovers": 3,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 33918,
+        "cursor_hash": "73aBXfLbGGetWj9X9iWdx6PrnDcYfxyFkSeT3WbotKfQ",
+        "generation": "51",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3707,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 1,
+        "total": 2,
+        "started_at": "2026-11-13T12:52:31.123Z",
+        "discovery_transport": {
+          "requests": 42,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:52:55.198Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512398",
+        "block_hash": "GXxhLG1nkQXsPyNN7kxQcWJzWNVnGQeMoEMiadAHiX96",
+        "lag_blocks": "25",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 5,
+        "rpc_failovers": 5,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 24073,
+        "cursor_hash": "GXxhLG1nkQXsPyNN7kxQcWJzWNVnGQeMoEMiadAHiX96",
+        "generation": "52",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3741,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:52:51.184Z",
+        "discovery_transport": {
+          "requests": 45,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:53:05.239Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512398",
+        "block_hash": "GXxhLG1nkQXsPyNN7kxQcWJzWNVnGQeMoEMiadAHiX96",
+        "lag_blocks": "25",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 5,
+        "rpc_failovers": 5,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 34114,
+        "cursor_hash": "GXxhLG1nkQXsPyNN7kxQcWJzWNVnGQeMoEMiadAHiX96",
+        "generation": "52",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508657",
+          "scanned_height": "277508657",
+          "observed_height": "277512167",
+          "lag_blocks": 3741,
+          "state": "SCANNING",
+          "fresh": false,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 1,
+        "total": 2,
+        "started_at": "2026-11-13T12:52:51.184Z",
+        "discovery_transport": {
+          "requests": 48,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:53:15.281Z",
+      "health": {
+        "state": "RPC_UNAVAILABLE",
+        "failed_at": "2026-11-13T12:53:07.028Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "query",
+            "block_id": "J6Wcv3TdV4uLywcv91UvgSsgS9LfPyL9X6pC4TgT9iXB"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "transport": {
+            "url": "https://test.rpc.fastnear.com/",
+            "at_ms": 1794574386991,
+            "method": "status",
+            "reason": "RPC_RATE_LIMITED",
+            "http_status": 429
+          },
+          "started_at": "2026-11-13T12:52:51.184Z"
+        },
+        "stale": false,
+        "age_ms": 44155,
+        "cursor_hash": "GXxhLG1nkQXsPyNN7kxQcWJzWNVnGQeMoEMiadAHiX96",
+        "height": "277512398",
+        "generation": "52",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508681",
+          "scanned_height": "277508681",
+          "observed_height": "277512318",
+          "lag_blocks": 3717,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:53:09.288Z",
+        "discovery_transport": {
+          "requests": 51,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:53:25.325Z",
+      "health": {
+        "state": "RPC_UNAVAILABLE",
+        "failed_at": "2026-11-13T12:53:07.028Z",
+        "risk_allowed": false,
+        "failure_progress": {
+          "rpc": {
+            "url": "https://test.rpc.fastnear.com/",
+            "method": "query",
+            "block_id": "J6Wcv3TdV4uLywcv91UvgSsgS9LfPyL9X6pC4TgT9iXB"
+          },
+          "phase": "snapshots",
+          "total": 2,
+          "completed": 2,
+          "transport": {
+            "url": "https://test.rpc.fastnear.com/",
+            "at_ms": 1794574386991,
+            "method": "status",
+            "reason": "RPC_RATE_LIMITED",
+            "http_status": 429
+          },
+          "started_at": "2026-11-13T12:52:51.184Z"
+        },
+        "stale": false,
+        "age_ms": 54199,
+        "cursor_hash": "GXxhLG1nkQXsPyNN7kxQcWJzWNVnGQeMoEMiadAHiX96",
+        "height": "277512398",
+        "generation": "52",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508681",
+          "scanned_height": "277508681",
+          "observed_height": "277512318",
+          "lag_blocks": 3717,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:53:09.288Z",
+        "discovery_transport": {
+          "requests": 54,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:53:35.368Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512462",
+        "block_hash": "3JTRkBeByfBS6ES4559KPRME6B82rB4HqiTPGmALxFg5",
+        "lag_blocks": "32",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 14,
+        "rpc_failovers": 14,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 26078,
+        "cursor_hash": "3JTRkBeByfBS6ES4559KPRME6B82rB4HqiTPGmALxFg5",
+        "generation": "53",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508681",
+          "scanned_height": "277508681",
+          "observed_height": "277512318",
+          "lag_blocks": 3781,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:53:31.083Z",
+        "discovery_transport": {
+          "requests": 57,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:53:45.410Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512462",
+        "block_hash": "3JTRkBeByfBS6ES4559KPRME6B82rB4HqiTPGmALxFg5",
+        "lag_blocks": "32",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 14,
+        "rpc_failovers": 14,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 36120,
+        "cursor_hash": "3JTRkBeByfBS6ES4559KPRME6B82rB4HqiTPGmALxFg5",
+        "generation": "53",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508681",
+          "scanned_height": "277508681",
+          "observed_height": "277512318",
+          "lag_blocks": 3781,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 1,
+        "total": 2,
+        "started_at": "2026-11-13T12:53:31.083Z",
+        "discovery_transport": {
+          "requests": 60,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    },
+    {
+      "at": "2026-11-13T12:53:55.450Z",
+      "health": {
+        "state": "RECONCILED",
+        "height": "277512501",
+        "block_hash": "8wjgNc8b8Aar5ZjJe5QX3k9wa2tQU4sEcLAaVfuvB9MC",
+        "lag_blocks": "27",
+        "reconciled": true,
+        "risk_allowed": true,
+        "rpc_failures": 17,
+        "rpc_failovers": 17,
+        "unresolved_transactions": [],
+        "stale": false,
+        "age_ms": 24365,
+        "cursor_hash": "8wjgNc8b8Aar5ZjJe5QX3k9wa2tQU4sEcLAaVfuvB9MC",
+        "generation": "54",
+        "discovery": {
+          "source": "neardata-testnet",
+          "required": false,
+          "baseline_height": "277508185",
+          "height": "277508681",
+          "scanned_height": "277508681",
+          "observed_height": "277512318",
+          "lag_blocks": 3820,
+          "state": "SCANNING",
+          "fresh": true,
+          "retry_at_ms": "1794573858977"
+        }
+      },
+      "sync": {
+        "phase": "snapshots",
+        "completed": 0,
+        "total": 2,
+        "started_at": "2026-11-13T12:53:51.076Z",
+        "discovery_transport": {
+          "requests": 63,
+          "rate_limited": 0,
+          "started_at_ms": 1794574217760
+        }
+      }
+    }
+  ]
+}

@@ -90,6 +90,7 @@ export type Input = {
         method: M;
         args: MethodArgs[M];
         attached_deposit?: UInt;
+        storage_deposit?: UInt;
         operation_id?: string;
     };
 }[Method];
@@ -109,7 +110,7 @@ export interface Configuration {
     contract_id: string;
     code_hash: string;
 }
-export type State = 'PREPARED' | 'CANCELLED' | 'PENDING' | 'SUBMISSION_UNKNOWN' | 'SUCCEEDED' | 'FAILED_CONFIRMED' | 'WITHDRAWAL_UNKNOWN' | 'WITHDRAWAL_SUCCEEDED' | 'WITHDRAWAL_FAILED_CONFIRMED';
+export type State = 'PREPARED' | 'CANCELLED' | 'PENDING' | 'SUBMISSION_UNKNOWN' | 'QUOTE_EXPIRED_UNFILLED' | 'SUCCEEDED' | 'FAILED_CONFIRMED' | 'WITHDRAWAL_UNKNOWN' | 'WITHDRAWAL_SUCCEEDED' | 'WITHDRAWAL_FAILED_CONFIRMED';
 export interface Result {
     operation_id?: string;
     state: State;
@@ -128,7 +129,7 @@ export interface SignRequest {
     receiverId: string;
     network: Network;
     operationId: string;
-    actions: [
+    actions: Array<
         {
             type: 'FunctionCall';
             methodName: Method;
@@ -136,7 +137,7 @@ export interface SignRequest {
             deposit: UInt;
             gas: UInt;
         }
-    ];
+    >;
 }
 export type Signer = (request: SignRequest, onHash: (hash: string) => Promise<void>) => Promise<{
     hash: string;
@@ -167,6 +168,8 @@ export class Client {
         transport?: {
             fetchImpl?: typeof fetch;
             timeout_ms?: number;
+            fallback_urls?: string[];
+            now?: () => number;
         };
     });
     journal: FileJournal;

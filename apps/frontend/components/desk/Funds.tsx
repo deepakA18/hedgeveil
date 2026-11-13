@@ -21,9 +21,17 @@ export function Funds() {
     setAction("deposit_collateral");
   }, [d.account]);
   const balance = d.live?.accounts[d.account];
-  const maxDeposit = maximumDeposit(d.live);
+  const storageSetup =
+    d.live && !balance ? d.live.storage.account_minimum : "0";
+  const walletMaximum = maximumDeposit(d.live);
+  const maxDeposit =
+    walletMaximum === null
+      ? null
+      : walletMaximum > BigInt(storageSetup)
+        ? walletMaximum - BigInt(storageSetup)
+        : 0n;
   const pendingWithdrawal = withdrawalBlocked(d.records, d.live?.tickets ?? []);
-  const fundingAction = balance ? action : "storage_deposit";
+  const fundingAction = balance ? action : "deposit_collateral";
   const fundingAmount =
     amount ||
     (fundingAction === "storage_deposit" && d.live
@@ -40,26 +48,29 @@ export function Funds() {
       ) : (
         <>
           <BalanceGrid />
-          {d.live && !balance && (
-            <p className="desk-notice">
-              Step 1 of 2: reserve account storage. After confirmation, step 2
-              adds trading funds. Each step needs a separate wallet approval.
-            </p>
-          )}
           <div className="desk-two funds-panels">
-            <Panel title={balance ? "Add funds" : "1. Set up your account"}>
+            <Panel title="Add funds">
               <Form
                 label={
                   fundingAction === "storage_deposit"
                     ? "Review account setup"
                     : "Review deposit"
                 }
-                disabled={!d.ready || d.busy}
+                disabled={!d.ready || !d.live || d.busy}
                 onSubmit={() =>
                   d.review({
                     method: fundingAction,
                     args: {},
-                    attached_deposit: parseNear(fundingAmount),
+                    attached_deposit: String(
+                      BigInt(parseNear(fundingAmount)) +
+                        (fundingAction === "deposit_collateral"
+                          ? BigInt(storageSetup)
+                          : 0n),
+                    ),
+                    ...(fundingAction === "deposit_collateral" &&
+                    storageSetup !== "0"
+                      ? { storage_deposit: storageSetup }
+                      : {}),
                   })
                 }
               >
@@ -89,13 +100,19 @@ export function Funds() {
                     </label>
                   </details>
                 )}
+                {storageSetup !== "0" && (
+                  <p className="desk-muted">
+                    First deposit includes {formatNear(storageSetup)} NEAR for
+                    account storage, in addition to your trading funds. One
+                    wallet approval.
+                  </p>
+                )}
                 <AmountField
                   label="Amount in NEAR"
                   value={fundingAmount}
                   onChange={setAmount}
                 />
-                {balance &&
-                  fundingAction === "deposit_collateral" &&
+                {fundingAction === "deposit_collateral" &&
                   maxDeposit !== null && (
                     <>
                       <button

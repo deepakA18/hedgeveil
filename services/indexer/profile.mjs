@@ -7,7 +7,7 @@ export function walletIndexerConfiguration(client,input){
     if(!client||c.network!==client.network||c.chain_id!==client.chain_id||c.genesis_hash!==client.genesis_hash)fail('INDEXER_DEPLOYMENT_MISMATCH');
     const cores=c.contracts.filter(x=>x.kind==='core');
     if(cores.length!==1||cores[0].account_id!==client.contract_id||cores[0].code_hash!==client.code_hash)fail('INDEXER_DEPLOYMENT_MISMATCH');
-    if(c.contracts.filter(x=>['oracle','external_oracle'].includes(x.kind)).length!==1)fail('INDEXER_ORACLE_REQUIRED');
+    if(c.contracts.filter(x=>['oracle','external_oracle','expiry_oracle'].includes(x.kind)).length!==1)fail('INDEXER_ORACLE_REQUIRED');
     return c;
 }
 

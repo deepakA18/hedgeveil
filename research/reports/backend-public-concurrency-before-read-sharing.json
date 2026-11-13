@@ -1,0 +1,225 @@
+{
+  "scope": "Ten concurrent browser-equivalent sessions for one existing account. Real RPC, live market data and signed offers; no wallet transactions or ten-public-user claim.",
+  "at": "2026-11-13T14:36:58.225Z",
+  "rounds": [
+    {
+      "stage": "live",
+      "results": [
+        {
+          "ms": 5005,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4996,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 5159,
+          "status": 200,
+          "block_hash": "5NFDffhPvjNgtqUoeStYwiiX4e1uR499gQUfNPxvJJFS",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 750,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4686,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4703,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4744,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 931,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 5359,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 5193,
+          "status": 200,
+          "block_hash": "DAk5N34KW8BH64wnKK5MBRKQU29HkjwaZnREiP1b3YtN",
+          "free": "100000000000000000000000"
+        }
+      ]
+    },
+    {
+      "stage": "quotes",
+      "results": [
+        {
+          "ms": 10255,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 30023,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        },
+        {
+          "ms": 30012,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        },
+        {
+          "ms": 30023,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        },
+        {
+          "ms": 30022,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        },
+        {
+          "ms": 19330,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 30013,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        },
+        {
+          "ms": 28310,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 30010,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        },
+        {
+          "ms": 30013,
+          "status": 200,
+          "offers": 0,
+          "reasons": [
+            "MAKER_UNAVAILABLE",
+            "MAKER_TIMEOUT"
+          ]
+        }
+      ]
+    }
+  ],
+  "health": [
+    {
+      "state": "RECONCILED",
+      "height": "277523055",
+      "block_hash": "A51WkNS8W3AUa5wt2mySNobKmkURoqFfj18eaQxGJrVF",
+      "lag_blocks": "33",
+      "reconciled": true,
+      "risk_allowed": true,
+      "rpc_failures": 0,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [],
+      "stale": false,
+      "age_ms": 39837,
+      "cursor_hash": "A51WkNS8W3AUa5wt2mySNobKmkURoqFfj18eaQxGJrVF",
+      "generation": "274",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277510314",
+        "scanned_height": "277510314",
+        "observed_height": "277522940",
+        "lag_blocks": 12741,
+        "state": "SCANNING",
+        "fresh": true,
+        "retry_at_ms": "1794573858977"
+      }
+    },
+    {
+      "state": "RPC_UNAVAILABLE",
+      "failed_at": "2026-11-13T14:37:13.534Z",
+      "risk_allowed": false,
+      "failure_progress": {
+        "rpc": {
+          "url": "https://test.rpc.fastnear.com/",
+          "method": "block"
+        },
+        "phase": "snapshots",
+        "total": 2,
+        "completed": 2,
+        "transport": {
+          "url": "https://test.rpc.fastnear.com/",
+          "at_ms": 1794580633497,
+          "method": "status",
+          "reason": "RPC_RATE_LIMITED",
+          "http_status": 429
+        },
+        "started_at": "2026-11-13T14:36:45.809Z"
+      },
+      "stale": true,
+      "age_ms": 69878,
+      "cursor_hash": "A51WkNS8W3AUa5wt2mySNobKmkURoqFfj18eaQxGJrVF",
+      "height": "277523055",
+      "generation": "274",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277510314",
+        "scanned_height": "277510314",
+        "observed_height": "277522940",
+        "lag_blocks": 12741,
+        "state": "SCANNING",
+        "fresh": true,
+        "retry_at_ms": "1794573858977"
+      }
+    }
+  ]
+}

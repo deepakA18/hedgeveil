@@ -1,0 +1,403 @@
+{
+  "network": "testnet",
+  "beneficiary": "0xdeepak18.testnet",
+  "core": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+  "started_at": "2026-11-13T13:49:50.113Z",
+  "before": {
+    "native_balance": "38510866598839267400000034",
+    "free_collateral": "4164545888779752694393239",
+    "vault_collateral": "0",
+    "vault_storage_fund": "0",
+    "roll_storage_fund": "0",
+    "series_reserves": "3895454111220247305606761",
+    "refundable_storage": "163840000000000000000000",
+    "fees": "5000000000000000000034",
+    "series_storage_fund": "204800000000000000000000",
+    "market_storage_fund": "81920000000000000000000",
+    "operating_allocation": "20000000000000000000000000",
+    "pending_in_flight": "0",
+    "unknown_in_flight": "0",
+    "tracked_user_collateral": "8060000000000000000000000",
+    "retained_categories": "28515560000000000000000034",
+    "retained_categories_covered": true,
+    "unallocated_or_in_flight_return": "9995306598839267400000000",
+    "storage_bytes": "620217",
+    "storage_byte_cost": "10000000000000000000",
+    "next_ticket_id": "2",
+    "operation_sequence": "51"
+  },
+  "transactions": [
+    {
+      "label": "retire",
+      "signer": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "set_pauses",
+          "args": {
+            "pauses": {
+              "deposits": true,
+              "series": true,
+              "splits": true
+            }
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "447ZsT58jEq7f2VQSKQCygi9evh62daWoXi2AsAor2Rr",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "redeem-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134-eta-P",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "redeem",
+          "args": {
+            "series_id": "eta",
+            "leg": "P",
+            "amount": "1935000000000000000000000"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "C4G5xzja2M4qkRp9EWizkTy4QhHqWEeFori2JHhmR2AT",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "redeem-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134-eta-N",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "redeem",
+          "args": {
+            "series_id": "eta",
+            "leg": "N",
+            "amount": "1995000000000000000000000"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "vygMvJj2x5ZeoNFsXkYiMGJDkArr5zL13SUDCgVEdhB",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "redeem-22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe-eta-P",
+      "signer": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "redeem",
+          "args": {
+            "series_id": "eta",
+            "leg": "P",
+            "amount": "1960000000000000000000000"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "98zthBjNNqRahdf42cjeb7o6nfpehbEquexDPita3S9D",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "redeem-22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe-eta-N",
+      "signer": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "redeem",
+          "args": {
+            "series_id": "eta",
+            "leg": "N",
+            "amount": "1950000000000000000000000"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "5GXnCzu7Gr6NgerwKh6n6XGTuykpTF9Czs1gvVw747gu",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "unregister-20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "signer": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "unregister",
+          "args": {},
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "Akg3cQNExWy1AJAtNQgwvKiNk4GnwS4CJ881t9DDZBs5",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "close-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134-0",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "close_ticket",
+          "args": {
+            "ticket_id": "0"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "bvqkAwCJCL9rApomHReN45iTPC53jxkn26uvMuWY6W3",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "withdraw-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "request_withdrawal",
+          "args": {
+            "amount": "3979899843542536996690610",
+            "receiver": "0xdeepak18.testnet"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "EeGZ5MuEFqH5zL4TaCL84v4YcVdG9m5B7C4Nck46X9T6",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "close-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134-3",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "close_ticket",
+          "args": {
+            "ticket_id": "3"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "EJhaoYFskkMtePxyVEELmdjFgsam9ayKfL6CU8bG4ZFK",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "unregister-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "unregister",
+          "args": {},
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "9U9zQ7si1N13WkNAoKvgxxiTxs4jmxCWgvv8UQWdoDPn",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "withdraw-22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "signer": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "request_withdrawal",
+          "args": {
+            "amount": "4000437806588037846303647",
+            "receiver": "0xdeepak18.testnet"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "eoYpXtgFYY69jfK9H3PKsvwhZbP4KWi6yxMF8XfaPFr",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "close-22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe-5",
+      "signer": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "close_ticket",
+          "args": {
+            "ticket_id": "5"
+          },
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "9fXSnmjHtiK4fJ7yMcmJ41aftU7Pk29kzBbbBKaRitNW",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "unregister-22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "signer": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "receiver": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "unregister",
+          "args": {},
+          "gas": "250000000000000",
+          "deposit": "1"
+        }
+      ],
+      "hash": "3kCpfoEVM7dUVUyzXnZgoLBNKLQsWzmLnat8jevx24Y5",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "sweep-20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "signer": "20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b",
+      "receiver": "0xdeepak18.testnet",
+      "actions": [
+        {
+          "type": "Transfer",
+          "deposit": "2105693452764379699999998"
+        }
+      ],
+      "hash": "7Jb25eBLkx5A7aurdd2rK2Dndf853KDtwappgUpCng92",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "sweep-a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "signer": "a04fc180df781a94b9cb32cd6c8c65cb8bd59a6446389c7ed4d6e20bae4ae437",
+      "receiver": "0xdeepak18.testnet",
+      "actions": [
+        {
+          "type": "Transfer",
+          "deposit": "9895306598839267400000000"
+        }
+      ],
+      "hash": "9hZN2Xg8JuSLq82J2xQhSESMVTzRyPKgRc7vgF7qCFFv",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "sweep-8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+      "signer": "8baae1005eb54ea8c55cc4733b15a519b47e17ca6714b848069ac51ed653d553",
+      "receiver": "0xdeepak18.testnet",
+      "actions": [
+        {
+          "type": "Transfer",
+          "deposit": "1497067644588503900000000"
+        }
+      ],
+      "hash": "BiK6PA4CdvT7khyZBtEdqhX2WyMmz2hGqx3hb4hKtzSY",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "sweep-6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "signer": "6b79b50ef1a4333c0edba636fff8b6f3bce1eafe78cc7daa45e394b6bd0d6134",
+      "receiver": "0xdeepak18.testnet",
+      "actions": [
+        {
+          "type": "Transfer",
+          "deposit": "361115302524978699999975"
+        }
+      ],
+      "hash": "13MktppTNS19eT3Z92kfEMWzGwooe9o8KAffep6ydaQq",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "sweep-22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "signer": "22d6604631bda66ce1f824944e84574e2f1a447ec1412c84dde41bfefe17fdbe",
+      "receiver": "0xdeepak18.testnet",
+      "actions": [
+        {
+          "type": "Transfer",
+          "deposit": "346785062834649499999983"
+        }
+      ],
+      "hash": "JCxjS5eC1RedBdN8hz42g53EoZ6c663hjnCHziCqQqVd",
+      "state": "SUCCEEDED"
+    }
+  ],
+  "after": {
+    "native_balance": "20512297713356925157005790",
+    "free_collateral": "79662349869425157005740",
+    "vault_collateral": "0",
+    "vault_storage_fund": "0",
+    "roll_storage_fund": "0",
+    "series_reserves": "3",
+    "refundable_storage": "40960000000000000000000",
+    "fees": "5000000000000000000047",
+    "series_storage_fund": "204800000000000000000000",
+    "market_storage_fund": "81920000000000000000000",
+    "operating_allocation": "20000000000000000000000000",
+    "pending_in_flight": "0",
+    "unknown_in_flight": "0",
+    "tracked_user_collateral": "79662349869425157005743",
+    "retained_categories": "20412342349869425157005790",
+    "retained_categories_covered": true,
+    "unallocated_or_in_flight_return": "99955363487500000000000",
+    "storage_bytes": "618963",
+    "storage_byte_cost": "10000000000000000000",
+    "next_ticket_id": "7",
+    "operation_sequence": "69"
+  },
+  "owner_remaining": {
+    "free": "79662349869425157005740",
+    "storage_paid": "40960000000000000000000",
+    "positions": [
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      },
+      {
+        "p": "0",
+        "n": "0"
+      }
+    ],
+    "retained_tickets": 1,
+    "closing": false
+  },
+  "returned_to_owner": "22186305711682354042994213",
+  "completed_at": "2026-11-13T13:58:33.073Z"
+}

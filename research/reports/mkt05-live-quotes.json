@@ -1,0 +1,303 @@
+{
+  "version": 1,
+  "recorded_at": "2026-11-13T12:48:35.804Z",
+  "scope": "Real signed offers only; not fills. Offers expire and are not reserved.",
+  "core": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+  "health": {
+    "state": "RECONCILED",
+    "height": "277511933",
+    "block_hash": "5pNuqs7VZVMn2YCZTcfsnhJK4uCzCGjwFX2vLW6NqfjN",
+    "lag_blocks": "23",
+    "reconciled": true,
+    "risk_allowed": true,
+    "rpc_failures": 0,
+    "rpc_failovers": 0,
+    "unresolved_transactions": [],
+    "stale": false,
+    "age_ms": 29561,
+    "cursor_hash": "5pNuqs7VZVMn2YCZTcfsnhJK4uCzCGjwFX2vLW6NqfjN",
+    "generation": "40",
+    "discovery": {
+      "source": "neardata-testnet",
+      "required": false,
+      "baseline_height": "277508185",
+      "height": "277508602",
+      "scanned_height": "277508602",
+      "observed_height": "277511859",
+      "lag_blocks": 3331,
+      "state": "SCANNING",
+      "fresh": true,
+      "retry_at_ms": "1794573858977"
+    }
+  },
+  "series": {
+    "series_id": "l5b6afa68eaa43bd71237ea5f",
+    "version": "1",
+    "collateral_kind": "NATIVE_NEAR",
+    "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+    "payoff_kind": "CAPPED_USD_COMPLEMENT",
+    "strike": "3536000000000",
+    "price_scale": "1000000000000",
+    "maturity_ns": "1794643200000000000",
+    "mint_cutoff_ns": "1794641400000000000",
+    "observation_window": {
+      "start_ns": "1794641400000000000",
+      "end_ns": "1794643200000000000"
+    },
+    "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+    "oracle_version": "native-trade-twap-v1",
+    "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+    "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+    "max_supply": "100000000000000000000000000"
+  },
+  "results": [
+    {
+      "requested_at": "2026-11-13T12:48:34.510Z",
+      "request": {
+        "taker": "0xdeepak18.testnet",
+        "mode": "BUY",
+        "asset": {
+          "kind": "P",
+          "series_id": "l5b6afa68eaa43bd71237ea5f"
+        },
+        "amount": "50000000000000000000000"
+      },
+      "response": {
+        "items": [
+          {
+            "quote": {
+              "kind": "quote",
+              "schema_version": "0.2.0",
+              "domain": {
+                "protocol_version": "1",
+                "network": "testnet",
+                "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+              },
+              "maker": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+              "taker": "0xdeepak18.testnet",
+              "maker_gives": [
+                {
+                  "asset": {
+                    "kind": "P",
+                    "series_id": "l5b6afa68eaa43bd71237ea5f"
+                  },
+                  "amount": "50000000000000000000000"
+                }
+              ],
+              "taker_gives": [
+                {
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "amount": "49360050871896720000000"
+                }
+              ],
+              "fee": {
+                "asset": "NATIVE_NEAR",
+                "amount": "24680025435948360000",
+                "receiver": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1"
+              },
+              "fill_rule": "ALL_OR_NOTHING",
+              "rounding": "EXACT_AMOUNTS",
+              "nonce": "1",
+              "cancellation_epoch": "0",
+              "expiry_ns": "1794574201945743682",
+              "signing_key_id": "demo-key",
+              "signature_scheme": "ed25519",
+              "signature": "6cab4da336c8f8b2a10022ddd3cd58b161f94e91a7c192fca333504a2a46cd2de4476614bf73a6c103dd9ada90fe569e5bdc4c6d087a43a5ce887e102198940d"
+            },
+            "reason": null,
+            "diagnostics": {
+              "equity_atomic": "1100000000000000000000000",
+              "notional_atomic": "49360050871896720000000",
+              "reference_timestamp_ns": "1794574101743644967",
+              "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+              "model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+              "snapshot_hash": "35754bf1917779e387f5b6a8a11161bd6aea6ddbab2c6fcb58a6201323954d64",
+              "sigma": 1.0424782368185237,
+              "history_end_ns": "1794571200000000000"
+            }
+          },
+          {
+            "quote": {
+              "kind": "quote",
+              "schema_version": "0.2.0",
+              "domain": {
+                "protocol_version": "1",
+                "network": "testnet",
+                "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+              },
+              "maker": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+              "taker": "0xdeepak18.testnet",
+              "maker_gives": [
+                {
+                  "asset": {
+                    "kind": "P",
+                    "series_id": "l5b6afa68eaa43bd71237ea5f"
+                  },
+                  "amount": "50000000000000000000000"
+                }
+              ],
+              "taker_gives": [
+                {
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "amount": "49458094472794320000000"
+                }
+              ],
+              "fee": {
+                "asset": "NATIVE_NEAR",
+                "amount": "24729047236397160000",
+                "receiver": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39"
+              },
+              "fill_rule": "ALL_OR_NOTHING",
+              "rounding": "EXACT_AMOUNTS",
+              "nonce": "1",
+              "cancellation_epoch": "0",
+              "expiry_ns": "1794574201945743682",
+              "signing_key_id": "demo-key",
+              "signature_scheme": "ed25519",
+              "signature": "b3e9793d5c5210e39cb719a7e7912146a818f95b4c26b3f74dcfdae25ed2fd10122c760f3e2ef4410b8d85af1c7df9cd458366008df323b16c68b2dc30e0bb0b"
+            },
+            "reason": null,
+            "diagnostics": {
+              "equity_atomic": "1100000000000000000000000",
+              "notional_atomic": "49458094472794320000000",
+              "reference_timestamp_ns": "1794574101743644967",
+              "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+              "model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+              "snapshot_hash": "35754bf1917779e387f5b6a8a11161bd6aea6ddbab2c6fcb58a6201323954d64",
+              "sigma": 1.0424782368185237,
+              "history_end_ns": "1794571200000000000"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "requested_at": "2026-11-13T12:48:35.804Z",
+      "request": {
+        "taker": "0xdeepak18.testnet",
+        "mode": "BUY",
+        "asset": {
+          "kind": "N",
+          "series_id": "l5b6afa68eaa43bd71237ea5f"
+        },
+        "amount": "50000000000000000000000"
+      },
+      "response": {
+        "items": [
+          {
+            "quote": {
+              "kind": "quote",
+              "schema_version": "0.2.0",
+              "domain": {
+                "protocol_version": "1",
+                "network": "testnet",
+                "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+              },
+              "maker": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+              "taker": "0xdeepak18.testnet",
+              "maker_gives": [
+                {
+                  "asset": {
+                    "kind": "N",
+                    "series_id": "l5b6afa68eaa43bd71237ea5f"
+                  },
+                  "amount": "50000000000000000000000"
+                }
+              ],
+              "taker_gives": [
+                {
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "amount": "984939768111915000000"
+                }
+              ],
+              "fee": {
+                "asset": "NATIVE_NEAR",
+                "amount": "492469884055957500",
+                "receiver": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1"
+              },
+              "fill_rule": "ALL_OR_NOTHING",
+              "rounding": "EXACT_AMOUNTS",
+              "nonce": "2",
+              "cancellation_epoch": "0",
+              "expiry_ns": "1794574203254744234",
+              "signing_key_id": "demo-key",
+              "signature_scheme": "ed25519",
+              "signature": "8d277bab3f039cd34d58165c528493e62454e55f4abe67be2dc94b288a3a78367f543f97bc18f4ed6c93b8e5305dbea76b867804c82a761b8ce039a8b9434a09"
+            },
+            "reason": null,
+            "diagnostics": {
+              "equity_atomic": "1100000000000000000000000",
+              "notional_atomic": "984939768111915000000",
+              "reference_timestamp_ns": "1794574101743644967",
+              "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+              "model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+              "snapshot_hash": "e27095f56af4fef40a4bbe6fc4f73843661fb4aba9d70f5d2ebbe8e4fedbb4a9",
+              "sigma": 1.0424782368185237,
+              "history_end_ns": "1794571200000000000"
+            }
+          },
+          {
+            "quote": {
+              "kind": "quote",
+              "schema_version": "0.2.0",
+              "domain": {
+                "protocol_version": "1",
+                "network": "testnet",
+                "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+              },
+              "maker": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+              "taker": "0xdeepak18.testnet",
+              "maker_gives": [
+                {
+                  "asset": {
+                    "kind": "N",
+                    "series_id": "l5b6afa68eaa43bd71237ea5f"
+                  },
+                  "amount": "50000000000000000000000"
+                }
+              ],
+              "taker_gives": [
+                {
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "amount": "986896148622615000000"
+                }
+              ],
+              "fee": {
+                "asset": "NATIVE_NEAR",
+                "amount": "493448074311307500",
+                "receiver": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39"
+              },
+              "fill_rule": "ALL_OR_NOTHING",
+              "rounding": "EXACT_AMOUNTS",
+              "nonce": "2",
+              "cancellation_epoch": "0",
+              "expiry_ns": "1794574203254744234",
+              "signing_key_id": "demo-key",
+              "signature_scheme": "ed25519",
+              "signature": "0e2c77eb152303f46c6c526baf5635a537c3348264dc4ae61ae881a604eaba924913e0827c7cedc33800234d879840b1b60b7af44402faee4835a6a2cb9ffd0e"
+            },
+            "reason": null,
+            "diagnostics": {
+              "equity_atomic": "1100000000000000000000000",
+              "notional_atomic": "986896148622615000000",
+              "reference_timestamp_ns": "1794574101743644967",
+              "source": "COINBASE_EXCHANGE_NEAR_USD_V1",
+              "model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+              "snapshot_hash": "e27095f56af4fef40a4bbe6fc4f73843661fb4aba9d70f5d2ebbe8e4fedbb4a9",
+              "sigma": 1.0424782368185237,
+              "history_end_ns": "1794571200000000000"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

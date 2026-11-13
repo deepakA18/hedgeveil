@@ -27,7 +27,7 @@ def build():
     ]
     defs['event'] = obj({'standard': const('hedgeveil_expiry_oracle'), 'version': const('1.0.0'),
                          'event': {'enum': ['INITIALIZED', 'SERIES_REGISTERED', 'EVIDENCE_REQUESTED',
-                                            'EVIDENCE_ACCEPTED', 'EVIDENCE_REJECTED', 'FINALIZED', 'PAUSE_CHANGED']},
+                                            'EVIDENCE_ACCEPTED', 'EVIDENCE_REJECTED', 'FINALIZED', 'PAUSE_CHANGED', 'CASE_ARCHIVED']},
                          'data': array(obj({'network': {'enum': ['sandbox', 'testnet']}, 'contract_id': ref('account'),
                                             'sequence': ref('uint64'), 'state_hash': ref('hash256')}), 1, 1)})
     defs['snapshot'] = obj({'network': {'enum': ['sandbox', 'testnet']}, 'contract_id': ref('account'),
@@ -35,8 +35,16 @@ def build():
                             'registrar': ref('account'), 'guardian': ref('account'), 'source': ref('account'),
                             'worker_sha256': const('86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43'),
                             'request_sequence': ref('uint64'), 'paused': {'type': 'boolean'},
-                            'cases': {'type': 'object', 'maxProperties': 16, 'propertyNames': ref('id'),
+                            'cases': {'type': 'object', 'maxProperties': 32, 'propertyNames': ref('id'),
                                       'additionalProperties': ref('case')}})
+    # Historical layout-1 reports remain valid; layout-2 commitments are atomic.
+    defs['snapshot']['properties'].update({'layout_version': const(2),
+        'archived_count': ref('uint64'), 'archive_commitment': ref('hash256')})
+    defs['snapshot']['dependentRequired'] = {k: [x for x in
+        ('layout_version', 'archived_count', 'archive_commitment') if x != k]
+        for k in ('layout_version', 'archived_count', 'archive_commitment')}
+    defs['snapshot']['allOf'] = [{'if': {'not': {'required': ['layout_version']}},
+        'then': {'properties': {'cases': {'maxProperties': 16}}}}]
     return {'$schema': 'https://json-schema.org/draft/2020-12/schema',
             '$id': 'https://hedgeveil.invalid/schemas/expiry-oracle/native-trade-twap-v1',
             'title': 'Candidate historical trade TWAP resolver; production disabled',

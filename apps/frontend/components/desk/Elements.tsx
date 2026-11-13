@@ -7,10 +7,12 @@ import {
   type ReactNode,
   type FormEvent,
 } from "react";
+import { errorToast } from "./Feedback";
 import { HaloButton } from "../ui/halo-button";
 import { useDesk } from "./DeskProvider";
 import { message } from "../../lib/desk-api";
 import type { Series } from "../../lib/desk-types";
+import { isOpen } from "../../lib/market-display";
 export function Heading({
   title,
   copy,
@@ -124,6 +126,7 @@ export function Form({
       await onSubmit();
     } catch (e) {
       setError(message(e));
+      errorToast(message(e));
     } finally {
       setPending(false);
     }
@@ -207,5 +210,7 @@ export function seriesStatus(s: Series, now: number) {
       ? "Settled"
       : now && BigInt(s.config.maturity_ns) <= BigInt(now) * 1000000n
         ? "Awaiting settlement"
-        : "Open";
+        : isOpen(s, now)
+          ? "Open"
+          : "Price averaging";
 }

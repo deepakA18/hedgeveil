@@ -66,6 +66,13 @@ queries or fragments. Use this address rather than `localhost`. Keep these serve
 settings out of `NEXT_PUBLIC_*`. If customizing, copy this app's `.env.example`
 to `.env.local`; **never copy the repository's credential file**.
 
+The 13 November layout-2 runtime uses `http://127.0.0.1:8796`. Point
+`HEDGEVEIL_BACKEND_ORIGIN` there and restart the frontend after verifying its
+deployment and reconciliation. Old balances and exits stay at
+`http://127.0.0.1:8794/app#portfolio`; they do not transfer to the new core.
+Use a full page reload after switching deployments so wallet reviews and
+operation recovery use the new contract binding.
+
 ## Verification
 
 With the built frontend and real retained backend running:
@@ -149,3 +156,42 @@ loads and anchors each step to its relevant section. There is no launch button.
 Done, Skip and Escape remember dismissal using `hedgeveil.trade-tour.v2` in
 browser local storage. Clear that single preference to exercise a fresh visit
 in development; ordinary workspace browser tests seed it as already seen.
+
+### Activity and tweet acceptance
+
+Activity uses the vendored Coss Table, with receipt recovery in per-operation
+details and drafts separate from submissions. The homepage Cult tweet grid loads
+only the configured Vitalik post through `/api/tweet/[id]`; failure renders a
+link to the original post. No X API key is needed. Attribution/licenses live in
+`components/ui/COSS-SOURCES.md` and `components/ui/CULT-SOURCES.md`.
+
+With the local frontend/backend running and retained operation records available,
+run `node tests/e2e/next-activity-live.mjs` from the repository root. This is a
+read-only live acceptance check (requires network for the real post), not a wallet
+signing test. It reviews populated rows in an isolated component harness using
+actual journal records and writes screenshots to `/tmp/hedgeveil-*.png`.
+
+
+### System status
+
+`/status` is accessible without a wallet and linked from the shared footer. It
+reads `/api/status` every 15 seconds while visible. The frontend coalesces requests
+and caches the allowlisted backend projection alongside the existing spot reader.
+It does not issue RFQs, submit transactions or change trading gates. Maker status
+uses the last actual offer result, so an idle maker can correctly be unverified.
+
+The page retains at most 30 measured checks in server memory while requests arrive.
+Restarting clears that history; empty intervals are not successes and no uptime
+percentage is calculated. RPC and contract checks reflect reconciliation evidence,
+not independent monitoring of every provider. This same-host page cannot serve as
+an external uptime monitor when the frontend itself is down.
+
+From the repository root:
+
+```sh
+node --test tests/e2e/status.test.mjs
+node tests/e2e/status-live.mjs
+```
+
+The browser check needs the real frontend/backend running. Its simulated outage
+is intercepted only inside the test browser; product data remains real.

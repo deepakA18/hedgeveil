@@ -10,7 +10,10 @@ test('public marks distinguish real model estimates, settled payouts, pending an
  const rows=markRows([series('a'),{...series('b'),final_price:String(4n*USD)},series('c','native-trade-twap-v1'),{...series('d'),config:{...series('d').config,maturity_ns:ns}},series('e','unknown')],snapshot,ns);
  assert.equal(rows[0].kind,'MODEL');assert.equal(BigInt(rows[0].p)+BigInt(rows[0].n),Q);
  assert.equal(rows[1].kind,'SETTLED');assert.equal(BigInt(rows[1].p),3n*Q/4n);
- assert.equal(rows[2].reason,'MODEL_TWAP_NOT_READY');assert.equal(rows[3].reason,'AWAITING_SETTLEMENT');assert.equal(rows[4].reason,'UNSUPPORTED_PROFILE');
+ assert.equal(rows[2].reason,'MODEL_INPUT_UNAVAILABLE');assert.equal(rows[3].reason,'AWAITING_SETTLEMENT');assert.equal(rows[4].reason,'UNSUPPORTED_PROFILE');
+ const twap=series('twap','native-trade-twap-v1');twap.config.observation_window={start_ns:String(BigInt(twap.config.maturity_ns)-1800000000000n),end_ns:twap.config.maturity_ns};
+ assert.equal(markRows([twap],snapshot,ns)[0].kind,'MODEL');
+ assert.equal(markRows([twap],snapshot,twap.config.observation_window.start_ns)[0].reason,'MODEL_PARTIAL_HISTORY_REQUIRED');
  assert.equal(markRows([series('a')],null,ns)[0].p,null);
  assert.equal(markRows([{...series('b'),final_price:String(4n*USD)}],null,ns)[0].n,String(Q/4n));
  assert.equal(markRows([series('a')],{...snapshot,timestamp_ns:String(BigInt(ns)-61n*1000000000n)},ns)[0].kind,'UNAVAILABLE');

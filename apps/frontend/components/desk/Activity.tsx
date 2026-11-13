@@ -6,8 +6,10 @@ import {
 } from "../../lib/market-display";
 import { StateBadge } from "./TerminalPrimitives";
 import { useState } from "react";
+import { ActivityTable, operationState } from "./ActivityTable";
+import { Modal } from "./Modal";
 import { useDesk } from "./DeskProvider";
-import { Heading, Panel, Empty, WalletGate, Form } from "./Elements";
+import { Panel, Empty, WalletGate, Form } from "./Elements";
 import {
   formatNear,
   operationText,
@@ -17,119 +19,102 @@ import {
 export function Activity() {
   const d = useDesk(),
     [operation, setOperation] = useState(""),
-    [hash, setHash] = useState("");
+    [hash, setHash] = useState(""),
+    [detailId, setDetailId] = useState("");
+  const detail = d.records.find((r) => r.intent.operation_id === detailId);
   const attempted = d.records.filter((r) => r.attempted);
   return (
     <>
-      <Heading
-        title="Activity"
-        copy="Follow confirmed receipts, pending transfers and actions that need another check."
-      />
+      <h1 className="sr-only">Activity</h1>
       {!d.account ? (
         <WalletGate description="Connect to view your account activity." />
       ) : (
         <>
-          <p className="desk-muted">
-            {d.receiptCheck ||
-              "Pending receipts are checked automatically while this app is visible. Transactions are never resent."}
-          </p>
-          <Panel title="Your actions">
-            {!d.records.length ? (
-              <Empty
-                title={
-                  d.loading
-                    ? "Loading retained actions…"
-                    : "No actions to show."
-                }
-              >
+          <ActivityTable
+            records={d.records}
+            loading={d.loading}
+            busy={d.busy}
+            onDetails={setDetailId}
+            onRefresh={() => void d.refresh()}
+          />
+          {detail && (
+            <Modal
+              title={actionName(detail.intent.method)}
+              onClose={() => setDetailId("")}
+            >
+              <StateBadge state={operationState(detail)} />
+              <p>
+                {operationState(detail).includes("UNKNOWN")
+                  ? "Quarantined. Do not resend. Check the receipts for this signing attempt."
+                  : operationText(operationState(detail))}
+              </p>
+              {operationState(detail).includes("UNKNOWN") && !detail.hash && (
                 <p>
-                  Actions prepared in this local workspace appear here. A
-                  missing history response does not prove no transaction was
-                  sent.
+                  No transaction hash was received. Check your wallet history.
+                  If no wallet prompt appeared, allow pop-ups for this site. An
+                  expired offer can be checked for an unfilled nonce; a missing
+                  prompt alone does not confirm cancellation.
                 </p>
-              </Empty>
-            ) : (
-              <div className="activity-list">
-                {d.records.map((r) => {
-                  const state =
-                    r.result?.state ??
-                    (r.attempted ? "SUBMISSION_UNKNOWN" : "PREPARED");
-                  return (
-                    <article
-                      className={
-                        state.includes("UNKNOWN") ? "operation-quarantined" : ""
-                      }
-                      key={r.intent.operation_id}
-                    >
-                      <div className="panel-top">
-                        <h3>{actionName(r.intent.method)}</h3>
-                        <StateBadge state={state} />
-                      </div>
-                      <p>
-                        {state.includes("UNKNOWN")
-                          ? "Quarantined. Do not resend; use receipt recovery below."
-                          : operationText(state)}
-                      </p>
-                      {typeof r.intent.args.amount === "string" && (
-                        <p>
-                          {formatNear(r.intent.args.amount)}{" "}
-                          {r.intent.method === "request_withdrawal"
-                            ? "NEAR"
-                            : "units"}
-                        </p>
-                      )}
-                      {["storage_deposit", "deposit_collateral"].includes(
-                        r.intent.method,
-                      ) && <p>{formatNear(r.intent.attached_deposit)} NEAR</p>}
-                      {explorerUrl(r.hash) && (
-                        <a
-                          className="desk-text-link"
-                          href={explorerUrl(r.hash)!}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          View transaction
-                        </a>
-                      )}
-                      <details className="desk-details">
-                        <summary>
-                          Advanced: receipt recovery and details
-                        </summary>
-                        <div className="desk-inline">
-                          <button
-                            className="desk-button small"
-                            disabled={
-                              d.busy || !r.attempted || terminalState(state)
-                            }
-                            onClick={() =>
-                              void d.recover(r.intent.operation_id)
-                            }
-                          >
-                            Check receipts
-                          </button>
-                          {!r.attempted && state === "PREPARED" && (
-                            <button
-                              className="desk-button small"
-                              disabled={d.busy}
-                              onClick={() =>
-                                void d
-                                  .review(r.intent)
-                                  .catch((e) => d.setError(message(e)))
-                              }
-                            >
-                              Resume review
-                            </button>
-                          )}
-                        </div>
-
-                        <pre>{JSON.stringify(r, null, 2)}</pre>
-                      </details>
-                    </article>
-                  );
-                })}
+              )}
+              <dl className="desk-facts">
+                <div>
+                  <dt>Account</dt>
+                  <dd className="break-anywhere">{detail.intent.signer_id}</dd>
+                </div>
+                <div>
+                  <dt>Operation</dt>
+                  <dd className="break-anywhere">
+                    {detail.intent.operation_id}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Contract</dt>
+                  <dd className="break-anywhere">
+                    {detail.intent.domain.contract_id}
+                  </dd>
+                </div>
+              </dl>
+              <div className="desk-inline">
+                {explorerUrl(detail.hash) && (
+                  <a
+                    className="desk-button small"
+                    href={explorerUrl(detail.hash)!}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View transaction
+                  </a>
+                )}
+                {detail.attempted && !terminalState(operationState(detail)) && (
+                  <button
+                    className="desk-button small"
+                    disabled={d.busy}
+                    onClick={() => void d.recover(detail.intent.operation_id)}
+                  >
+                    Check receipts
+                  </button>
+                )}
+                {!detail.attempted && operationState(detail) === "PREPARED" && (
+                  <button
+                    className="desk-button small"
+                    disabled={d.busy}
+                    onClick={() => {
+                      setDetailId("");
+                      void d
+                        .review(detail.intent)
+                        .catch((e) => d.setError(message(e)));
+                    }}
+                  >
+                    Resume review
+                  </button>
+                )}
               </div>
-            )}
-          </Panel>
+              <details className="desk-details">
+                <summary>Technical details</summary>
+                <pre>{JSON.stringify(detail, null, 2)}</pre>
+              </details>
+            </Modal>
+          )}
           <details className="desk-details">
             <summary>
               Advanced: recover a response or manage withdrawal records

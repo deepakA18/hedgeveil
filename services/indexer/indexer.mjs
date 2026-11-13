@@ -4,7 +4,7 @@ import {Store} from './store.mjs';
 import {completeOutcomes,extractEvents} from './model.mjs';
 import {collectAncestry} from './ancestry.mjs';
 import {collectJournalTransactions} from './discovery.mjs';
-import {NeardataDiscovery} from './neardata-discovery.mjs';
+import {NeardataDiscovery,NeardataFeed} from './neardata-discovery.mjs';
 
 export function watchedRoot(tx,contracts){
     const ids=new Set(contracts.map(c=>c.account_id));
@@ -25,9 +25,13 @@ async function boundedMap(items,work,limit=4){
     if(error)throw error;return out;
 }
 export class Indexer {
-    constructor(input,options={}) {this.config=configuration(input);this.discover=options.discover;if(['journal-roots','canonical-journal'].includes(this.config.transaction_filter)&&typeof this.discover!=='function'&&!this.config.discovery_source)fail('DISCOVERY_REQUIRED');this.rpc=new ReadRpc(this.config,options);this.store=new Store(this.config);this.progress={phase:'idle'};if(this.config.discovery_source)this.feed=new NeardataDiscovery(this.store,this.config.contracts,options.neardataOptions);}
+    constructor(input,options={}) {this.config=configuration(input);this.retainedAnchor=options.retainedAnchor;this.discover=options.discover;if(['journal-roots','canonical-journal'].includes(this.config.transaction_filter)&&typeof this.discover!=='function'&&!this.config.discovery_source)fail('DISCOVERY_REQUIRED');this.rpc=new ReadRpc(this.config,options);this.store=new Store(this.config);this.progress={phase:'idle'};if(this.config.discovery_source)this.feed=new NeardataDiscovery(this.store,this.config.contracts,{...options.neardataOptions,feed:options.neardataOptions?.feed??new NeardataFeed({intervalMs:this.config.discovery_interval_ms})});}
     async init() {
-        const anchor=header(await this.rpc.request('block',{block_id:this.config.anchor_hash}));
+        // A retained deployment response is immutable evidence, not a new
+        // checkpoint. Its hash must match the configured anchor; current chain
+        // identity and subsequent receipt/state reconciliation remain required.
+        if(this.retainedAnchor)await this.rpc.request('status');
+        const anchor=header(this.retainedAnchor??await this.rpc.request('block',{block_id:this.config.anchor_hash}));
         if(anchor.header.hash!==this.config.anchor_hash)fail('ANCHOR_MISMATCH');
         await this.store.init(anchor);this.anchor=anchor;
         // Immutable responses are cached only inside this chain/deployment-bound
@@ -113,7 +117,7 @@ export class Indexer {
         try{const result=await this.store.apply(await this.collect(),options);this.targetHead=null;this.progress={phase:'idle',finished_at:new Date().toISOString()};if(this.feed)result.health=(await this.store.read('health')).health;return result;}
         catch(e) {
             const code=e instanceof ClientError?e.code:'INDEXER_FAILURE';
-            const progress={...this.progress,...(this.rpc.lastFailure?{rpc:this.rpc.lastFailure}:{})};this.progress={...this.progress,phase:'failed',code};
+            const progress={...this.progress,...(this.rpc.lastFailure?{rpc:this.rpc.lastFailure}:{}),...(this.rpc.lastTransportFailure?{transport:this.rpc.lastTransportFailure}:{})};this.progress={...this.progress,phase:'failed',code};
             if(code==='CURSOR_CHANGED')this.targetHead=null;
             if(code!=='CURSOR_CHANGED')await this.store.markFailure(code,progress).catch(()=>{});
             throw e;

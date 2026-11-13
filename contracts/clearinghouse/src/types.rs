@@ -1,7 +1,9 @@
 use near_sdk::{near, AccountId};
 use protocol_types::{Amount, Num64, SeriesConfig};
 pub const MAX_ACCOUNTS: usize = 16;
-pub const MAX_SERIES: usize = 8;
+// Layout 2: bounded hot slots, reusable only after zero-balance archival.
+// Incompatible with layout 1 Borsh state: deploy to a NEW account.
+pub const MAX_SERIES: usize = 32;
 pub const MAX_TICKETS_PER_ACCOUNT: u8 = 4;
 pub const STORAGE_BYTES: u128 = 4096;
 pub const CREATION_FEE: u128 = 1_000_000_000_000_000_000_000;
@@ -9,6 +11,7 @@ pub const OPERATING: u128 = 20 * payoff_math::Q;
 pub const MAX_COLLATERAL: u128 = 1000 * payoff_math::Q;
 pub const MAX_SUPPLY: u128 = 100 * payoff_math::Q;
 pub const CALLBACK_VERSION: u8 = 1;
+pub const CALLBACK_TGAS: u64 = 120;
 #[near(serializers=[borsh,json])]
 #[derive(Clone, Copy, Default)]
 pub struct Position {

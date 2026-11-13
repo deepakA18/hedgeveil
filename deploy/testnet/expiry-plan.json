@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "kind": "hedgeveil-expiry-testnet",
+  "network": "testnet",
+  "owner": "0xdeepak18.testnet",
+  "root_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+  "rpc_url": "https://test.rpc.fastnear.com/",
+  "genesis_hash": "FWJ9kR6KFWoyMoNjpLXXGHeuiy7tEY6GmoFeCA5yuc6b",
+  "oracle_version": "native-trade-twap-v1",
+  "valuation_model": "ARITHMETIC_TWAP_NEAR_MOMENTS_V1",
+  "listing_policy": "DAILY_FRIDAY_0800_90_95_100_105_110_V1",
+  "vault_enabled": false,
+  "source": {
+    "account_id": "outlayer.testnet",
+    "code_hash": "AsbxRWTQ2mQAazgz1bbAC72oZ1H8UKL33JKwZmG2pjn2"
+  },
+  "artifacts": {
+    "core": {
+      "path": "target/core-artifacts/clearinghouse.wasm",
+      "sha256": "d7d16e53dceaaaa7681ac8d7a147b3ce14bc81eb891b4f069b9506882c265888",
+      "code_hash": "FXTsrec9F2afbXmRz94qaMLnD8pFGVCvEoKdieu2h9kT",
+      "bytes": 648783
+    },
+    "expiry_oracle": {
+      "path": "target/expiry-oracle-artifacts/expiry_settlement.wasm",
+      "sha256": "4fa7994d36bff57ba944d55db5399689eaae4e19808ad4dcebc91878b55af5b5",
+      "code_hash": "6MwS8u1zBbFNYfyyAkXjiM3HiQ2YDP8XrBnJfNZJxYeG",
+      "bytes": 340501
+    }
+  },
+  "accounts": [
+    {
+      "role": "administrator",
+      "id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "public_key": "ed25519:fgV3reTc4oNE7mMeVQmnDRuziGvrjv7qqrMjnBB2TGH",
+      "initial_balance": "2000000000000000000000000"
+    },
+    {
+      "role": "core",
+      "id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "public_key": "ed25519:H7DzF6Df26tyWh1ySFRg99yKAyGzNWYwYBCrGMKxwJcC",
+      "initial_balance": "21000000000000000000000000"
+    },
+    {
+      "role": "oracle",
+      "id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "public_key": "ed25519:4fUvWoLAGTWQHhtntZxwncz92RpmnhpMkXHZKy4UEM1j",
+      "initial_balance": "6000000000000000000000000"
+    },
+    {
+      "role": "maker",
+      "id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "public_key": "ed25519:3yaiiAJiJ51ZGn3guxFdacJ1u3nPCFGrwq2tFfGexhsN",
+      "initial_balance": "1500000000000000000000000",
+      "rfq_public_key": "c8eb306447c77a2f0814e3f66c883446d0117eaa4d005c3cd349e6a3fe51eb7c"
+    },
+    {
+      "role": "maker",
+      "id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "public_key": "ed25519:EnBK2hRB3M2qsJFzEJ64BisUu1T7tryw3CnjiS5HYtc8",
+      "initial_balance": "1500000000000000000000000",
+      "rfq_public_key": "a11d6313d576be6aa01e2bbbebf2f3ef3ec4a623b74185344f4bb01a32029bba"
+    }
+  ],
+  "funding": {
+    "mode": "implicit-transfer-v2",
+    "receiver_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+    "public_key": "ed25519:fgV3reTc4oNE7mMeVQmnDRuziGvrjv7qqrMjnBB2TGH"
+  },
+  "funding_amount": "32000000000000000000000000",
+  "owner_minimum": "33000000000000000000000000",
+  "maker_initial_equity": "1100000000000000000000000",
+  "inventory_per_market": "100000000000000000000000",
+  "previous_workspace": "native-transfer",
+  "oracle_label": "30-minute NEAR/USD trade TWAP",
+  "created_at": "2026-11-13T12:05:25.074Z"
+}

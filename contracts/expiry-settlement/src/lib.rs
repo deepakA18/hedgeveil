@@ -45,6 +45,9 @@ pub struct Resolver {
     operation: u64,
     sequence: u64,
     cases: BTreeMap<String, Case>,
+    archived: near_sdk::store::Vector<Case>,
+    archived_ids: near_sdk::store::LookupMap<String, u32>,
+    archive_commitment: [u8; 32],
 }
 fn digest(bytes: &[u8]) -> String {
     env::sha256(bytes)
@@ -91,6 +94,9 @@ impl Resolver {
             operation: 0,
             sequence: 0,
             cases: BTreeMap::new(),
+            archived: near_sdk::store::Vector::new(b"a"),
+            archived_ids: near_sdk::store::LookupMap::new(b"i"),
+            archive_commitment: [0; 32],
         };
         this.finish("INITIALIZED");
         this
@@ -117,7 +123,9 @@ impl Resolver {
         );
         config.validate();
         require!(
-            self.cases.len() < 16 && !self.cases.contains_key(&config.series_id),
+            self.cases.len() < 32
+                && !self.cases.contains_key(&config.series_id)
+                && !self.archived_ids.contains_key(&config.series_id),
             "series cap/duplicate"
         );
         require!(
@@ -274,6 +282,38 @@ impl Resolver {
     pub fn get_case(&self, series_id: String) -> Case {
         self.case(&series_id)
     }
+    #[payable]
+    pub fn archive_case(&mut self, series_id: String) {
+        require!(
+            env::attached_deposit().as_yoctonear() == 1,
+            "one yocto required"
+        );
+        let c = self.cases.get(&series_id).expect("not retained").clone();
+        require!(
+            c.price.is_some() && c.pending.is_none(),
+            "finalized case required"
+        );
+        require!(
+            !self.archived_ids.contains_key(&series_id),
+            "already archived"
+        );
+        self.archive_commitment = env::sha256_array(
+            near_sdk::borsh::to_vec(&(self.archive_commitment, &c)).expect("archive"),
+        );
+        self.archived_ids
+            .insert(series_id.clone(), self.archived.len());
+        self.archived.push(c);
+        self.archived_ids.flush();
+        self.archived.flush();
+        self.cases.remove(&series_id);
+        self.finish("CASE_ARCHIVED");
+    }
+    pub fn list_archived_cases(&self, from_index: u32, limit: u32) -> Vec<Case> {
+        require!((1..=16).contains(&limit), "page limit");
+        (from_index..from_index.saturating_add(limit).min(self.archived.len()))
+            .map(|i| self.archived.get(i).expect("archive index").clone())
+            .collect()
+    }
     pub fn get_resolution(&self, series_id: String) -> Resolution {
         let c = self.case(&series_id);
         let state = if c.price.is_some() {
@@ -293,7 +333,7 @@ impl Resolver {
         json!({"network":self.network,"contract_id":env::current_account_id(),"sequence":Num64(self.sequence)})
     }
     pub fn get_snapshot(&self) -> near_sdk::serde_json::Value {
-        json!({"network":self.network,"contract_id":env::current_account_id(),"sequence":Num64(self.sequence),"version":VERSION,"registrar":self.registrar,"guardian":self.guardian,"source":self.source,"worker_sha256":WORKER,"request_sequence":Num64(self.operation),"paused":self.paused,"cases":self.cases})
+        json!({"network":self.network,"contract_id":env::current_account_id(),"sequence":Num64(self.sequence),"version":VERSION,"registrar":self.registrar,"guardian":self.guardian,"source":self.source,"worker_sha256":WORKER,"request_sequence":Num64(self.operation),"paused":self.paused,"cases":self.cases,"layout_version":2,"archived_count":Num64(u64::from(self.archived.len())),"archive_commitment":self.archive_commitment.iter().map(|b|format!("{b:02x}")).collect::<String>()})
     }
 }
 impl Resolver {
@@ -301,7 +341,15 @@ impl Resolver {
         format!("https://test.fastfs.io/{ARTIFACT_OWNER}/outlayer.testnet/{WORKER}.wasm")
     }
     fn case(&self, id: &str) -> Case {
-        self.cases.get(id).expect("unknown series").clone()
+        self.cases
+            .get(id)
+            .or_else(|| {
+                self.archived_ids
+                    .get(id)
+                    .and_then(|i| self.archived.get(*i))
+            })
+            .expect("unknown series")
+            .clone()
     }
     fn finish(&mut self, event: &str) {
         let bytes = near_sdk::borsh::to_vec(self).expect("state").len() as u128;

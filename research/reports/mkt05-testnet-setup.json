@@ -1,0 +1,658 @@
+{
+  "scope": "Real public testnet funding, deployment and ten-market inventory. Full lifecycle and independent review pending.",
+  "at": "2026-11-13T12:15:47.781Z",
+  "funding_hash": "6qZksiqsSUczSuxQ1M2zL9xyWBm2XiCtkshPqetdZNZv",
+  "core": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+  "contracts": [
+    {
+      "kind": "expiry_oracle",
+      "account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "code_hash": "6MwS8u1zBbFNYfyyAkXjiM3HiQ2YDP8XrBnJfNZJxYeG"
+    },
+    {
+      "kind": "core",
+      "account_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "code_hash": "FXTsrec9F2afbXmRz94qaMLnD8pFGVCvEoKdieu2h9kT"
+    }
+  ],
+  "source": {
+    "account_id": "outlayer.testnet",
+    "code_hash": "AsbxRWTQ2mQAazgz1bbAC72oZ1H8UKL33JKwZmG2pjn2"
+  },
+  "series": [
+    {
+      "series_id": "l04003855dc0ecf8af6ef7052",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3359200000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l117f8e883d19ba14444b0eaf",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3712800000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l20b63986795167c2e7d477c9",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3359200000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l221cf82facb4145d3c3f3e39",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3889600000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l2fef1ba5c66cb55edfb860f4",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3182400000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l5b6afa68eaa43bd71237ea5f",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3536000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l76a1071cacb9658b5b413f98",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3182400000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "l93d8292156771575797eb08d",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3536000000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "ld5794d5629130d063ff39bbd",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3712800000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794643200000000000",
+      "mint_cutoff_ns": "1794641400000000000",
+      "observation_window": {
+        "start_ns": "1794641400000000000",
+        "end_ns": "1794643200000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    {
+      "series_id": "lff5e2e351588da2dbe3539f2",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3889600000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1795161600000000000",
+      "mint_cutoff_ns": "1795159800000000000",
+      "observation_window": {
+        "start_ns": "1795159800000000000",
+        "end_ns": "1795161600000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    }
+  ],
+  "transactions": [
+    {
+      "operation_id": "060aa12164798fb4efd1f5eba79a2cc63c8d0707a360e17e4decf4ebb371afe5",
+      "label": "core-series-l20b63986795167c2e7d477c9",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "FfxipToJw6tW8KmSWveRdja53tpLrP5YHkfvgxYRRDKz",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "06c25659b590645d8ce3ffc9da88b797ebed1f07128b0fa1ded7199b47ea6176",
+      "label": "resolver-series-l2fef1ba5c66cb55edfb860f4",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "5a1ZuuLKtV3j2euXGzVuSR4xY9F3eKdfi9HfKuQU5QFK",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "07d79a2a6d64307fcb061abb567780343668726b3beeb3db2dbb28b9c148233a",
+      "label": "inventory-l93d8292156771575797eb08d-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "6SGmtPWCfGparyXbJgQ7hRBxZmecZdSgensut2qW5REt",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "0a2a9cfce7c021e50553ef2bc88144fccebdb820384e44fb90b534c2f9ba08b1",
+      "label": "collateral-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "59dBTayyaPFaFkTR8gs1EwWN9GxL6Rmj9TWVqjUHNkkG",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "0cb3796d766cedbef42afe4f7ddd20952139646cdbd7ee542b6ec555fec01557",
+      "label": "inventory-l221cf82facb4145d3c3f3e39-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "9DRt3RYLHKBXBm8XduQKJz7MJRhstUCbrGiQPR743SJf",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "0ee35258eb5c2f5ad0d4206ed374603e4db123c5ebb90ac0dc27949d336416ab",
+      "label": "resolver-series-l5b6afa68eaa43bd71237ea5f",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "7CQpxhzCSdZKsxDy2HXpx8wGQpcpP19QrLtBBJJy5izj",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "103c2bbc29a7981caef5d05214f5ebc5c311784453b5b56a2ba84001e66feb05",
+      "label": "core-series-l117f8e883d19ba14444b0eaf",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "8NkyCMnVZjiFd5a3iVnjub7H8vgKpf9UbYHf3dStAGZD",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "1049363cbda435d24837775d1f2462de045940c6a3022854eeba93829982e740",
+      "label": "deploy-core",
+      "signer_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "6zFfkEM7iBij5C4JtwLCzsNtp3om9ikZeMsFcFEVAJcB",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "154dc00ea9d2870a23464ca024e782f01c36771e3b3071532409f85938243f74",
+      "label": "inventory-l04003855dc0ecf8af6ef7052-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "2cXxh7ZdxbxvPT3tCH2qWhgbQJzy9pFcp9xj5ivQEXif",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "16e1f8d2ebb17135d0e9b415a0b0597cf96174f572200f5d7a78cdb9840413f1",
+      "label": "core-series-lff5e2e351588da2dbe3539f2",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "3wx8skMMesz6HZgjoNyuDGmug1DKNXjJwTYZf9Ec8dLv",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "17e4a26956f6b0077455e4fd6d410d3952edf8de6f775bb97047f48e19542a35",
+      "label": "inventory-l221cf82facb4145d3c3f3e39-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "DzsT8RiXFCUCiLE2ji4smqJ777fHaSjyhusMHPwcNxX9",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "27d8d4e219a8a01ad2f124854c71aa7f2a358d8dc9c3e2afbd1e30ccced2594b",
+      "label": "fund-ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "9VXzcDkhMNSAmKdFVMXt381PgEi8wfP1s3dzGg5u6jyq",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "29e6a4ea611c1151460a3b6b4c828590cdc92bbfc55ae7ff7639539071b2b1fb",
+      "label": "fund-expiry-layout2",
+      "signer_id": "0xdeepak18.testnet",
+      "receiver_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "hash": "6qZksiqsSUczSuxQ1M2zL9xyWBm2XiCtkshPqetdZNZv",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "31112cb7f0ccd174051f300cd1cb7b2d003adf846ea1b723210af65fdd27ea86",
+      "label": "core-series-l5b6afa68eaa43bd71237ea5f",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "2zSXJPvh1osYx1noB6E3iGFntMyNtfUjwZ4544WZN25V",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "3fecf0edbec1ebfbbe9dd1893fad0ecfa69d0e3a525f993bcefe2729cfd9eac5",
+      "label": "resolver-series-l20b63986795167c2e7d477c9",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "DrLQjAtTrCqkhd1aCjVuRZpUu3KuVuZmU1yDcufWJEEq",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "471d7faba24a6ebce0eed939b18776ca696318b2c11f6cea748d93fa2f05cc5b",
+      "label": "collateral-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "BHu2rySri594LjDVPC4sQP2bB1dk9PcCZ7GM7L7ijS5s",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "4a65b1ec058e40fb0893645f1547c5726757370412badc157bd787984ac6c1e9",
+      "label": "inventory-ld5794d5629130d063ff39bbd-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "23RNs9sRbF9r8sud3rptgVU6iYDg9vvfvoycQBgo31aA",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "4db310b96fff8094ee8897620f3bed97ea662bc90e80857bb2b978aa1c5f1a7a",
+      "label": "core-series-l93d8292156771575797eb08d",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "FaRsQNmfBCivpfJYp3zLbTV4T67W4iC1u1CRRSGd7n8j",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "64613eda8eacb82db192f277b783cb00a5942e1a98637e6cc39221c4d9f5fd64",
+      "label": "fund-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "hash": "9rwGie8cULVwz3rffn1v4qhGh4EToHdmSZDzaw5K1ALT",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "668ae15500d5a1239ea6d5abdc6a2cc050fb65448ed9be1bd48a244932d5a869",
+      "label": "resolver-series-l93d8292156771575797eb08d",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "4vkKfvqKkcUYoGtNUnmG5ZHKq8p6tt12pnaFwrMdgenW",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "685977e48412b09491c12cc1cfcdea55bcd2af491e961e7ed296a787ad54af4f",
+      "label": "register-09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "2fhvcT15KzHQMuj68TqMJsF7RkfGHwgNAHBbeLA21XiP",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "68ef9b26f975740f5394a293030e464147c8615c7eb83e517fd967d2ecff9a7f",
+      "label": "fund-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "hash": "ADbAPcmTP4byqnXLmaZnZ3D2UvQxBti11e4uZW35AotB",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "733a78d8e63aa8ba79534c2a7a728d7d4660d7e75ef32421a6aa47100e2527dc",
+      "label": "inventory-lff5e2e351588da2dbe3539f2-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "dwFt9xr1iqCzE2qxvDgGTHFefrHYmdYu7FTDkSDKcy8",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "7a2f11d765b8a1eb46ea4b1598b0fc377d6265d3bbc369e2b5218108969fb207",
+      "label": "resolver-series-l117f8e883d19ba14444b0eaf",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "GCsaB8vMX1V28XMMLdDbucjbrRymuzNbDnf3D5L84ZbP",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "7a32508ba1d8971e3c1cf367723ae733a55c54a8e8d46891557e4f0746e4a478",
+      "label": "inventory-l117f8e883d19ba14444b0eaf-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "9JD2HN7fQZkLe4aQ44v9F7D4oDFGxfnMATV4TFSwpbae",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "7cec9ae8db67ebf79e98da37e3b835436b5223b8c49a28fd4aac83325d631972",
+      "label": "deploy-expiry_oracle",
+      "signer_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "B2h38YSVJZGFjdrAd1EBD5BLebafKgkW1of1YWgj7bhq",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "81120237865afe64a20ab77d5ffa44eda9c61101db5ad0a7e5a6d340e1d9aa1b",
+      "label": "resolver-series-l76a1071cacb9658b5b413f98",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "FACBCgYfP1paEebrBS98ty5ipK8P4tuG8eU35fPnSDk3",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "848d640903a16f3ea550d6f58e80794b06db2d93745df18442ca69ce971b35fd",
+      "label": "resolver-series-lff5e2e351588da2dbe3539f2",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "BPD9zuGNCy9pPX3XVgMEm2aALX4MuL38prpY3aQr9WHh",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "8b0afa7c43e618b98e4b653b08990032fc5eb6e64df60299cb54cdc0cae0e4b3",
+      "label": "inventory-lff5e2e351588da2dbe3539f2-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "Ay2XoqHpf2T3b3cGm55uVaEMzLwjQJt51wf9fFV3L9HQ",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "8e18e5d7f685ff5b38fe10aa50937355f8fcf1524a49fc0d8e55c80759a980fb",
+      "label": "inventory-l20b63986795167c2e7d477c9-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "HLJ8CtjtCaJ5vWXHyTb99xun9rLi3X9sFHqYm79azGMm",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "8f628a17839e47077927755cd19f2ec85df097c0186a80c4cf57b24db0ae3b7f",
+      "label": "inventory-l76a1071cacb9658b5b413f98-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "2gyens38HAGhwma8QJ8oLwNNGMYD5U8RQYDGLbSYaMYe",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "8f9e1879462e46f0a59f8a483248131dae3d18afc03a6fbca4167e89bfba8ca2",
+      "label": "rfq-key-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "59r71MSrSQTVWbMRtaJRot8R2U517zDPNkikpKXUic3M",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "9069afcb944aa435cd2b283a2c146e15bc27b8552c92178b61073c55a7f87977",
+      "label": "inventory-l117f8e883d19ba14444b0eaf-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "F4HqJ4tUL6pXRqPGqLGirtwNp2C2qZgaDXTHjLSRyNxv",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "9140b8e883c10f5831297b37d49d5f66b1e9ca5e079f839088d145db6a88b298",
+      "label": "inventory-l5b6afa68eaa43bd71237ea5f-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "9Hqd48CWFkHDJsAFuBLCFcMzpNYHyekd4KqZvUcd436X",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "9207e0dea7b730ea9cb924c79eeeef20a47eb7180ce2277a0f46988dd276ca5a",
+      "label": "core-series-l76a1071cacb9658b5b413f98",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "FfAYWsYpuYRsiEgZdVJGHKGiXwZUpMxFhJpEhGWzCoDL",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "9a36cba0c8dd20b652be953069d73b8efdd2cf6b5fc5c59f5e76832db3d40659",
+      "label": "resolver-series-l04003855dc0ecf8af6ef7052",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "A4SmksqeKCCNzFvTTBCyRZgupxbp4LZtAzCzFpdb8pdR",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "9c8ca09350370b4762db889b1bb1561386be2af5e387caeb5fa8ece5396a438c",
+      "label": "inventory-l5b6afa68eaa43bd71237ea5f-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "E1FRCHHbGvEzF8uJGdp3x8oEGnKYe59me7joFo48yRS",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "a18dc9762526ed66544c3262964271ff144ccae83ffb1bbbc2e8786b5c2bdf96",
+      "label": "inventory-l04003855dc0ecf8af6ef7052-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "GPfmVQNiF61w5RvTMfHGpeZGvcojVfb4pq1sFpB1ESaF",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "a44215f85b7ad49d8ecf9d1c5bf0a7bad4d89ad0df758d4eab87f89d41ceba56",
+      "label": "core-series-l04003855dc0ecf8af6ef7052",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "5wrBVc78152JxFWW9v9cFqUS8WWrDmqUFcQngC9GNudW",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "a55d91ace8fcfb49f44d7171b640732920d7872a1b4ef22592e6b91ddc5155ac",
+      "label": "core-series-ld5794d5629130d063ff39bbd",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "FsbNqWfSTuRiA1xJYCMSnx587LJQW4CrtAR8NFsHbbTA",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "b3fcd14d3aaf1f87a3c3b24f4ff43ecf0bf56361b6ad05802fdf597876c0e921",
+      "label": "register-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "Cock7nobVmrq4udUzhzFmEichXRjV2kvz9tt5iZa9417",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "b51c233ee6daba0cfedb7627971b3527e66a1da69daf8fa6c8200976334bd768",
+      "label": "rfq-key-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "DU9YbvCDZgx92uygazw964ghMgR5qffbMwvpDCE86zsT",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "b69e080ade923338897cc62d73179b9242b7cd203095d26622073d1011f6fb64",
+      "label": "core-series-l2fef1ba5c66cb55edfb860f4",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "3HttEYBCwHBQXU5KB2sBNXMES52rVYkVQ5Y2u6sg4XYj",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "c6ff31cb7b7a53aff4673f42b7bba676e49fa2c26e1136af05154f97c6f2fa21",
+      "label": "resolver-series-ld5794d5629130d063ff39bbd",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "2KHTv8DnWu4YmZePSNsDSfAKuDeUUCQuSwyDSLurR7a6",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "c9332043ac40dc347ddde1730f49ad87ef10c551713450f40aa7971c973a6ec2",
+      "label": "inventory-l76a1071cacb9658b5b413f98-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "7rDrvoyofTi324MzVXdW6RPxNKsBzVKyHQfQ8ceQ4154",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "cd3318f145384c22d02863f5a0f7065355ab6a2668844806ed4bad7c2a634fd7",
+      "label": "resolver-series-l221cf82facb4145d3c3f3e39",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "5kV9ZQ5gkjLu2HsZ2eaQvmJo2UyQp4JMJA8EbXDv4CQn",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "ceb67a8c7a6f554fc70203c7d5ebd3fc04c59f7e0c603a779432866a9bf223b3",
+      "label": "inventory-l20b63986795167c2e7d477c9-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "3t2vyZzcciX4ZjjKAmF66mdkMRfD8PeuD7EkUoXmxv6k",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "dc38ce19191efcedee177c1f027a1de25c786be6a06b05b42a57dc604651582e",
+      "label": "inventory-l2fef1ba5c66cb55edfb860f4-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "R15e1mVuFecwc5T4J9uAbuJMnZXLn2mxs8d4bebGsYz",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "dd5ef1ec0d6b1544ad5f7c01a6bfe709a640b25da186239172ac6ad6040b1e87",
+      "label": "core-series-l221cf82facb4145d3c3f3e39",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "5QqqefNGQCAuCCYFv1wp98mi6sa2kUfah8EK4PB6LGXF",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "e21eb3368d2a09025b4bae940cbb9173234883c4419fe25b8a3ab4fa62f94241",
+      "label": "register-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "4sokwxaLyQC56zdiFWyMf8umjafdcKQCFKAQughigdSK",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "e88153c80780a8f274c7346f27781af36938f9a0237ee158d0e9b89b5ebb97c0",
+      "label": "inventory-l2fef1ba5c66cb55edfb860f4-ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer_id": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "DycfH2WegsmV4FsRw2Z2Yp6LcJoDU2s9BUcZ4ky9oTgz",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "ee2142ebec7c158cb5a9e654cbda3757369600bc6a087b7b7488fa4dee5a9fb6",
+      "label": "fund-366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "hash": "CUEf2BvSEr8oKw62SBBoHUeYLLQopFoG7UWVjee3ioDP",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "eeef17a94d80649ccdcb32e4c0efd438930726ac8b0fdb52a166bd9ef8150551",
+      "label": "inventory-ld5794d5629130d063ff39bbd-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "44Rdt3F65TCF2hGeyZEUZHx8BjrrUzzS4mVa21UbrnYz",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation_id": "ff2768537906ac77ad98272fc8b0c56a156dbfe541dcaee64a83051d689e0e72",
+      "label": "inventory-l93d8292156771575797eb08d-2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer_id": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "receiver_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "hash": "CdUknbp9MNW9sYvNs74iNSgwUpUDxqCLhgWJ35oQQWGk",
+      "state": "SUCCEEDED"
+    }
+  ]
+}

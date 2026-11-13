@@ -1,0 +1,192 @@
+{
+  "scope": "Ten concurrent browser-equivalent sessions for one existing account. Real RPC, live market data and signed offers; no wallet transactions or ten-public-user claim.",
+  "at": "2026-11-13T14:40:53.520Z",
+  "rounds": [
+    {
+      "stage": "live",
+      "results": [
+        {
+          "ms": 4695,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4685,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4685,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4686,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4686,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4686,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4687,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4687,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4687,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        },
+        {
+          "ms": 4689,
+          "status": 200,
+          "block_hash": "442i1mQuymPGeQvWp7vectf1xAPcLmiLrL7qQXmHHucj",
+          "free": "100000000000000000000000"
+        }
+      ]
+    },
+    {
+      "stage": "quotes",
+      "results": [
+        {
+          "ms": 7793,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7872,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7864,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7854,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7801,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7809,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7818,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7827,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7836,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        },
+        {
+          "ms": 7844,
+          "status": 200,
+          "offers": 2,
+          "reasons": []
+        }
+      ]
+    }
+  ],
+  "health": [
+    {
+      "state": "RECONCILED",
+      "height": "277523474",
+      "block_hash": "6vgTdTVjbS9ZyRkUijwNreN6CQs7VuxWwRihFCt5Lky2",
+      "lag_blocks": "30",
+      "reconciled": true,
+      "risk_allowed": true,
+      "rpc_failures": 0,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [],
+      "stale": false,
+      "age_ms": 34968,
+      "cursor_hash": "6vgTdTVjbS9ZyRkUijwNreN6CQs7VuxWwRihFCt5Lky2",
+      "generation": "281",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277510368",
+        "scanned_height": "277510368",
+        "observed_height": "277523399",
+        "lag_blocks": 13106,
+        "state": "SCANNING",
+        "fresh": true,
+        "retry_at_ms": "1794573858977"
+      }
+    },
+    {
+      "state": "RECONCILED",
+      "height": "277523474",
+      "block_hash": "6vgTdTVjbS9ZyRkUijwNreN6CQs7VuxWwRihFCt5Lky2",
+      "lag_blocks": "30",
+      "reconciled": true,
+      "risk_allowed": true,
+      "rpc_failures": 0,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [],
+      "stale": false,
+      "age_ms": 42872,
+      "cursor_hash": "6vgTdTVjbS9ZyRkUijwNreN6CQs7VuxWwRihFCt5Lky2",
+      "generation": "281",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277510368",
+        "scanned_height": "277510368",
+        "observed_height": "277523399",
+        "lag_blocks": 13106,
+        "state": "SCANNING",
+        "fresh": false,
+        "retry_at_ms": "1794573858977"
+      }
+    }
+  ]
+}

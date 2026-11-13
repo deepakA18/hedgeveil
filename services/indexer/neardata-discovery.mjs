@@ -34,19 +34,24 @@ export function feedBlock(value,height,contracts){
 }
 
 export class NeardataFeed {
-    constructor({fetchImpl=globalThis.fetch,now=Date.now,sleep=ms=>new Promise(r=>setTimeout(r,ms))}={}){
-        this.fetch=fetchImpl;this.now=now;this.sleep=sleep;this.next=0;this.cooldown=0;
+    constructor({fetchImpl=globalThis.fetch,now=Date.now,sleep=ms=>new Promise(r=>setTimeout(r,ms)),intervalMs=2500}={}){
+        if(!Number.isSafeInteger(intervalMs)||intervalMs<400||intervalMs>60000)fail('FEED_INTERVAL');
+        this.fetch=fetchImpl;this.now=now;this.sleep=sleep;this.intervalMs=intervalMs;this.next=0;this.cooldown=0;
+        this.stats={requests:0,rate_limited:0,started_at_ms:this.now()};
     }
     async get(path){
         if(this.cooldown>this.now())fail('FEED_COOLDOWN');
-        const start=Math.max(this.now(),this.next);this.next=start+400; // <=150/min, including head requests
+        const start=Math.max(this.now(),this.next);this.next=start+this.intervalMs;
         if(start>this.now())await this.sleep(start-this.now());
         if(this.cooldown>this.now())fail('FEED_COOLDOWN');
+        this.stats.requests++;
         const r=await this.fetch('https://testnet.neardata.xyz/v0/'+path,{signal:AbortSignal.timeout(15000)});
         if(r.status===429){
             const retry=r.headers?.get('retry-after'),delay=retry&&/^\d+(\.\d+)?$/.test(retry)?Number(retry)*1000:Date.parse(retry??'')-this.now();
             // Some free gateways return Retry-After: 0. Do not hot-loop on it.
-            this.cooldown=this.now()+(Number.isFinite(delay)?Math.max(60000,delay):60000);await r.body?.cancel();fail('FEED_RATE_LIMITED');
+            this.cooldown=this.now()+(Number.isFinite(delay)?Math.max(60000,delay):60000);
+            this.stats.rate_limited++;this.stats.last_limit={path,at_ms:this.now(),retry_at_ms:this.cooldown};
+            await r.body?.cancel();fail('FEED_RATE_LIMITED');
         }
         if(!r.ok){await r.body?.cancel();fail('FEED_UNAVAILABLE');}
         return r.json();

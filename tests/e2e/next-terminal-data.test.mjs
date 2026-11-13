@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Q,USD,freshSpot,scenarioPayout} from '../../apps/frontend/lib/market-display.ts';
-import {nearBreakEven,fixedPayout,lifecycle,oracleCase,scenarioRows,intrinsicDelta,percent,exactUsd,coefficientText,missedSampleSlots,redeemedToDate} from '../../apps/frontend/lib/terminal-data.ts';
+import {nearBreakEven,fixedPayout,lifecycle,oracleCase,expiryCase,scenarioRows,intrinsicDelta,percent,offerGate,exactUsd,coefficientText,missedSampleSlots,redeemedToDate} from '../../apps/frontend/lib/terminal-data.ts';
 const now=1794500000000;
 const series={config:{series_id:'a',strike:String(2n*USD),maturity_ns:String(BigInt(now-1000)*1000000n),oracle_account_id:'oracle.testnet',oracle_config_hash:'bound'},final_price:null,p_coefficient:'0',n_coefficient:'0'};
 test('expiry never implies locked payout; oracle finality alone does not imply core finality',()=>{
@@ -57,4 +57,24 @@ test('redeemed totals distinguish per-leg redemption from paired merge burns',()
  assert.deepEqual(redeemedToDate(supply),{minted:4n*Q,merged:Q/200n,p:Q/10n,n:Q/20n});
  assert.equal(redeemedToDate({...supply,total_merged:undefined}),null);
  assert.equal(redeemedToDate({...supply,outstanding_n:String(5n*Q)}),null);
+});
+
+test('TWAP evidence is isolated from sampled slots and bound to the selected deployment',()=>{
+ const s={...series,config:{...series.config,oracle_version:'native-trade-twap-v1'}};
+ const c={config:s.config,pending:null,accepted:{price:'3700000000000'},price:null,state:'RESOLUTION_DELAYED'};
+ const state={items:[{contract:s.config.oracle_account_id,kind:'expiry_oracle',body:{cases:[c]}}]};
+ assert.equal(expiryCase(state,s),c);assert.equal(oracleCase(state,s),undefined);
+ assert.equal(expiryCase(state,{...s,config:{...s.config,oracle_config_hash:'wrong'}}),undefined);
+ assert.equal(expiryCase(state,series),undefined);
+ assert.equal(fixedPayout(s,Q,'N'),null);
+});
+
+
+test('offer failures distinguish unavailable service or pricing from insufficient inventory',()=>{
+ assert.equal(offerGate(['MAKER_TIMEOUT','MAKER_RPC_UNAVAILABLE']),'MAKER_DOWN');
+ assert.equal(offerGate(['MAKER_MAINTENANCE']),'MAKER_MAINTENANCE');
+ assert.equal(offerGate(['MARKET_DATA_UNAVAILABLE']),'MAKER_DATA');
+ assert.equal(offerGate(['LOSS_LIMIT']),'MAKER_LIMIT');
+ assert.equal(offerGate(['INVENTORY_LIMIT','INVENTORY_LIMIT']),'NO_QUOTE');
+ assert.equal(offerGate(['SERIES_UNAVAILABLE']),'NO_OPEN_SERIES');
 });

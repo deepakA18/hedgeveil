@@ -1,4 +1,5 @@
 "use client";
+import { errorToast, Spinner } from "./Feedback";
 import { useEffect, useRef, useState, useId } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -19,7 +20,7 @@ import { TradeTour } from "./TradeTour";
 import { ScenarioChart } from "./ScenarioChart";
 import { QuoteSummary } from "./QuoteSummary";
 import { Q, freshSpot, isOpen, quoteEconomics } from "../../lib/market-display";
-import { HaloButton } from "../ui/halo-button";
+import { bestReviewOffer, requestReviewOffers } from "../../lib/trade-review";
 import { MotionConfig } from "motion/react";
 import {
   FamilyDrawerRoot,
@@ -42,8 +43,11 @@ import { Gate, Num, Countdown } from "./TerminalPrimitives";
 import {
   type GateReason,
   gateLabel,
+  gateCopy,
   lifecycle,
   oracleCase,
+  expiryCase,
+  offerGate,
 } from "../../lib/terminal-data";
 import { scenarioPayout } from "../../lib/market-display";
 import type { Claim, Offer } from "../../lib/desk-types";
@@ -117,32 +121,62 @@ export function Trade() {
     };
   }, [fingerprint]);
   const open = !!series && seriesStatus(series, now) === "Open";
-  async function quotes() {
+  let validQuantity = false;
+  try {
+    validQuantity = BigInt(parseNear(quantity)) > 0n;
+  } catch {
+    /* Editing an amount. */
+  }
+  async function reviewTrade() {
+    if (!validQuantity || gate || fetching) return;
     const amount = parseNear(quantity);
     const at = current.current,
       run = ++requestVersion.current;
+    const startedAt = performance.now();
+    const stillCurrent = () =>
+      at === current.current && run === requestVersion.current;
     setQuoteError("");
     setFetching(true);
     setRequested(true);
     setOffers([]);
     try {
-      const result = await api<{ items: Offer[] }>("quotes", {
+      const request = {
         mode,
         asset: { kind: claim, series_id: selectedId },
         amount,
         taker: d.account,
-      });
-      if (at === current.current && run === requestVersion.current) {
-        setOffers(result.items);
-        setOfferKey(at);
-        const first = result.items.findIndex(
-          (o) => o.quote && BigInt(o.quote.expiry_ns) > BigInt(now) * 1000000n,
-        );
-        setScenarioOffer(first < 0 ? null : first);
+      };
+      const result = await requestReviewOffers(
+        request,
+        (body) => api<{ items: Offer[] }>("quotes", body),
+        stillCurrent,
+      );
+      if (!result || !stillCurrent()) return;
+      setOffers(result.items);
+      setOfferKey(at);
+      const first = bestReviewOffer(
+        result.items,
+        request,
+        now + performance.now() - startedAt,
+      );
+      setScenarioOffer(first < 0 ? null : first);
+      if (first < 0) {
+        const reason = result.items.some((o) => o.quote)
+          ? "QUOTE_EXPIRED"
+          : offerGate(result.items.map((o) => o.reason));
+        errorToast(gateCopy[reason][0]);
+        return;
       }
+      setTicketOpen(false);
+      await d.review({
+        method: "fill_quote",
+        args: { quote: result.items[first].quote },
+      });
     } catch (error) {
-      if (at === current.current && run === requestVersion.current)
+      if (at === current.current && run === requestVersion.current) {
         setQuoteError(message(error));
+        errorToast(message(error));
+      }
     } finally {
       if (run === requestVersion.current) setFetching(false);
     }
@@ -189,16 +223,6 @@ export function Trade() {
             : d.busy
               ? "BUSY"
               : null;
-  const reviewGate: GateReason | null =
-    gate ??
-    (expired
-      ? "QUOTE_EXPIRED"
-      : economics &&
-          balance &&
-          mode === "BUY" &&
-          economics.total > BigInt(balance.free)
-        ? "INSUFFICIENT_FREE"
-        : null);
   const validQuotes = visibleOffers.filter(
     (o) => o.quote && BigInt(o.quote.expiry_ns) > BigInt(now) * 1000000n,
   );
@@ -213,17 +237,14 @@ export function Trade() {
   }
   const missingQuoteReason: GateReason =
     gate ??
-    (expired
-      ? "QUOTE_EXPIRED"
-      : requested &&
-          visibleOffers.length > 0 &&
-          visibleOffers.every((o) => o.reason === "MAKER_UNAVAILABLE")
-        ? "MAKER_DOWN"
-        : "NO_QUOTE");
+    (expired ? "QUOTE_EXPIRED" : offerGate(visibleOffers.map((o) => o.reason)));
   const delayed =
     !!series &&
-    lifecycle(series, now, oracleCase(d.state, series)) ===
-      "RESOLUTION_DELAYED";
+    lifecycle(
+      series,
+      now,
+      expiryCase(d.state, series) ?? oracleCase(d.state, series),
+    ) === "RESOLUTION_DELAYED";
   const ticket = (
     <section
       className="terminal-ticket workspace-panel"
@@ -240,6 +261,40 @@ export function Trade() {
           <ServiceStatus />
         </h2>
       </div>
+      <section className="trade-controls" aria-label="Choose your market">
+        <div className="desk-tabs" role="group" aria-label="Choose exposure">
+          <button
+            aria-pressed={claim === "N"}
+            onClick={() => choose({ claim: "N" })}
+          >
+            NEAR upside
+          </button>
+          <button
+            aria-pressed={claim === "P"}
+            onClick={() => choose({ claim: "P" })}
+          >
+            Capped value
+          </button>
+        </div>
+        <div className="desk-tabs" role="group" aria-label="Trade side">
+          <button
+            disabled={!open}
+            title={!open ? gateLabel.NO_OPEN_SERIES : undefined}
+            aria-pressed={mode === "BUY"}
+            onClick={() => choose({ side: "BUY" })}
+          >
+            Buy
+          </button>
+          <button
+            disabled={!open}
+            title={!open ? gateLabel.NO_OPEN_SERIES : undefined}
+            aria-pressed={mode === "SELL"}
+            onClick={() => choose({ side: "SELL" })}
+          >
+            Sell
+          </button>
+        </div>
+      </section>
       {delayed && series && (
         <SeriesPositionContext
           primary
@@ -254,14 +309,18 @@ export function Trade() {
             ? gateLabel[gate]
             : fetching
               ? "Checking makers…"
-              : requested
-                ? "Refresh offers"
-                : "Request offers"
+              : "Review trade"
         }
-        disabled={!!gate || fetching}
-        disabledReason={gate ? undefined : blockedReason}
+        disabled={!!gate || fetching || !validQuantity}
+        disabledReason={
+          !validQuantity
+            ? "Enter a quantity greater than zero."
+            : gate
+              ? undefined
+              : blockedReason
+        }
         disabledDescriptionId={gateId}
-        onSubmit={quotes}
+        onSubmit={reviewTrade}
       >
         <div className="quantity-with-help">
           <AmountField
@@ -276,7 +335,13 @@ export function Trade() {
         </div>
         <Gate
           id={gateId}
-          reason={selectedQuote && !expired ? gate : missingQuoteReason}
+          reason={
+            !validQuantity
+              ? gate
+              : fetching || !requested || (selectedQuote && !expired)
+                ? gate
+                : missingQuoteReason
+          }
           onAction={gate === "INDEXER_LAG" ? () => void d.refresh() : undefined}
         />
       </Form>
@@ -303,32 +368,16 @@ export function Trade() {
           )}
         </dl>
       )}
-      {fetching && <p role="status">Checking funded inventory…</p>}
+      {fetching && (
+        <p role="status">
+          <Spinner />
+          Checking funded inventory…
+        </p>
+      )}
       {quoteError && (
         <p role="alert" className="desk-danger">
           {quoteError}
         </p>
-      )}
-      {!!visibleOffers.filter((o) => o.quote).length && (
-        <label className="offer-choice">
-          Maker offer
-          <select
-            value={scenarioOffer ?? ""}
-            onChange={(e) => setScenarioOffer(Number(e.target.value))}
-          >
-            {visibleOffers.map(
-              (o, i) =>
-                o.quote && (
-                  <option key={i} value={i}>
-                    Offer {i + 1}
-                    {BigInt(o.quote.expiry_ns) <= BigInt(now) * 1000000n
-                      ? ", Expired"
-                      : ""}
-                  </option>
-                ),
-            )}
-          </select>
-        </label>
       )}
       {selectedQuote && (
         <>
@@ -359,23 +408,6 @@ export function Trade() {
               </span>
             )}
           </div>
-          <Gate reason={reviewGate} />
-          <HaloButton
-            className="cult-action"
-            isLoading={d.busy}
-            disabled={!!reviewGate}
-            onClick={() => {
-              setTicketOpen(false);
-              void d
-                .review({
-                  method: "fill_quote",
-                  args: { quote: selectedQuote },
-                })
-                .catch((e) => d.setError(message(e)));
-            }}
-          >
-            Review trade
-          </HaloButton>
           <details className="desk-details">
             <summary>Exact assets, fees and signature</summary>
             <LegList
@@ -428,44 +460,6 @@ export function Trade() {
           />
           {resize.leftDivider}
           <div className="terminal-center workspace-panel" data-panel="chart">
-            <section className="trade-controls" aria-label="Choose your market">
-              <div
-                className="desk-tabs"
-                role="group"
-                aria-label="Choose exposure"
-              >
-                <button
-                  aria-pressed={claim === "N"}
-                  onClick={() => choose({ claim: "N" })}
-                >
-                  NEAR upside
-                </button>
-                <button
-                  aria-pressed={claim === "P"}
-                  onClick={() => choose({ claim: "P" })}
-                >
-                  Capped value
-                </button>
-              </div>
-              <div className="desk-tabs" role="group" aria-label="Trade side">
-                <button
-                  disabled={!open}
-                  title={!open ? gateLabel.NO_OPEN_SERIES : undefined}
-                  aria-pressed={mode === "BUY"}
-                  onClick={() => choose({ side: "BUY" })}
-                >
-                  Buy
-                </button>
-                <button
-                  disabled={!open}
-                  title={!open ? gateLabel.NO_OPEN_SERIES : undefined}
-                  aria-pressed={mode === "SELL"}
-                  onClick={() => choose({ side: "SELL" })}
-                >
-                  Sell
-                </button>
-              </div>
-            </section>
             {series ? (
               <>
                 <div className="selected-market-line">
@@ -560,6 +554,8 @@ export function Trade() {
           </div>
           {resize.rightDivider}
           {!mobile && ticket}
+          {!mobile && resize.heightDivider}
+          {!mobile && <TradingDock expert={expert} />}
         </div>
         {mobile && (
           <FamilyDrawerRoot open={ticketOpen} onOpenChange={setTicketOpen}>
@@ -576,7 +572,7 @@ export function Trade() {
                     ? "No price report needed"
                     : !open
                       ? "Market closed"
-                      : "Request an offer"}
+                      : "Review trade"}
               </span>
             </div>
             <FamilyDrawerPortal>
@@ -596,8 +592,7 @@ export function Trade() {
             </FamilyDrawerPortal>
           </FamilyDrawerRoot>
         )}
-        {resize.heightDivider}
-        <TradingDock expert={expert} />
+        {mobile && <TradingDock expert={expert} />}
       </div>
     </MotionConfig>
   );

@@ -20,7 +20,9 @@ impl Clearinghouse {
         );
         require!(config.max_supply.0 <= MAX_SUPPLY, "supply cap too high");
         require!(
-            self.series.len() < MAX_SERIES && !self.series.contains_key(&config.series_id),
+            self.series.len() < MAX_SERIES
+                && !self.series.contains_key(&config.series_id)
+                && !self.archived_ids.contains_key(&config.series_id),
             "series cap or duplicate"
         );
         require!(
@@ -30,7 +32,16 @@ impl Clearinghouse {
         self.series_storage += self.minimum_storage();
         self.fees += CREATION_FEE;
         let id = config.series_id.clone();
-        let slot = self.series.len() as u8;
+        let slot = (0..MAX_SERIES as u8)
+            .find(|slot| self.series.values().all(|s| s.slot != *slot))
+            .expect("no free series slot");
+        require!(
+            self.accounts.values().all(|a| {
+                let p = a.positions[slot as usize];
+                p.p.0 == 0 && p.n.0 == 0
+            }),
+            "nonempty reusable slot"
+        );
         self.series.insert(
             id,
             Series {
@@ -89,7 +100,7 @@ impl Clearinghouse {
                         .to_string()
                         .into_bytes(),
                     NearToken::from_yoctonear(0),
-                    Gas::from_tgas(40),
+                    Gas::from_tgas(CALLBACK_TGAS),
                 ),
             )
     }
@@ -162,5 +173,52 @@ impl Clearinghouse {
         self.collateral -= dust;
         self.series.insert(series_id, s);
         self.finish("DUST_RELEASED", before, 1);
+    }
+    /// Retain immutable history; reclaim only a fully exited physical slot.
+    #[payable]
+    pub fn archive_series(&mut self, series_id: String) {
+        let before = self.ledgers();
+        self.one_yocto();
+        require!(
+            self.vault.is_none() && self.vault_roll.is_none(),
+            "vault prevents archival"
+        );
+        let s = self
+            .series
+            .get(&series_id)
+            .expect("unknown retained series")
+            .clone();
+        require!(
+            s.closed
+                && s.final_price.is_some()
+                && env::block_timestamp() >= s.config.maturity_ns.0
+                && s.outstanding_p.0 == 0
+                && s.outstanding_n.0 == 0
+                && s.reserve.0 == 0
+                && s.request.is_none(),
+            "series not fully exited"
+        );
+        require!(
+            self.accounts.values().all(|a| {
+                let p = a.positions[s.slot as usize];
+                p.p.0 == 0 && p.n.0 == 0
+            }),
+            "outstanding account claims"
+        );
+        require!(
+            !self.archived_ids.contains_key(&series_id),
+            "archived ID exists"
+        );
+        let index = self.archived_series.len();
+        require!(index < u32::MAX, "archive capacity");
+        let commitment =
+            near_sdk::borsh::to_vec(&(self.archive_commitment, &s)).expect("archive encoding");
+        self.archive_commitment = env::sha256(&commitment).try_into().expect("hash length");
+        self.archived_series.push(s);
+        self.archived_ids.insert(series_id.clone(), index);
+        self.archived_series.flush();
+        self.archived_ids.flush();
+        self.series.remove(&series_id);
+        self.finish("SERIES_ARCHIVED", before, 1);
     }
 }

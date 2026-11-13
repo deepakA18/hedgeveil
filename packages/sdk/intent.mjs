@@ -58,7 +58,7 @@ function quote(q, domain) {
 }
 export const METHODS = Object.freeze({ cancel_quote: 'QUOTE_CANCELLED', advance_quote_epoch: 'QUOTE_EPOCH_ADVANCED', revoke_signing_key: 'SIGNING_KEY_REVOKED', storage_deposit: 'STORAGE_DEPOSIT', deposit_collateral: 'DEPOSIT', split: 'SPLIT', merge: 'MERGE', transfer: 'TRANSFER', redeem: 'REDEEMED', fill_quote: 'QUOTE_FILLED', vault_mint_basket: 'VAULT_MINTED', vault_redeem_in_kind: 'VAULT_EXITED', request_withdrawal: 'WITHDRAWAL_REQUESTED', close_ticket: 'TICKET_CLOSED' });
 const operationId = () => Array.from(globalThis.crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
-export function buildIntent({ signer_id, contract_id, network = 'sandbox', method, args, attached_deposit, operation_id = operationId() }) {
+export function buildIntent({ signer_id, contract_id, network = 'sandbox', method, args, attached_deposit, storage_deposit, operation_id = operationId() }) {
     account(signer_id);
     account(contract_id);
     if (!['sandbox', 'testnet'].includes(network)) fail('NETWORK_DISABLED');
@@ -71,6 +71,10 @@ export function buildIntent({ signer_id, contract_id, network = 'sandbox', metho
         if (['storage_deposit', 'deposit_collateral'].includes(method))
             fail('FUNDING_AMOUNT_REQUIRED');
         attached_deposit = '1';
+    }
+    if (storage_deposit !== undefined) {
+        if (method !== 'deposit_collateral') fail('STORAGE_BATCH_METHOD');
+        if (uint(storage_deposit, 128, true) >= uint(attached_deposit, 128, true)) fail('STORAGE_BATCH_AMOUNT');
     }
     const domain = { protocol_version: '1', network, contract_id };
     switch (method) {
@@ -140,7 +144,7 @@ export function buildIntent({ signer_id, contract_id, network = 'sandbox', metho
     }
     if (!['storage_deposit', 'deposit_collateral'].includes(method) && attached_deposit !== '1')
         fail('ONE_YOCTO_REQUIRED');
-    return JSON.parse(canonical({ kind: 'transaction', schema_version: '0.2.0', operation_id, domain, signer_id, method, args, attached_deposit, gas: '250000000000000' }));
+    return JSON.parse(canonical({ kind: 'transaction', schema_version: '0.2.0', operation_id, domain, signer_id, method, args, attached_deposit, ...(storage_deposit === undefined ? {} : {storage_deposit}), gas: '250000000000000' }));
 }
 // The journal envelope additionally retains signer/gas; the public wire intent does not.
 export function toWireIntent(intent) {
@@ -149,4 +153,13 @@ export function toWireIntent(intent) {
         fail('INVALID_INTENT');
     const { signer_id, gas, ...wire } = checked;
     return wire;
+}
+
+// Only the first-deposit pair is supported; this is not arbitrary batching.
+export function intentActions(intent) {
+    if (intent.storage_deposit !== undefined) return [
+        {type:'FunctionCall',methodName:'storage_deposit',args:{},deposit:intent.storage_deposit,gas:'50000000000000'},
+        {type:'FunctionCall',methodName:'deposit_collateral',args:{},deposit:String(uint(intent.attached_deposit)-uint(intent.storage_deposit)),gas:'200000000000000'}
+    ];
+    return [{type:'FunctionCall',methodName:intent.method,args:structuredClone(intent.args),deposit:intent.attached_deposit,gas:intent.gas}];
 }

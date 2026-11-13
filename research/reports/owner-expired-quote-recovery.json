@@ -1,0 +1,61 @@
+{
+  "operation_id": "1e15b1343fd7a88e8ac8c2d2e6f6fd8169a12e7598d9c4dac0cc15ef6bc7d4fd",
+  "method": "fill_quote",
+  "result": {
+    "operation_id": "1e15b1343fd7a88e8ac8c2d2e6f6fd8169a12e7598d9c4dac0cc15ef6bc7d4fd",
+    "state": "QUOTE_EXPIRED_UNFILLED",
+    "reason": "FINALIZED_UNUSED_NONCE_AFTER_EXPIRY"
+  },
+  "hash": null,
+  "attempted": true,
+  "quote": {
+    "maker": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+    "nonce": "23",
+    "epoch": "0",
+    "expiry_ns": "1794590146787225501"
+  },
+  "note": "Recovery submitted no transaction, inferred no cancellation and modified no balance. Original submission and gas status remain unknown. Finalized expired-unused nonce evidence retained in wallet journal. Wallet popup failure cause remains unconfirmed.",
+  "evidence": {
+    "block_hash": "HBLrtLdGTqX4X7bwMLUPAGFgQTKpidNdADMw5QNpf7a1",
+    "timestamp_ns": "1794590678679673403",
+    "code_hash": "FXTsrec9F2afbXmRz94qaMLnD8pFGVCvEoKdieu2h9kT",
+    "maker": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+    "epoch": "0",
+    "nonce": "23",
+    "consumed": [
+      0,
+      0,
+      80,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "expiry_ns": "1794590146787225501"
+  }
+}

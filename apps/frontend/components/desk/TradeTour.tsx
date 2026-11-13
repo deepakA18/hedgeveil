@@ -49,11 +49,15 @@ export function TradeTour({
         : "There are no open markets right now. The list shows history so you can explore past payouts. You cannot buy an ended market; a new live market is needed to trade.",
     },
     {
-      target: ".trade-controls",
-      anchor: ".trade-controls",
-      side: "bottom" as const,
+      target: mobile ? ".mobile-ticket-launch" : ".trade-controls",
+      anchor: mobile ? ".mobile-ticket-launch" : ".trade-controls",
+      side: mobile ? ("top" as const) : ("left" as const),
       title: "Choose the position you want",
-      body: "NEAR upside pays if the final reference price is above the set price. Capped value follows NEAR's dollar value up to that price. It does not protect you from a fall in NEAR. Either purchased position can lose its full cost, plus fees.",
+      body:
+        (mobile
+          ? "Open the trade ticket to choose your position and Buy or Sell. "
+          : "") +
+        "NEAR upside pays if the final reference price is above the set price. Capped value follows NEAR's dollar value up to that price. It does not protect you from a fall in NEAR. Either purchased position can lose its full cost, plus fees.",
     },
     {
       target: ".scenario-chart",
@@ -69,7 +73,7 @@ export function TradeTour({
         : ".terminal-ticket .region-heading",
       side: mobile ? ("top" as const) : ("left" as const),
       title: "Check the cost before signing",
-      body: "On an open market, enter a quantity and request an offer. Check total cost, maximum loss and expiry, then review the exact trade in your wallet. An offer can expire or lose available inventory before it fills. No offer means no trade.",
+      body: "On an open market, enter a quantity and choose Review trade. We fetch the best available offer for that quantity. Check its cost and expiry, then approve the exact trade in your wallet. An offer can expire or lose available inventory before it fills. No offer means no trade.",
     },
     {
       target: ".trading-dock",

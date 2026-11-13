@@ -1,0 +1,316 @@
+{
+  "hash": "HU858PeWXoYWc59yuWybr1YahsUS9LQVNB2pXRsnuq1y",
+  "final_execution_status": "FINAL",
+  "status": {
+    "SuccessValue": "IlNVQ0NFRURFRCI="
+  },
+  "signer": "0xdeepak18.testnet",
+  "receiver": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+  "actions": [
+    {
+      "FunctionCall": {
+        "args": "eyJhbW91bnQiOiIyMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsInJlY2VpdmVyIjoiMHhkZWVwYWsxOC50ZXN0bmV0In0=",
+        "deposit": "1",
+        "gas": 250000000000000,
+        "method_name": "request_withdrawal"
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "id": "5NNfM4c1e2R85r6vVuGHq3EBzUk3Gdm2nei82V7TGpAw",
+      "executor": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "status": {
+        "SuccessReceiptId": "4DC6GQW2QHzR5fmVBtJkespwjXjZ9TyCmxMvKWaop6kh"
+      },
+      "events": [
+        {
+          "standard": "hedgeveil",
+          "version": "0.2.0",
+          "event": "ledger",
+          "data": [
+            {
+              "kind": "event",
+              "schema_version": "0.2.0",
+              "domain": {
+                "protocol_version": "1",
+                "network": "testnet",
+                "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+              },
+              "operation_id": "0624f64abb2d04ced64613722ad7a32e102a2226c8abe88ab38bf6556135d046",
+              "actor": "0xdeepak18.testnet",
+              "event": "WITHDRAWAL_REQUESTED",
+              "deltas": [
+                {
+                  "account_id": "0xdeepak18.testnet",
+                  "bucket": "FREE",
+                  "ledger_id": "account",
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "direction": "DEBIT",
+                  "amount": "20000000000000000000000"
+                },
+                {
+                  "account_id": "0xdeepak18.testnet",
+                  "bucket": "WITHDRAWAL",
+                  "ledger_id": "w-0",
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "direction": "CREDIT",
+                  "amount": "20000000000000000000000"
+                },
+                {
+                  "account_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+                  "bucket": "FEE",
+                  "ledger_id": "protocol",
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "direction": "CREDIT",
+                  "amount": "1"
+                }
+              ],
+              "fee_amount": "1",
+              "state_references": [
+                "2f1caa84263c8feddf6a13bfdbb0e4febd6fabeb5136f13f170fd65687c245cf"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GVL9xsvLKN6SFSK3xmar8RzTHq8yHMQfrYAJdfBEj7So",
+      "executor": "0xdeepak18.testnet",
+      "status": {
+        "SuccessValue": ""
+      },
+      "events": []
+    },
+    {
+      "id": "AzM7EtPGDbn9rCMTYAud2UKoD19LirLGCe65gvqTQyr9",
+      "executor": "0xdeepak18.testnet",
+      "status": {
+        "SuccessValue": ""
+      },
+      "events": []
+    },
+    {
+      "id": "4DC6GQW2QHzR5fmVBtJkespwjXjZ9TyCmxMvKWaop6kh",
+      "executor": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+      "status": {
+        "SuccessValue": "IlNVQ0NFRURFRCI="
+      },
+      "events": [
+        {
+          "standard": "hedgeveil",
+          "version": "0.2.0",
+          "event": "ledger",
+          "data": [
+            {
+              "kind": "event",
+              "schema_version": "0.2.0",
+              "domain": {
+                "protocol_version": "1",
+                "network": "testnet",
+                "contract_id": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd"
+              },
+              "operation_id": "a6113eb412d257151df51bdfa1fe547df3b0184f1f021587c6379e9b0f2e7d55",
+              "actor": "ef5328f9f3b054d5d7eaf7e5a7f37240b1294fe967f1b2c0d7e73c61911668fd",
+              "event": "WITHDRAWAL_SUCCEEDED",
+              "deltas": [
+                {
+                  "account_id": "0xdeepak18.testnet",
+                  "bucket": "WITHDRAWAL",
+                  "ledger_id": "w-0",
+                  "asset": {
+                    "kind": "COLLATERAL"
+                  },
+                  "direction": "DEBIT",
+                  "amount": "20000000000000000000000"
+                }
+              ],
+              "fee_amount": "0",
+              "state_references": [
+                "791cb5f2f3696d7abe2dd9e38b7e4bbcbd55910958baacdd0e674e0a74682b05"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5iaCLx1Ykqhoh65YdV7wrrtGePEwjrQfZjepFkyffXHX",
+      "executor": "0xdeepak18.testnet",
+      "status": {
+        "SuccessValue": ""
+      },
+      "events": []
+    },
+    {
+      "id": "t5F2sGvz1RkvQSSN9KUccD9bSb7vgefkvTADd4sij8Y",
+      "executor": "0xdeepak18.testnet",
+      "status": {
+        "SuccessValue": ""
+      },
+      "events": []
+    }
+  ],
+  "post_withdrawal_state": {
+    "http": 200,
+    "block_hash": "4ohk7DdPSNSSQPnx419cgndGqscKQggujvT6ei9fFtai",
+    "now_ns": "1794584030349027460",
+    "account": {
+      "free": "79899740932471111167500",
+      "storage_paid": "40960000000000000000000",
+      "positions": [
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        },
+        {
+          "p": "0",
+          "n": "0"
+        }
+      ],
+      "retained_tickets": 1,
+      "closing": false
+    },
+    "tickets": [
+      {
+        "id": "0",
+        "owner": "0xdeepak18.testnet",
+        "receiver": "0xdeepak18.testnet",
+        "amount": "20000000000000000000000",
+        "state": "SUCCEEDED",
+        "kind": "COLLATERAL",
+        "created_ns": "1794583932418244881",
+        "version": 1,
+        "balance_restored": false
+      }
+    ]
+  },
+  "review": "Implementation-agent verification; independent review pending"
+}

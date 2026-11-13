@@ -171,7 +171,7 @@ impl Clearinghouse {
                         .to_string()
                         .into_bytes(),
                     NearToken::from_yoctonear(0),
-                    Gas::from_tgas(40),
+                    Gas::from_tgas(CALLBACK_TGAS),
                 ),
             )
     }
@@ -224,7 +224,7 @@ impl Clearinghouse {
                     if fault == 2 {
                         Gas::from_gas(1)
                     } else {
-                        Gas::from_tgas(40)
+                        Gas::from_tgas(CALLBACK_TGAS)
                     },
                 ),
             )

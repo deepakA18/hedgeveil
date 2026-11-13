@@ -128,3 +128,20 @@ test('redirect hashes are operation-bound single hints; errors, duplicates and b
     assert.deepEqual(walletReturn(url,id),{operation_id:id,hash:h(3)});
     for(const bad of [url+'&transactionHashes='+h(3),url+'&hv_operation='+id,url+'&errorCode=rejected',url+'&errorMessage=secret',url+','+h(4),url.replace(id,'b'.repeat(64))])assert.throws(()=>walletReturn(bad,id));
 });
+
+test('first deposit uses one wallet request with exactly storage then collateral; arbitrary batches rejected',async t=>{
+ const {client}=await setup(t);
+ const storage='40960000000000000000000';
+ const i=await client.prepare({...input,storage_deposit:storage}),r=await client.handoff(i.operation_id);let calls=0;
+ const s=selector(r,async p=>{
+  calls++;assert.equal(p.actions.length,2);
+  assert.deepEqual(p.actions.map(a=>[a.functionCall.methodName,a.functionCall.deposit,a.functionCall.gas]),[
+   ['storage_deposit',BigInt(storage),50000000000000n],['deposit_collateral',BigInt(input.attached_deposit)-BigInt(storage),200000000000000n]]);
+  return {transaction:{hash:h(3),signer_id:r.signerId,receiver_id:r.receiverId}};
+ });
+ assert.deepEqual(await walletSelectorSigner({selector:s,actionCreators})(r),{hash:h(3)});
+ for(const mutate of [x=>x.actions.reverse(),x=>x.actions.push(x.actions[0]),x=>x.actions[0].gas='1',x=>x.actions[0].args={account_id:'else.testnet'},x=>x.actions[1].deposit='0']){
+  const bad=structuredClone(r);mutate(bad);await assert.rejects(walletSelectorSigner({selector:s,actionCreators})(bad));
+ }
+ assert.equal(calls,1);
+});

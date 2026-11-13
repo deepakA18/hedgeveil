@@ -73,10 +73,18 @@ export function relativeEnd(ns: string, now: number) {
       : `Ends in ${minutes}m`;
 }
 export function isOpen(s: Series, now: number) {
+  const window = s.config.observation_window as
+    { start_ns?: string } | undefined;
+  const end =
+    s.config.oracle_version === "native-trade-twap-v1"
+      ? window?.start_ns
+      : s.config.maturity_ns;
   return (
     !!now &&
     s.final_price === null &&
-    BigInt(s.config.maturity_ns) > BigInt(now) * 1000000n
+    typeof end === "string" &&
+    /^\d+$/.test(end) &&
+    BigInt(end) > BigInt(now) * 1000000n
   );
 }
 export function distanceFromSpot(
@@ -134,6 +142,7 @@ export function quoteEconomics(
 export const terminalState = (s: string | undefined) =>
   [
     "CANCELLED",
+    "QUOTE_EXPIRED_UNFILLED",
     "SUCCEEDED",
     "FAILED_CONFIRMED",
     "WITHDRAWAL_SUCCEEDED",
@@ -155,6 +164,7 @@ export function statusLabel(state: string) {
     (
       {
         CANCELLED: "Cancelled",
+        QUOTE_EXPIRED_UNFILLED: "Expired without a fill",
         SUCCEEDED: "Confirmed",
         WITHDRAWAL_SUCCEEDED: "Confirmed",
         FAILED_CONFIRMED: "Failed",

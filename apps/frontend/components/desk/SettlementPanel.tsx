@@ -13,6 +13,7 @@ import { useNow } from "./Elements";
 import { Countdown, Num } from "./TerminalPrimitives";
 import {
   oracleCase,
+  expiryCase,
   lifecycle,
   fixedPayout,
   exactUsd,
@@ -59,8 +60,9 @@ export function SettlementPanel({ series }: { series: Series }) {
   const d = useDesk(),
     now = useNow(),
     e = oracleCase(d.state, series),
+    history = expiryCase(d.state, series),
     profile = String(series.config.oracle_version ?? ""),
-    state = lifecycle(series, now, e),
+    state = lifecycle(series, now, history ?? e),
     redeemed = redeemedToDate(series);
   const window = series.config.observation_window as
     { start_ns: string; end_ns: string } | undefined;
@@ -77,13 +79,51 @@ export function SettlementPanel({ series }: { series: Series }) {
     >
       <HaloTabs defaultValue="samples" key={series.config.series_id}>
         <HaloTabsList aria-label="Settlement evidence" activateOnFocus>
-          <HaloTabsTrigger value="samples">Samples</HaloTabsTrigger>
+          <HaloTabsTrigger value="samples">
+            {profile === "native-trade-twap-v1" ? "Price history" : "Samples"}
+          </HaloTabsTrigger>
           <HaloTabsTrigger value="backing">Backing</HaloTabsTrigger>
           <HaloTabsTrigger value="terms">Terms</HaloTabsTrigger>
           <HaloTabsIndicator />
         </HaloTabsList>
         <HaloTabsContent value="samples">
-          {profile === "native-sampled-v1" && e && window ? (
+          {profile === "native-trade-twap-v1" && history && window ? (
+            <div className="evidence-note">
+              <p>
+                {history.price !== null
+                  ? `Final reference ${exactUsd(history.price)}`
+                  : history.accepted
+                    ? `Verified average ${exactUsd(history.accepted.price)}; awaiting finalization or import.`
+                    : history.pending !== null
+                      ? "Price history requested; awaiting the authenticated response."
+                      : history.last_result === "REJECTED"
+                        ? "Price history could not be verified. Settlement needs review."
+                        : now <
+                            Number(BigInt(series.config.maturity_ns) / 1000000n)
+                          ? "Price history will be verified after expiry."
+                          : "Awaiting verified price history. Settlement time is not guaranteed."}
+              </p>
+              <p>
+                {dateLabel(window.start_ns)} to {dateLabel(window.end_ns)}
+              </p>
+              <span>
+                Coinbase NEAR/USD trade history, authenticated through Outlayer{" "}
+                <InfoPopover label="Historical price evidence">
+                  The reference is the time-weighted trade price over this exact
+                  window, rounded down once. Incomplete or oversized history
+                  delays settlement.
+                  {history.accepted && (
+                    <>
+                      {" "}
+                      Accepted {dateLabel(history.accepted.accepted_ns)}.
+                      Evidence hash: {history.accepted.evidence_sha256}.
+                      Response hash: {history.accepted.response_sha256}.
+                    </>
+                  )}
+                </InfoPopover>
+              </span>
+            </div>
+          ) : profile === "native-sampled-v1" && e && window ? (
             <>
               <div className="sample-slots">
                 {[0, 1, 2].map((i) => {

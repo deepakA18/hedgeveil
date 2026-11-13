@@ -2,7 +2,7 @@ import pg from 'pg';
 import {readFile} from 'node:fs/promises';
 import {canonical, fail} from '../../packages/sdk/intent.mjs';
 import {binding,configuration} from './rpc.mjs';
-import {digest,replayCore,replayOracle,replayExternal,reconcileCore,reconcileOracle,reconcileExternal,alerts} from './model.mjs';
+import {digest,replayCore,replayOracle,replayExternal,reconcileCore,reconcileOracle,reconcileExternal,reconcileExpiry,alerts} from './model.mjs';
 
 export class Store {
     constructor(config) {
@@ -116,8 +116,8 @@ export class Store {
             const results=[];
             for(const s of batch.snapshots) {
                 const es=events.filter(e=>e.contract===s.contract);
-                const replay=s.kind==='core'?replayCore(s.contract,es,this.config.network):s.kind==='external_oracle'?replayExternal(es):replayOracle(es);
-                const result=s.kind==='core'?reconcileCore(replay,s):s.kind==='external_oracle'?reconcileExternal(replay,s):reconcileOracle(replay,s);
+                const replay=s.kind==='core'?replayCore(s.contract,es,this.config.network):['external_oracle','expiry_oracle'].includes(s.kind)?replayExternal(es):replayOracle(es);
+                const result=s.kind==='core'?reconcileCore(replay,s):s.kind==='expiry_oracle'?reconcileExpiry(replay,s):s.kind==='external_oracle'?reconcileExternal(replay,s):reconcileOracle(replay,s);
                 results.push(result);
                 if(s.block_hash!==parent)fail('VIEW_BLOCK_MISMATCH');
                 if(s.kind==='core')for(const [key,amount] of replay.balances) {

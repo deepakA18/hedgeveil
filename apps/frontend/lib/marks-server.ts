@@ -1,5 +1,9 @@
 import { CoinbaseMarket } from "../../../services/market-data/coinbase.mjs";
-import { marketReference, MODEL } from "../../../services/maker/valuation.mjs";
+import {
+  marketReference,
+  MODEL,
+  TWAP_MODEL,
+} from "../../../services/maker/valuation.mjs";
 import { bridgeSettings } from "./desk-bridge.ts";
 import type { Series, Session, IndexState } from "./desk-types.ts";
 export interface MarkRow {
@@ -27,6 +31,8 @@ export function markRows(
   nowNs: string,
 ): MarkRow[] {
   return series.map((s) => {
+    const window = s.config.observation_window as
+      { start_ns?: string } | undefined;
     const unavailable = (reason: string): MarkRow => ({
       seriesId: s.config.series_id,
       kind: "UNAVAILABLE",
@@ -38,12 +44,21 @@ export function markRows(
       return unavailable("AWAITING_SETTLEMENT");
     if (
       s.final_price === null &&
-      s.config.oracle_version === "native-trade-twap-v1"
+      s.config.oracle_version === "native-trade-twap-v1" &&
+      (typeof window?.start_ns !== "string" || !/^\d+$/.test(window.start_ns))
     )
-      return unavailable("MODEL_TWAP_NOT_READY");
+      return unavailable("MODEL_INPUT_UNAVAILABLE");
     if (
       s.final_price === null &&
-      s.config.oracle_version !== "native-sampled-v1"
+      s.config.oracle_version === "native-trade-twap-v1" &&
+      BigInt(window!.start_ns!) <= BigInt(nowNs)
+    )
+      return unavailable("MODEL_PARTIAL_HISTORY_REQUIRED");
+    if (
+      s.final_price === null &&
+      !["native-sampled-v1", "native-trade-twap-v1"].includes(
+        String(s.config.oracle_version),
+      )
     )
       return unavailable("UNSUPPORTED_PROFILE");
     if (s.final_price === null && !snapshot)
@@ -114,7 +129,9 @@ export function createMarksReader({
         series.some(
           (s) =>
             s.final_price === null &&
-            s.config.oracle_version === "native-sampled-v1" &&
+            ["native-sampled-v1", "native-trade-twap-v1"].includes(
+              String(s.config.oracle_version),
+            ) &&
             BigInt(s.config.maturity_ns) > BigInt(clock()) * 1000000n,
         )
       ) {
@@ -133,7 +150,11 @@ export function createMarksReader({
               Number(BigInt(snapshot.timestamp_ns) / 1000000n),
             ).toISOString()
           : null,
-        model: MODEL,
+        model: series.some(
+          (s) => s.config.oracle_version === "native-trade-twap-v1",
+        )
+          ? TWAP_MODEL
+          : MODEL,
         source: snapshot
           ? "Coinbase Exchange, NEAR-USD"
           : "Registered chain state",

@@ -1,7 +1,9 @@
-import { buildIntent, canonical, fail, account } from './intent.mjs';
+import { buildIntent, canonical, fail, account, intentActions } from './intent.mjs';
 import { Rpc, binding, hash32 } from './rpc.mjs';
 import { FileJournal } from './journal.mjs';
 import { assess, matchTransaction } from './receipts.mjs';
+import { retainedSeries } from './series.mjs';
+import { expiredUnfilledQuote } from './quote-recovery.mjs';
 export class Client {
     constructor({ config, journal, transport }) {
         this.rpc = new Rpc(config, transport);
@@ -26,15 +28,19 @@ export class Client {
     async balances(account_id) {
         account(account_id);
         await this.rpc.verify();
+        const block = await this.rpc.request('block', {finality:'final'});
+        const blockHash = hash32(block.header.hash);
+        const view = (method, args = {}) => this.rpc.view(method, args, blockHash);
         const [accountState, tickets, vault, series] = await Promise.all([
-            this.rpc.view('get_account', { account_id }),
-            this.rpc.view('list_tickets', { account_id, from_index: 0, limit: 16 }),
-            this.rpc.view('get_vault'),
-            this.rpc.view('list_series', { from_index: 0, limit: 16 })
+            view('get_account', { account_id }),
+            view('list_tickets', { account_id, from_index: 0, limit: 16 }),
+            view('get_vault'),
+            retainedSeries(view)
         ]);
         return { network: this.rpc.config.network, contract_id: this.rpc.config.contract_id, account_id,
             account: accountState, tickets, vault, series,
-            consistency: 'Independent finalized views; not an atomic snapshot or proof of a prior send.' };
+            block_hash: blockHash,
+            consistency: 'Views pinned to one finalized block; not proof of a prior send.' };
     }
     async handoff(id) {
         const { intent } = await this.record(id);
@@ -42,8 +48,7 @@ export class Client {
         // Durable point of no retry, before returning any request to a wallet.
         await this.journal.claim(id);
         return Object.freeze({ signerId: intent.signer_id, receiverId: intent.domain.contract_id,
-            network: intent.domain.network, operationId: id, actions: [{ type: 'FunctionCall', methodName: intent.method,
-                    args: structuredClone(intent.args), deposit: intent.attached_deposit, gas: intent.gas }] });
+            network: intent.domain.network, operationId: id, actions: intentActions(intent) });
     }
     async submit(id, signer) {
         const request = await this.handoff(id);
@@ -75,8 +80,14 @@ export class Client {
         const record = await this.record(id);
         await this.rpc.verify();
         const hash = suppliedHash ?? record.hash ?? record.candidate_hash;
-        if (!hash)
+        if (!hash) {
+            if (record.result?.state === 'QUOTE_EXPIRED_UNFILLED') return record.result;
+            try {
+                const resolved = await expiredUnfilledQuote(this.rpc, record);
+                if (resolved) return this.journal.observe(id, resolved.result, resolved.evidence);
+            } catch { /* Missing evidence never resolves an unknown attempt. */ }
             return record.result ?? { operation_id: id, state: record.attempted ? 'SUBMISSION_UNKNOWN' : 'PREPARED' };
+        }
         hash32(hash);
         if (!record.attempted)
             fail('NOT_ATTEMPTED');

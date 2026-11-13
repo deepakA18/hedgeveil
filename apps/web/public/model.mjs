@@ -25,6 +25,7 @@ export function payoff(strike,price,quantity=String(Q)) {
     return {p:String(n*p/Q),n:String(n*(Q-p)/Q)};
 }
 export const stateText={
+ QUOTE_EXPIRED_UNFILLED:'Finalized chain state confirms this offer expired without a fill. Request a fresh offer to trade. Submission and gas status may still be unknown.',
  PREPARED:'Ready for review. Nothing has been sent.',
  CANCELLED:'Signing cancelled. This operation cannot be submitted again.',
  SUBMISSION_UNKNOWN:'Submission uncertain. Check receipts; do not repeat this action.',
@@ -57,6 +58,8 @@ export const errorText={
  ALREADY_ATTEMPTED:'This operation already has a signing attempt. Check receipts; never resubmit it.',
  BROWSER_STORAGE_UNAVAILABLE:'Browser storage is unavailable. Signing is disabled; use the recovery CLI.',
  RPC_UNAVAILABLE:'RPC unavailable. Recover this operation later; do not repeat a money-moving action.',
+ ACCOUNT_ALREADY_REGISTERED:'Account setup has already completed. Refresh your balance and review a deposit without another storage charge.',
+ PREVIEW_RPC_UNAVAILABLE:'Balance checks are temporarily unavailable. This review did not send a transaction to your wallet. Try reviewing again shortly.',
  INVALID_NEAR_AMOUNT:'Enter a non-negative decimal with at most 24 decimal places; no exponent or commas.',
  INVALID_INTEGER:'Enter a canonical whole atomic amount.',
  MISSING_OPERATION:'No retained operation was found. Use the server journal and recovery CLI; do not recreate a lost deposit.'

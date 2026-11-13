@@ -7,6 +7,7 @@ const ajv = new Ajv({strict:false, allErrors:true});
 const ledgerSchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/public-ledger.schema.json', import.meta.url))));
 const oracleSchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/oracle.schema.json', import.meta.url))));
 const externalSchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/external-oracle.schema.json', import.meta.url))));
+const expirySchema = ajv.compile(JSON.parse(readFileSync(new URL('../../packages/shared-schemas/expiry-oracle.schema.json', import.meta.url))));
 export const sha = value => createHash('sha256').update(value).digest('hex');
 export const digest = value => sha(canonical(value));
 export const success = status => status && Object.keys(status).length === 1 &&
@@ -45,14 +46,14 @@ export function extractEvents(row, watched, network='sandbox') {
     for(const [log_index,log] of row.outcome.logs.entries()) {
         if(!log.startsWith('EVENT_JSON:'))continue;
         let envelope;try{envelope=JSON.parse(log.slice(11));}catch{fail('EVENT_JSON_INVALID');}
-        const standard=contract.kind==='core'?'hedgeveil':contract.kind==='external_oracle'?'hedgeveil_external_oracle':'hedgeveil_oracle';
+        const standard=contract.kind==='core'?'hedgeveil':contract.kind==='expiry_oracle'?'hedgeveil_expiry_oracle':contract.kind==='external_oracle'?'hedgeveil_external_oracle':'hedgeveil_oracle';
         if(envelope.standard!==standard)continue;
-        if(contract.kind==='external_oracle'){
-            if(!externalSchema(envelope))fail('EXTERNAL_ORACLE_EVENT_SCHEMA');
+        if(['external_oracle','expiry_oracle'].includes(contract.kind)){
+            if(!(contract.kind==='expiry_oracle'?expirySchema:externalSchema)(envelope))fail('EXTERNAL_ORACLE_EVENT_SCHEMA');
             const event=envelope.data[0];
             if(event.network!==network||event.contract_id!==contract.account_id)fail('EXTERNAL_ORACLE_DOMAIN');
             uint(event.sequence,64,true);
-            out.push({receipt_id:row.id,log_index,item_index:0,contract:contract.account_id,kind:'external_oracle',name:envelope.event,payload:event});
+            out.push({receipt_id:row.id,log_index,item_index:0,contract:contract.account_id,kind:contract.kind,name:envelope.event,payload:event});
             continue;
         }
         if(contract.kind==='core') {
@@ -116,6 +117,30 @@ export function reconcileExternal(replay,snapshot){
     if(Object.keys(state.cases).length>16||Object.entries(state.cases).some(([id,c])=>id!==c.config.series_id||!externalSchema(c)))fail('EXTERNAL_ORACLE_CASE');
     if(BigInt(snapshot.native.amount)<10n**24n)fail('EXTERNAL_ORACLE_OPERATING_RESERVE');
     return {contract:snapshot.contract,kind:'external_oracle',sequence:replay.sequence,matched:true,state_hash:a.state_hash};
+}
+export function reconcileExpiry(replay,snapshot){
+    const state=snapshot.state,a=replay.aggregate;
+    if(!expirySchema(state))fail('EXPIRY_ORACLE_STATE_SCHEMA');
+    if(!a||replay.sequence!==snapshot.identity.sequence||replay.sequence!==state.sequence)fail('EVENT_SEQUENCE_GAP');
+    if(state.contract_id!==snapshot.contract||state.network!==snapshot.identity.network||state.version!=='native-trade-twap-v1'||a.contract_id!==snapshot.contract||a.network!==state.network)fail('EXPIRY_ORACLE_DOMAIN');
+    if(a.state_hash!==digest(state))fail('EXPIRY_ORACLE_STATE_MISMATCH');
+    const historical=snapshot.historical_cases??[],terms=snapshot.core_terms??{},all={...state.cases};
+    if(historical.length>32||historical.length>Number(state.archived_count??0))fail('EXPIRY_ORACLE_ARCHIVE');
+    for(const c of historical){
+        const id=c?.config?.series_id;
+        if(!id||Object.hasOwn(all,id)||!Object.hasOwn(terms,id)||c.price===null||c.pending!==null)fail('EXPIRY_ORACLE_ARCHIVE');
+        all[id]=c;
+    }
+    for(const [id,config] of Object.entries(terms))if(!all[id]||canonical(config)!==canonical(all[id].config))fail('EXPIRY_ORACLE_CORE_TERMS');
+    for(const [id,c] of Object.entries(all)){
+        if(id!==c.config.series_id||c.config.oracle_account_id!==snapshot.contract||!expirySchema(c)||
+            (c.price!==null&&c.price!==c.accepted?.price)||
+            BigInt(c.config.maturity_ns)-BigInt(c.config.observation_window.start_ns)!==1800000000000n||
+            BigInt(c.config.mint_cutoff_ns)>BigInt(c.config.observation_window.start_ns))fail('EXPIRY_ORACLE_CASE');
+    }
+    if(state.network==='testnet'&&state.source!=='outlayer.testnet')fail('EXPIRY_ORACLE_SOURCE');
+    if(BigInt(snapshot.native.amount)<10n**24n)fail('EXPIRY_ORACLE_OPERATING_RESERVE');
+    return {contract:snapshot.contract,kind:'expiry_oracle',sequence:replay.sequence,matched:true,state_hash:a.state_hash};
 }
 export function coreBalances(snapshot) {
     const out=new Map(),core=snapshot.contract;
@@ -181,6 +206,7 @@ export function alerts(snapshots, nowNs) {
                 if(x.state!=='FINALIZED'&&BigInt(nowNs)>=BigInt(x.config.maturity_ns))add('ORACLE_NOT_FINAL',s.contract,id);
                 if(x.state!=='FINALIZED'&&BigInt(nowNs)>=BigInt(x.config.maturity_ns)&&s.observations?.[id]?.PRIMARY===null)add('ORACLE_OBSERVATIONS_INCOMPLETE',s.contract,id);
                 if(s.kind==='external_oracle'&&x.price===null&&x.samples.some(sample=>sample===null)&&BigInt(nowNs)>=BigInt(x.config.maturity_ns))add('ORACLE_OBSERVATIONS_INCOMPLETE',s.contract,id);
+                if(s.kind==='expiry_oracle'&&x.price===null&&BigInt(nowNs)>=BigInt(x.config.maturity_ns))add(x.pending!==null?'ORACLE_REQUEST_PENDING':x.accepted!==null?'ORACLE_FINALIZATION_PENDING':'ORACLE_HISTORY_REQUIRED',s.contract,id);
                 if(x.proposal&&!x.bonds_released&&BigInt(nowNs)<BigInt(x.proposal.challenge_end)&&BigInt(nowNs)+60_000_000_000n>=BigInt(x.proposal.challenge_end))add('ORACLE_DEADLINE_APPROACHING',s.contract,id);
                 if(x.proposal&&!x.bonds_released&&BigInt(nowNs)>=BigInt(x.proposal.challenge_end))add('ORACLE_DEADLINE',s.contract,id);
             }

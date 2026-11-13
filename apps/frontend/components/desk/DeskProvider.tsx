@@ -8,7 +8,8 @@ import {
   useCallback,
   type ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
+import { transactionToast, Spinner, errorToast } from "./Feedback";
+import type { ReceiptResult } from "../../lib/operation-feedback";
 import type { SignRequest } from "../../../../packages/sdk/index.mjs";
 import type { NearConnector } from "@hot-labs/near-connect";
 import { nearConnectSigner } from "../../../../packages/sdk/near-connect.mjs";
@@ -102,7 +103,6 @@ export function DeskProvider({
   nonce: string;
   children: ReactNode;
 }) {
-  const router = useRouter();
   const [clock, setClock] = useState<{
     serverMs: number;
     receivedAt: number;
@@ -175,7 +175,7 @@ export function DeskProvider({
     [checkedAtMono, setCheckedAtMono] = useState(0),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
-    [notice, setNotice] = useState(""),
+    [notice] = useState(""),
     [picker, setPicker] = useState(false),
     [preview, setPreview] = useState<Preview | null>(null),
     [attempted, setAttempted] = useState(false),
@@ -350,14 +350,10 @@ export function DeskProvider({
           try {
             const hint = walletReturn(u.href, id);
             await api("remember-hash", { id, hash: hint.hash });
-            await api("recover", { id });
-            setNotice(
-              "Wallet return checked. See Activity for the receipt result.",
-            );
+            const result = await api<ReceiptResult>("recover", { id });
+            transactionToast(id, result, hint.hash);
           } catch {
-            setNotice(
-              "Wallet return is unresolved. Check the retained operation in Activity; do not repeat it.",
-            );
+            transactionToast(id, { state: "UNKNOWN" });
           }
         }
         await refresh();
@@ -420,8 +416,11 @@ export function DeskProvider({
         if (waiting.length) {
           const r = waiting[cursor++ % waiting.length];
           try {
-            await api("recover", { id: r.intent.operation_id });
+            const result = await api<ReceiptResult>("recover", {
+              id: r.intent.operation_id,
+            });
             if (active && selected.current === account) {
+              transactionToast(r.intent.operation_id, result, r.hash);
               setReceiptCheck("Receipts checked automatically.");
               await refresh();
             }
@@ -477,6 +476,9 @@ export function DeskProvider({
       selectAccount("");
       setConnectionError(
         "Connection wasn’t completed. Try your wallet again, or choose another.",
+      );
+      errorToast(
+        "Wallet connection was not completed. Try again or choose another wallet.",
       );
       setPicker(true);
     } finally {
@@ -535,9 +537,14 @@ export function DeskProvider({
     if (busyRef.current) return;
     lock(true);
     try {
-      await api("recover", { id, ...(hash ? { hash } : {}) });
-      setNotice(
-        "Receipt check completed. The recorded status below is authoritative.",
+      const result = await api<ReceiptResult>("recover", {
+        id,
+        ...(hash ? { hash } : {}),
+      });
+      transactionToast(
+        id,
+        result,
+        hash ?? records.find((r) => r.intent.operation_id === id)?.hash,
       );
       await refresh();
     } catch (e) {
@@ -553,6 +560,8 @@ export function DeskProvider({
     setAttempted(true);
     const id = preview.intent.operation_id,
       before = revision.current;
+    let submittedHash: string | undefined;
+    transactionToast(id, { state: "PENDING" });
     try {
       persist(id, "attempting");
       const request = await api<SignRequest>("handoff", { id });
@@ -569,23 +578,26 @@ export function DeskProvider({
           account: selected.current,
         }),
         allowedWallets: session!.manifest.wallets.map((w) => w.id),
-        returnUrl: location.origin + "/activity",
+        returnUrl: location.origin + location.pathname + location.search,
       });
       const result = await sign(request, async (hash: string) => {
+        submittedHash = hash;
+        transactionToast(id, { state: "PENDING", hash });
         await api("remember-hash", { id, hash });
       });
-      if (result && "hash" in result && result.hash)
+      if (result && "hash" in result && result.hash) {
+        submittedHash = result.hash;
+        transactionToast(id, { state: "PENDING", hash: result.hash });
         await api("remember-hash", { id, hash: result.hash });
-      await api("recover", { id });
+      }
+      const receipt = await api<ReceiptResult>("recover", { id });
+      transactionToast(id, receipt, submittedHash);
       setPreview(null);
-      setNotice(
-        "Signing attempt recorded. Check Activity for finalized receipt status.",
-      );
-      router.push("/activity");
       await refresh();
     } catch (e) {
+      transactionToast(id, { state: "UNKNOWN" }, submittedHash);
       setReviewError(
-        message(e) + " Check Activity before starting another attempt.",
+        message(e) + " The outcome needs verification; do not resend.",
       );
     } finally {
       lock(false);
@@ -596,7 +608,6 @@ export function DeskProvider({
     if (!preview) return;
     if (attempted) {
       setPreview(null);
-      router.push("/activity");
       void refresh();
       return;
     }
@@ -608,6 +619,7 @@ export function DeskProvider({
       void refresh();
     } catch (e) {
       setReviewError(message(e));
+      errorToast(message(e));
     } finally {
       lock(false);
     }
@@ -714,6 +726,26 @@ export function DeskProvider({
               <dt>Attached NEAR</dt>
               <dd>{formatNear(preview.intent.attached_deposit)}</dd>
             </div>
+            {preview.intent.storage_deposit && (
+              <>
+                <div>
+                  <dt>Trading funds</dt>
+                  <dd>
+                    {formatNear(
+                      String(
+                        BigInt(preview.intent.attached_deposit) -
+                          BigInt(preview.intent.storage_deposit),
+                      ),
+                    )}{" "}
+                    NEAR
+                  </dd>
+                </div>
+                <div>
+                  <dt>Account storage</dt>
+                  <dd>{formatNear(preview.intent.storage_deposit)} NEAR</dd>
+                </div>
+              </>
+            )}
             <div>
               <dt>Gas allowance</dt>
               <dd>{formatNear(preview.gas_allowance)} NEAR</dd>
@@ -759,13 +791,14 @@ export function DeskProvider({
               disabled={busy}
               onClick={() => void closeReview()}
             >
-              {attempted ? "Close and check Activity" : "Cancel"}
+              {attempted ? "Close" : "Cancel"}
             </button>
             <button
               className="desk-button lime"
               disabled={busy || attempted || !!preview.blockers.length}
               onClick={() => void submit()}
             >
+              {busy && <Spinner />}
               {busy ? "Waiting…" : "Continue in wallet"}
             </button>
           </div>
