@@ -908,3 +908,23 @@ observations older than 90 seconds hide the countdown. This is not a completion
 ETA. Chain finality still determines whether a payout is fixed. Cap-hit cases
 remain delayed; users holding both matching legs retain the contract's merge
 path, without requiring an oracle result.
+
+### Position P&L display (APP-02, 2026-11-14)
+
+Unrealized P&L is a display-only NEAR estimate: a fresh exact-size sell offer's
+proceeds minus its fee minus the remaining confirmed acquisition cost (buy cost
+plus buy fee). Gas is excluded. Offers are not reserved or guaranteed fills.
+Expiry intrinsic value is never substituted for a sell offer. Finalized holdings
+use the fixed claim payout and are labelled settlement P&L instead.
+
+The initial cost-basis implementation accepts confirmed, deployment/account-bound
+RFQ buys whose inventory reconciles with the displayed holding. It supports
+partial dispositions from a single purchase, allocating cost proportionally
+(rounding remaining cost up). Multiple purchases with dispositions require ordered
+execution history and are unavailable until that history is supplied. Pair creation,
+missing history, malformed evidence, or unresolved position-changing operations
+make basis unavailable; no arbitrary per-leg split allocation is used. This is
+application-recorded acquisition accounting, not tax accounting or a completeness
+claim for activity outside the application. Sell-offer checks are explicit,
+read-only quote requests; expiry or changed account/holding/history invalidates
+the displayed result. Contract economics and execution gates are unchanged.

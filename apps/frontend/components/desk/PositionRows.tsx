@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useDesk } from "./DeskProvider";
 import { useNow, WalletGate } from "./Elements";
 import { Countdown, Num, StateBadge } from "./TerminalPrimitives";
+import { PositionPnl } from "./PositionPnl";
+import { InfoPopover } from "./InfoPopover";
 import { LockedPayout } from "./SettlementPanel";
 import {
   fixedPayout,
@@ -69,7 +71,17 @@ export function PositionRows({ expert = false }: { expert?: boolean }) {
               Units
             </TableHead>
             <TableHead scope="col" className="position-number">
-              Payout
+              Expiry payout
+            </TableHead>
+            <TableHead scope="col" className="position-number">
+              Unrealized P&L{" "}
+              <InfoPopover label="Unrealized P&L">
+                A fresh sell offer minus your recorded purchase cost, including
+                trading fees. Gas excluded. Offers can change before execution.
+                Finalized positions use the fixed claim payout. Pair-created
+                positions and incomplete entry history have no per-leg cost
+                basis.
+              </InfoPopover>
             </TableHead>
             <TableHead scope="col" className="position-number">
               Matched pairs
@@ -170,7 +182,7 @@ export function PositionRows({ expert = false }: { expert?: boolean }) {
                   )}
                   <small>
                     {fixed === null
-                      ? "At current spot, estimate"
+                      ? "If expiry price equals spot"
                       : "Final payout"}
                   </small>
                   {now &&
@@ -184,6 +196,15 @@ export function PositionRows({ expert = false }: { expert?: boolean }) {
                         />
                       </details>
                     )}
+                </TableCell>
+                <TableCell className="position-number">
+                  <PositionPnl
+                    series={s}
+                    claim={claim}
+                    quantity={quantity}
+                    fixed={fixed}
+                    open={state === "OPEN"}
+                  />
                 </TableCell>
                 <TableCell className="position-number">
                   <Num value={matched} unit="" />

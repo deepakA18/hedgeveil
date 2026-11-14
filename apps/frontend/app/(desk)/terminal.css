@@ -2313,3 +2313,28 @@
   margin-top: 6px;
   font-variant-numeric: tabular-nums;
 }
+
+.position-pnl {
+  min-width: 145px;
+}
+.position-pnl > small {
+  display: block;
+}
+.position-pnl button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.position-pnl button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

@@ -1493,3 +1493,26 @@ Dependencies: retained FINAL request/receipt trees, source request identity, res
 Implementation: durable per-operation delivery archive, read-only history backfill, strict public projection, per-series private policy loading, and compact progress/history UI. Ordinary policy remains one request; explicitly reviewed policies retain the hard three-attempt/30-second-backoff/15-minute-authorization limits. No general automatic retry activation or new spending this task. STALE_TRADE cause and historical recovery remain open.
 
 Evidence: 39 focused telemetry/recovery/coordinator/UI tests and 16 release checks (overlapping suites), frontend typecheck, schema generation check, successful webpack production build, actual Railway/Vercel deployment, public browser desktop/mobile progress/history checks, and two-maker P/N offers with ten open series. See `research/reports/delivery-distribution-2026-11-14.json` and `delivery-progress-release-2026-11-14.json`. Reviewer: implementation-agent code/test/browser checks; independent review pending.
+
+### APP-02 position unrealized P&L — 2026-11-14
+
+Implemented locally in the shared Portfolio/Trade positions table. Dependencies:
+confirmed application operation records, current deployment/account holdings,
+existing authenticated RFQ endpoint and exact payoff helpers. Invariant: acquisition
+cost includes buy fees; unrealized exit value comes only from a fresh full-size
+sell offer net of sell fees. Gas excluded; no intrinsic/model mark is passed off
+as a sale value. Final payout is labelled settlement P&L. Checks never sign or send.
+
+Failure paths: missing or conflicting inventory evidence, pair creation without
+per-leg allocation, mixed purchases/dispositions lacking execution order and
+unresolved receipts hide basis. Missing sell offers, unavailable makers, expired
+quotes and account/holding/history changes hide the estimate. The explicit
+per-position check avoids polling every holding or spending tokens on a valuation.
+Single-purchase partial dispositions allocate remaining cost proportionally,
+rounding up. No tax-accounting or complete external-history claim.
+
+Evidence: `tests/e2e/position-pnl.test.mjs` (5 tests), trade-review (5) and
+next-market-display (8) pass. Typecheck and production webpack build pass;
+Turbopack cannot bind a subprocess port in this environment. Reviewer:
+implementation-agent self-review; independent review, connected-wallet browser
+acceptance and public deployment pending. Contract behavior unchanged.
