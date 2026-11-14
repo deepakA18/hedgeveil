@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "checked_at": "2026-11-14T02:23:58.714Z",
+  "scope": "deployment-preparation",
+  "public_ready": false,
+  "production_enabled": false,
+  "checks": [
+    {
+      "id": "node",
+      "pass": true
+    },
+    {
+      "id": "testnet-binding",
+      "pass": true
+    }
+  ],
+  "services": [
+    {
+      "id": "frontend",
+      "required": true,
+      "state": "operational",
+      "observed_at": "2026-11-14T02:23:58.700Z"
+    },
+    {
+      "id": "prices",
+      "required": true,
+      "state": "operational",
+      "observed_at": "2026-11-14T02:23:53.540Z"
+    },
+    {
+      "id": "api",
+      "required": true,
+      "state": "operational",
+      "observed_at": "2026-11-14T02:23:57.829Z"
+    },
+    {
+      "id": "indexer",
+      "required": true,
+      "state": "unknown",
+      "observed_at": null
+    },
+    {
+      "id": "rpc",
+      "required": true,
+      "state": "unknown",
+      "observed_at": null
+    },
+    {
+      "id": "contracts",
+      "required": true,
+      "state": "unknown",
+      "observed_at": null
+    },
+    {
+      "id": "maker-1",
+      "required": true,
+      "state": "operational",
+      "observed_at": "2026-11-14T02:23:53.688Z"
+    },
+    {
+      "id": "maker-2",
+      "required": true,
+      "state": "operational",
+      "observed_at": "2026-11-14T02:23:53.688Z"
+    },
+    {
+      "id": "settlement",
+      "required": true,
+      "state": "degraded",
+      "observed_at": "2026-11-14T02:23:24.931Z"
+    },
+    {
+      "id": "renewal",
+      "required": true,
+      "state": "degraded",
+      "observed_at": "2026-11-14T02:23:24.939Z"
+    },
+    {
+      "id": "discovery",
+      "required": false,
+      "state": "degraded",
+      "observed_at": "2026-11-14T02:23:22.248Z"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "PUBLIC_ACCESS_BOUNDARY",
+      "detail": "HTTPS origin support, authenticated operation ownership and bounded request rates need implementation and cross-user tests."
+    },
+    {
+      "id": "SETTLEMENT_ACCEPTANCE",
+      "detail": "Current-profile settlement, import and both-leg redemption require final receipt evidence."
+    },
+    {
+      "id": "RENEWAL_ACCEPTANCE",
+      "detail": "A subsequent public market renewal requires final receipt evidence."
+    },
+    {
+      "id": "FIRST_DEPOSIT_ACCEPTANCE",
+      "detail": "Combined first-deposit flow requires a first-time external wallet acceptance run."
+    },
+    {
+      "id": "HOST_RESTORE_ACCEPTANCE",
+      "detail": "Target-host restore, restart, backup and single-signer ownership need acceptance."
+    },
+    {
+      "id": "PUBLIC_WALLET_ACCEPTANCE",
+      "detail": "Wallet connect, signing, rejection and receipt recovery need checks on the final HTTPS origin."
+    },
+    {
+      "id": "INDEPENDENT_REVIEW",
+      "detail": "Independent release review remains pending."
+    }
+  ],
+  "runtime_ready": false,
+  "note": "Runtime health is not release acceptance. FASTNEAR is an incomplete additive audit in the approved receipt-reconciliation demo mode. Manual gates cannot be waived by this command."
+}

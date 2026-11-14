@@ -8,7 +8,10 @@ export async function walletAssets({download=false}={}) {
     const assets=new Map();
     for(const w of walletLock.wallets){
         const path=new URL('.local'+w.manifest.executor,root);let data;
-        try{data=await readFile(path);}catch(e){
+        try{
+            try{data=await readFile(new URL('wallets/executors'+w.manifest.executor.slice('/wallet-executors'.length),root));}
+            catch(e){if(e.code!=='ENOENT')throw e;data=await readFile(path);}
+        }catch(e){
             if(e.code!=='ENOENT'||!download)throw Error('WALLET_ASSETS_MISSING: run npm run build:wallet');
             const r=await fetch(w.source,{signal:AbortSignal.timeout(30000)});
             if(!r.ok)throw Error('WALLET_DOWNLOAD_FAILED');data=Buffer.from(await r.arrayBuffer());

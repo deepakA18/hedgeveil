@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-11-14T06:42:32.854Z",
+  "platform": "linux/amd64",
+  "runner": "Docker Desktop",
+  "image_id": "sha256:3c0ede2d794632e5985bf034a93a28abee1cf474f210a4f1633b83bbefed8cbf",
+  "image_user": "node (uid 1000)",
+  "image_bytes": 176617832,
+  "source_hashes": {
+    "deploy/container/Dockerfile": "bc2cb19a3b7319f7ca250bbe4d595b4dbd891b73ecf6505d861d58aa5cfc447d",
+    "deploy/container/check-workspace.mjs": "26b1f199cc945f77529504d8ecb279b6591053336a11e823ed6d71b168f796e6",
+    "deploy/container/start.sh": "b484e17e481affd1f7e231ba42fa84bb99027004ac280b5fdbbbd137683650c4",
+    "deploy/container/smoke.mjs": "8d50a89e99cdc5cbde07a86ea41f6635edf1361efd1f04a0210bb43952642d4c",
+    "deploy/container/railway.json": "b3749c5ccf74348fe16a892db9232605032900b69956a4f08dca534b89834320",
+    ".dockerignore": "fb2c1060780a0c0c34acfacc5aa487ae56a7d5ed7963c6b4c8751248df2e0323",
+    "apps/web/build-wallet.mjs": "0b05fa268d09d7c97c65f8504fca89e275310edfef193dd9775347bcae93b62c"
+  },
+  "checks": {
+    "locked_build": true,
+    "runtime_imports": true,
+    "wallet_integrity": true,
+    "postgres_schema": true,
+    "postgres_exact_amount": true,
+    "postgres_restart": true,
+    "entrypoint_empty_workspace_exit": 1,
+    "railway_official_schema": true
+  },
+  "isolation": {
+    "network_during_smoke": "none",
+    "live_workspace_mounted": false,
+    "chain_writes": 0,
+    "host_resources_created": false
+  },
+  "limitations": [
+    "Actual host restore pending",
+    "Public authenticated gateway and operation ownership pending",
+    "Ten-user target-host load pending",
+    "Settlement/renewal acceptance unresolved",
+    "Independent review pending"
+  ],
+  "public_ready": false
+}

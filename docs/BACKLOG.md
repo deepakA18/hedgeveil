@@ -1369,3 +1369,38 @@ Removed the redundant Add / withdraw funds action from the Portfolio heading; Fu
 ### Footer alignment — 14 November 2026
 
 Removed the requested “Test assets. Production disabled” footer text. Shared footer link groups now align to opposite viewport edges with 12px insets, wrapping on mobile. Dependencies: shared SiteFooter and theme styles. Invariant: production execution remains disabled; only presentation changed. Failure path: narrow widths wrap without clipping. Evidence: production Webpack/TypeScript build and browser checks at 1440/768/375px passed; both edge offsets measured 12px, removed text absent, no horizontal overflow. Reviewer: implementation-agent verification; independent review pending.
+
+### REL-01 / REL-02 hosted deployment preparation — 14 November 2026
+
+Added `docs/DEPLOYMENT.md` covering actual runtime dependencies, the single-writer persistent topology, private staging boundaries, protected state migration, restore and rollback. Added read-only `scripts/deployment-preflight.mjs`; it never reads secrets/private journals or submits chain operations. HTTPS/session-bound operation ownership and request limits are explicit missing implementation gates: the current loopback bridge and shared operation API are not safe to expose by rewriting proxy headers. Frontend target is Vercel at hedgeveil.vercel.app (name availability unverified); Railway is the recommended persistent backend; provisioning remains pending. apps/frontend/vercel.json provides locked installation and Webpack build settings. Root .vercelignore excludes local secrets/state from CLI uploads. The runbook records the required monorepo root and shared-source setting; hosted build and public bridge acceptance are not claimed.
+
+Dependencies: selected hosting target, retained expiry workspace/database, immutable deployment bindings, real final receipt acceptance and independent review. Invariant: health does not imply acceptance; missing/stale/duplicate telemetry and unresolved operations cannot authorize release or resend. Failure path: report public readiness false; unavailable diagnostics remain unknown; full-block audit remains additive, not claimed complete. Evidence: five preflight regression checks and `git diff --check` pass; real sanitized checkpoint in `research/reports/deployment-preflight-2026-11-14.json`. Frontend/spot/API/maker heartbeats respond, but reconciliation freshness is unverified and settlement/renewal/discovery are degraded at that observation. No host resources, public listeners, migrations or funds transfers performed. Clean target-OS build/restore and public-origin acceptance remain pending. Reviewer: implementation-agent verification; independent review pending.
+
+
+### REL-01 private backend container — 14 November 2026
+
+Railway is the recommended backend alongside Vercel. Added a digest-pinned Node
+22.22.2 Linux Dockerfile, explicit source build context, UID 1000 runtime and
+Railway config requiring a persistent mount, one replica, no sleeping, no
+restart loop and 150-second drain. Startup refuses absent PostgreSQL 18, retained
+process locks, unsafe file ownership/symlinks and a mismatched core binding.
+It does not initialize missing state, load keys in the precheck, delete locks,
+start a second live signer or expose a public listener.
+
+The clean build found Meteor's mutable download no longer matched the existing
+pin. The two unchanged public executors were retained from hash-verified local
+build assets with upstream licenses. Build/runtime still check the original
+hashes; no wallet code, permission or manifest upgrade was accepted.
+
+Dependencies: restored expiry workspace and journals, compatible public binding,
+Linux PostgreSQL 18, protected single-writer cutover and authenticated gateway.
+Invariant: packaging cannot erase receipt uncertainty or authorize replay; local
+state is excluded from image layers. Failure path: absent/incompatible state or
+retained crash lock exits without reset; public launch gates remain false.
+Evidence: Linux/amd64 image build; isolated network-disabled PostgreSQL schema,
+exact amount and restart checks; pinned wallet/runtime imports; real entrypoint
+empty-volume refusal; 13 focused startup/preflight/wallet tests; Railway official
+schema validation. See `research/reports/backend-container-2026-11-14.json`.
+No actual host provision/migration, ten-user target-host benchmark or public
+wallet-origin acceptance claimed. Reviewer: implementation-agent verification;
+independent review pending. Existing settlement and renewal blockers remain open.

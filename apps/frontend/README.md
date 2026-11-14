@@ -195,3 +195,10 @@ node tests/e2e/status-live.mjs
 
 The browser check needs the real frontend/backend running. Its simulated outage
 is intercepted only inside the test browser; product data remains real.
+
+## Hosting preparation
+
+The selected frontend target is Vercel (`hedgeveil.vercel.app`, availability pending).
+See [deployment setup and outstanding public-access gates](../../docs/DEPLOYMENT.md#vercel-frontend-setup).
+Use `apps/frontend` as the root and include shared source outside that directory.
+The backend requires separate persistent hosting; the current loopback bridge is not public-ready.

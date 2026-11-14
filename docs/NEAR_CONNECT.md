@@ -72,9 +72,12 @@ The [CLI](CLIENT.md) can recover using the same journal with the frontend closed
 ## Runtime and trust boundaries
 
 `apps/web/wallets/lock.json` freezes the allowlist, metadata, executor URLs and
-SHA-256 hashes. `build-wallet.mjs` downloads the public scripts into ignored
-`apps/web/.local/wallet-executors/`, verifies their hashes, and bundles the browser
-entry. Startup rechecks the cached bytes before serving them from memory.
+SHA-256 hashes. `build-wallet.mjs` first reads the unchanged public executors in
+`apps/web/wallets/executors/`, verifies their hashes, and bundles the browser
+entry. It retains the local-cache/download fallback if an executor is absent;
+all sources must match the same pin. Startup rechecks bytes before serving them
+from memory. The retained copies and upstream licenses make clean builds work
+after a mutable vendor URL changes; no private wallet state is included.
 Version IDs include the hash to isolate NEAR Connect's executor cache. Changed
 upstream bytes fail closed; updating a pin requires inspecting the source and
 rerunning acceptance. Upstream URLs are mutable and may stop serving the pinned
