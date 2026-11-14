@@ -1,0 +1,121 @@
+{
+  "at": "2026-11-14T09:18:04.464Z",
+  "expiry_seconds": "1794581917",
+  "authenticated_by_outlayer": false,
+  "settlement_eligible": false,
+  "pages": [
+    {
+      "status": 200,
+      "bytes": 114397,
+      "first": "2026-11-14T09:17:57.033772Z",
+      "last": "2026-11-14T08:08:33.741901Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114097,
+      "first": "2026-11-14T08:08:33.741901Z",
+      "last": "2026-11-14T07:44:15.570053Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114022,
+      "first": "2026-11-14T07:44:15.570053Z",
+      "last": "2026-11-14T07:18:24.370858Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114088,
+      "first": "2026-11-14T07:18:22.048831Z",
+      "last": "2026-11-14T06:02:10.350323Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114460,
+      "first": "2026-11-14T06:02:05.128750Z",
+      "last": "2026-11-14T05:06:53.420910Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114964,
+      "first": "2026-11-14T05:06:52.590359Z",
+      "last": "2026-11-14T04:50:28.809689Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114812,
+      "first": "2026-11-14T04:50:28.742830Z",
+      "last": "2026-11-14T04:37:54.554546Z"
+    },
+    {
+      "status": 200,
+      "bytes": 115023,
+      "first": "2026-11-14T04:37:54.490654Z",
+      "last": "2026-11-14T04:33:35.449327Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114430,
+      "first": "2026-11-14T04:33:35.197836Z",
+      "last": "2026-11-14T04:31:21.658021Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114888,
+      "first": "2026-11-14T04:31:21.657587Z",
+      "last": "2026-11-14T04:26:57.959779Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114511,
+      "first": "2026-11-14T04:26:57.887644Z",
+      "last": "2026-11-14T04:09:16.434170Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114973,
+      "first": "2026-11-14T04:09:16.434170Z",
+      "last": "2026-11-14T03:59:14.198643Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114121,
+      "first": "2026-11-14T03:59:08.256146Z",
+      "last": "2026-11-14T03:31:48.430103Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114447,
+      "first": "2026-11-14T03:31:48.430103Z",
+      "last": "2026-11-14T03:07:32.543749Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114309,
+      "first": "2026-11-14T03:07:32.543749Z",
+      "last": "2026-11-14T02:30:00.531090Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114098,
+      "first": "2026-11-14T02:30:00.531090Z",
+      "last": "2026-11-14T02:21:33.952598Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114010,
+      "first": "2026-11-14T02:21:27.294982Z",
+      "last": "2026-11-14T01:44:11.684562Z"
+    },
+    {
+      "status": 200,
+      "bytes": 114191,
+      "first": "2026-11-14T01:44:11.669747Z",
+      "last": "2026-11-14T01:22:40.868547Z"
+    }
+  ],
+  "result": "EVIDENCE_LIMIT",
+  "interpretation": "Read-only reproduction reaches the worker-compatible 2 MB evidence bound before the requested historical window. This diagnoses a late-retrieval limitation; Outlayer receipts expose only a generic execution failure, so its internal error is not independently confirmed.",
+  "worker_sha256": "86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43",
+  "artifact_http_status": 200,
+  "artifact_bytes": 556708
+}

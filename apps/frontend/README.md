@@ -201,4 +201,13 @@ is intercepted only inside the test browser; product data remains real.
 The selected frontend target is Vercel (`hedgeveil.vercel.app`, availability pending).
 See [deployment setup and outstanding public-access gates](../../docs/DEPLOYMENT.md#vercel-frontend-setup).
 Use `apps/frontend` as the root and include shared source outside that directory.
-The backend requires separate persistent hosting; the current loopback bridge is not public-ready.
+The backend requires separate persistent hosting. Explicit hosted mode now supports
+an authenticated HTTPS bridge and NEP-413 wallet sessions; configuration, limits
+and remaining final-host acceptance are documented in `docs/DEPLOYMENT.md`.
+Local mode stays loopback-only. Hosted credentials must be server-only variables.
+
+Security regression checks (local keys/transports; no chain writes):
+
+```sh
+node --test tests/wallet/hosted-auth.test.mjs tests/e2e/next-bridge.test.mjs
+```

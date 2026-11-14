@@ -1,5 +1,5 @@
 import { readSpot } from "./spot-server.ts";
-import { bridgeSettings } from "./desk-bridge.ts";
+import { backendHeaders, bridgeSettings } from "./desk-bridge.ts";
 import type { ServiceCheck, StatusReport, StatusSnapshot } from "./status.ts";
 
 // Bounded, observation-only history. No network writes or background RFQs.
@@ -21,6 +21,7 @@ export function createStatusReader(
       const [api, price] = await Promise.allSettled([
         (async () => {
           const response = await transport(backend() + "/api/status", {
+            headers: backendHeaders(),
             cache: "no-store",
             redirect: "error",
             signal: AbortSignal.timeout(5000),

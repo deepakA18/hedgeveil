@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useDesk } from "./DeskProvider";
+import { SettlementProgress } from "./SettlementProgress";
 import { Countdown, StateBadge, Num } from "./TerminalPrimitives";
 import {
   freshSpot,
@@ -196,17 +197,19 @@ export function SeriesList({
                         </span>
                       </span>
                     )}
-                    {state === "RESOLUTION_DELAYED" && (
-                      <span className="series-blocker">
-                        {missed.length === 3
-                          ? "Window elapsed without reports"
-                          : missed.length
-                            ? "Missing sample" +
-                              (missed.length > 1 ? "s " : " ") +
-                              missed.join(", ")
-                            : "Settlement evidence unavailable"}
-                      </span>
-                    )}
+                    <SettlementProgress series={s} compact />
+                    {state === "RESOLUTION_DELAYED" &&
+                      s.config.oracle_version !== "native-trade-twap-v1" && (
+                        <span className="series-blocker">
+                          {missed.length === 3
+                            ? "Window elapsed without reports"
+                            : missed.length
+                              ? "Missing sample" +
+                                (missed.length > 1 ? "s " : " ") +
+                                missed.join(", ")
+                              : "Settlement evidence unavailable"}
+                        </span>
+                      )}
                     {best && state === "OPEN" && (
                       <span className="series-quote-line">
                         <span>Signed size</span>

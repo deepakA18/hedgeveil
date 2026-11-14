@@ -1,0 +1,68 @@
+{
+  "at": "2026-11-14T09:18:58.368Z",
+  "transactions_submitted": 0,
+  "quotes": [
+    {
+      "leg": "P",
+      "status": 400,
+      "ms": 346,
+      "error": "INDEXER_UNHEALTHY"
+    },
+    {
+      "leg": "N",
+      "status": 400,
+      "ms": 393,
+      "error": "INDEXER_UNHEALTHY"
+    }
+  ],
+  "reconciliation": {
+    "state": "TRANSACTION_NOT_FINAL",
+    "failed_at": "2026-11-14T09:18:54.715Z",
+    "risk_allowed": false,
+    "failure_progress": {
+      "rpc": {
+        "url": "https://testnet-rpc.intea.rs/",
+        "method": "tx",
+        "tx_hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3"
+      },
+      "phase": "receipts",
+      "total": 85,
+      "completed": 44,
+      "transport": {
+        "url": "https://testnet-rpc.intea.rs/",
+        "at_ms": 1794647934493,
+        "method": "tx",
+        "reason": "RPC_TRANSACTION_UNKNOWN",
+        "rpc_code": -32000,
+        "rpc_cause": "UNKNOWN_TRANSACTION",
+        "http_status": 200
+      },
+      "started_at": "2026-11-14T09:18:49.643Z"
+    },
+    "stale": true,
+    "age_ms": 460226,
+    "cursor_hash": "CT2mkvf7p4Bt7cESmzymW7RQ57ThABnJ6D2fZtzb2HX5",
+    "height": "277636727",
+    "generation": "1001",
+    "discovery": {
+      "source": "neardata-testnet",
+      "required": false,
+      "baseline_height": "277508185",
+      "height": "277516847",
+      "scanned_height": "277516847",
+      "observed_height": "277637326",
+      "lag_blocks": 120479,
+      "state": "SCANNING",
+      "fresh": true,
+      "checked_at": "2026-11-14T09:18:23.980Z",
+      "retry_at_ms": "1794573858977"
+    }
+  },
+  "open_series": 5,
+  "owner_chain_balance": {
+    "free": "79254298768443215967500",
+    "storage_paid": "40960000000000000000000"
+  },
+  "series": "l04003855dc0ecf8af6ef7052",
+  "scope": "Read-only authenticated public-origin RFQ check; no trade submitted. Snapshot during pending external settlement receipts."
+}

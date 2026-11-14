@@ -7,7 +7,7 @@ import {privateRead,durableWrite} from '../demo/storage.mjs';
 import {deploymentProfiles} from './expiry.mjs';
 import {CoinbaseMarket} from '../market-data/coinbase.mjs';
 import {marketHead} from '../maker/valuation.mjs';
-import {terminal} from '../../packages/sdk/journal.mjs';
+import {adminTerminal as terminal} from './admin-outcomes.mjs';
 import {readdir} from 'node:fs/promises';
 const w=await loadWorkspace('expiry'),{directory,plan}=w,a=adminFor(directory,plan);
 const lock=join(directory,'admin-journal','.expiry-coordinator-running');let owned=false;

@@ -1,0 +1,125 @@
+{
+  "at": "2026-11-14T09:13:30.055Z",
+  "status": "FINAL",
+  "case": {
+    "config": {
+      "series_id": "acceptance-20261113",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3569750000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794581917000000000",
+      "mint_cutoff_ns": "1794580117000000000",
+      "observation_window": {
+        "start_ns": "1794580117000000000",
+        "end_ns": "1794581917000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    "pending": null,
+    "accepted": null,
+    "price": null,
+    "last_result": "REJECTED"
+  },
+  "outcomes": [
+    {
+      "id": "9WkvV9V16D1do4LFRDUEXKoU5nCBwKT5DapgPtdnGfrr",
+      "executor": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "status": {
+        "SuccessReceiptId": "EJgUA7oGEttRAwdPYANW2wQEDb46KWUDR1seUdMqmeSU"
+      },
+      "logs": [
+        "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"EVIDENCE_REQUESTED\",\"data\":[{\"network\":\"testnet\",\"contract_id\":\"366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792\",\"sequence\":\"13\",\"state_hash\":\"b7fd8cdc47f376706c7d9f09f0dabe39aaf4d0763c767850eb598772787e73bf\"}]}"
+      ]
+    },
+    {
+      "id": "q1hCeCm5Qfmcir7ibFpUADt3gpvFcpcNt53HCwLBQd5",
+      "executor": "outlayer.testnet",
+      "status": {
+        "SuccessReceiptId": "FhEJmEHkNvW1en14arXMJjizUuG8siBowuo39TCJzKBy"
+      },
+      "logs": [
+        "EVENT_JSON:{\"standard\":\"near-outlayer\",\"version\":\"1.0.0\",\"event\":\"execution_requested\",\"data\":[{\"request_data\":\"{\\\"request_id\\\":43889,\\\"sender_id\\\":\\\"09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66\\\",\\\"predecessor_id\\\":\\\"366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792\\\",\\\"code_source\\\":{\\\"WasmUrl\\\":{\\\"url\\\":\\\"https://test.fastfs.io/20ddea9833434ebf11950ff12d97554cb32a78331c80b2c6f241b2108aed555b/outlayer.testnet/86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43.wasm\\\",\\\"hash\\\":\\\"86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43\\\",\\\"build_target\\\":\\\"wasm32-wasip2\\\"}},\\\"resource_limits\\\":{\\\"max_instructions\\\":10000000000,\\\"max_memory_mb\\\":128,\\\"max_execution_seconds\\\":60},\\\"input_data\\\":\\\"{\\\\\\\"expiry_seconds\\\\\\\":\\\\\\\"1794581917\\\\\\\"}\\\",\\\"input_data_in_state\\\":false,\\\"secrets_ref\\\":null,\\\"response_format\\\":\\\"Json\\\",\\\"payment\\\":\\\"20000000000000000000000\\\",\\\"attached_usd\\\":\\\"0\\\",\\\"timestamp\\\":1794647477362219534,\\\"compile_only\\\":false,\\\"force_rebuild\\\":false,\\\"store_on_fastfs\\\":false,\\\"use_bound_identity\\\":false,\\\"project_uuid\\\":null,\\\"project_id\\\":null}\",\"data_id\":[172,183,152,90,56,121,37,67,2,154,119,246,179,161,109,170,246,138,189,75,184,90,120,19,171,140,69,222,223,80,210,186],\"timestamp\":1794647477362219534}]}"
+      ]
+    },
+    {
+      "id": "FhEJmEHkNvW1en14arXMJjizUuG8siBowuo39TCJzKBy",
+      "executor": "outlayer.testnet",
+      "status": {
+        "SuccessValue": "bnVsbA=="
+      },
+      "logs": [
+        "[[yNEAR charged: \"1000000000000000000000\"]]",
+        "Execution promise failed: Failed. Refunded 19000000000000000000000 yoctoNEAR"
+      ]
+    },
+    {
+      "id": "SEovb4iSMWbmGcMZs7L8eKDtJA2KLkPNDSVmPhNJivj",
+      "executor": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "status": {
+        "SuccessValue": ""
+      },
+      "logs": []
+    },
+    {
+      "id": "JDnDNLwPpzhGogPWHviruZZMA7utoWkkQjRFMAoRnnfE",
+      "executor": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "status": {
+        "SuccessValue": ""
+      },
+      "logs": []
+    },
+    {
+      "id": "6oZdEdQFmSK5erNnE7p6p8ArNmMm1rZLHDzKjAZfxL4Z",
+      "executor": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "status": {
+        "SuccessValue": ""
+      },
+      "logs": []
+    },
+    {
+      "id": "AntYU8GATKa2nxMSJm6F6QVU1ctJ1Li92WRwgTYt7oUB",
+      "executor": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "status": {
+        "SuccessValue": ""
+      },
+      "logs": []
+    },
+    {
+      "id": "EJgUA7oGEttRAwdPYANW2wQEDb46KWUDR1seUdMqmeSU",
+      "executor": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "status": {
+        "SuccessValue": "ZmFsc2U="
+      },
+      "logs": [
+        "EVENT_JSON:{\"standard\":\"hedgeveil_expiry_oracle\",\"version\":\"1.0.0\",\"event\":\"EVIDENCE_REJECTED\",\"data\":[{\"network\":\"testnet\",\"contract_id\":\"366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792\",\"sequence\":\"14\",\"state_hash\":\"207f7970024dfcc96f791303b0c75796a5f312fd1c223db1e92f5b74919cf69c\"}]}"
+      ]
+    },
+    {
+      "id": "J8r2p6Jj72AFpT386XF1FuMtwoLRJAqRXhfrjbv3g8Zn",
+      "executor": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "status": {
+        "SuccessValue": ""
+      },
+      "logs": []
+    },
+    {
+      "id": "5ZxejMZCLKZHriu5E3oZ94uenoJBp4Lcs5VejTbpRWFy",
+      "executor": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "status": {
+        "SuccessValue": ""
+      },
+      "logs": []
+    }
+  ],
+  "network": "testnet",
+  "transaction_hash": "E8t2GeXYtuTk5tC8uuDNddw5J1aQfVjBbeEqSEb1RrjX",
+  "interpretation": "Transaction receipts finalized, but Outlayer returned null after execution failure and resolver rejected evidence. No settlement price accepted.",
+  "independent_review": "pending"
+}

@@ -1972,6 +1972,36 @@
   align-items: center;
   gap: 12px;
 }
+.wallet-verification .dialog-top button {
+  border: 1px solid var(--line);
+  padding: 0 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.verification-account {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.verification-account > span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.verification-account > strong {
+  font: 13px/1.5 var(--mono);
+  overflow-wrap: anywhere;
+}
+.wallet-verification .verification-note {
+  color: var(--muted);
+  margin: 16px 0 24px;
+  font-size: 12px;
+}
+.verification-action {
+  width: 100%;
+  gap: 8px;
+}
 .wallet-intro {
   color: var(--muted);
   margin: 8px 0 22px;

@@ -35,7 +35,7 @@ async function exclusive(dir, name, value) {
 }
 
 export class FileJournal {
-    constructor(directory) { this.directory = directory; }
+    constructor(directory, {isTerminal = terminal} = {}) { this.directory = directory; this.isTerminal = isTerminal; }
     path(id) {
         if (!/^[0-9a-f]{64}$/.test(id)) fail('INVALID_OPERATION_ID');
         return join(this.directory, id);
@@ -63,7 +63,7 @@ export class FileJournal {
         const observations = await Promise.all(files.map(name => read(join(dir, name))));
         if (observations.some(x => !x?.result?.state || typeof x.observed_at !== 'string')) fail('JOURNAL_CORRUPT');
         observations.sort((a, b) => a.observed_at.localeCompare(b.observed_at));
-        const done = observations.filter(x => terminal(x.result.state));
+        const done = observations.filter(x => this.isTerminal(x.result.state));
         const terminalIdentities = done.map(x => canonical([x.result.state, x.result.hash ?? null, x.result.ticket_id ?? null]));
         if (new Set(terminalIdentities).size > 1) fail('JOURNAL_EVIDENCE_CONFLICT');
         return {...value, attempted, hash:hash?.hash ?? null,

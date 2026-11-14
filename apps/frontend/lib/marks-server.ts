@@ -4,7 +4,7 @@ import {
   MODEL,
   TWAP_MODEL,
 } from "../../../services/maker/valuation.mjs";
-import { bridgeSettings } from "./desk-bridge.ts";
+import { backendHeaders, bridgeSettings } from "./desk-bridge.ts";
 import type { Series, Session, IndexState } from "./desk-types.ts";
 export interface MarkRow {
   seriesId: string;
@@ -107,7 +107,7 @@ export function createMarksReader({
       const { backend } = bridgeSettings();
       const read = async (path: string) => {
         const r = await transport(backend + "/api/" + path, {
-          headers: { origin: backend },
+          headers: backendHeaders(),
           redirect: "error",
           cache: "no-store",
           signal: AbortSignal.timeout(12000),

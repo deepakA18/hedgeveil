@@ -5,6 +5,7 @@ import {privateRead,durableWrite} from '../demo/storage.mjs';
 import {ExpiryCoordinator,EXPIRY_VERSION,expiryProfile} from '../outlayer/expiry-coordinator.mjs';
 import {fail,canonical} from '../../packages/sdk/intent.mjs';
 import {renewExpiry} from './renewal.mjs';
+import {cleanupMakers} from './maker-cleanup.mjs';
 
 export const EXPIRY_KIND='hedgeveil-expiry-testnet';
 export function deploymentProfiles(plan,d){
@@ -18,13 +19,18 @@ export function deploymentProfiles(plan,d){
 
 // Known failed evidence stays local to its series. An unknown transaction blocks
 // this signer globally until read-only receipt recovery resolves its nonce.
-export async function settleExpiry(workspace,{admin,run,now=Date.now}={}){
+export async function settleExpiry(workspace,{admin,run,now=Date.now,observations=new Map(),retryPolicies}={}){
  const {directory,plan}=workspace;
+ retryPolicies??=await privateRead(join(directory,'delivery-retry-policies.json')).catch(e=>{if(e.code==='ENOENT')return {};throw e;});
+ if(!retryPolicies||typeof retryPolicies!=='object'||Array.isArray(retryPolicies))fail('DELIVERY_RETRY_POLICY');
  const profiles=deploymentProfiles(plan,await privateRead(join(directory,'deployment.json')));
+ // Newly due windows are time-sensitive. Historical rejected cases must not
+ // consume the head of every queue while fresh expiry evidence is available.
+ profiles.sort((a,b)=>BigInt(a.terms.maturity_ns)>BigInt(b.terms.maturity_ns)?-1:BigInt(a.terms.maturity_ns)<BigInt(b.terms.maturity_ns)?1:0);
  const {keys}=await privateRead(join(directory,'signers.json'));
  if(!keys[plan.root_id])fail('SERVICE_SIGNER_MISSING');
  admin??=adminFor(directory,{...plan,rpc_url:plan.collector_rpc_url??plan.rpc_url});
- run??=profile=>new ExpiryCoordinator({profile,admin,signerKey:keys[plan.root_id]}).tick();
+ run??=profile=>new ExpiryCoordinator({profile,admin,signerKey:keys[plan.root_id],retryPolicy:retryPolicies[profile.terms.series_id]??null}).tick();
  const items=[];
  for(const profile of profiles){
   // Wall time is only a wake-up hint. A fast clock still cannot submit early:
@@ -33,9 +39,14 @@ export async function settleExpiry(workspace,{admin,run,now=Date.now}={}){
   if(BigInt(Math.floor(now()))*1000000n<BigInt(profile.terms.maturity_ns)){
    items.push({series_id:profile.terms.series_id,state:'WAIT_EXPIRY'});continue;
   }
+  const cached=observations.get(profile.terms.series_id);
+  if(!retryPolicies[profile.terms.series_id]&&cached&&cached.terms===canonical(profile.terms)&&now()-cached.at>=0&&now()-cached.at<60000&&['COMPLETE','EVIDENCE_REJECTED_REVIEW_REQUIRED'].includes(cached.result.state)){
+   items.push({series_id:profile.terms.series_id,...cached.result,observed_at:new Date(cached.at).toISOString()});continue;
+  }
   let result;
   try{result=await run(profile);}catch(e){result={state:'KEEPER_ERROR',code:/^[A-Z_]{1,80}$/.test(e.code??'')?e.code:'EXPIRY_UNAVAILABLE'};}
   items.push({series_id:profile.terms.series_id,...result});
+  observations.set(profile.terms.series_id,{terms:canonical(profile.terms),at:now(),result});
   // An interrupted owner lock is global: do not attempt subsequent writes.
   if(result.code==='EXPIRY_BUSY_OR_INTERRUPTED'||result.state==='HALTED_SIGNER')break;
  }
@@ -43,17 +54,20 @@ export async function settleExpiry(workspace,{admin,run,now=Date.now}={}){
  await durableWrite(join(directory,'expiry-status.json'),status);return status;
 }
 
-export function startExpirySettlement(workspace,{maintenance=async fn=>fn(),renew=renewExpiry,settle=settleExpiry,interval=5000,renewInterval=60000}={}){
- let stopped=false,timer,running,nextRenew=0,lastCompleted='';
+export function startExpirySettlement(workspace,{maintenance=async fn=>fn(),renew=renewExpiry,cleanup=cleanupMakers,settle=settleExpiry,interval=5000,renewInterval=60000}={}){
+ let stopped=false,timer,running,nextRenew=0,lastCompleted='';const observations=new Map();
  const poll=()=>{running=(async()=>{
   try{
-   const status=await settle(workspace);
+   const status=await settle(workspace,{observations});
    const completed=status.items.filter(i=>i.state==='COMPLETE').map(i=>i.series_id).sort().join(',');
    const halted=status.items.some(i=>i.state==='HALTED_SIGNER'||i.code==='EXPIRY_BUSY_OR_INTERRUPTED');
    if(halted){
-    // Renewal cannot write with unresolved signer/ownership evidence. Do not
-    // interrupt unrelated live quotes merely to rediscover the same blocker.
+    // Root renewal stays blocked. A distinct, journaled maker-only merge can
+    // remove expired paired inventory without resolving/retrying that request.
     await durableWrite(join(workspace.directory,'renewal-status.json'),{version:1,state:'BLOCKED',checked_at:new Date().toISOString(),code:'RENEWAL_UNRESOLVED'});
+    if(Date.now()>=nextRenew&&!status.items.some(i=>i.code==='EXPIRY_BUSY_OR_INTERRUPTED')){
+     nextRenew=Date.now()+renewInterval;await maintenance(()=>cleanup(workspace));
+    }
    }else if(Date.now()>=nextRenew||completed!==lastCompleted){
     // A single scheduler serializes keeper and renewal ownership. Maker queues
     // are drained before inventory writes to avoid service-key nonce races.

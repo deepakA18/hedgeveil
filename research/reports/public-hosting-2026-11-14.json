@@ -1,0 +1,264 @@
+{
+  "checked_at": "2026-11-14T08:36:45.452618+00:00",
+  "scope": "User-authorized public testnet hosting; not production or G9 completion",
+  "frontend": {
+    "url": "https://hedgeveil.vercel.app",
+    "deployment_id": "dpl_6jQpjGbYjUJox7o52bY3Enw4rjLY",
+    "build": "Next.js production build and typecheck passed on Vercel"
+  },
+  "backend": {
+    "url": "https://hedgeveil-backend-production.up.railway.app",
+    "project_id": "d37f8308-f8f2-4511-9246-8de2ea1d1451",
+    "service_id": "ca44dd6d-8219-4ba2-ae74-ebed17a2b1fe",
+    "deployment_id": "33ac73d7-ee7a-48f2-8485-879e848609da",
+    "volume_mount": "/app/.local/testnet",
+    "application_uid_gid": 1000,
+    "single_writer": "Railway active; original laptop expiry runtime stopped before export",
+    "production_enabled": false,
+    "vault_enabled": false
+  },
+  "migration": {
+    "format": "AES-256-GCM authenticated encrypted retained files plus PostgreSQL 18 logical INSERT dump",
+    "linux_restore": {
+      "files": 1148,
+      "tables": 12,
+      "rows": 2310,
+      "verified": true
+    },
+    "railway_restore": {
+      "files": 1148,
+      "tables": 12,
+      "rows": 2310,
+      "verified": true
+    },
+    "comparison": "Per-table row count and SHA-256 of sorted row JSON, normalized UTC/ISO timestamps; every archived file hash verified",
+    "key_handling": "Separate private local key, supplied only to restore process through encrypted SSH stdin; not in persistent host environment",
+    "rollback": "Original local workspace retained but stale after cutover. Export current Railway state before any rollback."
+  },
+  "public_auth": {
+    "at": "2026-11-14T08:25:57.034Z",
+    "checks": [
+      {
+        "name": "foreign_account_denied",
+        "status": 403,
+        "error": "OWNER_MISMATCH"
+      },
+      {
+        "name": "own_finalized_account_read",
+        "status": 200,
+        "has_account": true
+      },
+      {
+        "name": "unauthenticated_operations_denied",
+        "status": 401
+      },
+      {
+        "name": "logged_out_session_denied",
+        "status": 401
+      }
+    ],
+    "sessions": [
+      {
+        "status": 200,
+        "ms": 518,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 1132,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 516,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 515,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 513,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 1128,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 513,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 512,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 512,
+        "owner_matches": true,
+        "count": 0
+      },
+      {
+        "status": 200,
+        "ms": 562,
+        "owner_matches": true,
+        "count": 0
+      }
+    ],
+    "user_wallet_confirmation": "User reported completed hosted connect/sign-in; balances not independently observed in user browser.",
+    "identity_scope": "10 real signed sessions across 3 project-controlled accounts; read-only burst, not 10 distinct funded users or sustained execution.",
+    "passed": true
+  },
+  "public_quote_probe": {
+    "at": "2026-11-14T08:33:21.338Z",
+    "transactions_submitted": 0,
+    "quotes": [
+      {
+        "leg": "P",
+        "status": 200,
+        "ms": 7373,
+        "items": [
+          {
+            "offered": false,
+            "reason": "MARKET_DATA_UNAVAILABLE"
+          },
+          {
+            "offered": false,
+            "reason": "MARKET_DATA_UNAVAILABLE"
+          }
+        ],
+        "error": null
+      },
+      {
+        "leg": "N",
+        "status": 200,
+        "ms": 1463,
+        "items": [
+          {
+            "offered": false,
+            "reason": "MARKET_DATA_UNAVAILABLE"
+          },
+          {
+            "offered": false,
+            "reason": "MARKET_DATA_UNAVAILABLE"
+          }
+        ],
+        "error": null
+      }
+    ],
+    "reconciliation": {
+      "state": "RECONCILED",
+      "height": "277632836",
+      "block_hash": "zzodopkUpMPD3rQGvqfhPvic8k9WMaYAvCpK4BTC3WF",
+      "lag_blocks": "32",
+      "reconciled": true,
+      "risk_allowed": true,
+      "rpc_failures": 76,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [
+        {
+          "hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+          "state": "SUBMISSION_UNKNOWN",
+          "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66"
+        }
+      ],
+      "stale": false,
+      "age_ms": 35488,
+      "cursor_hash": "zzodopkUpMPD3rQGvqfhPvic8k9WMaYAvCpK4BTC3WF",
+      "generation": "939",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277516167",
+        "scanned_height": "277516167",
+        "observed_height": "277632728",
+        "lag_blocks": 116669,
+        "state": "SCANNING",
+        "fresh": true,
+        "checked_at": "2026-11-14T08:33:04.091Z",
+        "retry_at_ms": "1794573858977"
+      }
+    },
+    "open_series": 5,
+    "owner_chain_balance": {
+      "free": "79735591721855544332000",
+      "storage_paid": "40960000000000000000000"
+    },
+    "series": "l04003855dc0ecf8af6ef7052"
+  },
+  "access_checks": {
+    "anonymous_direct_backend": 403,
+    "unauthenticated_private_operations": 401,
+    "forged_session": 401,
+    "foreign_origin_post": 403
+  },
+  "browser_review": {
+    "route": "/trade",
+    "observed_open_series": 5,
+    "layout": "Three-panel light-theme workspace and centered disconnected account prompt render",
+    "console": "Missing favicon 404 and intermittent /api/spot 503; later live spot read returned 200. No stale substitute introduced.",
+    "tour_copy": "First-deposit tour still describes two approvals; needs alignment with combined-deposit flow."
+  },
+  "quote_diagnosis": {
+    "railway_coinbase_ticker_http": 200,
+    "railway_exact_market_validator": "Passed with 168 real hourly returns",
+    "inventory": "Each maker holds 0.1 P and 0.1 N in each of five expired unresolved daily series",
+    "code_guard": "marketReference rejects MODEL_UNRESOLVED_MATURITY for held unresolved series; worker reports MARKET_DATA_UNAVAILABLE",
+    "conclusion": "No successful hosted RFQ claimed. Settlement/guarded inventory cleanup remains required; no guessed marks or discarded holdings."
+  },
+  "checks": {
+    "migration_and_workspace_tests": {
+      "passed": 7,
+      "failed": 0
+    },
+    "hosted_auth_tests": {
+      "passed": 11,
+      "failed": 0
+    },
+    "public_concurrent_reads": "10 successful sessions across 3 real project-controlled accounts, 512\u20131132 ms; not sustained ten-user trading"
+  },
+  "remaining": [
+    "Expired maker inventory blocks executable hosted offers",
+    "Quarantined settlement transaction QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3 remains unresolved; no resend",
+    "New-profile settlement/import/redemption and subsequent market renewal",
+    "Final-origin monetary wallet lifecycle and new-account combined deposit",
+    "Sustained ten-user quote/receipt execution load",
+    "Scheduled independent backups and target-host graceful restart drill",
+    "Independent security review and full release rehearsal"
+  ],
+  "approval_review": {
+    "rejected": "Persistent root service setting",
+    "applied": false,
+    "resolution": "Non-root application retained; narrowly scoped empty-volume ownership setup via administrative SSH"
+  },
+  "reviewer": "Implementation-agent checks; independent reviewer pending",
+  "source_hashes": {
+    "deploy/container/migrate.mjs": "e394347cac7ba3bc4b140749a7cc5004d1245c27e27131cd7f998fcbdb03f115",
+    "deploy/container/start.sh": "7b29a73c5e8825bd6c3b642df8a28f83901090323c0897e16bf66ad69df331fb",
+    "deploy/container/Dockerfile": "bc2cb19a3b7319f7ca250bbe4d595b4dbd891b73ecf6505d861d58aa5cfc447d",
+    "deploy/container/railway.json": "b3749c5ccf74348fe16a892db9232605032900b69956a4f08dca534b89834320",
+    ".dockerignore": "9bfac4f15fd57bfc9413be77a06eb1aadd0de50c119186b1922f729fb4526763",
+    "apps/web/hosted-auth.mjs": "1a48022dccb27a3fa22b24538aed85b08cdd8f6a9b0e01a6890f96a417aad92d",
+    "apps/web/server.mjs": "b4d74e7034fa511a44a6e21ccfbab53ce8a409efc8fad4dd07406009905a6ab5",
+    "apps/web/wallet.mjs": "9eecb3f74260ff016ad0ecb518332da9a298b486613301bb4fe7993e4b67ec5c",
+    "services/testnet/runtime.mjs": "3f90d96838284a5c0ec3cff9cb934f1182df165734fd9bbc926b39fcb6da48c8",
+    "apps/frontend/lib/desk-bridge.ts": "e8fd28f88c230ae9a4816c2a716aba81dc325888243a9d886e14b4ecf77a5b7e",
+    "apps/frontend/components/desk/DeskProvider.tsx": "effc769e073a8c4f7e06271ac7c9d306065cbd3d480b20a46aa9c2fe86495b6b"
+  },
+  "source_note": "Deployed from source-only staging directories, including uncommitted working-tree changes; this does not claim a reviewed commit/release."
+}

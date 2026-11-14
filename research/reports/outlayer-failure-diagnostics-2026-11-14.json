@@ -1,0 +1,61 @@
+{
+  "observed_at": "2026-11-14T09:45:24.953Z",
+  "source": "https://testnet-api.outlayer.ai/public/jobs?limit=100&user_account_id=09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+  "scope": "Provider-reported diagnostics, not cryptographic execution attestation. Finalized resolver rejection remains authoritative.",
+  "jobs": [
+    {
+      "job_id": 105183,
+      "request_id": 43926,
+      "status": "failed",
+      "error_details": "Error: \"STALE_TRADE\"\n",
+      "execution_time_ms": 1347,
+      "transaction_hash": "4DBcP1xDmfLCZZo9eaDZdW5QDW1EzsbqYePV3RoqzLUk",
+      "created_at": "2026-11-14T09:22:14.278Z"
+    },
+    {
+      "job_id": 105167,
+      "request_id": 43917,
+      "status": "failed",
+      "error_details": "Error: \"STALE_TRADE\"\n",
+      "execution_time_ms": 3927,
+      "transaction_hash": "3EyGEtZeCC1zxvMAGWRMmd4y2Ky7dkN2XrsMwenfgtsw",
+      "created_at": "2026-11-14T09:20:25.575Z"
+    },
+    {
+      "job_id": 105149,
+      "request_id": 43911,
+      "status": "failed",
+      "error_details": "Error: \"STALE_TRADE\"\n",
+      "execution_time_ms": 1675,
+      "transaction_hash": "DbemQfSYXhEarMztB3NvCd66wX8c9QNDypAV4MbAaym5",
+      "created_at": "2026-11-14T09:19:09.374Z"
+    },
+    {
+      "job_id": 105135,
+      "request_id": 43906,
+      "status": "failed",
+      "error_details": "Failed to submit to NEAR: the chain did not take resolve_execution (tx 3vsHWpfxNhv1hV91sFDJrraVAqXZqMgjFfgMWPE6aM9q): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1052:14:\\nExecution request not found\")",
+      "execution_time_ms": 1185,
+      "transaction_hash": "BgXj5fRScgSRRGKS1oPd2fsnSm9sNnBxi7UAWEYfAQpJ",
+      "created_at": "2026-11-14T09:17:49.486Z"
+    },
+    {
+      "job_id": 105119,
+      "request_id": 43897,
+      "status": "failed",
+      "error_details": "Failed to submit to NEAR: the chain did not take resolve_execution (tx 8zbP4M46qzjRTtfNF1c6qbXt3Q2zM2mASiSd5fWMqKq4): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1052:14:\\nExecution request not found\")",
+      "execution_time_ms": 1561,
+      "transaction_hash": "44Jzxrg7UyQdBJNYhmG5kYpbreuXsz7tDjHJgwsxR9Lt",
+      "created_at": "2026-11-14T09:15:44.380Z"
+    },
+    {
+      "job_id": 105106,
+      "request_id": 43889,
+      "status": "failed",
+      "error_details": "Failed to submit to NEAR: the chain did not take resolve_execution (tx G2uavU5SWVy7RCavYfyPgL4wTXW6NbJawv8X4hW6aKTh): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1052:14:\\nExecution request not found\")",
+      "execution_time_ms": 4302,
+      "transaction_hash": "E8t2GeXYtuTk5tC8uuDNddw5J1aQfVjBbeEqSEb1RrjX",
+      "created_at": "2026-11-14T09:14:20.850Z"
+    }
+  ]
+}

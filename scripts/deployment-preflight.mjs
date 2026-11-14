@@ -7,7 +7,7 @@ import {parseArgs} from 'node:util';
 const required = ['frontend','prices','api','indexer','rpc','contracts','maker-1','maker-2','settlement','renewal'];
 const states = new Set(['operational','degraded','unavailable','unknown']);
 const gates = [
-  ['PUBLIC_ACCESS_BOUNDARY', 'HTTPS origin support, authenticated operation ownership and bounded request rates need implementation and cross-user tests.'],
+  ['PUBLIC_ACCESS_BOUNDARY', 'HTTPS bridge, signed account sessions and request limits pass local checks; final-host ingress, wallet and independent security acceptance remain pending.'],
   ['SETTLEMENT_ACCEPTANCE', 'Current-profile settlement, import and both-leg redemption require final receipt evidence.'],
   ['RENEWAL_ACCEPTANCE', 'A subsequent public market renewal requires final receipt evidence.'],
   ['FIRST_DEPOSIT_ACCEPTANCE', 'Combined first-deposit flow requires a first-time external wallet acceptance run.'],

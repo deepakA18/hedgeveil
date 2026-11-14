@@ -1,6 +1,10 @@
 import { createHash } from "node:crypto";
 import lock from "../../../../web/wallets/lock.json";
-import { bridgeSettings, validRequest } from "../../../lib/desk-bridge";
+import {
+  backendHeaders,
+  bridgeSettings,
+  validRequest,
+} from "../../../lib/desk-bridge";
 export const dynamic = "force-dynamic";
 export async function GET(
   req: Request,
@@ -14,6 +18,7 @@ export async function GET(
   try {
     const r = await fetch(backend + path, {
       redirect: "error",
+      headers: backendHeaders(),
       cache: "no-store",
       signal: AbortSignal.timeout(10000),
     });

@@ -8,6 +8,7 @@ import {
 } from "../ui/halo-tabs";
 import { dateLabel } from "../../lib/desk-api";
 import { InfoPopover } from "./InfoPopover";
+import { SettlementProgress } from "./SettlementProgress";
 import { useDesk } from "./DeskProvider";
 import { useNow } from "./Elements";
 import { Countdown, Num } from "./TerminalPrimitives";
@@ -88,7 +89,8 @@ export function SettlementPanel({ series }: { series: Series }) {
         </HaloTabsList>
         <HaloTabsContent value="samples">
           {profile === "native-trade-twap-v1" && history && window ? (
-            <div className="evidence-note">
+            <div className="evidence-note twap-evidence">
+              <SettlementProgress series={series} />
               <p>
                 {history.price !== null
                   ? `Final reference ${exactUsd(history.price)}`

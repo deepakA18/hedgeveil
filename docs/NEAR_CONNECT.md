@@ -91,9 +91,9 @@ replacements cannot pass the signing adapter's pinned manifest identity check.
 
 The journal/API belongs to the local machine user. Strict loopback Host/Origin
 checks block cross-origin writes; wallet connection **is not authentication** for
-this API. Do not expose it through a tunnel or reverse proxy. A hosted multiuser
-service requires a separate NEP-413 challenge/session design and per-account
-authorization before reusing these routes. No API key or private key is sent to
+this API. Do not expose it through a tunnel or reverse proxy. Explicit hosted mode now adds NEP-413 sessions and server-side account
+authorization; see the hosted session section below. Final-origin wallet
+acceptance remains pending. No API key or private key is sent to
 the browser by the gateway.
 
 ## Evidence and remaining acceptance
@@ -127,3 +127,17 @@ New wallet returns target `/app`. Existing root wallet-return query parameters
 still open the desk for recovery, and legacy root desk hashes redirect to `/app`
 with their query/hash intact. Sandbox root routing is unchanged. The homepage
 is informational; connecting and signing continue in the existing desk.
+
+
+## Hosted wallet sessions (14 November 2026)
+
+The default legacy desk remains loopback-only. The Next.js frontend now supports
+explicit hosted mode with signed NEP-413 verification and protected cookies. This
+is separate from connecting the wallet and costs no gas; no access key is added.
+Full-access public key membership is checked at a finalized block. Operation
+ownership is enforced by the backend, including receipt recovery. See
+[the deployment boundary](DEPLOYMENT.md#public-access-boundary-implemented-hosted-acceptance-pending)
+for settings, expiry, limits and threat boundaries. Local adversarial tests pass;
+actual Meteor/Intear verification on the final HTTPS origin, sustained host load
+and independent security review remain pending. Earlier hosted-authentication
+“not implemented” notes describe the historical loopback desk.

@@ -51,6 +51,27 @@ export interface Snapshot {
   };
 }
 export interface IndexState {
+  settlement?: {
+    observed_at: string | null;
+    items: {
+      series_id: string;
+      state: string;
+      observed_at: string | null;
+      attempt: number | null;
+      max_attempts: number | null;
+      next_attempt_ns: string | null;
+    }[];
+    attempts: {
+      series_id: string;
+      hash: string;
+      request_id: number;
+      requested_ns: string;
+      callback_ns: string;
+      delivery_ns: string;
+      pickup_lag_ns: null;
+      outcome: string;
+    }[];
+  };
   items: Snapshot[];
   health: {
     risk_allowed: boolean;
@@ -74,6 +95,7 @@ export interface LiveState {
   pauses: Record<string, boolean>;
 }
 export interface Session {
+  auth_required?: boolean;
   wallet: true;
   configured: boolean;
   network: "testnet";

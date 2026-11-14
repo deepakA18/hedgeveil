@@ -1,0 +1,163 @@
+{
+  "at": "2026-11-14T10:01:34.282Z",
+  "state": "PROVIDER_DELIVERY_FAILED",
+  "settlement_complete": false,
+  "source": "Finalized worker result-submission transaction, rejected by source contract; RPC trust model, no independent TEE attestation",
+  "request_hash": "AMyGrRQFB2Yddx4xF58JYB8GoTTUB2vvH5Vp8ipBppYs",
+  "request_id": 44151,
+  "result_submission_hash": "G6AM4vsnhntjLndVvb8VhGtj3Tv2qhQDi8g8STeXfLUH",
+  "result_signer": "worker.outlayer.testnet",
+  "failure": {
+    "ActionError": {
+      "index": 0,
+      "kind": {
+        "FunctionCallError": {
+          "ExecutionError": "Smart contract panicked: panicked at src/execution.rs:1023:14:\nExecution request not found"
+        }
+      }
+    }
+  },
+  "raw_transaction_sha256": "3ce3823a61f5f42a90d14eaf6e830c3cb977c35d23aa2e80da91c6144729f91d",
+  "worker_reported_success": true,
+  "resources": {
+    "compile_time_ms": null,
+    "instructions": 56293750,
+    "time_ms": 881
+  },
+  "replay_matches": true,
+  "rust": {
+    "policy": "COINBASE_NEAR_USD_TRADE_TWAP_V1",
+    "product": "NEAR-USD",
+    "start_us": "1794648402000000",
+    "end_us": "1794650202000000",
+    "price_scale": "1000000000000",
+    "price": "3329403079313",
+    "weighted_sum": "5992925542763700000000",
+    "predecessor_id": "36607851",
+    "successor_id": "36608330",
+    "evidence_sha256": "b184f18b973c0dbbb2b81ac843b247cd7e509f7f15ecb9ca4a9cd1fa839ee6ce"
+  },
+  "python": {
+    "price": "3329403079313",
+    "exact_price": "19976418475879/6",
+    "reference_only": true
+  },
+  "timing": {
+    "at": "2026-11-14T10:00:10.727Z",
+    "items": [
+      {
+        "hash": "AMyGrRQFB2Yddx4xF58JYB8GoTTUB2vvH5Vp8ipBppYs",
+        "start_height": 277641372,
+        "end_height": 277641573,
+        "blocks": 201,
+        "start_ns": "1794650207209811455",
+        "end_ns": "1794650321595511504",
+        "seconds": 114.385700049
+      }
+    ]
+  },
+  "resolver": {
+    "config": {
+      "series_id": "acceptance-20261114-timely",
+      "version": "1",
+      "collateral_kind": "NATIVE_NEAR",
+      "index_definition_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "payoff_kind": "CAPPED_USD_COMPLEMENT",
+      "strike": "3312700000000",
+      "price_scale": "1000000000000",
+      "maturity_ns": "1794650202000000000",
+      "mint_cutoff_ns": "1794648402000000000",
+      "observation_window": {
+        "start_ns": "1794648402000000000",
+        "end_ns": "1794650202000000000"
+      },
+      "oracle_account_id": "366eb42a07b70be883ec5a1fb8bc0bfd410ee042c621184ce764989744f6c792",
+      "oracle_version": "native-trade-twap-v1",
+      "oracle_config_hash": "8e961888abedbb977a25e8153c4a55692f89f48630c22fe3693dc586265a95ef",
+      "finalization_policy_hash": "b752132d1b2549b6c404f892f1b6a9b11614dffb617cc72f26b902c4f0056fb6",
+      "max_supply": "100000000000000000000000000"
+    },
+    "pending": null,
+    "accepted": null,
+    "price": null,
+    "last_result": "REJECTED"
+  },
+  "public_trading_check": {
+    "at": "2026-11-14T10:00:50.720Z",
+    "transactions_submitted": 0,
+    "quotes": [
+      {
+        "leg": "P",
+        "status": 200,
+        "ms": 1569,
+        "items": [
+          {
+            "offered": true,
+            "reason": null
+          },
+          {
+            "offered": true,
+            "reason": null
+          }
+        ],
+        "error": null
+      },
+      {
+        "leg": "N",
+        "status": 200,
+        "ms": 366,
+        "items": [
+          {
+            "offered": true,
+            "reason": null
+          },
+          {
+            "offered": true,
+            "reason": null
+          }
+        ],
+        "error": null
+      }
+    ],
+    "reconciliation": {
+      "state": "RECONCILED",
+      "height": "277641702",
+      "block_hash": "6FSuYuiYpjZxUpZtWYNbuzaixZZBMYnB4WZacpZwsrsB",
+      "lag_blocks": "33",
+      "reconciled": true,
+      "risk_allowed": true,
+      "rpc_failures": 106,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [
+        {
+          "hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+          "state": "SUBMISSION_UNKNOWN",
+          "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66"
+        }
+      ],
+      "stale": false,
+      "age_ms": 49072,
+      "cursor_hash": "6FSuYuiYpjZxUpZtWYNbuzaixZZBMYnB4WZacpZwsrsB",
+      "generation": "1054",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277517501",
+        "scanned_height": "277517501",
+        "observed_height": "277641550",
+        "lag_blocks": 124201,
+        "state": "SCANNING",
+        "fresh": true,
+        "checked_at": "2026-11-14T09:59:53.918Z",
+        "retry_at_ms": "1794573858977"
+      }
+    },
+    "open_series": 10,
+    "owner_chain_balance": {
+      "free": "79254298768443215967500",
+      "storage_paid": "40960000000000000000000"
+    },
+    "series": "lb056c721e2332b7e0c66c670"
+  }
+}

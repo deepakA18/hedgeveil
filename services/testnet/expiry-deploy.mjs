@@ -8,7 +8,7 @@ import {adminFor,functionCall,retained} from './deploy.mjs';
 import {implicitAccount,expiryFunding} from './funding.mjs';
 import {base58} from '../../packages/sdk/rpc.mjs';
 import {canonical,fail} from '../../packages/sdk/intent.mjs';
-import {terminal} from '../../packages/sdk/journal.mjs';
+import {adminTerminal as terminal} from './admin-outcomes.mjs';
 import {retainedSeries} from '../../packages/sdk/series.mjs';
 import {CoinbaseMarket} from '../market-data/coinbase.mjs';
 import {planLadder,LADDER_POLICY} from '../markets/ladder.mjs';

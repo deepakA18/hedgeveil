@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-14T10:35:39.879Z",
+  "passed": true,
+  "scope": "Real resolver callback and exact independent historical replay; no independent TEE attestation or production approval claimed",
+  "transaction_hash": "2NWCHvCvbr1Jrx7fLt7wSpJmhGpqB8yYWDy9FwtJdBBS",
+  "source_receipt": "6bwAUUvNnE24mXZRdCRLDaWMQ5m8iCMjx1TX1tHZwUsb",
+  "archive_sha256": "a30cb8069f41220bf850c421366b247aa1cf83205d5ce89b67e8e06b084b608c",
+  "response_sha256": "7b973c9265070933530d170ecc142e77d2c7a23907503790dfd68a07f9def782",
+  "calculation": {
+    "policy": "COINBASE_NEAR_USD_TRADE_TWAP_V1",
+    "product": "NEAR-USD",
+    "start_us": "1794648402000000",
+    "end_us": "1794650202000000",
+    "price_scale": "1000000000000",
+    "price": "3329403079313",
+    "weighted_sum": "5992925542763700000000",
+    "predecessor_id": "36607851",
+    "successor_id": "36608330",
+    "evidence_sha256": "50fe59525737ce3c253efe229c26e4de87e7a7cfdc37a896604d60254ef66559"
+  },
+  "reference": {
+    "price": "3329403079313",
+    "exact_price": "19976418475879/6",
+    "reference_only": true
+  },
+  "series_id": "acceptance-20261114-timely",
+  "price": "3329403079313",
+  "p": "994983160970570565936636",
+  "n": "5016839029429434063364"
+}

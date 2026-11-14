@@ -1,4 +1,56 @@
-# Demo acceptance narrative — public release pending
+# Public demo recording checklist
+
+Updated 14 November 2026. Use https://hedgeveil.vercel.app. The frontend is on
+Vercel; the persistent backend is on Railway. All demo assets are test tokens.
+Production and the tracking vault remain disabled. This checklist supersedes the
+historical local narrative below for public recordings.
+
+## Before recording
+
+- Open Status and verify receipt reconciliation, current price inputs and maker
+  offers. A green process heartbeat alone does not prove executable liquidity.
+- Pick a currently open market from the UI, not a strike/date copied from an old
+  instruction. Refresh its offer immediately before signing.
+- Use a small amount within the wallet's actual trading balance. Do not repeat
+  deposits, trades or withdrawals marked unknown; recover their receipt first.
+- The renewed daily/weekly ladder and both makers' P/N quotes passed the public
+  probe at 10:36 UTC. Availability can change. The project-owned timely series
+  completed real settlement, both redemptions and withdrawal after one reviewed
+  sequential retry. Use the actual final price **$3.329403079313** and linked
+  receipts in [the acceptance report](../research/reports/sequential-delivery-retry-2026-11-14.json).
+  These positions belong to the project service account, not the connected user;
+  do not expect them to appear in the user's Portfolio or claim that the user
+  signed these redemptions. Older rejected cases remain unresolved.
+
+## Recording sequence (about three minutes)
+
+1. **Trade:** show the live NEAR price, select an open market and choose Upside.
+   Hover the payout chart to explain the possible payout and maximum purchase
+   loss. The chart is a scenario, not an executable sell price.
+2. **Buy:** enter a small quantity, choose Review trade, review the fresh maker
+   offer and approve in the wallet. Stay on the page while receipt confirmation
+   updates the position. Open the explorer link to show the actual transaction.
+3. **Position and sell:** show the position table, choose Sell, review a newly
+   funded offer and sign. Demonstrate the confirmed balance/position change.
+4. **Pair primitive:** from Portfolio use Create a pair, then Merge pairs. Explain
+   that equal quantities of both sides can be recombined into their NEAR backing;
+   a single side alone cannot use this exit. Use real receipts, not animations.
+5. **Withdraw:** from Funds withdraw a small available amount to the connected
+   account. Show the successful transfer/callback in Activity.
+6. **Settlement:** the new-profile project-account lifecycle now has real evidence.
+   Show `acceptance-20261114-timely` in History, its immutable expiry, final
+   price and external historical evidence. Open the actual redemption and
+   withdrawal explorer receipts from the acceptance report. Describe this as a
+   project-account test. A separate connected-wallet claim still needs a real
+   holding in a finalized series; do not simulate one.
+
+The two makers are project-operated. Do not describe them as independent market
+participants or imply guaranteed liquidity. Do not call the internal claims
+standard wallet tokens, or the app production-ready/audited. The old rejected
+settlement cases remain visible evidence; they are not silently repriced.
+
+## Historical local rehearsal (not the current public recording script)
+
 
 This is the G9 acceptance narrative. [REL-01](RELEASE.md) now provides an executable
 local walkthrough, clean-checkout rehearsal and explicitly scoped evidence map.

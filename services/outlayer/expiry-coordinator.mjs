@@ -1,10 +1,12 @@
-// One paid historical request per series/journal. No timer-based resend, refund,
+// One paid request by default; additional attempts require explicit delivery review.
+// No timer-only resend, refund,
 // fixture fallback or signing-key discovery. A provisioned operator supplies keys.
 import {canonical,account,fail,uint} from '../../packages/sdk/intent.mjs';
 import {hash32} from '../../packages/sdk/rpc.mjs';
 import {mkdir,writeFile,rm,readdir} from 'node:fs/promises';
-import {terminal} from '../../packages/sdk/journal.mjs';
+import {adminTerminal as terminal} from '../testnet/admin-outcomes.mjs';
 import {join} from 'node:path';
+import {nextDeliveryRetry,validateRetryPolicy} from './delivery-retry.mjs';
 export const EXPIRY_VERSION='native-trade-twap-v1';
 export const EXPIRY_WORKER='86b6d24556ca55356ff37421cbcbcf3a8e021d543fbdb04bb3a55d6ec365ac43';
 export function expiryProfile(input){
@@ -22,7 +24,7 @@ export function expiryProfile(input){
  return p;
 }
 export class ExpiryCoordinator{
- constructor({profile,admin,signerKey}){this.profile=expiryProfile(profile);this.admin=admin;this.key=signerKey;this.running=false;}
+ constructor({profile,admin,signerKey,retryPolicy=null}){this.profile=expiryProfile(profile);this.admin=admin;this.key=signerKey;this.retryPolicy=validateRetryPolicy(retryPolicy,this.profile);this.running=false;}
  async tick(){
   if(this.running)fail('EXPIRY_BUSY');this.running=true;
   const lock=join(this.admin.journal.directory,'.expiry-coordinator-running');let owned=false;
@@ -30,14 +32,18 @@ export class ExpiryCoordinator{
    await mkdir(this.admin.journal.directory,{recursive:true,mode:0o700});
    try{await mkdir(lock,{mode:0o700});owned=true;}catch(e){if(e.code==='EEXIST')fail('EXPIRY_BUSY_OR_INTERRUPTED');throw e;}
    await writeFile(join(lock,'owner.json'),JSON.stringify({pid:process.pid,started_at:new Date().toISOString()}),{flag:'wx',mode:0o600});
+   let attempts=0;
    for(const id of (await readdir(this.admin.journal.directory)).filter(x=>/^[a-f0-9]{64}$/.test(x))){
     const r=await this.admin.journal.get(id);
+    if(r.attempted&&r.result?.state!=='EXPIRED_NOT_INCLUDED'&&r.intent.signer_id===this.profile.signer_id&&r.intent.receiver_id===this.profile.resolver.account_id&&r.intent.actions?.length===1&&r.intent.actions[0].method==='request'&&r.intent.actions[0].args?.series_id===this.profile.terms.series_id)attempts++;
     if(r.intent.signer_id===this.profile.signer_id&&r.attempted&&!terminal(r.result?.state)){
      const result=await this.admin.recover(r.intent);
      if(!terminal(result.state))return {state:'HALTED_SIGNER',result};
     }
    }
-   return await this.step();
+   const result=await this.step();
+   const count=result.attempt??(attempts+(result.state==='TRANSACTION_CONFIRMED'&&result.operation==='request'?1:0));
+   return {...result,attempt:count,max_attempts:this.retryPolicy?.max_attempts??(count<=1?1:null)};
   }finally{if(owned)await rm(lock,{recursive:true});this.running=false;}
  }
  async step(){
@@ -47,9 +53,20 @@ export class ExpiryCoordinator{
    ['finalize',p.resolver.account_id,'finalize','250000000000000','0'],
    ['import',p.core.account_id,'request_resolution','250000000000000','0']
   ]){
-   const intent=await a.prepare(`expiry:${id}:${name}`,p.signer_id,receiver,[{type:'FunctionCall',method,args:{series_id:id},gas,deposit}]);
-   const record=await a.journal.get(intent.operation_id);ops[name]={intent,record};
-   if(record.attempted){const result=await a.recover(intent);if(result.state!=='SUCCEEDED')return {state:'HALTED_TRANSACTION',operation:name,result};}
+   let intent=await a.prepare(`expiry:${id}:${name}`,p.signer_id,receiver,[{type:'FunctionCall',method,args:{series_id:id},gas,deposit}]);
+   let record=await a.journal.get(intent.operation_id);
+   if(name==='request'&&record.result?.state==='EXPIRED_NOT_INCLUDED'){
+    // Preserve the original attempt. This distinct intent can run only after
+    // proof-backed operator classification and the NOT_REQUESTED view below.
+    hash32(record.hash);
+    intent=await a.prepare(`expiry:${id}:replacement:${record.hash}`,p.signer_id,receiver,[{type:'FunctionCall',method,args:{series_id:id},gas,deposit}]);
+    record=await a.journal.get(intent.operation_id);
+   }
+   ops[name]={intent,record};
+   // Final receipt evidence is retained by the immutable operation journal.
+   // Re-fetch only unresolved attempts; fresh pinned views below still decide
+   // whether a subsequent request/finalize/import is permissible.
+   if(record.attempted&&record.result?.state!=='SUCCEEDED'){const result=await a.recover(intent);if(result.state!=='SUCCEEDED'&&!(name==='request'&&this.retryPolicy&&result.state==='FAILED_CONFIRMED'))return {state:'HALTED_TRANSACTION',operation:name,result};}
   }
   const [status,block]=await Promise.all([rpc.sendJsonRpc('status',{}),rpc.sendJsonRpc('block',{finality:'final'}),a.verify()]);
   if(status.chain_id!==p.chain_id||status.genesis_hash!==p.genesis_hash)fail('EXPIRY_CHAIN');
@@ -75,7 +92,19 @@ export class ExpiryCoordinator{
   if(now<uint(p.terms.maturity_ns,64))return {state:'WAIT_EXPIRY',block_hash:hash};
   if(c.pending!==null)return {state:'WAIT_CALLBACK',request_id:c.pending,block_hash:hash};
   if(c.accepted!==null)return send('finalize');
-  if(c.last_result==='REJECTED'||ops.request.record.attempted)return {state:'EVIDENCE_REJECTED_REVIEW_REQUIRED',block_hash:hash};
+  if(c.last_result==='REJECTED'){
+   const retry=await nextDeliveryRetry({admin:a,profile:p,original:ops.request,policy:this.retryPolicy,now,worker:EXPIRY_WORKER});
+   if(retry.state!=='DELIVERY_RETRY_READY')return {...retry,block_hash:hash};
+   // Recheck the authorization deadline and unchanged rejected case after the
+   // evidence RPCs. The contract independently preserves single-pending.
+   const latest=await rpc.sendJsonRpc('block',{finality:'final'});
+   if(uint(latest.header.timestamp_nanosec,64)>uint(this.retryPolicy.deadline_ns,64))return {state:'DELIVERY_RETRY_WINDOW_CLOSED'};
+   const fresh=await rpc.sendJsonRpc('query',{request_type:'call_function',account_id:p.resolver.account_id,method_name:'get_case',args_base64:Buffer.from(JSON.stringify({series_id:id})).toString('base64'),block_id:latest.header.hash});
+   if(fresh.block_hash!==latest.header.hash||fresh.error||!Array.isArray(fresh.result)||canonical(JSON.parse(Buffer.from(fresh.result)))!==canonical(c))return {state:'WAIT_OBSERVED_STATE',operation:'delivery-retry'};
+   await a.journal.observe(retry.intent.operation_id,{state:'DELIVERY_RETRY_REVIEWED',operation_id:retry.intent.operation_id},{policy:this.retryPolicy,proof:{...retry.proof,rejected_ns:String(retry.proof.rejected_ns)},block_hash:latest.header.hash});
+   return {state:'TRANSACTION_CONFIRMED',operation:'delivery-retry',attempt:retry.attempt,result:await a.send(retry.intent,this.key),block_hash:latest.header.hash};
+  }
+  if(ops.request.record.attempted)return {state:'EVIDENCE_REJECTED_REVIEW_REQUIRED',block_hash:hash};
   if(c.last_result!=='NOT_REQUESTED')fail('EXPIRY_CASE');
   return send('request');
  }

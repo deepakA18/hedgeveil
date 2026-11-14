@@ -1404,3 +1404,92 @@ schema validation. See `research/reports/backend-container-2026-11-14.json`.
 No actual host provision/migration, ten-user target-host benchmark or public
 wallet-origin acceptance claimed. Reviewer: implementation-agent verification;
 independent review pending. Existing settlement and renewal blockers remain open.
+
+### REL-01 hosted access steps 1–2 — 14 November 2026
+
+Implemented separate hosted mode with an exact-origin authenticated HTTPS bridge,
+NEP-413 browser-bound challenges, verified full-access key membership, 15-minute
+protected sessions and backend operation ownership. Local mode stays loopback-only.
+Every operation mutation checks the authenticated owner before journal access;
+foreign and missing IDs both return 404. Limits bound requests, concurrent work,
+RFQs, challenges, sessions and new records; recovery never deletes uncertainty.
+
+Dependencies: pinned wallet executors, testnet RPC/genesis/contract binding, exact
+intents and retained receipt journal, single persistent backend and TLS ingress.
+Invariant: wallet connection and bridge credentials cannot impersonate an account;
+login cannot submit, retry or authorize a financial action. Failure path: invalid,
+expired or replayed signatures fail; RPC uncertainty blocks login; foreign records
+are inaccessible; capacity exhaustion returns an explicit error. Restart invalidates
+sessions without resetting operations. UNKNOWN remains quarantined.
+
+Evidence: 30 focused auth/bridge/wallet/container/preflight checks; frontend typecheck
+and production Webpack build; Linux image and isolated validation recorded in
+`research/reports/hosted-access-2026-11-14.json`. Ten concurrent session identities
+are a local isolation check, not a target-host throughput benchmark. No live chain
+writes, secret migration, public host creation or financial behavior changes.
+Final HTTPS wallet/ingress, sustained load, restore and existing settlement/renewal
+acceptance remain pending. Reviewer: implementation-agent verification; independent
+security review pending.
+
+
+### REL-01 public Vercel / Railway cutover — 14 November 2026
+
+Public testnet hosting is deployed at https://hedgeveil.vercel.app. Railway owns the single persistent expiry runtime; the laptop copy is stopped. An AES-256-GCM encrypted logical PostgreSQL migration preserves private journals, keys, nonces and quarantined operations. Restored table digests normalize UTC timestamps to compare the Mac and Linux hosts exactly. Both isolated Linux and actual Railway restoration verified 1,148 retained files, 12 tables and 2,310 rows. The service remains non-root; a rejected root-service configuration was not applied.
+
+Dependencies: pinned container/source, retained expiry state, authenticated hosted bridge, wallet ownership verification and a persistent volume. Invariant: exactly one signer runtime, exact state preservation, no transaction resubmission or release inference from deployment health. Failure path: restore refuses existing targets, changed archive authentication, unsafe paths or digest mismatch; crash locks and UNKNOWN receipts remain quarantined. Evidence: migration/startup regressions, actual restore checks, hosted unauthorized/foreign-account/logout rejection, ten concurrent signed-session reads across three project accounts, and public browser inspection. The user reports public-origin wallet sign-in completed. Final-origin monetary transactions, new-account combined deposit, sustained ten-user execution, settlement/renewal and independent review remain pending. See `research/reports/public-hosting-2026-11-14.json`. Reviewer: implementation-agent checks; independent reviewer pending.
+
+### Hosted maker cleanup, public buy and verification dialog — 14 November 2026
+
+Ten retained maker-only merges returned 1 NEAR of matched expired backing; the owner’s public Upside buy has FINAL receipts. The verification dialog’s undefined primary class was replaced by the existing themed action, with compact account details, busy feedback and authentication-specific errors.
+
+Dependencies: live finalized state, exclusive coordinator ownership, immutable journals, maker inventory and existing wallet/session flow. Invariant: cleanup only merges project-owned matched pairs; it cannot spend user balances, settle, list or retry the unresolved administrator transaction. UNKNOWN operations continue to block their signer. Failure paths: interrupted batches and unknown maker actions block cleanup; unavailable quotes remain explicit; rejected sign-in remains retryable without claiming any transaction result.
+
+Evidence: `research/reports/hosted-maker-cleanup-2026-11-14.json`, `research/reports/public-owner-upside-buy-2026-11-14.json`; 19 distinct focused cleanup/runtime/recovery/renewal tests pass across the recorded test runs. Frontend typecheck and Vercel production build pass; actual dialog JSX in an isolated harness checked at 375/768/1280 pixels in light/dark, including busy/Escape behavior. Frontend deployment `dpl_74158pDBTcRWXEjY6PGVKoPn6Zsn`; backend recovery code deployment `1bcbb615-f739-48b8-a1e1-007142fd5918`. Reviewer: implementation-agent checks; independent review pending.
+
+### Service request expiry recovery — 14 November 2026
+
+The original request `QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3` has a retained `EXPIRED_NOT_INCLUDED` classification. Its exact unsigned V0 hash was reconstructed; two separate live RPC providers confirmed canonical reference height 277525316, finalized heights beyond the 86,400-block validity window, and access-key nonce 277507976000029 below transaction nonce 277507976000030. The transaction nonce is also below the key-recreation floor. This is chain-state evidence under the existing RPC trust model, not a final receipt or independently verified light-client proof. Original envelope, hash and attempt remain immutable; no original resend occurred.
+
+Dependencies: exclusive coordinator lock, ordinary service-owned key, exact intent/envelope binding and both independent witnesses. Invariant: user-wallet UNKNOWN outcomes remain quarantined; no refund, collateral credit or wallet retry is authorized by this service-only classification. Failure paths: expiry boundary, consumed nonce, re-key ambiguity, fork, wrong network, missing witness and changed intent all reject classification. The coordinator may create one distinct replacement request only against `NOT_REQUESTED` with no pending, accepted or final evidence. Actual Outlayer callback and finalized settlement remain separate acceptance requirements.
+
+Evidence: `research/reports/service-request-expiry-proof-2026-11-14.json`; focused adversarial proof/coordinator tests pass. The replacement request `E8t2GeXYtuTk5tC8uuDNddw5J1aQfVjBbeEqSEb1RrjX` is FINAL. Outlayer execution 43889 returned null after an execution failure; the resolver emitted `EVIDENCE_REJECTED` and retains no accepted/final price. Provider refund of 0.019 NEAR is observed in receipts, not an agent-authorized timeout refund. See `research/reports/settlement-recovery-outcome-2026-11-14.json`. Other expired-series requests remain individually receipt-gated; settlement acceptance is not complete. Reviewer: implementation-agent checks; independent review pending.
+
+Late-history diagnosis: `research/reports/late-history-diagnostic-2026-11-14.json` records a bounded, read-only Coinbase reproduction reaching `EVIDENCE_LIMIT` before the old expiry, while the published artifact downloads with the exact pinned hash. This is not authenticated settlement evidence and does not prove Outlayer’s internal error. Timely collection/retention and a reviewed historical recovery design remain required; do not change existing terms or replace rejected evidence with a spot price.
+
+### Timely settlement scheduling and live acceptance — 14 November 2026
+
+Dependencies: finalized admin journals, pinned source/core/resolver, real Coinbase history and one hosted coordinator. Invariant: prioritization and bounded observation reuse never change expiry terms, select a different price, retry UNKNOWN or treat rejected evidence as success. Failure path: unknown receipts retain quarantine; stale/rejected/source-unavailable evidence blocks finalization. Finalized terminal observations are rechecked within 60 seconds; newly due series run first.
+
+Evidence: 17 focused recovery/runtime/cleanup/coordinator checks pass. Both live makers returned funded P/N quotes at 09:32 UTC after restart. The 0.01-NEAR project pair ending 09:56:42 UTC is funded; settlement/redemption/withdrawal remain pending. Reports: `public-quotes-restored-2026-11-14.json` and `timely-settlement-setup-2026-11-14.json`. Reviewer: implementation-agent checks; independent review pending.
+
+Provider diagnosis and availability evidence: `outlayer-failure-diagnostics-2026-11-14.json` records three `STALE_TRADE` jobs and three result submissions rejected because the execution request was absent. `outlayer-callback-timing-2026-11-14.json` ties two actual callbacks to their request block timestamps, including a 201-block / 115-second promise failure. Provider job errors are diagnostic, not independent execution attestations. Four public quote probes over 09:47–09:50 UTC returned both makers for both legs, ten open markets and passing reconciliation (`public-offer-observation-2026-11-14.json`). This is not sustained ten-user execution acceptance.
+
+Timely-test outcome: provider result submission failed after a 201-block request expiry. The exact worker-submitted evidence passes Rust/Python replay, but the resolver rejects the missing callback result and retains no price. Both redemptions and withdrawal were deliberately not attempted. Public P/N offers and reconciliation pass again at 10:00:50 UTC. Evidence: `timely-settlement-delivery-failure-2026-11-14.json`; provider escalation in `docs/OUTLAYER_DELIVERY_INCIDENT.md`. Blocking dependency: Outlayer testnet result delivery within the request lifetime, or a separately specified/reviewed integration for new series. Existing terms must not change; no automatic paid retry or production completion. Reviewer: implementation-agent receipt/replay checks; independent review pending.
+
+
+### Durable settlement delivery assessment — 14 November 2026
+
+Primary provider ask: an authenticated result record surviving yield expiry, with exact input/Wasm/config binding and documented on-chain verification. Current one-pending-request guard prevents staggered overlapping attempts; fixed per-request pickup latency would still defeat their independent deadlines. No new paid retry, warm-up, contract change or settlement completion is claimed.
+
+Dependencies, invariants, failure paths and acceptance requirements are recorded in [the delivery incident recovery assessment](OUTLAYER_DELIVERY_INCIDENT.md). Evidence: resolver request/callback source inspection, NEAR yield documentation and retained request 44151 receipts. Reviewer: implementation-agent assessment; independent review pending.
+
+
+Sequential retry follow-up (14 November 2026): retained receipts show three pre-timeout worker errors and four 201-block timeouts; exact pickup timestamps remain unavailable. Evidence: `research/reports/outlayer-latency-assessment-2026-11-14.json`. No paid probe, scheduler or contract mutation performed. Dependencies: finalized prior outcome, verified immutable profile, recent retrievable history and exclusive signer/journal ownership. Invariant: single pending, distinct attempts, bounded budget, no UNKNOWN resend or altered economics. Failure path: deterministic invalid evidence stops retries; unknown outcome quarantines signer; cap exhaustion requires operator review. Scheduler and real successful delivery acceptance remain pending; independent reviewer pending.
+
+
+### ORC-04 / REL-02: reviewed sequential delivery retry — 14 November 2026
+
+Implemented `services/outlayer/delivery-retry.mjs` and explicit per-series policy injection in the expiry coordinator/runtime helper. Default remains one request; testnet policies permit two or three total attempts, minimum 30-second backoff and a maximum 15-minute authorization window. Every extra attempt needs its own reviewed prior request and worker-result hashes. Stable journals and exclusive signer ownership survive restarts. No contract change or new result acceptance path.
+
+Dependencies: final complete prior request receipts, final failed worker submission showing a successful computation rejected by the source as `Execution request not found`, pinned deployment/profile/Wasm, fresh rejected case with no pending/accepted/final result, service operating funds and exclusive journal ownership. Invariant: same window/source/economics, one pending, immutable accepted price, no user-wallet authority or UNKNOWN resend. Failure paths: invalid evidence, mismatched hashes/config, deterministic computation failure, expiry/cap exhaustion and unreviewed next failure stop; UNKNOWN quarantines signer; changed state after review prevents sending.
+
+Evidence: 16 focused Node tests cover default stop, deadline/backoff/cap, restart UNKNOWN and invalid bindings; 17 schema tests and generated schemas, five reference tests/565 vectors, locked workspace tests, fmt and Clippy pass. A single real additional request (44377) succeeded in 26.651 seconds, followed by actual finalization/import, P and N redemptions and withdrawal of the project-owned pair. Exact callback bytes replay in Rust/Python. See `research/reports/sequential-delivery-retry-2026-11-14.json`, `timely-settlement-replay-2026-11-14.json` and `timely-settlement-completion-2026-11-14.json`. The one-policy helper was staged on Railway; general automatic retries are not enabled. Both public makers returned both legs after completion. Older failures, owner-wallet redemption, sustained availability and independent review remain pending. Reviewer: implementation-agent code/test/receipt verification; independent reviewer pending.
+
+
+### ORC-04 / REL-02: deployed delivery telemetry and retry progress — 14 November 2026
+
+Dependencies: retained FINAL request/receipt trees, source request identity, resolver callback block, existing exclusive coordinator, public snapshot and immutable series terms. Invariant: telemetry cannot authorize sending, decide finality or alter balances/prices; UNKNOWN remains quarantined, accepted evidence immutable and only one request pending. Failure paths: non-FINAL/incomplete/mismatched evidence is not logged as a delivery; missing pickup stays null; telemetry write failure does not change transaction recovery; stale progress suppresses countdown; cap/window/review stops expose indefinite delay and matching-pair merge.
+
+Implementation: durable per-operation delivery archive, read-only history backfill, strict public projection, per-series private policy loading, and compact progress/history UI. Ordinary policy remains one request; explicitly reviewed policies retain the hard three-attempt/30-second-backoff/15-minute-authorization limits. No general automatic retry activation or new spending this task. STALE_TRADE cause and historical recovery remain open.
+
+Evidence: 39 focused telemetry/recovery/coordinator/UI tests and 16 release checks (overlapping suites), frontend typecheck, schema generation check, successful webpack production build, actual Railway/Vercel deployment, public browser desktop/mobile progress/history checks, and two-maker P/N offers with ten open series. See `research/reports/delivery-distribution-2026-11-14.json` and `delivery-progress-release-2026-11-14.json`. Reviewer: implementation-agent code/test/browser checks; independent review pending.

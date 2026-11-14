@@ -729,6 +729,20 @@ followed by receipt-confirmed finalization and core import. Before any due-serie
 hashes, exact terms, source and policy at one finalized block. Local wall time
 only suppresses unnecessary polling before expiry; it never authorizes a request. UNKNOWN or failed operations halt progression. A rejected historical
 result requires explicit operator review; elapsed time cannot fund a retry.
+An optional operator-reviewed delivery-retry policy may authorize at most two
+additional requests (three total, at most 0.06 test NEAR compute deposits plus
+gas, with no refund assumed). Default behavior remains one request. Each retry
+has a distinct stable journal label and requires FINAL, complete prior request
+receipts, source yield-timeout evidence, and a reviewed FINAL worker submission
+that reported successful computation but failed at the source with `Execution
+request not found`. The source request ID, worker hash, expiry and transaction
+bindings must match. This diagnostic is eligibility to request again, never
+settlement authentication. A fresh same-block REJECTED resolver case must have
+no pending, accepted or final result. Backoff uses chain time after the rejection
+receipt; a short explicit authorization deadline limits the experiment. Unknown
+outcomes, absent review, invalid evidence, policy expiry and exhausted budgets
+stop the scheduler. Retry records survive restart and policy edits cannot reset
+the stable three-attempt cap. No single-pending contract constraint is changed.
 Actual receipt trees (including source response bytes) remain in the journal.
 Keeper completion requires the core and resolver to expose the same final price.
 
@@ -819,7 +833,29 @@ Archival requires the existing zero-claims/zero-reserve/finalization predicates.
 Fresh observed prices seed new dates once. The complete renewal plan is durable
 before its first write; recovery completes that exact plan before planning again.
 Every write has a deterministic journal identity and is broadcast at most once.
-Unresolved receipts halt maintenance, without timeout-based resend permission.
+Unresolved receipts halt renewal, without timeout-based resend permission.
+For a service-owned ordinary V0 key only, an operator may record
+`EXPIRED_NOT_INCLUDED` after reconstructing the exact unsigned transaction hash,
+checking canonical reference/finalized blocks with two distinct RPC providers,
+passing the chain's block-height validity horizon, and observing a finalized
+access-key nonce below that transaction's nonce on both providers. The transaction
+nonce must also be below the key-recreation nonce floor at its reference height,
+so deleting/readding the key cannot hide earlier execution. This is retained
+chain-state evidence under the RPC trust model, not a receipt or light-client
+proof. Missing, inconsistent or consumed-nonce evidence leaves UNKNOWN unchanged.
+This classification never authorizes resending the original operation, credits
+funds, or applies to user-wallet withdrawals. A replacement settlement request
+has a new intent bound to the classified predecessor and still requires finalized
+resolver state NOT_REQUESTED with no pending/accepted/final value. Independent
+review of this recovery path remains pending.
+An isolated maker cleanup may still merge fully matched, expired project-maker
+pairs when the only unresolved administrator action is a resolver `request`.
+It uses the same ownership lock and drained maker queues, checks both admin and
+maker cancellation journals, and blocks any maker with unresolved writes. It
+cannot request settlement, redeem, archive, list, or spend administrator funds.
+The exact cleanup batch is retained before submission and each merge is broadcast
+at most once. Partial/unmatched claims remain valued conservatively and may still
+block quotes. This exception does not resolve or retry the administrator request.
 
 Listing preflight retains native storage plus a 0.1 NEAR gas buffer per service
 signer, and 0.02 NEAR request sponsorship per unresolved resolver case. A renewal
@@ -846,3 +882,29 @@ obtain fresh verified state. Read-only provider fallback validates chain identit
 and view-block binding; signed broadcasts are never retried through fallback.
 An on-chain zero retained-ticket count permits skipping an empty list query;
 positive/missing counts still require the list and consistency checks.
+
+### Receipt delivery telemetry and retry presentation
+
+Delivery timing is an observational field, not a settlement rule or authority.
+Retain source-request and resolver-callback nanosecond timestamps as decimal
+strings, complete FINAL receipt identity, request ID, series and classified
+outcome. Executor pickup time remains null unless independently evidenced; a
+provider job creation timestamp is not a pickup timestamp. Keep timeout,
+provider-reported `STALE_TRADE`, accepted and other rejected outcomes separate.
+No percentile or SLA follows from a small mixed-window sample.
+
+The keeper may load explicitly reviewed per-series testnet retry policies from
+private `delivery-retry-policies.json`. Existing hard limits and evidence gates
+still apply: one pending request, 2–3 total attempts when authorized, 30–600s
+backoff, at most 15 minutes of authorization, separate review of each timed-out
+predecessor and its late valid computation. No policy means no automatic retry.
+A cap, expired authorization, missing review or UNKNOWN receipt never grants a
+new send or refund. A backoff beyond authorization has no scheduled attempt.
+
+Public state exposes a restricted diagnostic projection. Attempt counts describe
+journaled submissions (excluding certified never-included requests), not fills.
+Only a fresh keeper backoff observation may show the next eligible attempt time;
+observations older than 90 seconds hide the countdown. This is not a completion
+ETA. Chain finality still determines whether a payout is fixed. Cap-hit cases
+remain delayed; users holding both matching legs retain the contract's merge
+path, without requiring an oracle result.

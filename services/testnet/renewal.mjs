@@ -5,7 +5,7 @@ import {privateRead,durableWrite} from '../demo/storage.mjs';
 import {adminFor,functionCall} from './deploy.mjs';
 import {Q,assertDeploymentEnabled} from './workspace.mjs';
 import {canonical,fail} from '../../packages/sdk/intent.mjs';
-import {terminal} from '../../packages/sdk/journal.mjs';
+import {adminTerminal as terminal} from './admin-outcomes.mjs';
 import {retainedSeries} from '../../packages/sdk/series.mjs';
 import {planLadder} from '../markets/ladder.mjs';
 import {CoinbaseMarket} from '../market-data/coinbase.mjs';

@@ -1,3 +1,4 @@
+import {readDeliveryObservations} from '../outlayer/delivery-observation.mjs';
 import {startMakerHealth} from '../maker/health.mjs';
 import {fork} from 'node:child_process';
 import {mkdir,readFile,rm} from 'node:fs/promises';
@@ -5,6 +6,7 @@ import {join} from 'node:path';
 import EmbeddedPostgres from '../indexer/node_modules/embedded-postgres/dist/index.js';
 import {privateRead,durableWrite} from '../demo/storage.mjs';
 import {freePort} from '../../tests/indexer/postgres.mjs';
+import {hostedSettings} from '../../apps/web/hosted-auth.mjs';
 import {startWallet} from '../../apps/web/wallet.mjs';
 import {providerFor,verifyChain,assertDeploymentEnabled,Q} from './workspace.mjs';
 import {startNativeSampling} from './sampling.mjs';
@@ -15,6 +17,7 @@ import {coordinatedDatabaseStop} from './shutdown.mjs';
 // One owner per retained nonce/database workspace. A crash leaves the lock for
 // explicit operator inspection; starting again never silently resets state.
 export async function serve({directory,plan,port=8790}){
+    const hosted=hostedSettings();
     assertDeploymentEnabled(plan);
     const lock=join(directory,'running');await mkdir(lock,{mode:0o700});
     let pg,app,sampler,healthChecks,stopping,databaseStop;const workers=[];
@@ -68,8 +71,8 @@ export async function serve({directory,plan,port=8790}){
             try{await Promise.all(makers.map(m=>m.ask('pause',{})));return await fn();}
             finally{await Promise.all(makers.map(m=>m.ask('resume',{}))).finally(()=>{maintaining=false;});}
         }});
-        const diagnostics=async()=>({maintaining,makers:makers.map(m=>({connected:m.child.connected&&m.child.exitCode===null,health:m.health??null,...m.last})),keeper:await privateRead(join(directory,'expiry-status.json')).catch(()=>null),renewal:await privateRead(join(directory,'renewal-status.json')).catch(()=>null)});
-        app=await startWallet({diagnostics,port,config:deployment.client,retainedAnchor:await privateRead(join(directory,'anchor.json')),indexerConfig:{...deployment.indexer,postgres:{host:'127.0.0.1',port:pgPort,user:'postgres',password,database:'postgres'}},accounts:plan.accounts.filter(a=>a.role==='maker'),journal:join(directory,'wallet-journal'),quoteProvider,backgroundSync:true,discover:journalCandidates([join(directory,'admin-journal'),join(directory,'wallet-journal'),...plan.accounts.filter(a=>a.role==='maker').map(a=>join(directory,'maker-journals',a.id))])});
+        const diagnostics=async()=>({deliveries:await readDeliveryObservations(join(directory,'admin-journal')),maintaining,makers:makers.map(m=>({connected:m.child.connected&&m.child.exitCode===null,health:m.health??null,...m.last})),keeper:await privateRead(join(directory,'expiry-status.json')).catch(()=>null),renewal:await privateRead(join(directory,'renewal-status.json')).catch(()=>null)});
+        app=await startWallet({hosted,diagnostics,port,config:deployment.client,retainedAnchor:await privateRead(join(directory,'anchor.json')),indexerConfig:{...deployment.indexer,postgres:{host:'127.0.0.1',port:pgPort,user:'postgres',password,database:'postgres'}},accounts:plan.accounts.filter(a=>a.role==='maker'),journal:join(directory,'wallet-journal'),quoteProvider,backgroundSync:true,discover:journalCandidates([join(directory,'admin-journal'),join(directory,'wallet-journal'),...plan.accounts.filter(a=>a.role==='maker').map(a=>join(directory,'maker-journals',a.id))])});
         return {url:app.url,stop};
     }catch(e){await stop();throw e;}
 }

@@ -1,13 +1,19 @@
 # Hosted deployment preparation
 
-14 November 2026. **Public launch is blocked.** This runbook prepares the current
-options demo for hosting; it does not authorize production or mark G9 complete.
-The root [plan](../IMPLEMENTATION_PLAN.md) remains authoritative. The user selected
-Vercel for the frontend, targeting `hedgeveil.vercel.app` (availability unverified).
-Railway is the recommended persistent backend from the user's Render/Railway
-choices. No server, DNS record or public listener has been created.
+14 November 2026. **Public testnet demo deployed at the user's direction.**
+Frontend: https://hedgeveil.vercel.app. Backend:
+https://hedgeveil-backend-production.up.railway.app (gateway credential required).
+This is not production approval or G9 completion. The root
+[plan](../IMPLEMENTATION_PLAN.md) remains authoritative. Existing settlement,
+renewal, public-origin monetary acceptance and independent-review gates remain open.
+[Actual hosting evidence](../research/reports/public-hosting-2026-11-14.json).
 
-## Current topology
+The active expiry runtime is now Railway, with persistent volume
+`/app/.local/testnet`. The old laptop expiry runtime is stopped. Its retained
+workspace is a pre-cutover backup, **not an instance safe to restart** after
+Railway has made progress. The retired deployment on port 8794 remains separate.
+
+## Local development topology (expiry stopped after cutover)
 
 | Process | Local address | Persistent requirements |
 | --- | --- | --- |
@@ -46,33 +52,66 @@ observed health, **not** release readiness. Public readiness remains false until
 the gates below have implementation and acceptance evidence and the checker is
 reviewed accordingly. Do not add a command-line bypass.
 
-## Public access boundary: implement before exposing the application
+## Public access boundary: actual host checks passed
 
-The bridge in `apps/frontend/lib/desk-bridge.ts` currently accepts loopback HTTP
-origins only. `apps/web/server.mjs` exposes a local, shared operation journal.
-Wallet connection is not authentication: knowing an account name or an operation
-ID must not allow one user to list or mutate another user's operation records.
+Hosted mode is explicit; the default remains loopback-only. Next.js verifies the
+exact configured frontend Host/Origin and fetch-site, then contacts only the
+configured HTTPS backend. Server-only bearer authentication identifies the bridge;
+browser Authorization/proxy headers and unrelated cookies are discarded. The
+backend requires its exact public Host, the configured frontend Origin, the
+service credential and HTTPS proxy indication. Only the platform's TLS ingress
+may reach its hosted listener. PostgreSQL remains on loopback. No wildcard preview
+origins, redirects to arbitrary upstreams or browser-visible bridge secret.
 
-Required changes and acceptance:
+Wallet connection alone is insufficient. Users sign a NEP-413 message containing
+the account, frontend origin, contract, genesis and two-minute expiry. The server
+verifies the signature and full-access key membership at a verified finalized
+block. A separate HttpOnly challenge cookie binds the response to its browser;
+challenges are consumed once, including failed verification. Authentication cannot
+create access keys, send a transaction or lift trading/receipt gates.
 
-1. Configure one explicit HTTPS frontend origin with exact Host/Origin checks,
-   secure session cookies, CSRF protection and trusted-proxy handling. Keep the
-   backend and database on loopback. Test cross-origin and forged proxy headers.
-2. Establish verifiable per-user operation ownership. Bind prepare, list, handoff,
-   cancel, recovery and remembered hashes to that owner. Test two separate browser
-   sessions/accounts against every operation endpoint, including guessed IDs.
-   A frontend filter alone is insufficient. Preserve the existing local journal
-   and quarantine semantics during migration.
-3. Bound requests per session and client, concurrent RFQs, prepared operations
-   and recovery requests. Test overflow and sustained ten-user load. Preserve
-   recovery availability without allowing unauthenticated journal exhaustion.
-4. Confirm wallet executors, CSP, callbacks, rejection and interrupted response
-   recovery on the final HTTPS origin. No backend user-wallet signing authority.
+Sessions last 15 minutes, use `__Host-` Secure/HttpOnly/SameSite=Strict cookies,
+rotate on successful verification and are revoked on logout. Sessions/challenges
+are bounded in memory; restart requires verification again. A removed account key
+may leave an existing session valid until its 15-minute expiry; wallet transactions
+still require the wallet. Account switching requires verification for the selected
+account. Wallet-return evidence stays in the URL until authenticated recovery can
+retain it. Persistent operation journals are not rewritten on login or restart.
 
-Do not reverse-proxy a public origin into the loopback bridge by rewriting Host
-and Origin to bypass these checks. Until these requirements pass, any remote
-staging installation must be reachable only through an operator SSH tunnel or
-an equivalent private network. It is not a multi-user public demo.
+The verified account owns prepare/list/live/quotes and every operation ID access:
+handoff, cancel, recovery and remembered hashes. Foreign and missing IDs both
+return 404. Public chain snapshots, chain evidence and sanitized service health
+remain readable through the authenticated bridge without wallet login. Browser
+filters are presentation only; ownership is enforced on the backend.
+
+Single-backend limits (not per Vercel instance):
+
+| Resource | Limit |
+| --- | --- |
+| JSON body | 64 KiB; backend request timeout 15 s, headers 10 s |
+| Bridge call | 45 s timeout, redirects disabled, no write retries |
+| All gateway requests | 1,200/minute; at most 32 in flight |
+| POST requests in flight | 8 globally; capacity held until handler completes |
+| Authentication writes | 60/minute globally; 4 challenges/account/minute |
+| Authenticated actions including receipt checks | 30/account/minute |
+| RFQ requests | 12/account/minute, within the action budget |
+| New retained operation records | 100/account, 1,000 total; serialized cap check |
+| Sessions / outstanding challenges | 256 / 128; expired entries pruned |
+
+Exhaustion returns an explicit error; rate limits use HTTP 429 and Retry-After.
+Operation capacity stops new preparation, never deletes records or permits resend.
+Existing recovery remains available within request limits. These are initial demo
+limits, not a sustained ten-user capacity claim. Full target-host load testing and
+independent security review remain pending.
+
+Verification: `tests/wallet/hosted-auth.test.mjs` checks cryptographic signatures,
+replay/expiry/domain/account/key rejection, browser challenge binding, foreign ID
+access across every mutation, unknown quarantine preservation and ten concurrent
+session identities. `tests/e2e/next-bridge.test.mjs` covers origins, forged proxy
+headers, secret/cookie isolation, JSON limits and no retries. These use local test
+keys/transport fixtures; they are not public wallet acceptance. Before opening
+trading, verify the actual HTTPS ingress, both pinned wallets, popup/rejection and
+interrupted-response recovery on the final Vercel origin.
 
 ## Build inventory for a clean target checkout
 
@@ -94,8 +133,8 @@ Current packaging constraints: runtime imports `near-api-js` from
 `tests/sandbox/node_modules`, `embedded-postgres` from the indexer's development
 dependencies, and `esbuild` from the web package. Omitting those directories or
 using `npm ci --omit=dev` breaks startup. This inventory is based on current
-imports; Linux container build/import acceptance now passes. Actual host restore
-and live service acceptance remain pending. No contract build or
+imports; Linux container build/import acceptance now passes. Actual host restore and access-boundary checks pass; live RFQ and remaining
+monetary lifecycle acceptance remain pending. No contract build or
 Sandbox execution is needed merely to serve the existing deployment.
 
 Frontend server environment (not browser-public variables):
@@ -105,7 +144,20 @@ HEDGEVEIL_FRONTEND_ORIGIN=http://127.0.0.1:3000
 HEDGEVEIL_BACKEND_ORIGIN=http://127.0.0.1:8796
 ```
 
-These are **private staging** values, not final public-origin configuration.
+These are local values. For hosted mode, set the following on both servers:
+
+```dotenv
+HEDGEVEIL_HOSTED_MODE=1
+HEDGEVEIL_FRONTEND_ORIGIN=https://hedgeveil.vercel.app
+HEDGEVEIL_BACKEND_ORIGIN=https://YOUR-BACKEND-HOST
+HEDGEVEIL_BRIDGE_SECRET=<same-64-character-random-hex-secret>
+```
+
+Generate the secret into protected secret storage; never paste it into chat or
+commit it. The placeholder is not a working credential. Rotate it on both servers
+together. Use Railway TLS ingress targeting port 8796; do not expose PostgreSQL.
+The hosted wallet API listens on 0.0.0.0 only in this explicit mode. Local-mode
+Host/Origin rewriting is not a deployment workaround.
 Keep `.env`, `.local`, logs and backups out of git, build contexts and publicly
 served directories. Do not use `NEXT_PUBLIC_` for credentials or backend settings.
 
@@ -158,7 +210,7 @@ state back; restoring an older snapshot and resending actions is unsafe.
 | Settlement signer recovery | `QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3` is retained as unknown; no timeout-based resend |
 | Subsequent ladder renewal | Blocked by unresolved service operation; final receipt acceptance pending |
 | Full-block audit | Incomplete/rate-limited; additive only under the approved receipt-reconciliation demo mode |
-| Public API isolation and abuse limits | Implementation and cross-user acceptance required |
+| Public API isolation and abuse limits | Implemented; local adversarial/ten-session checks pass; final-host and independent acceptance pending |
 | Hosted restore, sustained ten-user load, final-origin wallet flow | Pending selected host and executable checks |
 | Release candidate and independent review | Fresh rehearsal and independent review pending |
 
@@ -186,14 +238,12 @@ Import the repository into Vercel with these settings:
 from a committed source tree, and inspect uploaded files before any manual upload.
 Never upload the private expiry workspace to Vercel.
 
-Use a protected preview for build inspection first. This configuration is a
-**build preparation**, not a working public trading deployment: desk APIs, spot,
-wallet executors and status still use the loopback-only bridge. Setting
-`HEDGEVEIL_FRONTEND_ORIGIN=https://hedgeveil.vercel.app` currently fails validation.
-Do not point `HEDGEVEIL_BACKEND_ORIGIN` at your laptop's `127.0.0.1`; that address
-would refer to the Vercel function itself. Secure hosted bridge support and its
-backend authentication must land before configuring the final server-only values.
-Do not infer trusted origins from arbitrary preview Host headers.
+Use a protected preview for build inspection first. Configure the exact final
+frontend/backend HTTPS origins and shared server-only bridge secret as described
+above. A preview URL is not automatically trusted; use an isolated backend if a
+separate preview origin needs authenticated testing. Do not point the backend
+origin at your laptop's loopback address, which would refer to the Vercel function
+itself. Actual host restore and final-origin wallet acceptance are still pending.
 
 The existing backend uses a long-running process tree and persistent files, which
 do not fit Vercel Functions' request lifecycle and read-only filesystem with
@@ -202,7 +252,7 @@ Reference: [Vercel monorepo setup](https://vercel.com/docs/monorepos/monorepo-fa
 and [function runtimes](https://vercel.com/docs/functions/runtimes).
 
 
-## Railway backend container (private staging only)
+## Railway backend container
 
 The backend Dockerfile is `deploy/container/Dockerfile`, built from repository
 root. It pins the Node base image by digest, installs locked Linux dependencies,
@@ -222,7 +272,7 @@ runtime imports and wallet integrity, and rejects an absent deployment workspace
 It does not start makers or settlement workers, load live keys, or submit actions.
 This does not replace restoration of actual journals/database on the target host.
 
-Railway settings for the eventual private staging service:
+Railway settings (public testnet service):
 
 | Setting | Value |
 | --- | --- |
@@ -235,14 +285,14 @@ Railway settings for the eventual private staging service:
 | Replicas | One, one region; never copy these signers to a second worker service |
 | Restart | `NEVER` during migration; inspect retained crash locks before restarting |
 | Drain | 150 seconds; verify actual host termination behavior |
-| Public domain / TCP proxy | None until authenticated gateway acceptance |
+| Public domain / TCP proxy | HTTPS domain above; authenticated bridge only; no database TCP proxy |
 | Automatic deployments / PR environments | Disabled for this stateful signer service |
 
 Use a non-sleeping service. Budget and measure memory/CPU with ten users before
 selecting final limits; a container build is not a load test. The Docker image is
 also usable on Render with a persistent disk, but do not run both hosts.
 
-Provisioning and state transfer are still pending. Railway volumes can initially
+Provisioning and state transfer passed on 14 November. Railway volumes can initially
 be root-owned. During the isolated restore procedure, set the mount and restored
 files to UID/GID 1000 with private permissions. Do not run the backend as root to
 work around ownership errors; its startup precheck refuses root. Do not blindly
@@ -258,11 +308,46 @@ prevent the old laptop instance from signing. Stop and verify the old instance
 before bringing up the restored service. `overlapSeconds: 0` alone is not a
 cross-host lock. Reusing a signer on two hosts is forbidden by this runbook.
 
-This image currently listens on **container loopback only**. It is packaging for
-private staging, not a public Railway API. Vercel cannot call this loopback
-listener. The authenticated gateway and user-owned operation sessions described
-above must be implemented and tested before connecting the two hosts. Do not
-use public proxy header rewriting as a shortcut.
+Hosted mode binds the application listener for Railway ingress. Default local
+mode remains loopback-only. Only Vercel's configured server-side gateway may
+access the hosted API; direct anonymous backend requests are denied. PostgreSQL
+continues to bind loopback. No proxy-header rewriting bypass was introduced.
+
+### Actual cutover and migration procedure
+
+`deploy/container/migrate.mjs` exports a stopped expiry workspace into an
+AES-256-GCM encrypted archive, including a PostgreSQL 18 logical INSERT dump and
+retained application files. It excludes physical PostgreSQL files and process
+locks. `HEDGEVEIL_MIGRATION_HOLD=1` holds the new container before any database,
+maker or settlement worker starts. Default/unset or `0` starts the normal guarded
+entrypoint. Set it to `0` only after restoring and verifying the workspace.
+
+The export key is stored separately with private permissions. Transfer the encrypted
+archive over authenticated SSH; deliver the key through SSH stdin into the restore
+process environment, never through command arguments, logs or persistent host
+variables. Run restoration as UID/GID 1000 into an absent target. The tool refuses
+existing workspaces, traversal/symlinks, tampered archives and table digest mismatch.
+On failure, preserve the target for inspection; do not overwrite it or remove locks.
+The Mac export currently uses Docker's `host.docker.internal` for the pinned
+PostgreSQL 18 dump client. Other export hosts need an explicitly tested connection.
+
+The actual restore matched 1,148 retained files, 12 tables and 2,310 rows. The
+empty maker-journals directory was created where absent; no journal records were
+reset. A UTC serialization adjustment resolved cross-host timestamp digest formatting
+before the successful restore. No failed restore was promoted to the live workspace.
+The original laptop runtime was stopped and verified exited before export; no
+second signing runtime was started during Linux restore tests.
+
+Railway application PID 1 runs as UID/GID 1000. Its initially root-owned empty
+volume mount was assigned narrowly to that UID through an administrative SSH
+session. No root service setting was applied. Source uploads exclude private
+state; the encrypted migration is separate from the container and frontend builds.
+
+After migration, backup the **current Railway state**, not the stale laptop copy.
+A volume is persistence, not an independent backup. Automated scheduled backups
+and a target-host restart drill remain acceptance work. Before rollback, drain and
+stop Railway, verify no process can sign, export its latest state and restore it on
+the rollback host. Never resume the pre-cutover laptop DB/journals after remote writes.
 
 Provider references: [Railway configuration](https://docs.railway.com/config-as-code/reference),
 [Railway volume limitations](https://docs.railway.com/volumes/reference).
@@ -272,3 +357,14 @@ Local packaging evidence: [backend container checks](../research/reports/backend
 The initial clean build correctly rejected changed upstream Meteor bytes. The
 existing hash-matching public executors and upstream licenses are now retained
 in `apps/web/wallets/executors`; downloads cannot silently upgrade wallet code.
+
+### Railway update discipline
+
+Keep `RAILWAY_DEPLOYMENT_OVERLAP_SECONDS=0` and `RAILWAY_DEPLOYMENT_DRAINING_SECONDS=150` for the sole signer runtime. Before replacing a runtime, send SIGTERM and allow its normal worker/database drain to finish. Deployment status alone does not prove process shutdown. Never remove ownership locks while their process may still be alive. The 14 November recovery update used explicit graceful shutdown and preserved journals; the replacement deployment started without clearing locks.
+
+
+## Settlement retry policy and delivery archive
+
+The expiry workspace may contain private `delivery-retry-policies.json`, an object keyed by series ID. Absence means the normal one-request policy. A malformed file fails closed. A policy must satisfy `validateRetryPolicy` in `services/outlayer/delivery-retry.mjs`: version, series ID, original request hash, 2–3 total attempts, 30–600 second backoff, an authorization interval no longer than 15 minutes, and individually reviewed prior request/worker-result hashes. This is a bounded reviewed probe mechanism, not permission for unlimited retries. Do not install a policy merely because the UI says delayed. STALE_TRADE and UNKNOWN are not eligible timeout proofs.
+
+Delivery observations are durably retained under `admin-journal/delivery-observations`. `node scripts/record-delivery-history.mjs` reads the configured expiry workspace and retained FINAL evidence (RPC fallback where needed), writes additive timing records, and never signs or resends. It records source request and resolver callback nanoseconds as decimal strings; executor pickup is null unless separately evidenced. Public state exposes only projected series/request/outcome/timing fields, never raw journals or keys. Retain this directory with the existing persistent volume and backups.

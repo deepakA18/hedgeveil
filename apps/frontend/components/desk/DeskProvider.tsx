@@ -177,6 +177,9 @@ export function DeskProvider({
     [error, setError] = useState(""),
     [notice] = useState(""),
     [picker, setPicker] = useState(false),
+    [verification, setVerification] = useState(false),
+    [verificationError, setVerificationError] = useState(""),
+    [verifiedAccount, setVerifiedAccount] = useState(""),
     [preview, setPreview] = useState<Preview | null>(null),
     [attempted, setAttempted] = useState(false),
     [reviewError, setReviewError] = useState("");
@@ -196,6 +199,7 @@ export function DeskProvider({
     revision.current++;
     selected.current = value;
     setAccount(value);
+    setVerifiedAccount("");
     setLive(null);
     setRecords([]);
     setReceiptCheck("");
@@ -222,6 +226,16 @@ export function DeskProvider({
     const id = selected.current,
       run = ++generation.current;
     setLoading(true);
+    if (s.auth_required && id) {
+      try {
+        const access = await api<{ account: string | null }>("auth/session");
+        if (selected.current !== id || run !== generation.current) return;
+        setVerifiedAccount(access.account === id ? id : "");
+        if (access.account !== id) setVerification(true);
+      } catch {
+        /* Protected endpoints independently fail closed. */
+      }
+    }
     const results = await Promise.allSettled([
       api<IndexState>("state"),
       ...(id && s.configured
@@ -344,7 +358,7 @@ export function DeskProvider({
           /* Explicit connection remains available. */
         }
         const u = new URL(location.href);
-        if (u.searchParams.has("hv_operation")) {
+        if (!s.auth_required && u.searchParams.has("hv_operation")) {
           const id = u.searchParams.get("hv_operation")!;
           history.replaceState(null, "", location.pathname);
           try {
@@ -440,6 +454,80 @@ export function DeskProvider({
       clearTimeout(timer);
     };
   }, [account, refresh]);
+  useEffect(() => {
+    const request = () => {
+      if (selected.current && sessionRef.current?.auth_required)
+        setVerification(true);
+    };
+    window.addEventListener("hedgeveil:verify-wallet", request);
+    return () => window.removeEventListener("hedgeveil:verify-wallet", request);
+  }, []);
+  // Keep wallet-return evidence in the URL until the authenticated owner can retain it.
+  const returnBusy = useRef(false);
+  useEffect(() => {
+    if (
+      !session?.auth_required ||
+      !account ||
+      verifiedAccount !== account ||
+      returnBusy.current
+    )
+      return;
+    const u = new URL(location.href),
+      id = u.searchParams.get("hv_operation");
+    if (!id) return;
+    returnBusy.current = true;
+    void (async () => {
+      try {
+        const hint = walletReturn(u.href, id);
+        await api("remember-hash", { id, hash: hint.hash });
+        history.replaceState(null, "", location.pathname);
+        const result = await api<ReceiptResult>("recover", { id });
+        transactionToast(id, result, hint.hash);
+        await refresh();
+      } catch (e) {
+        setError(message(e));
+      } finally {
+        returnBusy.current = false;
+      }
+    })();
+  }, [account, verifiedAccount, session, refresh]);
+  async function verifyWallet() {
+    if (busyRef.current || !wallet.current || !selected.current) return;
+    const id = selected.current,
+      w = wallet.current,
+      before = revision.current;
+    lock(true);
+    setVerificationError("");
+    try {
+      const challenge = await api<{
+        message: string;
+        recipient: string;
+        nonce: number[];
+      }>("auth/challenge", { account: id });
+      if (before !== revision.current) throw Error("WALLET_CHANGED");
+      const signed = await w.signMessage({
+        ...challenge,
+        nonce: new Uint8Array(challenge.nonce),
+      });
+      if (before !== revision.current || signed?.accountId !== id)
+        throw Error("WALLET_CHANGED");
+      await api("auth/verify", signed);
+      setVerifiedAccount(id);
+      setVerification(false);
+      await refresh();
+    } catch (e) {
+      const code = e instanceof Error ? e.message : "";
+      setVerificationError(
+        code === "WALLET_CHANGED"
+          ? "Your account changed. Reconnect the account you want to verify."
+          : code === "RATE_LIMITED"
+            ? "Too many sign-in attempts. Wait a minute, then try again."
+            : "Wallet verification didn’t finish. Try again and approve the sign-in message in your wallet.",
+      );
+    } finally {
+      lock(false);
+    }
+  }
   async function connect(id: string) {
     if (busyRef.current || !connector.current) return;
     setPicker(false);
@@ -495,6 +583,8 @@ export function DeskProvider({
     setAccounts([]);
     lock(true);
     try {
+      if (sessionRef.current?.auth_required) await api("auth/logout", {});
+      setVerification(false);
       localStorage.removeItem("hedgeveil:testnet:connect:selected-wallet");
       if (old) await connector.current?.disconnect(old);
     } catch {
@@ -666,6 +756,49 @@ export function DeskProvider({
       }}
     >
       {children}
+      {verification && account && session?.auth_required && (
+        <Modal
+          className="wallet-dialog wallet-verification"
+          title="Verify your wallet"
+          locked={busy}
+          onClose={() => {
+            if (!busy) setVerification(false);
+          }}
+        >
+          <p className="wallet-intro">
+            Confirm this account is yours to access your activity and trade.
+          </p>
+          <div className="verification-account">
+            <span>Account</span>
+            <strong>{account}</strong>
+          </div>
+          <p className="verification-note">
+            A free sign-in message. No gas, transfers or access keys.
+          </p>
+          {verificationError && (
+            <p className="wallet-error" role="alert">
+              {verificationError}
+            </p>
+          )}
+          <button
+            type="button"
+            className="desk-button lime verification-action"
+            aria-busy={busy}
+            disabled={busy}
+            onClick={() => void verifyWallet()}
+          >
+            {busy ? (
+              <>
+                <Spinner /> Waiting for your wallet…
+              </>
+            ) : verificationError ? (
+              "Try verification again"
+            ) : (
+              "Verify wallet"
+            )}
+          </button>
+        </Modal>
+      )}
       {picker && (
         <Modal
           className="wallet-dialog"

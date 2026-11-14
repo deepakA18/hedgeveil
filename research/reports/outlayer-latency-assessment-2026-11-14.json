@@ -1,0 +1,91 @@
+{
+  "observed_at": "2026-11-14T10:25:55.642Z",
+  "scope": "Read-only receipt timings; provider created_at is not proven pickup time. Small historical sample, not P50/P99 or time-of-day coverage.",
+  "new_paid_requests": 0,
+  "items": [
+    {
+      "request_id": 44151,
+      "request_hash": "AMyGrRQFB2Yddx4xF58JYB8GoTTUB2vvH5Vp8ipBppYs",
+      "start_ns": "1794650207209811455",
+      "end_ns": "1794650321595511504",
+      "blocks": 201,
+      "callback_seconds": 114.385700049,
+      "provider_job_created_at": "2026-11-14T09:59:05.509Z",
+      "job_record_offset_seconds": 138.29999995231628,
+      "reported_execution_ms": 881,
+      "provider_error": "Failed to submit to NEAR: the chain did not take submit_execution_output_and_resolve (tx G6AM4vsnhntjLndVvb8VhGtj3Tv2qhQDi8g8STeXfLUH): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1023:14:\\nExecution request not found\")"
+    },
+    {
+      "request_id": 43926,
+      "request_hash": "4DBcP1xDmfLCZZo9eaDZdW5QDW1EzsbqYePV3RoqzLUk",
+      "start_ns": "1794648030387509304",
+      "end_ns": "1794648132957492631",
+      "blocks": 180,
+      "callback_seconds": 102.569983327,
+      "provider_job_created_at": "2026-11-14T09:22:14.278Z",
+      "job_record_offset_seconds": 103.89100003242493,
+      "reported_execution_ms": 1347,
+      "provider_error": "Error: \"STALE_TRADE\"\n"
+    },
+    {
+      "request_id": 43917,
+      "request_hash": "3EyGEtZeCC1zxvMAGWRMmd4y2Ky7dkN2XrsMwenfgtsw",
+      "start_ns": "1794647959425691156",
+      "end_ns": "1794648024338387992",
+      "blocks": 107,
+      "callback_seconds": 64.912696836,
+      "provider_job_created_at": "2026-11-14T09:20:25.575Z",
+      "job_record_offset_seconds": 66.15000009536743,
+      "reported_execution_ms": 3927,
+      "provider_error": "Error: \"STALE_TRADE\"\n"
+    },
+    {
+      "request_id": 43911,
+      "request_hash": "DbemQfSYXhEarMztB3NvCd66wX8c9QNDypAV4MbAaym5",
+      "start_ns": "1794647849372598781",
+      "end_ns": "1794647948088037025",
+      "blocks": 163,
+      "callback_seconds": 98.715438244,
+      "provider_job_created_at": "2026-11-14T09:19:09.374Z",
+      "job_record_offset_seconds": 100.00200009346008,
+      "reported_execution_ms": 1675,
+      "provider_error": "Error: \"STALE_TRADE\"\n"
+    },
+    {
+      "request_id": 43906,
+      "request_hash": "BgXj5fRScgSRRGKS1oPd2fsnSm9sNnBxi7UAWEYfAQpJ",
+      "start_ns": "1794647717657661224",
+      "end_ns": "1794647839680432844",
+      "blocks": 201,
+      "callback_seconds": 122.02277162,
+      "provider_job_created_at": "2026-11-14T09:17:49.486Z",
+      "job_record_offset_seconds": 151.8289999961853,
+      "reported_execution_ms": 1185,
+      "provider_error": "Failed to submit to NEAR: the chain did not take resolve_execution (tx 3vsHWpfxNhv1hV91sFDJrraVAqXZqMgjFfgMWPE6aM9q): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1052:14:\\nExecution request not found\")"
+    },
+    {
+      "request_id": 43897,
+      "request_hash": "44Jzxrg7UyQdBJNYhmG5kYpbreuXsz7tDjHJgwsxR9Lt",
+      "start_ns": "1794647594203952207",
+      "end_ns": "1794647709221956294",
+      "blocks": 201,
+      "callback_seconds": 115.018004087,
+      "provider_job_created_at": "2026-11-14T09:15:44.380Z",
+      "job_record_offset_seconds": 150.17700004577637,
+      "reported_execution_ms": 1561,
+      "provider_error": "Failed to submit to NEAR: the chain did not take resolve_execution (tx 8zbP4M46qzjRTtfNF1c6qbXt3Q2zM2mASiSd5fWMqKq4): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1052:14:\\nExecution request not found\")"
+    },
+    {
+      "request_id": 43889,
+      "request_hash": "E8t2GeXYtuTk5tC8uuDNddw5J1aQfVjBbeEqSEb1RrjX",
+      "start_ns": "1794647477362219534",
+      "end_ns": "1794647583879737823",
+      "blocks": 201,
+      "callback_seconds": 106.517518289,
+      "provider_job_created_at": "2026-11-14T09:14:20.850Z",
+      "job_record_offset_seconds": 183.48799991607666,
+      "reported_execution_ms": 4302,
+      "provider_error": "Failed to submit to NEAR: the chain did not take resolve_execution (tx G2uavU5SWVy7RCavYfyPgL4wTXW6NbJawv8X4hW6aKTh): the transaction failed: Action #0: ExecutionError(\"Smart contract panicked: panicked at src/execution.rs:1052:14:\\nExecution request not found\")"
+    }
+  ]
+}

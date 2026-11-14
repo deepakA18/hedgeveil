@@ -1,5 +1,6 @@
 const gets = new Set([
   "session",
+  "auth/session",
   "state",
   "live",
   "operations",
@@ -9,6 +10,9 @@ const gets = new Set([
   "evidence/transactions",
 ]);
 const posts = new Set([
+  "auth/challenge",
+  "auth/verify",
+  "auth/logout",
   "prepare",
   "handoff",
   "cancel",
@@ -30,15 +34,64 @@ export function localOrigin(value: string) {
     throw Error("LOCAL_ORIGIN_REQUIRED");
   return u.origin;
 }
+export function httpsOrigin(value: string) {
+  const u = new URL(value);
+  if (
+    u.protocol !== "https:" ||
+    u.username ||
+    u.password ||
+    u.pathname !== "/" ||
+    u.search ||
+    u.hash ||
+    u.port ||
+    ["localhost", "127.0.0.1"].includes(u.hostname)
+  )
+    throw Error("HTTPS_ORIGIN_REQUIRED");
+  return u.origin;
+}
 export function bridgeSettings() {
-  return {
-    frontend: localOrigin(
-      process.env.HEDGEVEIL_FRONTEND_ORIGIN ?? "http://127.0.0.1:3000",
-    ),
-    backend: localOrigin(
-      process.env.HEDGEVEIL_BACKEND_ORIGIN ?? "http://127.0.0.1:8794",
-    ),
+  const hosted = process.env.HEDGEVEIL_HOSTED_MODE === "1";
+  if (process.env.HEDGEVEIL_HOSTED_MODE && !hosted)
+    throw Error("INVALID_HOSTED_MODE");
+  const parse = hosted ? httpsOrigin : localOrigin;
+  const frontend = parse(
+    process.env.HEDGEVEIL_FRONTEND_ORIGIN ?? "http://127.0.0.1:3000",
+  );
+  const backend = parse(
+    process.env.HEDGEVEIL_BACKEND_ORIGIN ?? "http://127.0.0.1:8794",
+  );
+  const secret = process.env.HEDGEVEIL_BRIDGE_SECRET;
+  if (
+    hosted &&
+    (frontend === backend || !secret || !/^[a-f0-9]{64}$/.test(secret))
+  )
+    throw Error("INVALID_BRIDGE_SETTINGS");
+  return { frontend, backend, hosted, secret };
+}
+const cookieNames = ["__Host-hv-session", "__Host-hv-challenge"];
+export function backendHeaders(req?: Request): Record<string, string> {
+  const { frontend, backend, hosted, secret } = bridgeSettings();
+  if (!hosted) return { origin: backend };
+  const headers: Record<string, string> = {
+    origin: frontend,
+    authorization: "Bearer " + secret,
+    "x-forwarded-proto": "https",
   };
+  // Never forward browser Authorization, proxy claims, or unrelated cookies.
+  const raw = req?.headers.get("cookie") ?? "";
+  headers.cookie = cookieNames
+    .flatMap((name) => {
+      const values = raw
+        .split(";")
+        .map((s) => s.trim())
+        .filter((s) => s.startsWith(name + "="));
+      return values.length === 1 &&
+        /^[a-f0-9]{64}$/.test(values[0].slice(name.length + 1))
+        ? values
+        : [];
+    })
+    .join("; ");
+  return headers;
 }
 const reply = (status: number, error: string) =>
   Response.json(
@@ -66,7 +119,7 @@ export async function bridge(
   path: string,
   transport: typeof fetch = fetch,
 ) {
-  const { frontend, backend } = bridgeSettings();
+  const { frontend, backend, hosted } = bridgeSettings();
   if (!validRequest(req, frontend)) return reply(403, "LOCAL_ORIGIN_ONLY");
   if (
     !(req.method === "GET"
@@ -125,7 +178,7 @@ export async function bridge(
       {
         method: req.method,
         headers: {
-          origin: backend,
+          ...backendHeaders(req),
           ...(body === undefined ? {} : { "content-type": "application/json" }),
         },
         body,
@@ -134,13 +187,21 @@ export async function bridge(
         signal: AbortSignal.timeout(45000),
       },
     );
+    const headers = new Headers({
+      "content-type": "application/json",
+      "cache-control": "no-store",
+      "x-content-type-options": "nosniff",
+    });
+    if (response.status === 429) headers.set("retry-after", "60");
+    if (hosted && path.startsWith("auth/")) {
+      for (const value of response.headers.getSetCookie()) {
+        if (cookieNames.some((name) => value.startsWith(name + "=")))
+          headers.append("set-cookie", value);
+      }
+    }
     return new Response(await response.text(), {
       status: response.status,
-      headers: {
-        "content-type": "application/json",
-        "cache-control": "no-store",
-        "x-content-type-options": "nosniff",
-      },
+      headers,
     });
   } catch {
     return reply(503, "SERVICE_UNAVAILABLE");

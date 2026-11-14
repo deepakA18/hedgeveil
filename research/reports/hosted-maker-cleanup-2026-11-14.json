@@ -1,0 +1,297 @@
+{
+  "network": "testnet",
+  "observed_at": "2026-11-14T09:10:31.601Z",
+  "merges": [
+    {
+      "label": "cleanup:merge:ld5794d5629130d063ff39bbd:2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "ld5794d5629130d063ff39bbd",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:51:18.526Z",
+      "result": {
+        "operation_id": "423ecab46a18535a83d865075355b3d0bfaea1c7c4a1f028cc4c57e51f48fc27",
+        "hash": "BbQi5B5ww3aRWfJ6pYmyFJxd8CSVjUf8FMsJaPhRTssU",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l76a1071cacb9658b5b413f98:2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l76a1071cacb9658b5b413f98",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:51:08.926Z",
+      "result": {
+        "operation_id": "615edcb0f2db5ebb7177798635847b4448bd68ed012732d0dafb431f176a4537",
+        "hash": "9ByryJG1XuFgHQc13W5rMRZJETobAqiX8KJoW4KtcXu6",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l20b63986795167c2e7d477c9:ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l20b63986795167c2e7d477c9",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:50:44.821Z",
+      "result": {
+        "operation_id": "63dc0b54bcf1d8bb55aa26a7376d8ce8f090fffb61b42c51af7cbf6de8a443f8",
+        "hash": "5FQPpaEeF85jV3sshSRpzjCqDHCxhC2Vi3pFBbA1mni2",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l5b6afa68eaa43bd71237ea5f:ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l5b6afa68eaa43bd71237ea5f",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:51:04.110Z",
+      "result": {
+        "operation_id": "6b43903f48966abf7498fb5ce51b89bb5d9aa946caa7cbafd461a7b56a9f20b5",
+        "hash": "F1UCnkQ1T2SPhCGwN97g7VWG1Q5noaV47RrTg4zvnYwT",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l76a1071cacb9658b5b413f98:ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l76a1071cacb9658b5b413f98",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:51:13.709Z",
+      "result": {
+        "operation_id": "93f0a9373e383197ab0d490a1f3a489e9bb05d3f82dd6a47a8277a4eb2b93dd0",
+        "hash": "CKZSjRXFrzE5kTCZ6WG8EYxoCSHepo5mTd6CH9xWfbdX",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l221cf82facb4145d3c3f3e39:ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l221cf82facb4145d3c3f3e39",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:50:54.521Z",
+      "result": {
+        "operation_id": "aeb2b90b02f00e6dfce3302ce9cc719bc99d4f22436eae7f84bb122c6b06c7ac",
+        "hash": "DGPHpYzTP4bXoxTMYjp16PYF1mcrBm9BdBjyvFEQD6yS",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:ld5794d5629130d063ff39bbd:ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "signer": "ccbab997547252639c69ad4d48deb152c114c1645c42a2f250e6bb89e079fb39",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "ld5794d5629130d063ff39bbd",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:51:23.469Z",
+      "result": {
+        "operation_id": "c58f8af3c06bd07651bd6bf935bc3a2a27dc09efdbf8b2dec2c8bd5ced6ba8dd",
+        "hash": "7km2GQefyiduDqq4rzeqCWjkPvqnWABnBfFHbvUWvGDL",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l20b63986795167c2e7d477c9:2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l20b63986795167c2e7d477c9",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:50:39.778Z",
+      "result": {
+        "operation_id": "da2e43bce0a63fac9dce9cf5a2ca27da5c71d5ac759ca06737aa57db117169b7",
+        "hash": "AfPcTuLi3rYFW7LVVNh2AB1bzzgZUqJw6e1R3HsvH6wu",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l5b6afa68eaa43bd71237ea5f:2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l5b6afa68eaa43bd71237ea5f",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:50:59.123Z",
+      "result": {
+        "operation_id": "df387576dc2cea73482771aa6b766ae803c764092ac2975d0828591d80d53218",
+        "hash": "5635sr45zTnVqxtmGbEDjR4faousxqmB6pvKRHsrZXPP",
+        "state": "SUCCEEDED"
+      }
+    },
+    {
+      "label": "cleanup:merge:l221cf82facb4145d3c3f3e39:2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "signer": "2c360687813a92e7ded9926732734c507e305e6df7b87491084db0ad6f7b2cd1",
+      "actions": [
+        {
+          "type": "FunctionCall",
+          "method": "merge",
+          "args": {
+            "series_id": "l221cf82facb4145d3c3f3e39",
+            "amount": "100000000000000000000000"
+          },
+          "deposit": "1"
+        }
+      ],
+      "at": "2026-11-14T08:50:49.468Z",
+      "result": {
+        "operation_id": "edf50474ffd0abe472ab7976f1839d9822e0788b90fffbc5e29f0be87d627919",
+        "hash": "Dd7aY2LRTqWyiJxZSRSuoMfa15KG8pnAt6mWE4ryUb3A",
+        "state": "SUCCEEDED"
+      }
+    }
+  ],
+  "released_to_project_makers_yocto": "1000000000000000000000000",
+  "user_balances_modified": false,
+  "public_quote_observation": {
+    "at": "2026-11-14T08:53:39.147Z",
+    "transactions_submitted": 0,
+    "quotes": [
+      {
+        "leg": "P",
+        "status": 200,
+        "ms": 1233,
+        "items": [
+          {
+            "offered": true,
+            "reason": null
+          },
+          {
+            "offered": true,
+            "reason": null
+          }
+        ],
+        "error": null
+      },
+      {
+        "leg": "N",
+        "status": 200,
+        "ms": 389,
+        "items": [
+          {
+            "offered": true,
+            "reason": null
+          },
+          {
+            "offered": true,
+            "reason": null
+          }
+        ],
+        "error": null
+      }
+    ],
+    "reconciliation": {
+      "state": "RECONCILED",
+      "height": "277634868",
+      "block_hash": "CLR6foWUNQ3tWJrunNmbFEudyQiDNCpDEyqvebWRxcsm",
+      "lag_blocks": "32",
+      "reconciled": true,
+      "risk_allowed": true,
+      "rpc_failures": 8,
+      "rpc_failovers": 0,
+      "unresolved_transactions": [
+        {
+          "hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+          "state": "SUBMISSION_UNKNOWN",
+          "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66"
+        }
+      ],
+      "stale": false,
+      "age_ms": 27449,
+      "cursor_hash": "CLR6foWUNQ3tWJrunNmbFEudyQiDNCpDEyqvebWRxcsm",
+      "generation": "967",
+      "discovery": {
+        "source": "neardata-testnet",
+        "required": false,
+        "baseline_height": "277508185",
+        "height": "277516431",
+        "scanned_height": "277516431",
+        "observed_height": "277634699",
+        "lag_blocks": 118437,
+        "state": "SCANNING",
+        "fresh": true,
+        "checked_at": "2026-11-14T08:52:54.512Z",
+        "retry_at_ms": "1794573858977"
+      }
+    },
+    "open_series": 5,
+    "owner_chain_balance": {
+      "free": "79735591721855544332000",
+      "storage_paid": "40960000000000000000000"
+    },
+    "series": "l04003855dc0ecf8af6ef7052"
+  },
+  "reviewer": "implementation agent; independent review pending"
+}

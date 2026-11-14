@@ -1,5 +1,26 @@
 # Deferred backend and live-flow work
 
+**Delivery telemetry and retry visibility deployed (14 November 2026, 10:56 UTC):** Railway now retains exact source-request-to-resolver-callback timings and exposes a strict public projection. The series row and settlement panel show observed attempts/cap, elapsed expiry, review/cap stops, and the next eligible attempt countdown only when fresh and actually scheduled. No completion ETA is invented. Eight retained deliveries contain four yield timeouts, three `STALE_TRADE` rejections and one acceptance; executor pickup timestamps are unavailable, and this mixed sample establishes no SLA/P99. Ordinary workers still default to one request. An explicit private per-series reviewed policy permits two or three total attempts with backoff and a short authorization window; it does not retry deterministic rejection or UNKNOWN. No new paid request or contract change was made. At 10:53 UTC, the public app had **ten open markets** and both makers returned real P/N offers; `0 open` is superseded. Focused telemetry/coordinator/UI tests, release checks, typecheck, schema generation check and production build pass. Real public desktop/mobile browser checks verify progress/history without mock data. Older rejected cases, first-time public combined deposit, owner-wallet redemption, sustained ten-user execution and independent review remain open. [Delivery distribution](../research/reports/delivery-distribution-2026-11-14.json), [deployment and UI evidence](../research/reports/delivery-progress-release-2026-11-14.json).
+
+**Sequential retry and real settlement completed (14 November 2026, 10:36 UTC):** one explicitly reviewed 0.02-test-NEAR retry delivered the unchanged historical TWAP in 26.651 seconds. Outlayer request 44377 and transaction `2NWCHvCvbr1Jrx7fLt7wSpJmhGpqB8yYWDy9FwtJdBBS` have final successful receipts. The resolver accepted 3.329403079313 USD/NEAR; finalization and clearinghouse import agree, and the exact callback response passes independent Rust/Python replay. Both sides of the project-owned 0.01-NEAR pair were redeemed and their total payout was withdrawn with a successful transfer/callback (one yoctoNEAR rounding dust). This proves the new-profile project-account lifecycle, not owner-wallet redemption or sustained provider reliability. Both makers returned real P/N offers again at 10:36 UTC with ten open markets. The capped sequential scheduler and failure guards pass 16 focused tests; 17 schema checks, reference/vector checks, locked workspace tests, format and Clippy pass. The tested modules were staged privately on Railway for this single policy; ordinary automatic workers still default to one request. No contract changes or overlapping requests. Older rejected cases, first-time public combined deposit, owner-wallet redemption, sustained ten-user execution and independent review remain open. [Retry evidence](../research/reports/sequential-delivery-retry-2026-11-14.json), [completion receipts](../research/reports/timely-settlement-completion-2026-11-14.json), [public offers](../research/reports/public-quotes-after-settlement-2026-11-14.json).
+
+Earlier dated entries below are historical checkpoints, superseded only by the evidence above.
+
+**Sequential delivery assessment (14 November 2026, 10:25 UTC):** seven existing requests were remeasured without new spending. Three worker errors returned within 107–180 blocks (64.913–102.570 seconds); four yield timeouts completed at 201 blocks. This rules out assuming a fixed 138-second callback lag but does not prove successful price delivery or exact pickup latency. Single-pending remains unchanged. A capped sequential retry scheduler is proposed, not implemented; finalized rejection, distinct attempt journals, failure classification, backoff and UNKNOWN quarantine are required. [Evidence](../research/reports/outlayer-latency-assessment-2026-11-14.json). Independent review pending.
+
+**Delivery architecture review (14 November 2026):** durable authenticated results independent of yield expiry are now the primary provider request. The deployed resolver permits one pending request per series; overlapping +5/+50/+95-second attempts are not supported. A constant per-request pickup lag would defeat each independent timeout. Cache reuse and warm-up remain unverified hypotheses; no new paid attempt or contract change was made. Existing terms and UNKNOWN quarantine remain intact. See [recovery assessment](OUTLAYER_DELIVERY_INCIDENT.md). Implementation and independent review remain pending.
+
+**Settlement delivery failure isolated (14 November 2026, 10:02 UTC):** the funded timely test requested Outlayer five seconds after its fixed expiry. The request expired after 201 blocks (114.386 seconds). Outlayer's worker then submitted a successful calculation, but its source contract rejected that transaction with `Execution request not found`. The actual submitted history/calculation replays exactly in Rust and Python at 3.329403079313 USD/NEAR; this is diagnostic evidence, not an accepted settlement. The resolver retains `REJECTED`, no accepted/final price, and the 0.01-NEAR pair remains backed. No redemption or payout was fabricated and no repeated paid request was made. Public reconciliation and both makers' P/N offers recovered at 10:00:50 UTC with ten open markets. New-profile settlement/redemption remains blocked on provider delivery; independent review and sustained ten-user execution acceptance remain pending. See [failure evidence](../research/reports/timely-settlement-delivery-failure-2026-11-14.json) and [provider handoff](../docs/OUTLAYER_DELIVERY_INCIDENT.md).
+
+**Renewal and provider diagnosis (14 November 2026, 09:45 UTC):** ten ladder markets are visible after the new daily cohort reconciled. Both makers returned real P/N quotes through the public frontend at 09:40 UTC. A transient event-sequence gap during renewal blocked offers until receipts caught up; sustained availability is not claimed. The keeper now uses dRPC after the former official archival endpoint returned a deprecation/rate-limit error. Outlayer public job diagnostics identify three old executions as `STALE_TRADE` and three as failed result submissions with `Execution request not found`. These are provider-reported diagnostics, not independent attestations. All six resolver cases remain rejected with no invented payout. The project-funded timely series still awaits its 09:56:42 UTC expiry and actual callback. See [renewed-market offers](../research/reports/public-quotes-after-renewal-2026-11-14.json) and [provider diagnostics](../research/reports/outlayer-failure-diagnostics-2026-11-14.json).
+
+
+**Timely settlement / restored offers (14 November 2026, 09:32 UTC):** real public P/N quotes pass from both makers after restart, with receipt reconciliation allowing risk. A separate project-owned 0.01-NEAR pair is registered for the unchanged 30-minute TWAP profile, expiring 09:56:42 UTC. Its settlement, redemptions and withdrawal are pending; registration is not lifecycle acceptance. All six older request transactions have reached final receipts, but rejected evidence does not establish a final price. Newly due windows are prioritized; successful receipt evidence is retained rather than repeatedly refetched, while rejected/complete observations are rechecked within 60 seconds and UNKNOWN remains uncached and write-blocking. Seventeen focused tests pass. See [actual offers](../research/reports/public-quotes-restored-2026-11-14.json) and [funded setup](../research/reports/timely-settlement-setup-2026-11-14.json). Independent review remains pending.
+
+
+**Settlement recovery checkpoint (14 November 2026):** the original service request is classified expired and not included using exact envelope/nonce evidence from two RPC providers. Its distinct replacement finalized, but Outlayer returned null after execution failure and the resolver rejected evidence; no final price or payout is claimed. A read-only reproduction hits the pinned worker’s 2 MB history limit before reaching the old expiry. This establishes a late-retrieval limitation, not Outlayer’s undisclosed internal error. Existing series keep immutable terms. Other requests remain receipt-gated, and renewal/public reconciliation may pause while callbacks are pending. Settlement/redemption, sustained availability and independent review remain open.
+
+
 **Resume update:** [13 November implementation evidence](../research/reports/BACKEND_RESUME_2026-11-13.md)
 records layout-2 capacity/archive, keeper/indexer integration, a pre-window TWAP
 valuation candidate and both a ten-market deployment rehearsal and confirmed public setup (54 successful operations). The checklist below
@@ -165,9 +186,13 @@ unauthenticated browser checks do not substitute for this acceptance.
 - [ ] Rerun the release rehearsal on the actual candidate: reference/vector,
   locked Rust, format/Clippy, schema and relevant compiled-Wasm/browser checks;
   reproduce deployment/configuration and recovery from a fresh checkout.
-- [ ] After backend/E2E acceptance, configure public frontend and API/indexer/
-  maker/collector hosting with HTTPS, origins, secret separation, process
-  supervision and monitoring. User explicitly deferred hosting until testing.
+- [x] Configure the user-authorized public testnet frontend and persistent backend:
+  Vercel + Railway are live. Actual encrypted state restore and hosted access
+  boundaries pass. The laptop expiry runtime is stopped; Railway is the only writer.
+  User reports final-origin sign-in completed. See [DEPLOYMENT](DEPLOYMENT.md).
+- [ ] Complete final-host sustained ten-user quote/receipt load and operational
+  backup/restart acceptance. Ten concurrent signed-session reads across three
+  project accounts passed; this does not close execution capacity acceptance.
 - [ ] Recheck wallet execution from the public origin and finish the reproducible
   release evidence, walkthrough and submission materials.
 
@@ -223,3 +248,20 @@ Owner P purchase verified (13 November 2026): 0.01 Capped value at K $3.536; FIN
 
 
 Service attention follow-up (13 November): idle maker checks are now active and verified without issuing quotes. Four RPCs still report the retained settlement request as unknown; finalized resolver state is NOT_REQUESTED. Quarantine and renewal block remain. FASTNEAR audit remains behind at the observed free quota; no coverage reset is permitted. Evidence and exact closure requirements: STATUS, “Service attention investigation”, and `research/reports/service-attention-investigation.json`.
+
+
+## Public hosting checkpoint — 14 November 2026
+
+Vercel/Railway cutover and encrypted exact-state restoration passed. Owner reports
+hosted sign-in completed; existing balance survives migration. Ten signed read
+sessions across three project accounts passed isolation/logout checks. This is
+not ten-user execution acceptance. [Evidence](../research/reports/public-hosting-2026-11-14.json).
+
+**Next blocker:** both makers hold matched 0.1 P/N pairs in five expired unresolved
+daily markets. Coinbase's exact validator passes from Railway, but valuation
+refuses unresolved maturity, so even weekly RFQs return no offers. Resolve the
+settlement quarantine or use a separately verified, journaled maker-inventory
+cleanup path under the single-writer guard. Never drop positions from equity,
+substitute a terminal price, remove UNKNOWN records or resend on timeout. Public
+monetary tests must wait for real funded offers. The root settlement request and
+renewal gate are preserved; automatic successful renewal is not claimed.

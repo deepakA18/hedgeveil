@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-14T10:58:10.716Z",
+  "backend_deployment": "824db723-95ae-4e86-8861-854be66863ff",
+  "frontend": "https://hedgeveil.vercel.app",
+  "transactions_submitted": 0,
+  "paid_requests_submitted": 0,
+  "open_series": 10,
+  "quotes": [
+    {
+      "leg": "P",
+      "status": 200,
+      "ms": 1652,
+      "items": [
+        {
+          "offered": true,
+          "reason": null
+        },
+        {
+          "offered": true,
+          "reason": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "leg": "N",
+      "status": 200,
+      "ms": 362,
+      "items": [
+        {
+          "offered": true,
+          "reason": null
+        },
+        {
+          "offered": true,
+          "reason": null
+        }
+      ],
+      "error": null
+    }
+  ],
+  "risk_allowed_at_check": true,
+  "ui": {
+    "at": "2026-11-14T10:58:10.716Z",
+    "errors": [],
+    "delivery_records": 8,
+    "keeper": {
+      "series_id": "ld5794d5629130d063ff39bbd",
+      "state": "EVIDENCE_REJECTED_REVIEW_REQUIRED",
+      "observed_at": "2026-11-14T10:58:04.209Z",
+      "attempt": 1,
+      "max_attempts": 1,
+      "next_attempt_ns": null
+    },
+    "panel": "Attempt 1 of 1. Evidence needs review\nExpired 2h 58m ago\nNo automatic attempt is scheduled. Settlement can remain delayed; matching P and N can be merged from Your position.\n1 recorded deliveries \ni",
+    "history": "Settlement delivery history\n\nTimes run from the source request to the resolver callback, not executor pickup. Pickup timestamps are unavailable. These observations do not establish a delivery SLA.\nRequest 43926: Historical data rejected (STALE_TRADE), 103133 ms.\n\nClose",
+    "horizontal_overflow": false
+  },
+  "checks": {
+    "focused_tests": 39,
+    "release_checks": 16,
+    "suites_overlap": true,
+    "typecheck": "passed",
+    "schema_generation_check": "passed",
+    "webpack_production_build": "passed",
+    "final_targeted_tests": 12
+  },
+  "independent_review": "pending",
+  "frontend_deployment": "dpl_8R7sss6pEUfy7wsrYbC8fayWUJHg"
+}

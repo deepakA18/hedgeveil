@@ -38,6 +38,14 @@ export function message(e: unknown) {
     (errorText as Record<string, string>)[code] ??
     (
       {
+        OPERATION_LIMIT:
+          "Your activity record limit has been reached. Existing operations remain recoverable; contact support before creating more.",
+        AUTH_REQUIRED: "Verify wallet ownership to access your operations.",
+        OWNER_MISMATCH: "Verify the selected wallet account before continuing.",
+        AUTH_INVALID:
+          "Wallet verification expired or did not match. Verify again.",
+        RATE_LIMITED:
+          "Too many requests. Wait a minute before trying again. Nothing was resent.",
         SERVICE_UNAVAILABLE:
           "The service is unavailable. Try refreshing. No action will be resent.",
         WALLET_RESPONSE_UNAVAILABLE:
@@ -70,6 +78,11 @@ export async function api<T>(path: string, body?: unknown): Promise<T> {
         }),
   });
   const data = await r.json();
+  if (
+    ["AUTH_REQUIRED", "OWNER_MISMATCH"].includes(data.error) &&
+    typeof window !== "undefined"
+  )
+    window.dispatchEvent(new Event("hedgeveil:verify-wallet"));
   if (!r.ok || data.error) throw Error(data.error ?? "SERVICE_UNAVAILABLE");
   return data as T;
 }

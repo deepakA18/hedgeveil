@@ -1,0 +1,68 @@
+{
+  "observed_at": "2026-11-14T07:05:11.424065+00:00",
+  "scope": "Deployment steps 1\u20132: account isolation and authenticated HTTPS bridge",
+  "source_hashes": {
+    "apps/web/hosted-auth.mjs": "1a48022dccb27a3fa22b24538aed85b08cdd8f6a9b0e01a6890f96a417aad92d",
+    "apps/web/server.mjs": "b4d74e7034fa511a44a6e21ccfbab53ce8a409efc8fad4dd07406009905a6ab5",
+    "apps/web/wallet.mjs": "9eecb3f74260ff016ad0ecb518332da9a298b486613301bb4fe7993e4b67ec5c",
+    "services/testnet/runtime.mjs": "3f90d96838284a5c0ec3cff9cb934f1182df165734fd9bbc926b39fcb6da48c8",
+    "apps/frontend/lib/desk-bridge.ts": "e8fd28f88c230ae9a4816c2a716aba81dc325888243a9d886e14b4ecf77a5b7e",
+    "apps/frontend/lib/desk-api.ts": "238fa5d79b044f38a80545bb65c2fc33b288e5476702b620b6cdfa9c30fdaa1e",
+    "apps/frontend/components/desk/DeskProvider.tsx": "effc769e073a8c4f7e06271ac7c9d306065cbd3d480b20a46aa9c2fe86495b6b",
+    "tests/wallet/hosted-auth.test.mjs": "86b2e2980906c40ebfeaeeffec39af8e8edda97ef841c641db8a47d814ef6fc1",
+    "tests/e2e/next-bridge.test.mjs": "d832c5e5eddc230d749547ff0d76e74f09e834a13cc4e911a1f4ce73fcf987ea"
+  },
+  "checks": {
+    "focused_suite": {
+      "passed": 30,
+      "failed": 0,
+      "command": "node --test tests/wallet/hosted-auth.test.mjs tests/wallet/near-connect.test.mjs tests/e2e/next-bridge.test.mjs tests/demo/container-workspace.test.mjs tests/demo/deployment-preflight.test.mjs"
+    },
+    "frontend_typecheck": true,
+    "frontend_webpack_production_build": true,
+    "linux_amd64_build": true,
+    "linux_auth_suite": {
+      "passed": 11,
+      "failed": 0,
+      "network": "none"
+    },
+    "linux_smoke": {
+      "runtime_imports": true,
+      "wallet_integrity": true,
+      "postgres_schema": true,
+      "postgres_exact_amount": true,
+      "postgres_restart": true,
+      "empty_workspace_rejected": true,
+      "non_root": true
+    },
+    "git_diff_check": true
+  },
+  "image_config_digest": "sha256:28a82f67cb2de0b9ed978dafc357ef4796973e372f1aca060852ee14fea1e80c",
+  "coverage": [
+    "NEP-413 signature/domain/account/nonce/expiry/replay rejection",
+    "Final-block full-access key membership; malformed or unbound RPC responses fail authentication",
+    "Cookie-bound challenges and protected sessions",
+    "Cross-account operation list, prepare, handoff, cancel, recover, hash hints and live-state rejection",
+    "Forged proxy/auth headers discarded; exact HTTPS origins and service credential enforced",
+    "Unknown operations remain quarantined, no resend",
+    "Body, concurrency, challenge and RFQ/action budgets",
+    "Ten concurrent isolated user sessions"
+  ],
+  "isolation": {
+    "test_data": "Generated local Ed25519 keys and deterministic RPC fixtures; no fabricated live observations",
+    "live_workspace_mounted": false,
+    "chain_writes": 0,
+    "host_resources_created": false,
+    "live_services_reconfigured": false
+  },
+  "limitations": [
+    "Final HTTPS ingress and actual Meteor/Intear signed-message acceptance pending",
+    "Target-host state restore, backup, restart and sustained ten-user quote/receipt load pending",
+    "Memory-only login sessions expire in 15 minutes and on restart; account key removal does not immediately revoke an existing session",
+    "Existing settlement/renewal and first-time combined deposit acceptance remain open",
+    "Independent security review pending"
+  ],
+  "specification": "https://github.com/near/NEPs/blob/master/neps/nep-0413.md",
+  "reviewer": "Implementation-agent verification; independent review pending",
+  "public_ready": false
+}

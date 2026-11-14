@@ -2295,3 +2295,21 @@
     flex-basis: 40px;
   }
 }
+
+.settlement-progress {
+  display: grid;
+  gap: 6px;
+  padding-bottom: 8px;
+  font-size: 12px;
+}
+.settlement-tabs .twap-evidence {
+  display: block;
+}
+.twap-evidence > p {
+  margin: 4px 0;
+}
+.delivery-history-row {
+  display: block;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}

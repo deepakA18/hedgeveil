@@ -1,0 +1,78 @@
+{
+  "at": "2026-11-14T09:32:02.663Z",
+  "transactions_submitted": 0,
+  "quotes": [
+    {
+      "leg": "P",
+      "status": 200,
+      "ms": 1814,
+      "items": [
+        {
+          "offered": true,
+          "reason": null
+        },
+        {
+          "offered": true,
+          "reason": null
+        }
+      ],
+      "error": null
+    },
+    {
+      "leg": "N",
+      "status": 200,
+      "ms": 382,
+      "items": [
+        {
+          "offered": true,
+          "reason": null
+        },
+        {
+          "offered": true,
+          "reason": null
+        }
+      ],
+      "error": null
+    }
+  ],
+  "reconciliation": {
+    "state": "RECONCILED",
+    "height": "277638784",
+    "block_hash": "3SqYuA86tuyCkudpsuuB7kE5oMHKydmkFpr6ihaXKvUj",
+    "lag_blocks": "31",
+    "reconciled": true,
+    "risk_allowed": true,
+    "rpc_failures": 6,
+    "rpc_failovers": 0,
+    "unresolved_transactions": [
+      {
+        "hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+        "state": "SUBMISSION_UNKNOWN",
+        "signer_id": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66"
+      }
+    ],
+    "stale": false,
+    "age_ms": 32437,
+    "cursor_hash": "3SqYuA86tuyCkudpsuuB7kE5oMHKydmkFpr6ihaXKvUj",
+    "generation": "1011",
+    "discovery": {
+      "source": "neardata-testnet",
+      "required": false,
+      "baseline_height": "277508185",
+      "height": "277517056",
+      "scanned_height": "277517056",
+      "observed_height": "277638674",
+      "lag_blocks": 121728,
+      "state": "SCANNING",
+      "fresh": true,
+      "checked_at": "2026-11-14T09:31:48.619Z",
+      "retry_at_ms": "1794573858977"
+    }
+  },
+  "open_series": 6,
+  "owner_chain_balance": {
+    "free": "79254298768443215967500",
+    "storage_paid": "40960000000000000000000"
+  },
+  "series": "l2fef1ba5c66cb55edfb860f4"
+}

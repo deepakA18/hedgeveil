@@ -1,0 +1,66 @@
+[
+  {
+    "proof": {
+      "observed_at": "2026-11-14T09:11:14.180Z",
+      "result": {
+        "state": "EXPIRED_NOT_INCLUDED",
+        "operation_id": "183b01543b16f29c19bfe7d9bf2fe27d055d8fefc80ad537692d8fbde8529187",
+        "hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+        "nonce": "277507976000030",
+        "public_key": "ed25519:fgV3reTc4oNE7mMeVQmnDRuziGvrjv7qqrMjnBB2TGH",
+        "evidence_kind": "V0_HASH_EXPIRY_AND_UNUSED_NONCE"
+      },
+      "evidence": {
+        "unsigned_transaction_base64": "QAAAADA5ZThiNzBhNjNlNDI4ODBkMjlhMTlkM2QyYjRlNGNmZWYxM2NmZGFiODdkNGM2NTdiM2FkMzBlYzUxYThlNjYACei3CmPkKIDSmhnT0rTkz+8Tz9q4fUxlezrTDsUajmYe8lRcZPwAAEAAAAAzNjZlYjQyYTA3YjcwYmU4ODNlYzVhMWZiOGJjMGJmZDQxMGVlMDQyYzYyMTE4NGNlNzY0OTg5NzQ0ZjZjNzkyeMmFkiJ5S5E3YyXvX9GGor//gmdBMolCq3FuOit76qYBAAAAAgcAAAByZXF1ZXN0IwAAAHsic2VyaWVzX2lkIjoiYWNjZXB0YW5jZS0yMDI2MTExMyJ9ACD84sAHAQAAAIBkdZPBMzwEAAAAAAAA",
+        "witnesses": [
+          {
+            "provider": "https://archival-rpc.testnet.near.org",
+            "reference": {
+              "hash": "98W9jcZiXkNomGQ6A5uYX4fxVKE754TYPRGhsenL5xb7",
+              "height": 277525316
+            },
+            "finalized": {
+              "hash": "5nUfGAV1zDfW5e52UeAk5QrhubXgUojb1y5nJCmJK3CJ",
+              "height": 277636692
+            },
+            "transaction_validity_period": 86400,
+            "access_key": {
+              "block_hash": "5nUfGAV1zDfW5e52UeAk5QrhubXgUojb1y5nJCmJK3CJ",
+              "block_height": 277636692,
+              "nonce": 277507976000029,
+              "permission": "FullAccess"
+            }
+          },
+          {
+            "provider": "https://test.rpc.fastnear.com",
+            "reference": {
+              "hash": "98W9jcZiXkNomGQ6A5uYX4fxVKE754TYPRGhsenL5xb7",
+              "height": 277525316
+            },
+            "finalized": {
+              "hash": "HqSMFGXJLgtinsmw8Mv4Qu1RrevebHqE8RsNcfokPuGd",
+              "height": 277636717
+            },
+            "transaction_validity_period": 86400,
+            "access_key": {
+              "block_hash": "HqSMFGXJLgtinsmw8Mv4Qu1RrevebHqE8RsNcfokPuGd",
+              "block_height": 277636717,
+              "nonce": 277507976000029,
+              "permission": "FullAccess"
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "result": {
+      "state": "EXPIRED_NOT_INCLUDED",
+      "operation_id": "183b01543b16f29c19bfe7d9bf2fe27d055d8fefc80ad537692d8fbde8529187",
+      "hash": "QGtg5ZYzVotHzMzw7Wk2QP3XK8P1XDLap9dNRGW2kh3",
+      "nonce": "277507976000030",
+      "public_key": "ed25519:fgV3reTc4oNE7mMeVQmnDRuziGvrjv7qqrMjnBB2TGH",
+      "evidence_kind": "V0_HASH_EXPIRY_AND_UNUSED_NONCE"
+    }
+  }
+]

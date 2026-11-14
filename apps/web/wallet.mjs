@@ -1,4 +1,4 @@
-// Local companion only. No private key loading, public listener or server signer.
+// Local by default; explicit hosted mode requires the authenticated gateway. No user-wallet signer.
 import {readFile,mkdir} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
@@ -8,7 +8,7 @@ import {walletAssets} from './build-wallet.mjs';
 import {Indexer} from '../../services/indexer/indexer.mjs';
 import {binding} from '../../services/indexer/rpc.mjs';
 import {walletIndexerConfiguration,boundStore} from '../../services/indexer/profile.mjs';
-export async function startWallet({config=null,indexerConfig=null,retainedAnchor,port=8790,journal=resolve('.local/wallet-journal'),accounts=[],quoteProvider=async()=>({items:[]}),diagnostics,backgroundSync=false,discover}={}){
+export async function startWallet({config=null,indexerConfig=null,retainedAnchor,port=8790,journal=resolve('.local/wallet-journal'),accounts=[],quoteProvider=async()=>({items:[]}),diagnostics,hosted=null,backgroundSync=false,discover}={}){
     const wallet=await walletAssets();
     await mkdir(journal,{recursive:true,mode:0o700});
     let indexer,timer,syncing=null,stopped=false,app;
@@ -25,9 +25,9 @@ export async function startWallet({config=null,indexerConfig=null,retainedAnchor
             timer=setInterval(()=>{if(!stopped)sync().catch(()=>{});},cfg.poll_ms);
         }
         const oracleProfile=indexerConfig?.contracts.some(c=>c.kind==='expiry_oracle')?'native-trade-twap-v1':indexerConfig?.contracts.some(c=>c.kind==='external_oracle')?'native-sampled-v1':config?'demo-v1':'unconfigured';
-        app=createApp({config,journal,wallet,store,quoteProvider,diagnostics,accounts,oracleProfile,rpcFallbacks:indexer?.config.rpc_urls.filter(url=>url!==config.rpc_url)??[]});
-        await new Promise((r,j)=>{app.server.once('error',j);app.server.listen(port,'127.0.0.1',r);});
-        return {...app,indexer,url:`http://127.0.0.1:${app.server.address().port}`,stop:async()=>{
+        app=createApp({hosted,config,journal,wallet,store,quoteProvider,diagnostics,accounts,oracleProfile,rpcFallbacks:indexer?.config.rpc_urls.filter(url=>url!==config.rpc_url)??[]});
+        await new Promise((r,j)=>{app.server.once('error',j);app.server.listen(port,hosted?'0.0.0.0':'127.0.0.1',r);});
+        return {...app,indexer,url:hosted?.backend??`http://127.0.0.1:${app.server.address().port}`,stop:async()=>{
             stopped=true;clearInterval(timer);await new Promise(r=>app.server.close(r));
             await syncing?.catch(()=>{});await indexer?.close();
         }};

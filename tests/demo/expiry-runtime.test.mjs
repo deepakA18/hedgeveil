@@ -26,10 +26,10 @@ test('runtime keeps known per-series failure local but halts globally for unreso
  }finally{await rm(directory,{recursive:true,force:true});}
 });
 
-test('halted settlement does not pause makers for renewal; recovery restores normal maintenance',async()=>{
+test('halted settlement permits isolated cleanup but never renewal; recovery restores renewal',async()=>{
  const {startExpirySettlement}=await import('../../services/testnet/expiry.mjs');
  const directory=await mkdtemp(join(tmpdir(),'hv-scheduler-'));
- let polls=0,maintenanceCalls=0,renewals=0,release,pausedSeen;
+ let polls=0,maintenanceCalls=0,cleanups=0,renewals=0,release,pausedSeen;
  const blockedWritten=new Promise(r=>pausedSeen=r);
  const finished=new Promise(r=>release=r);
  const service=startExpirySettlement({directory},{interval:5,renewInterval:60000,
@@ -37,12 +37,28 @@ test('halted settlement does not pause makers for renewal; recovery restores nor
    polls++;
    if(polls===1)return {items:[{state:'HALTED_SIGNER'}]};
    const status=JSON.parse(await readFile(join(directory,'renewal-status.json'),'utf8'));
-   assert.equal(status.state,'BLOCKED');assert.equal(maintenanceCalls,0);pausedSeen();
-   return {items:[{state:'WAIT_EXPIRY'}]};
+   assert.equal(status.state,'BLOCKED');assert.equal(maintenanceCalls,1);assert.equal(cleanups,1);assert.equal(renewals,0);pausedSeen();
+   return {items:[{state:'COMPLETE',series_id:'recovered'}]};
   },
   maintenance:async fn=>{maintenanceCalls++;return fn()},
+  cleanup:async()=>{cleanups++;},
   renew:async()=>{renewals++;release()},
  });
- try{await Promise.race([finished,new Promise((_,reject)=>setTimeout(()=>reject(Error('scheduler timeout')),2000).unref())]);await blockedWritten;await service.stop();assert.equal(maintenanceCalls,1);assert.equal(renewals,1);}
+ try{await Promise.race([finished,new Promise((_,reject)=>setTimeout(()=>reject(Error('scheduler timeout')),2000).unref())]);await blockedWritten;await service.stop();assert.equal(maintenanceCalls,2);assert.equal(renewals,1);}
  finally{await service.stop();await rm(directory,{recursive:true,force:true});}
+});
+
+test('newly due series run first; rejected evidence is rechecked after a bounded interval, never cached as success',async()=>{
+ const directory=await mkdtemp(join(tmpdir(),'hv-expiry-priority-'));
+ try{
+  const d=structuredClone(deployment);d.series[1].maturity_ns=String(BigInt(d.series[0].maturity_ns)+1000000000n);d.series[1].observation_window={start_ns:String(BigInt(d.series[1].maturity_ns)-1800000000000n),end_ns:d.series[1].maturity_ns};
+  await durableWrite(join(directory,'deployment.json'),d);await durableWrite(join(directory,'signers.json'),{keys:{'operator.testnet':'fixture-only'}});
+  let time=Number(BigInt(d.series[1].maturity_ns)/1000000n)+1;const observations=new Map(),calls=[];
+  const options={admin:{},observations,now:()=>time,run:async p=>{calls.push(p.terms.series_id);return {state:'EVIDENCE_REJECTED_REVIEW_REQUIRED'};}};
+  await settleExpiry({directory,plan},options);assert.deepEqual(calls,['two','one']);
+  calls.length=0;time+=59000;const cached=await settleExpiry({directory,plan},options);assert.equal(calls.length,0);assert(cached.items.every(i=>i.state==='EVIDENCE_REJECTED_REVIEW_REQUIRED'&&i.observed_at));
+  time+=1000;await settleExpiry({directory,plan},options);assert.deepEqual(calls,['two','one']);
+  calls.length=0;options.run=async p=>{calls.push(p.terms.series_id);return {state:'HALTED_SIGNER'};};time+=60000;
+  await settleExpiry({directory,plan},options);await settleExpiry({directory,plan},options);assert.deepEqual(calls,['two','two']);
+ }finally{await rm(directory,{recursive:true,force:true});}
 });

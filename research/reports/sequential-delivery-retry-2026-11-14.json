@@ -1,0 +1,101 @@
+{
+  "at": "2026-11-14T10:36:22.920Z",
+  "state": "SETTLED_REDEEMED_WITHDRAWN",
+  "scope": "One project-owned 0.01 NEAR pair on public testnet; not owner-wallet redemption acceptance, sustained availability or production approval.",
+  "series_id": "acceptance-20261114-timely",
+  "original_request_hash": "AMyGrRQFB2Yddx4xF58JYB8GoTTUB2vvH5Vp8ipBppYs",
+  "reviewed_failed_submission_hash": "G6AM4vsnhntjLndVvb8VhGtj3Tv2qhQDi8g8STeXfLUH",
+  "retry_request_hash": "2NWCHvCvbr1Jrx7fLt7wSpJmhGpqB8yYWDy9FwtJdBBS",
+  "request_id": 44377,
+  "attempts_in_series": 2,
+  "new_paid_attempts_this_probe": 1,
+  "authorized_additional_test_near": "0.02",
+  "source_request_ns": "1794652451457587339",
+  "source_completed_ns": "1794652477533147752",
+  "callback_accepted_ns": "1794652478108268615",
+  "request_to_acceptance_ns": "26650681276",
+  "source_charge_yocto": "1121205600000000000000",
+  "source_refund_yocto": "18878794400000000000000",
+  "price_scale": "1000000000000",
+  "final_price": "3329403079313",
+  "p_coefficient": "994983160970570565936636",
+  "n_coefficient": "5016839029429434063364",
+  "accepted": {
+    "price": "3329403079313",
+    "evidence_sha256": "50fe59525737ce3c253efe229c26e4de87e7a7cfdc37a896604d60254ef66559",
+    "response_sha256": "7b973c9265070933530d170ecc142e77d2c7a23907503790dfd68a07f9def782",
+    "accepted_ns": "1794652478108268615"
+  },
+  "finalization_transactions": [
+    {
+      "label": "expiry:acceptance-20261114-timely:finalize",
+      "hash": "3J7Jn2b8oKyLSh8f4LBjbrPAmEuxfKNyXz7TvY8fVF9y",
+      "status": "FINAL"
+    },
+    {
+      "label": "expiry:acceptance-20261114-timely:import",
+      "hash": "AzE6hNz67q1NQXkWB65CnS9tWnmECo8SE199FSfUXuz1",
+      "status": "FINAL"
+    }
+  ],
+  "redemptions": [
+    {
+      "kind": "EXACT_REDEMPTION",
+      "leg": "P",
+      "units": "10000000000000000000000",
+      "payout": "9949831609705705659366",
+      "hash": "5xoKCpxcPzTpR2QKrVuivi5z3Q6JsY92HrrQXkmQYzyN"
+    },
+    {
+      "kind": "EXACT_REDEMPTION",
+      "leg": "N",
+      "units": "10000000000000000000000",
+      "payout": "50168390294294340633",
+      "hash": "8W8M1YhRjXJemJ4ykxmTg6uRZqQWPjfeTsaMomYDzB1J"
+    }
+  ],
+  "withdrawal": {
+    "amount": "9999999999999999999999",
+    "ticket": {
+      "id": "1",
+      "owner": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "receiver": "09e8b70a63e42880d29a19d3d2b4e4cfef13cfdab87d4c657b3ad30ec51a8e66",
+      "amount": "9999999999999999999999",
+      "state": "SUCCEEDED",
+      "kind": "COLLATERAL",
+      "created_ns": "1794652562156975957",
+      "version": 1,
+      "balance_restored": false
+    },
+    "hash": "3aR3TiaJmrWK2uBdSkjEuS3v4CPGcbubsGNrWbJcP2eb"
+  },
+  "rounding_dust_yocto": "1",
+  "checks": {
+    "exact_source_response_hash": true,
+    "rust_python_replay_equal": true,
+    "core_resolver_price_equal": true,
+    "p_plus_n_equals_one": true,
+    "receipt_graphs_final_and_successful": true,
+    "project_positions_zero_after_redemption": true,
+    "trading_balance_restored_after_payout_withdrawal": true
+  },
+  "deployment_scope": "Tested retry/coordinator modules staged privately on Railway for this one explicit policy; no contract change, no global automatic retry policy enabled.",
+  "validation": {
+    "focused_node_tests": 16,
+    "schema_tests": 17,
+    "schema_reproducibility": "passed",
+    "rational_reference_tests": 5,
+    "payoff_vectors": 565,
+    "workspace_locked_tests": "passed",
+    "rustfmt": "passed",
+    "clippy": "passed"
+  },
+  "independent_review": "pending",
+  "remaining": [
+    "Older rejected cases and provider delivery reliability",
+    "Owner-wallet new-profile settlement/redemption acceptance",
+    "First-time public combined deposit acceptance",
+    "Sustained ten-user monetary execution and independent review"
+  ],
+  "archive_sha256": "a30cb8069f41220bf850c421366b247aa1cf83205d5ce89b67e8e06b084b608c"
+}

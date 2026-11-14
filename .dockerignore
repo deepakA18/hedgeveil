@@ -1,5 +1,8 @@
 # Only backend source and public build inputs enter the Docker context.
 **
+!railway.json
+!Dockerfile
+!.dockerignore
 !apps/
 !apps/web/
 !apps/web/**
