@@ -1,463 +1,121 @@
 # Hedgeveil
 
-Options-backed index exposure on NEAR: fully collateralized complementary claims,
-transparent settlement, and a rules-based USD-tracking vault.
+NEAR-backed options with an upfront purchase cost, funded offers and on-chain settlement.
 
-The authoritative [implementation plan](IMPLEMENTATION_PLAN.md) targets
-**Open Innovation (`open`)**. Balances, positions, trades, reserves, vault holdings
-and accounting are public. Development and the core demo require no paid API keys
-or mainnet funds. The economic construction is attributed to the research linked
-in the plan; this project implements and evaluates it on NEAR.
+**[Open the app](https://hedgeveil.vercel.app/trade)** | **[Service status](https://hedgeveil.vercel.app/status)**
 
-**Release requirement (9 November 2026):** the public options protocol must use
-external market data. The fixture collector, resolver and fixed maker marks are
-not accepted public integrations. Deployment remains held; see the
-[real-data readiness inventory](docs/REAL_DATA_READINESS.md). Synthetic scenarios
-remain explicitly local tests/research, not market or public-release evidence.
+Hedgeveil is a testnet application. Production and the experimental tracking vault
+are disabled. Independent security review remains pending.
 
-## Current implementation
+## How it works
 
-The Python rational reference, checked Rust payoff library, 565 differential
-vectors, and validation tests are implemented. [G2 economics experiments](research/reports/G2_ECONOMICS.md)
-add finite maker funding, four policy families, synthetic stress and held-out
-comparisons. No rolling policy passes the frozen training gates, so vault policy
-selection remains open. [G1 Sandbox experiments](research/g1/README.md)
-exercise native receipts, a synthetic-oracle lifecycle, and FT/MT namespace and
-resolver behavior. A [bounded G3 clearinghouse](contracts/README.md) now implements
-the public internal ledger: separately funded storage, deposits, immutable series,
-P/N split/transfer/merge, authenticated resolution import, rounded redemption,
-dust accounting and withdrawal tickets. It is tested locally with an explicitly
-synthetic oracle fixture. The [G4 demo oracle](contracts/settlement-oracle/README.md)
-adds committed observations, a replayable archive, bonded challenges, historical
-fallback/adjudication, delayed settlement and bond-credit withdrawals, with real
-core import tests. The [G5 funded market](docs/MARKET.md) adds registered Ed25519
-keys, exact atomic fills, pair matching, replay/cancellation protection and two
-separate local maker processes with direct old/new rolls. The [G6 basket increment](docs/VAULT.md)
-adds Sandbox-only proportional issuance, internal shares and in-kind exits. The optional [VLT-02 guard](docs/KEEPER.md) now executes one experimental
-Sandbox roll using authenticated synthetic references and competing makers. An
-approved strategy, browser wallet and RFQ relay remain pending. The local UI is
-described below. The
-[local APP-01 SDK/CLI](docs/CLIENT.md) now adds exact-amount transaction builders,
-a durable attempt journal and finalized receipt recovery for the internal ledger.
-The [local INF-01 indexer](docs/INDEXER.md) adds PostgreSQL-backed finalized replay,
-core/oracle custody reconciliation and a read-only API with health metrics.
-No public product contract is deployed or independently reviewed.
+1. Connect a NEAR wallet and add trading funds. First deposits can include the
+   account's storage requirement in the same approval; storage is separate from collateral.
+2. Choose a market, expiry and exposure: **Upside** or **Capped value**.
+3. Explore the payout chart, review a funded offer and approve it in your wallet.
+4. Sell when an executable offer is available, combine matching pairs, or redeem
+   after settlement. Withdraw available NEAR back to your wallet.
 
-Previous privacy-track experiments and deployment evidence are preserved in
-[the historical archive](archive/privacy-track/README.md), excluded from active
-builds and release gates. No AI credential, circuit or prover is needed here.
+Each pair is backed by one NEAR. For set price `K` and final reference price `X`,
+per-unit payouts in NEAR are:
 
-## Next.js frontend
+```text
+Capped value (P) = min(1, K / X)
+Upside (N)       = 1 - P
+```
 
-The homepage and application pages are implemented in Next.js, React and TypeScript:
+Matching P and N can be combined before finalization to recover their backing.
+Capped value is not downside protection or a guaranteed dollar balance. A fully
+paid purchase has no margin calls but can lose its entire cost plus fees.
+
+The construction is inspired by Vitalik Buterin's research on
+[building index-tracking assets using options instead of debt](https://ethresear.ch/t/building-index-tracking-assets-on-top-of-options-instead-of-debt/25036).
+This is an independent implementation, not an endorsement.
+
+## Components
+
+| Component | Implementation |
+| --- | --- |
+| Frontend | Next.js, React, TypeScript, light and dark themes |
+| Wallets | NEAR Connect with pinned Meteor and Intear executors |
+| Clearinghouse | Rust contract, native NEAR collateral and internal P/N ledger |
+| Trading | Signed, funded, all-or-nothing RFQs from project-operated makers |
+| Market inputs | Coinbase data for off-chain maker valuation and indicative spot |
+| Current expiry settlement | Pinned Outlayer worker authenticates historical Coinbase data for a fixed 30-minute pre-expiry TWAP; a separate resolver validates evidence |
+| Indexing | PostgreSQL receipt replay and on-chain reconciliation; optional FASTNEAR background audit |
+| Hosting | Vercel frontend and persistent Railway backend |
+
+Existing historical series retain their original settlement terms. Missing or
+rejected evidence delays settlement; the app does not substitute a fixture price.
+Unknown transaction outcomes require receipt recovery, never automatic resending.
+
+The internal claims ledger is not advertised as a standard wallet token interface.
+Maker liquidity is finite and project-operated. Model valuations and charts are
+not executable offers; requests can return no quote.
+
+## Repository
+
+- [Frontend](apps/frontend/): pages, wallet UI and server-side API bridge.
+- [Contracts](contracts/): clearinghouse, settlement resolvers and local test fixtures.
+- [Services](services/): makers, market data, indexing, settlement and testnet operations.
+- [SDK](packages/sdk/): exact amounts, transaction intents and receipt recovery.
+- [Schemas](packages/shared-schemas/): versioned wire formats and offline validation.
+- [Reference model](research/reference-model/), [tests](tests/) and [verification](verification/): payoff agreement and failure-path checks.
+- [Recorded evidence](research/reports/): dated results with their scope and limitations.
+- [Deployment container](deploy/container/): persistent backend packaging.
+
+The [privacy-track archive](archive/privacy-track/README.md) is historical and
+excluded from active builds. Internal planning files and the root `docs/` folder
+are maintained locally and excluded from new commits. Some historical reports
+refer to those local documents. Maintainer release/review packaging workflows
+that require them are not standalone clean-clone entry points.
+
+## Run the frontend
+
+Use Node.js 22.22.2 or newer and the committed lockfiles:
 
 ```sh
 npm ci --prefix apps/frontend
 npm --prefix apps/frontend run dev
 ```
 
-Open http://127.0.0.1:3000. [Frontend structure and checks](apps/frontend/README.md)
-describe the build and configuration. App links open `/markets`, with Trade,
-Portfolio, Funds, Activity and Liquidity in the same theme. The retained wallet
-service on port 8794 supplies the real APIs through a loopback-only bridge; it
-must remain running. New React wallet-signing acceptance is still pending.
+Open `http://127.0.0.1:3000`. Configure the API bridge using
+[the frontend environment example](apps/frontend/.env.example). The frontend
+needs a separately running backend for accounts and transactions; starting it
+does not deploy contracts, fund makers or create a functioning trading backend.
+Never put service secrets in browser-exposed environment variables.
 
-## Connect a testnet wallet
+## Local verification
 
-The separate NEAR Connect desk offers Meteor/Intear account connection with the
-existing neutral UI:
-
-```sh
-npm ci --prefix apps/web
-npm --prefix apps/web run build:wallet
-npm --prefix apps/web run wallet
-```
-
-Open `http://127.0.0.1:8790`. Connection needs no API keys; without a verified
-contract configuration transactions remain disabled. New funding also awaits a
-reconciled testnet indexer. [Wallet desk setup and limits](docs/NEAR_CONNECT.md)
-cover configuration, executor integrity and durable receipt recovery.
-
-The options-first testnet setup now has a [dedicated-account runbook](docs/TESTNET_SETUP.md)
-and confirmed public funding/deployment evidence. Actual vendor-wallet trading,
-settlement and withdrawal acceptance remain pending; the vault stays disabled.
-See [current real-data acceptance gates](docs/REAL_DATA_READINESS.md).
-
-## Run the implemented checks
-
-Requires Python 3.9+ and Rust 1.91.0, pinned in `rust-toolchain.toml`.
+Rust toolchains are pinned per workspace. Core deterministic checks need no paid API keys:
 
 ```sh
-python3 -m unittest discover -s research/reference-model -p 'test_*.py' -v
-python3 research/reference-model/generate_vectors.py --check
-cargo test --workspace --locked
+cargo test --locked --workspace
 cargo fmt --all -- --check
-cargo clippy --workspace --all-targets --locked -- -D warnings
-```
-
-The first Cargo run downloads locked dependencies. Rust consumes the same 565
-vectors generated by Python. Regenerate them with
-`python3 research/reference-model/generate_vectors.py` and review the diff.
-They are arithmetic fixtures, not historical market data.
-
-For public-ledger schema validation:
-
-```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r tests/schemas/requirements.txt
-.venv/bin/python -m unittest discover -s tests/schemas -v
+cargo clippy --locked --workspace --all-targets -- -D warnings
+python3 -m unittest discover -s research/reference-model -v
+python3 research/reference-model/generate_vectors.py --check
 python3 packages/shared-schemas/build_schema.py --check
+node --test tests/market/codec.test.mjs tests/sdk/client.test.mjs
+npm --prefix apps/frontend run typecheck
 ```
 
-Or use `uv run --with jsonschema==4.23.0 python -m unittest discover -s tests/schemas -v`.
-Run the G2 economics suite with Python 3.9+ (standard library only):
-
-```sh
-python3 -m unittest discover -s tests/economics -v
-python3 research/scenarios/generate.py --check
-python3 research/policy-comparison/run.py --check
-```
-
-The final command reruns all 9,180 strategy cases and checks the committed results.
-To regenerate after an intentional change, omit `--check` and review the evidence.
-Change frozen assumptions only in a new experiment version with new held-out
-seeds. These are synthetic simulations, not transaction receipts or market data.
-See [experiment protocol](research/policy-comparison/PROTOCOL.md).
-
-No `.env` is needed for these checks. `.env.example` describes future local/demo
-configuration; existing local secrets are not read by the active checks.
-
-The SDK now also has an explicit HTTPS testnet profile and a browser-portable
-wallet signing boundary. Handoff is durable before prompting; wallet hashes are
-untrusted recovery hints until matched to RPC transactions, and one retained
-receipt cannot confirm two local operations. The existing desk remains local-only.
-See [wallet usage and verification](docs/WALLET.md) and the
-[14-check Chromium/Sandbox boundary evidence](research/reports/G7_WALLET_BOUNDARY.md).
-Installed-wallet UI and public-testnet acceptance are still pending.
-
-## Next work
-
-[STATUS.md](docs/STATUS.md) distinguishes implemented, pending and superseded work.
-[BACKLOG.md](docs/BACKLOG.md) gives dependencies and acceptance evidence for every
-epic. [G1 evidence](research/reports/G1_PUBLIC_LEDGER.md) and
-[G3 evidence](research/reports/G3_COLLATERAL_CORE.md) record the local results and
-remaining limits. Internal-ledger development proceeds under the plan's fallback;
-full token/wallet compatibility and independent review remain open gates.
-Run the G1 experiments with:
+For compiled contract lifecycle tests, install the locked Sandbox dependencies:
 
 ```sh
 npm ci --prefix tests/sandbox --ignore-scripts
-python3 scripts/build-g1.py
-npm test --prefix tests/sandbox
-```
-
-G1 uses an isolated Rust 1.96.0 toolchain and requires Node 22.22.2+; see its
-[setup instructions](research/g1/README.md). First use downloads dependencies and
-the pinned Sandbox binary. No API credentials or public-chain account are needed.
-
-Run the G3 core lifecycle, stateful accounting and fault tests with:
-
-```sh
 python3 scripts/build-core.py
 node tests/sandbox/g3.mjs
 ```
 
-The core uses the same pinned local runtime. Its separate Cargo workspace is under
-`contracts/`; the shared wire types are in `crates/protocol-types`. See
-[contracts/README.md](contracts/README.md) for build, lint, ABI and local-limit details.
-Run the G4 committed-observation lifecycle and bond fault checks with:
+See [contract build instructions](contracts/README.md) for the isolated workspace.
+Synthetic inputs belong only to deterministic tests. Live operation uses external
+market data and actual finalized receipts.
 
-```sh
-python3 scripts/build-oracle.py
-node tests/sandbox/g4.mjs
-UV_CACHE_DIR=/private/tmp/hedgeveil-uv-cache uv run --with jsonschema==4.23.0 python -m unittest discover -s tests/oracle -v
-```
+## Acceptance limits
 
-See [G4 results](research/reports/G4_SETTLEMENT.md) and
-[collector usage](services/observation-collector/README.md). All data and source
-accounts are disclosed synthetic demo inputs, not independent market sources.
-Run the G5 signed market, maker and core regression checks with:
-
-```sh
-node --test tests/market/codec.test.mjs
-node scripts/generate-rfq-vectors.mjs --check
-python3 scripts/build-core.py
-node tests/sandbox/g5.mjs
-node tests/sandbox/g3.mjs --report research/reports/g5-core-regression.json
-```
-
-See [G5 results](research/reports/G5_FUNDED_MARKET.md),
-[signing codec](packages/rfq/README.md) and [maker usage](services/maker/README.md).
-The latest core requires fresh state; it has no migration from G3/G4 deployments.
-G6's VLT-01 basket mechanics and optional VLT-02 one-shot guard are implemented
-for Sandbox only. Economic review and a passing recurring policy remain open;
-local fills do not establish strategy profitability. Run the basket and compatibility suites with:
-
-```sh
-python3 scripts/build-core.py
-node tests/sandbox/g6.mjs
-node tests/sandbox/g3.mjs --report research/reports/g6-core-regression.json
-node tests/sandbox/g5.mjs --report research/reports/g6-market-regression.json
-```
-
-See [G6 basket results](research/reports/G6_BASKET.md). The new state layout requires
-fresh accounts; original G3–G5 receipt reports remain historical evidence.
-
-Run the experimental keeper and compatibility checks with:
-
-```sh
-node --test tests/keeper/planner.test.mjs
-python3 scripts/build-core.py
-node tests/sandbox/g6-keeper.mjs
-node tests/sandbox/g3.mjs --report research/reports/g6-keeper-core-regression.json
-node tests/sandbox/g5.mjs --report research/reports/g6-keeper-market-regression.json
-node tests/sandbox/g6.mjs --report research/reports/g6-keeper-basket-regression.json
-```
-
-See [keeper evidence](research/reports/G6_KEEPER.md) and
-[service usage](services/keeper/README.md). Guard terms are fixed before deposits;
-failed guards preserve holdings and in-kind exits. Economic selection and
-independent review remain release dependencies.
-
-Run the local APP-01 SDK and CLI receipt checks with:
-
-```sh
-node --test tests/sdk/client.test.mjs
-# Type declarations: TypeScript 5.9.2
-tsc --noEmit --strict --target ES2022 --module NodeNext --moduleResolution NodeNext tests/sdk/types.mts
-python3 scripts/build-core.py
-node tests/sandbox/g7.mjs
-```
-
-The SDK uses Node built-ins; only the Sandbox harness needs the existing locked
-`tests/sandbox` dependencies. [Client usage](docs/CLIENT.md) explains public
-deployment pins, explicit signer adapters, journals and read-only recovery.
-[G7 client evidence](research/reports/G7_LOCAL_CLIENT.md) covers real CLI
-merge/redemption/in-kind exits, interrupted sends and withdrawal callback faults.
-The local operation ID is not an on-chain idempotency key; never resend an unknown
-attempt or discard its journal. Run INF-01 local indexing/recovery checks with:
-
-```sh
-npm ci --prefix services/indexer --ignore-scripts
-node --test tests/indexer/model.test.mjs
-node --test tests/indexer/store.test.mjs
-python3 scripts/build-core.py
-python3 scripts/build-oracle.py
-node tests/sandbox/g7-indexer.mjs
-```
-
-The tests start an isolated native PostgreSQL 18.6 instance under ignored `target/`;
-no global database, Docker or paid API is needed. [Indexer usage](docs/INDEXER.md)
-explains deployment pins, retained block history, credentials, API endpoints,
-health limits and explicit unknown quote depth. [INF-01 evidence](research/reports/G7_INDEXER.md)
-records actual replay, failure injection and fresh-database backfill. APP-02 now
-consumes this service in its local UI; public wallet/testnet acceptance and
-independent review remain pending.
-
-Run the APP-02 local browser desk with:
-
-```sh
-npm ci --prefix tests/sandbox --ignore-scripts
-npm ci --prefix services/indexer --ignore-scripts
-npm ci --prefix apps/web --ignore-scripts
-python3 scripts/build-core.py
-python3 scripts/build-oracle.py
-npm start --prefix apps/web
-```
-
-Open the printed loopback URL. The process creates a fresh Sandbox deployment,
-PostgreSQL instance, two funded makers and a new visitor account. Use Portfolio
-to register storage and deposit collateral, Trade for P/N and funded RFQs, Save
-for basket entry, and Transactions for receipt recovery. It uses an explicitly
-labelled local signer, not a browser wallet. Keep the process running for recovery;
-restarting it creates a different chain. No `.env`, paid key or public funds are
-needed. See [application usage](docs/APP.md) and [APP-02 evidence](research/reports/G7_APP.md).
-
-To keep the same local deployment after stopping the process:
-
-```sh
-node scripts/demo.mjs create my-demo
-# Ctrl-C, then:
-node scripts/demo.mjs resume my-demo
-node scripts/demo.mjs inspect my-demo
-```
-
-This explicit mode retains generated **test** keys and native node/database state
-in a private ignored workspace. It refuses reseeding or overwriting an existing
-name. See [retained-demo usage and limits](docs/LOCAL_DEMO.md). No public-wallet
-or production custody support is implied.
-
-Run browser/model checks (Chromium download needed once):
-
-```sh
-npm exec --prefix apps/web -- playwright install chromium
-node --test tests/e2e/model.test.mjs tests/sdk/client.test.mjs
-node tests/e2e/browser.mjs
-```
-
-The browser suite starts and stops its own isolated services, executes real
-transactions and writes source-hashed evidence. It tests cancellation, lost
-responses, exact-hash recovery, actual failed native payouts, disputed settlement,
-maker authorization controls and three viewport widths. Public wallet/testnet,
-full demo orchestration and independent review remain pending. Clean local
-restart now has [separate evidence](research/reports/G7_DEMO_RESUME.md):
-
-```sh
-node --test tests/demo/storage.test.mjs tests/demo/maker.test.mjs
-node tests/demo/resume.mjs
-```
-
-Run SEC-01's finite withdrawal/oracle/resolution/reserve models and seeded
-compiled-Wasm trading/accounting regressions with:
-
-```sh
-python3 verification/check_models.py --check
-UV_CACHE_DIR=/private/tmp/hedgeveil-uv-cache uv run --with-requirements verification/requirements.txt python verification/check_symbolic.py --check
-python3 scripts/check-security.py
-```
-
-The SMT command downloads a pinned open-source solver once, then supports offline
-checks. The final command builds the locked core and runs three sequential Sandbox
-seeds with real receipts, signed fills, failed-fill/replay checks, callback faults
-and local capacity measurements. It requires the existing Sandbox dependencies
-and cached `jsonschema==4.23.0` environment used by G3. See
-[security evidence](research/reports/G8_SECURITY.md) and
-[model assumptions and limits](verification/README.md). Finite enumeration and
-bounded symbolic accounting checks do not prove Rust/runtime refinement;
-independent review and remaining G8 acceptance
-stay pending. Historical reports are preserved.
-
-SEC-02 now has a local review-bundle generator and offline integrity verifier:
-
-```sh
-python3 -m unittest discover -s tests/security -v
-python3 scripts/build-core.py
-python3 scripts/build-oracle.py
-python3 verification/review_bundle.py create --commit HEAD --out target/reviews/candidate
-```
-
-Use a new output directory and retain the printed manifest digest separately.
-See [the review handoff](docs/SECURITY_REVIEW.md) for verification, exact candidate
-scope and remediation records. Bundle verification checks integrity; independent
-review and release approval remain pending.
-
-REL-01 provides a clean-checkout local release rehearsal:
-
-```sh
-python3 scripts/rehearse-release.py run local-release-01
-```
-
-It creates a temporary source snapshot and fresh local Git clone, installs locked
-dependencies, builds Wasm, and runs the funded walkthrough, actual browser,
-experimental keeper, payout faults, restart and synthetic economics checks.
-The walkthrough executes a real CLI exit with the HTTP frontend shut down.
-Only the designated public `.tar.gz` is suitable for sharing; the surrounding
-private workspace contains generated test state. See [release usage and limits](docs/RELEASE.md)
-and the [unsubmitted draft](docs/SUBMISSION.md). Public wallet/testnet acceptance,
-policy selection, independent review and the final video remain pending.
-The [retained REL-01 run](research/reports/rel01-local.md) passed all 109 local
-runtime checks and verified its archive; it also records the fresh-checkout
-PostgreSQL and missing-schema fixes.
-
-Planned modes are Sandbox, faucet-funded testnet demo, and optional live-data
-observation. Testnet will display **DEMO ORACLE — SYNTHETIC PRICES**, disclose
-upgrade/test signer keys and maker subsidies, and use real receipts. The complete
-product modes are not yet runnable; G1, G3, G4, G5, G6, APP-01 and INF-01 local harnesses plus the APP-02 local UI are runnable.
-G9 is the complete hackathon release; G10/G11 are separate
-production and expansion gates.
-
-Start with [SPEC](docs/SPEC.md), [THREAT_MODEL](docs/THREAT_MODEL.md),
-[ORACLE](docs/ORACLE.md), [DEMO](docs/DEMO.md), and [COSTS](docs/COSTS.md).
-The [scope reconciliation](research/reports/SCOPE_RECONCILIATION.md) records what
-was retained, archived, replaced and verified. [AGENTS.md](AGENTS.md) carries these
-scope and evidence requirements into future coding sessions.
-Collateral accounting does not guarantee a USD peg, principal protection,
-liquidity or uninterrupted tracking.
-
-## External oracle feasibility (ORC-03)
-
-The [Outlayer feasibility report](research/reports/OUTLAYER_FEASIBILITY.md)
-records read-only public evidence and settlement limitations. No signer or paid
-API key is needed. This probe does not enable settlement or transactions.
-
-```sh
-node --test tests/oracle/outlayer.test.mjs
-node services/outlayer/probe.mjs --network both --report target/outlayer-discovery.json
-node services/outlayer/probe.mjs --network both --pins deploy/testnet/outlayer-observation-pins.json --report target/outlayer-pinned.json
-```
-
-Pins record observed identities on 9 November 2026, not a security endorsement.
-An upgrade fails the pinned check; review the change before accepting new pins.
-The former public setup budget is on hold; local synthetic tests remain usable.
-
-The [signed-response intake](services/outlayer/README.md) verifies and archives
-previously obtained responses without an API key or network request. It remains
-separate from settlement and maker valuation; valid provider interoperability is
-pending. Run `node --test tests/oracle/signed.test.mjs` for its adversarial suite.
-
-## Real market pricing and resolver candidate
-
-New expiry-TWAP work is separate from the sampled profile below. See
-[the historical worker README](services/expiry-worker/README.md) and
-[ORC-04 real execution / Sandbox evidence](research/reports/ORC04_HISTORICAL_WORKER.md).
-The worker has two verified real Outlayer historical executions. The separate
-resolver and schema are implemented; aligned maker pricing, new-profile indexer
-integration and public lifecycle acceptance remain pending. Existing series keep
-their terms, and the terminal-price maker refuses unresolved TWAP series.
-
-[Current implementation evidence](research/reports/REAL_DATA_IMPLEMENTATION.md)
-separates actual external-data maker fills from synthetic resolver fault tests.
-Public deployment/source acceptance remains pending.
-
-```sh
-node --test tests/market-data/pricing.test.mjs tests/indexer/external.test.mjs
-node tests/sandbox/mkt03.mjs
-python3 scripts/build-external-oracle.py
-node tests/sandbox/external-settlement.mjs
-node --test tests/oracle/sampler.test.mjs
-node tests/sandbox/sampler.mjs
-# Optional bounded test-token request; wallet approval required, no paid API:
-node services/outlayer/request-testnet.mjs
-```
-
-The first public wallet refresh is now verified; see
-[receipt/source evidence and the tested native setup](research/reports/ORC03_PUBLIC_REFRESH.md).
-The concrete native plan uses 48 test NEAR: core 30, resolver 8, two makers 4.5
-each and admin 1. Meteor blocked the original key-adding wallet request; that
-workspace is held. Its separate transfer-only replacement uses implicit service
-accounts and asks the owner wallet only for a normal transfer. See the
-[funding runbook](docs/TESTNET_SETUP.md#current-native-funding-request--transfer-only-replacement).
-The older draft allocation and synthetic setup are superseded.
-
-```sh
-node --test tests/oracle/refresh-proof.test.mjs tests/demo/native-funding.test.mjs
-node tests/sandbox/transfer-setup.mjs
-# Existing prepared workspace; no automatic funding or wallet signing:
-node services/testnet/cli.mjs bootstrap --name native-transfer --port 8793
-```
-## Backend resume: separate expiry deployment
-
-The current implementation and remaining public acceptance are recorded in
-[the backend resume report](research/reports/BACKEND_RESUME_2026-11-13.md).
-The layout-2 contracts require fresh deployment accounts; never overwrite the
-funded historical core. The prepared `expiry` workspace uses a fresh service
-signer and a single user-reviewed 32-test-NEAR transfer. No owner access key is
-requested. Old positions and uncertain operations remain in the old workspace.
-
-```sh
-# Prepare once; refuses to overwrite a workspace. Read-only public RPC checks.
-node services/testnet/cli.mjs prepare-expiry --name expiry
-# Review the public deploy/testnet/expiry-plan.json, then sign in your wallet.
-node services/testnet/cli.mjs bootstrap --name expiry --port 8795
-# Only after the matching funding receipt succeeds:
-node services/testnet/cli.mjs deploy --name expiry
-node services/testnet/cli.mjs serve --name expiry --port 8796
-```
-
-Do not run two owners of the same workspace. An interrupted lock requires
-inspection and receipt recovery, not deletion as a retry mechanism. The initial
-ten-market provisioner is restart-idempotent; periodic renewal and budget
-recycling remain pending. The keeper supports the new expiry profile; unavailable
-or oversized authenticated history delays settlement. TWAP maker quotes use an
-explicit moment approximation and stop at window start. No fixture source or
-mock receipt is permitted in public operation.
+Recorded testnet evidence includes wallet buys/sells, deposits/withdrawals,
+pair creation/merging, and a project-account expiry settlement through both-leg
+redemption and withdrawal. These are bounded observations, not an uptime promise
+or a completed independent audit. Provider delivery reliability, outstanding
+recovery cases and sustained ten-user execution acceptance remain open.

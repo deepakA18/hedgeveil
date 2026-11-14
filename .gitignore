@@ -12,3 +12,29 @@ node_modules/
 .vercel
 
 .playwright-cli/
+
+# Local planning and maintainer notes (keep on disk, exclude from Git).
+/docs/
+/IMPLEMENTATION_PLAN.md
+/AGENTS.md
+/brand.md
+/.agents/
+/.codex/
+
+# Editor state, generated checks, logs and temporary artifacts.
+.idea/
+.vscode/
+*.log
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+.pytest_cache/
+.ruff_cache/
+.cache/
+/tmp/
+/temp/
+
+# Demo recording projects and exports; application assets remain tracked.
+/videos/
+/recordings/
